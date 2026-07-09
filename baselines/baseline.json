@@ -1,0 +1,23 @@
+{
+  "summary": {
+    "recall_at_k": 0.974,
+    "mrr": 0.844,
+    "answer_rate": 1.0,
+    "correctness": 0.926,
+    "faithfulness": 0.926,
+    "abstention": 0.909
+  },
+  "config": {
+    "chunk_max_words": 180,
+    "chunk_overlap_words": 40,
+    "top_k": 4,
+    "embed_model": "intfloat/e5-small-v2",
+    "gen_model": "meta-llama/llama-3.1-8b-instruct"
+  },
+  "adopted_from": {
+    "n": 49,
+    "n_answerable": 38,
+    "llm": true,
+    "timestamp": "2026-07-10 02:26:14"
+  }
+}
