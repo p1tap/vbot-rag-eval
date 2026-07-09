@@ -10,8 +10,8 @@ next to each other.
 
 # --- retrieval ---
 EMBED_MODEL = "intfloat/e5-small-v2"   # mean-pooled, query/passage-prefixed
-CHUNK_MAX_WORDS = 180                   # sections longer than this are windowed
-CHUNK_OVERLAP_WORDS = 40               # overlap between windows of a long section
+CHUNK_MAX_WORDS = 90                   # sections longer than this are windowed
+CHUNK_OVERLAP_WORDS = 25               # overlap between windows of a long section
 TOP_K = 4                              # chunks retrieved per query
 
 # --- generation ---
