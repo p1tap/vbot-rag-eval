@@ -71,7 +71,7 @@ jobs:
       - name: Install dependencies (reproducibility check)
         run: |
           pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install transformers numpy
+          pip install transformers numpy requests
 
       - name: Rebuild index from this PR's corpus + config
         run: python scripts/build_index.py
