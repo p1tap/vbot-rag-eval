@@ -1,0 +1,98 @@
+# Eval-gated promotion CI for RAG retrieval changes.
+#
+# Pattern: gate-on-artifact, in two halves —
+#
+#   1. GATE (stdlib, seconds): compare the COMMITTED eval-report.json against
+#      the committed baseline. This covers all metrics, including the
+#      LLM-judged ones (correctness, faithfulness, abstention) that were
+#      measured locally before the PR. Exit code decides:
+#      PROMOTE (0) / NEEDS_REVIEW (1) / REJECT (2).
+#
+#   2. REPRODUCIBILITY (CPU torch, ~2 min): rebuild the index from this PR's
+#      corpus + config and recompute the free, deterministic retrieval
+#      metrics. They must match the committed report — a hand-edited report,
+#      or a config change whose report was never regenerated, fails here.
+#
+# CI never holds API keys and never calls an LLM: it enforces the gate and
+# verifies the artifact, it does not re-measure the expensive half. Same
+# discipline as the model gateway's promotion workflow and the fine-tuning
+# lab's compare gate.
+#
+# NEEDS_REVIEW (exit 1) is deliberately a passing check with a warning:
+# a soft-metric dip inside the review band is a human judgment call, and the
+# warning + step summary is the reviewer's prompt to make it.
+
+name: RAG Gate
+
+on:
+  pull_request:
+    paths:
+      - 'config.py'
+      - 'rag/**'
+      - 'evals/**'
+      - 'scripts/**'
+      - 'corpus/**'
+      - 'eval-report.json'
+      - 'baselines/**'
+
+jobs:
+  rag-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Gate committed eval-report against baseline
+        id: gate
+        run: |
+          set +e
+          python scripts/compare_gate.py --report eval-report.json
+          EXIT_CODE=$?
+          set -e
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "decision=PROMOTE" >> "$GITHUB_OUTPUT"
+            echo "::notice::Gate decision: PROMOTE — no metric regressed"
+          elif [ $EXIT_CODE -eq 1 ]; then
+            echo "decision=NEEDS_REVIEW" >> "$GITHUB_OUTPUT"
+            echo "::warning::Gate decision: NEEDS_REVIEW — soft metric regressed within review band"
+          else
+            echo "decision=REJECT" >> "$GITHUB_OUTPUT"
+            echo "::error::Gate decision: REJECT — guardrail metric regressed"
+            exit 2
+          fi
+
+      - name: Install dependencies (reproducibility check)
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers numpy
+
+      - name: Rebuild index from this PR's corpus + config
+        run: python scripts/build_index.py
+
+      - name: Recompute deterministic retrieval metrics
+        run: python scripts/run_eval.py --no-llm --out /tmp/repro-report.json
+
+      - name: Verify committed report reproduces
+        run: python scripts/check_repro.py --recomputed /tmp/repro-report.json
+
+      - name: Post gate summary
+        if: always()
+        run: |
+          echo "## RAG Gate Result" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ steps.gate.outputs.decision }}" = "PROMOTE" ]; then
+            echo "✅ **PROMOTE** — no metric regressed beyond tolerance" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "${{ steps.gate.outputs.decision }}" = "NEEDS_REVIEW" ]; then
+            echo "⚠️ **NEEDS_REVIEW** — soft metric slipped; human review required" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "❌ **REJECT** — guardrail metric regressed" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "_Gate ran against the committed eval-report.json; retrieval metrics independently reproduced in CI (no API keys, no LLM calls)._" >> "$GITHUB_STEP_SUMMARY"
