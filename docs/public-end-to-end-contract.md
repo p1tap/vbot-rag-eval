@@ -94,6 +94,20 @@ promotion re-hashes batch/case artifacts and verifies:
 - normalized batch rate is at most 5%;
 - public provenance declares zero locally human-reviewed public cases.
 
+## Direct OpenAI Batch candidate path
+
+The historical synchronous runner and all Qwen/GPT-5.4 artifacts remain
+frozen. A separate direct GPT-5.6 Sol runner uses `/v1/responses` through the
+Batch API. It sends exactly one logical case per request, matches unordered
+results by stable `custom_id`, retains and hashes request/output/error files,
+and retries only missing or contract-invalid IDs. The four reasoning profiles
+separate standard/pro mode from high/xhigh effort so the quality contribution
+of each setting can be measured instead of assumed.
+
+See [the direct Batch runbook](openai-batch-evaluation.md). This path has no
+promotion result until the paid schema smoke and staged 30/300/disjoint-999
+gates complete; preparation artifacts alone are not quality evidence.
+
 ## Rejected diagnostics
 
 Partial and failed experiments remain under `reports/public-benchmarks` rather

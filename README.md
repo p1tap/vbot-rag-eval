@@ -186,6 +186,14 @@ normalization and 13 batches (0.52%) used isolated slot retry, below the frozen
 5% and 1% caps. This proves reproducible evaluation scale, not frontier answer
 quality.
 
+A direct GPT-5.6 Sol candidate path now uses OpenAI's Batch/Responses API with
+one case per request, token-aware shards, hash-bound input/output/error
+artifacts, and retry-only-failures. Four frozen standard/pro and high/xhigh
+profiles prevent the highest-cost setting from being promoted without evidence.
+See [`docs/openai-batch-evaluation.md`](docs/openai-batch-evaluation.md). No paid
+GPT-5.6 result is claimed until its staged smoke, 300-case bakeoff, disjoint
+confirmation, and full-run gates pass.
+
 Validate the committed registry, normalized-case schema, and adapter fixture:
 
 ```bash
