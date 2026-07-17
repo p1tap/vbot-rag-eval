@@ -1,0 +1,46 @@
+{
+  "annotation_provenance": "Crowd-authored multi-hop questions with answer and sentence-level supporting-fact annotations.",
+  "benchmark_id": "hotpotqa",
+  "conversion": {
+    "conversion_loss_rate": 0.0,
+    "evidence_references_resolved": 7311,
+    "excluded_cases": 0,
+    "exclusions": [],
+    "normalized_cases": 3000,
+    "output_sha256": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+    "unique_normalized_ids": 3000,
+    "unique_source_ids": 3000
+  },
+  "distribution": {
+    "answerability": {"answerable": 3000},
+    "difficulty": {"hard": 3000},
+    "label": {},
+    "question_type": {"bridge": 2367, "comparison": 633}
+  },
+  "manual_audit": {
+    "note": "Adapter validation is complete; a stratified human spot audit is still required before publication.",
+    "status": "pending"
+  },
+  "report_version": "1.0.0",
+  "selection": {
+    "considered_cases": 3000,
+    "method": "sha256(source_record_id), ascending",
+    "selected_cases": 3000,
+    "target_cases": 3000
+  },
+  "source": {
+    "artifacts": [{
+      "bytes": 27452575,
+      "name": "hotpot_dev_distractor_v1.parquet",
+      "sha256": "c20b638ca82b21d04fe12e14ff417ad05153d4d215a65de54497fca4e972f7c6"
+    }],
+    "file": "hotpot_dev_distractor_v1.parquet",
+    "license": "CC BY-SA 4.0",
+    "records": 7405,
+    "sha256": "c20b638ca82b21d04fe12e14ff417ad05153d4d215a65de54497fca4e972f7c6",
+    "split": "dev_distractor",
+    "upstream_url": "https://curtis.ml.cmu.edu/datasets/hotpot/hotpot_dev_distractor_v1.json",
+    "url": "https://huggingface.co/datasets/hotpotqa/hotpot_qa/resolve/14f0ace3c3fac7bd86149c616b5b05d8282e5c6a/distractor/validation/0000.parquet",
+    "version": "HotpotQA v1.0 / Hugging Face parquet commit 14f0ace3c3fac7bd86149c616b5b05d8282e5c6a"
+  }
+}

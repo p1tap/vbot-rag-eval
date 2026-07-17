@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/p1tap/vbot-rag-eval/evals/schema/judge-calibration-label.schema.json",
+  "title": "Human claim-judge calibration label",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "run_id",
+    "answer_sha256",
+    "claim_labels",
+    "required_claim_labels",
+    "reviewer_id",
+    "reviewed_at",
+    "status",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "case_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "answer_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "claim_labels": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/generatedClaimLabel"}
+    },
+    "required_claim_labels": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/requiredClaimLabel"}
+    },
+    "reviewer_id": {"type": "string", "minLength": 1},
+    "reviewed_at": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["draft", "final", "adjudicated"]},
+    "notes": {"type": "string"}
+  },
+  "$defs": {
+    "generatedClaimLabel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "status", "evidence", "rationale"],
+      "properties": {
+        "claim_id": {"type": "string", "pattern": "^c[1-9][0-9]*$"},
+        "status": {"enum": ["supported", "unsupported", "contradicted"]},
+        "evidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/evidenceSpan"}
+        },
+        "rationale": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "unsupported"}}},
+          "then": {"properties": {"evidence": {"maxItems": 0}}},
+          "else": {"properties": {"evidence": {"minItems": 1}}}
+        }
+      ]
+    },
+    "requiredClaimLabel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "status", "generated_claim_ids", "rationale"],
+      "properties": {
+        "claim_id": {"type": "string", "pattern": "^c[1-9][0-9]*$"},
+        "status": {"enum": ["covered", "missing", "contradicted"]},
+        "generated_claim_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^c[1-9][0-9]*$"}
+        },
+        "rationale": {"type": "string", "minLength": 1}
+      }
+    },
+    "evidenceSpan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["citation_id", "quote"],
+      "properties": {
+        "citation_id": {"type": "string", "pattern": "^S[1-9][0-9]*$"},
+        "quote": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

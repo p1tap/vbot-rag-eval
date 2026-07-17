@@ -1,0 +1,37 @@
+{
+  "identity_sha256": "05671af9d4f7f49010319dc9f9eaeb48830e19a96af49a29da7b4da4a90013d8",
+  "identity": {
+    "runner_version": "1.0.7",
+    "response_contract_version": "public-rag-batch-1.0.7",
+    "profile_id": "qwen3.5-9b-local",
+    "profile": {
+      "model": "qwen3.5-rag-32k:latest",
+      "temperature": 0.0,
+      "max_tokens": 1200,
+      "strict_schema": true,
+      "request_options": {
+        "think": false
+      },
+      "timeout_seconds": 180,
+      "endpoint": "http://localhost:11434",
+      "deployment_kind": "local_ollama",
+      "ollama_model_id": "a2845456d7ad",
+      "weights_blob_sha256": "dec52a44569a2a25341c4e4d3fee25846eed4f6f0b936278e3a3c900bb99d37c",
+      "modelfile_path": "config/ollama-qwen35-rag.Modelfile",
+      "modelfile_sha256": "d44b3ee249174e21a0d5f70f2a9197a8952b48892c35786111aada51c134adfe"
+    },
+    "benchmarks": [
+      "hotpotqa"
+    ],
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683"
+    },
+    "suite_report_sha256": "b1b779047fe40767e04b316f32617ffb4792a3ec719b0e4070b24fbbaf02ceb6",
+    "top_k": 8,
+    "batch_size": 1,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 100,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "bc442c14d577774b6568890c3c8734acbbae88e7442a2eb29d1ea7b96e460d4c"
+  }
+}

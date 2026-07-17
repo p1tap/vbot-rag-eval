@@ -1,0 +1,1094 @@
+{
+  "schema_version": "1.0.0",
+  "captured_at_utc": "2026-07-14T23:17:08.275525+00:00",
+  "model": "deepseek/deepseek-v4-flash",
+  "trials_per_effort": 2,
+  "summary": [
+    {
+      "provider": "streamlake/fp8",
+      "valid": 0,
+      "total": 4,
+      "all_valid": false
+    },
+    {
+      "provider": "baidu/fp8",
+      "valid": 4,
+      "total": 4,
+      "all_valid": true
+    },
+    {
+      "provider": "parasail/fp8",
+      "valid": 3,
+      "total": 4,
+      "all_valid": false
+    },
+    {
+      "provider": "akashml/fp8",
+      "valid": 4,
+      "total": 4,
+      "all_valid": true
+    },
+    {
+      "provider": "digitalocean",
+      "valid": 3,
+      "total": 4,
+      "all_valid": false
+    },
+    {
+      "provider": "nextbit/fp8",
+      "valid": 2,
+      "total": 4,
+      "all_valid": false
+    }
+  ],
+  "results": [
+    {
+      "provider": "streamlake/fp8",
+      "effort": "high",
+      "trial": 1,
+      "valid": false,
+      "error": "chat failed after 1 tries: HTTP 400: {\"error\":{\"message\":\"Provider returned error\",\"code\":400,\"metadata\":{\"raw\":\"{\\\"error\\\":{\\\"message\\\":\\\"Model 'deepseek/de"
+    },
+    {
+      "provider": "streamlake/fp8",
+      "effort": "high",
+      "trial": 2,
+      "valid": false,
+      "error": "chat failed after 1 tries: HTTP 400: {\"error\":{\"message\":\"Provider returned error\",\"code\":400,\"metadata\":{\"raw\":\"{\\\"error\\\":{\\\"message\\\":\\\"Model 'deepseek/de"
+    },
+    {
+      "provider": "streamlake/fp8",
+      "effort": "xhigh",
+      "trial": 1,
+      "valid": false,
+      "error": "chat failed after 1 tries: HTTP 400: {\"error\":{\"message\":\"Provider returned error\",\"code\":400,\"metadata\":{\"raw\":\"{\\\"error\\\":{\\\"message\\\":\\\"Model 'deepseek/de"
+    },
+    {
+      "provider": "streamlake/fp8",
+      "effort": "xhigh",
+      "trial": 2,
+      "valid": false,
+      "error": "chat failed after 1 tries: HTTP 400: {\"error\":{\"message\":\"Provider returned error\",\"code\":400,\"metadata\":{\"raw\":\"{\\\"error\\\":{\\\"message\\\":\\\"Model 'deepseek/de"
+    },
+    {
+      "provider": "baidu/fp8",
+      "effort": "high",
+      "trial": 1,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"v4-baidu-fp8-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070889-62XpNIPZVdVY1dSe4zjz",
+        "input_sha256": "c41a930a3afa1fb961ec6c0a54ea7bc4b3e9a1749d95f1186c01e93b75eb172c",
+        "latency_ms": 1635.157,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 229,
+          "completion_tokens": 108,
+          "total_tokens": 337,
+          "cost": 4.37435e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 4.37435e-05,
+            "upstream_inference_prompt_cost": 2.25107e-05,
+            "upstream_inference_completions_cost": 2.12328e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 88,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 4.37435e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "baidu/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "Baidu",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "baidu/fp8",
+      "effort": "high",
+      "trial": 2,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"v4-baidu-fp8-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070891-rugt4PZ2gYgLXs97M7fx",
+        "input_sha256": "a844521fefea81a22caf5eef35c77f0c71b7fdc6b50064fddfd6a6b83460d6f0",
+        "latency_ms": 1399.341,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 229,
+          "completion_tokens": 73,
+          "total_tokens": 302,
+          "cost": 3.68625e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 3.68625e-05,
+            "upstream_inference_prompt_cost": 2.25107e-05,
+            "upstream_inference_completions_cost": 1.43518e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 53,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 3.68625e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "baidu/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "Baidu",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "baidu/fp8",
+      "effort": "xhigh",
+      "trial": 1,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"v4-baidu-fp8-xhigh\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070892-xqhQMMssMvzEXvPS5q8q",
+        "input_sha256": "4af152e8c08b49a0055d47589930ec99abe43e30d658a3336b9ef2a114cd4846",
+        "latency_ms": 1823.299,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 310,
+          "completion_tokens": 117,
+          "total_tokens": 427,
+          "cost": 5.34752e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 5.34752e-05,
+            "upstream_inference_prompt_cost": 3.0473e-05,
+            "upstream_inference_completions_cost": 2.30022e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 96,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 5.34752e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "baidu/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "Baidu",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "baidu/fp8",
+      "effort": "xhigh",
+      "trial": 2,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"v4-baidu-fp8-xhigh\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070894-3XtXqZGKJ9hfyE7DBmsY",
+        "input_sha256": "f2b5639985f887f7a602756cd24a03f3d8f9ef53cb2569ee46253a670b8b8d2c",
+        "latency_ms": 1421.431,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 310,
+          "completion_tokens": 107,
+          "total_tokens": 417,
+          "cost": 5.15092e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 5.15092e-05,
+            "upstream_inference_prompt_cost": 3.0473e-05,
+            "upstream_inference_completions_cost": 2.10362e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 86,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 5.15092e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "baidu/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "Baidu",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "parasail/fp8",
+      "effort": "high",
+      "trial": 1,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\": true, \"profile_id\": \"v4-parasail-fp8-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070896-FlYH1F27gtJEUuztRnlB",
+        "input_sha256": "e9a829b13e20cd26820e588b3a765c4801de6456251619f2032839c6fb7e2b3f",
+        "latency_ms": 2055.079,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 27,
+          "completion_tokens": 72,
+          "total_tokens": 99,
+          "cost": 2.394e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 2.394e-05,
+            "upstream_inference_prompt_cost": 3.78e-06,
+            "upstream_inference_completions_cost": 2.016e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 53,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 2.394e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "parasail/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "Parasail",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "parasail/fp8",
+      "effort": "high",
+      "trial": 2,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\": true, \"profile_id\": \"v4-parasail-fp8-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070898-3dBQGKCT1yqBH7xLBZpM",
+        "input_sha256": "9067b08fb9f934d7fcbca194b1db618d6455768157ac05ce10c14b3d689b3a97",
+        "latency_ms": 3728.254,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 27,
+          "completion_tokens": 72,
+          "total_tokens": 99,
+          "cost": 2.394e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 2.394e-05,
+            "upstream_inference_prompt_cost": 3.78e-06,
+            "upstream_inference_completions_cost": 2.016e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 53,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 2.394e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "parasail/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "Parasail",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "parasail/fp8",
+      "effort": "xhigh",
+      "trial": 1,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\n  \"ok\": true,\n  \"profile_id\": \"v4-parasail-fp8-xhigh\"\n}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070901-1VKmUV6bloHFdlThEr4K",
+        "input_sha256": "e2ba19a3343f0721b045458df7e290f7ab1a5058f2909f97320c4a71c407ca44",
+        "latency_ms": 5600.391,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 107,
+          "completion_tokens": 297,
+          "total_tokens": 404,
+          "cost": 9.814e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 9.814e-05,
+            "upstream_inference_prompt_cost": 1.498e-05,
+            "upstream_inference_completions_cost": 8.316e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 266,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 9.814e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "parasail/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "Parasail",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "parasail/fp8",
+      "effort": "xhigh",
+      "trial": 2,
+      "valid": false,
+      "error": "chat failed after 1 tries: HTTP 200 empty content (retryable)"
+    },
+    {
+      "provider": "akashml/fp8",
+      "effort": "high",
+      "trial": 1,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\": true, \"profile_id\": \"v4-akashml-fp8-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070921-3RwHTzTTAPveiCIDX6w4",
+        "input_sha256": "885bae71f1b74754f19c73693fcda84f3e64db9d8d67363c77d64b7977fc5900",
+        "latency_ms": 9593.743,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 28,
+          "completion_tokens": 94,
+          "total_tokens": 122,
+          "cost": 3.024e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 3.024e-05,
+            "upstream_inference_prompt_cost": 3.92e-06,
+            "upstream_inference_completions_cost": 2.632e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 77,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 3.024e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "akashml/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "AkashML",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "akashml/fp8",
+      "effort": "high",
+      "trial": 2,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\": true, \"profile_id\": \"v4-akashml-fp8-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070930-ggYnMdyVnWtLP2ImDjsR",
+        "input_sha256": "133047b7205e5cff381e3f9307d1b174c9c45501e7137bc5498a16485addfd98",
+        "latency_ms": 7067.98,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 28,
+          "completion_tokens": 68,
+          "total_tokens": 96,
+          "cost": 2.296e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 2.296e-05,
+            "upstream_inference_prompt_cost": 3.92e-06,
+            "upstream_inference_completions_cost": 1.904e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 42,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 2.296e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "akashml/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "AkashML",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "akashml/fp8",
+      "effort": "xhigh",
+      "trial": 1,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"v4-akashml-fp8-xhigh\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070937-pF9NqSCJPPthgYc8dGqh",
+        "input_sha256": "12aef99c71d66e1c24709a3adea7f6934bfdd2f4a5ff78e26546ed0be9037792",
+        "latency_ms": 14438.77,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 108,
+          "completion_tokens": 162,
+          "total_tokens": 270,
+          "cost": 6.048e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 6.048e-05,
+            "upstream_inference_prompt_cost": 1.512e-05,
+            "upstream_inference_completions_cost": 4.536e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 145,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 6.048e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "akashml/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "AkashML",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "akashml/fp8",
+      "effort": "xhigh",
+      "trial": 2,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"v4-akashml-fp8-xhigh\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070952-bsNMuUmEoZOon6qKfLbq",
+        "input_sha256": "0d256f01759a48f658c3a033f9871df35c8e0125deacd2ae262637bf3fbc6bc7",
+        "latency_ms": 42085.154,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 108,
+          "completion_tokens": 406,
+          "total_tokens": 514,
+          "cost": 0.0001288,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0001288,
+            "upstream_inference_prompt_cost": 1.512e-05,
+            "upstream_inference_completions_cost": 0.00011368
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 371,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 0.0001288,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "akashml/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "AkashML",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "digitalocean",
+      "effort": "high",
+      "trial": 1,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\n  \"ok\": true,\n  \"profile_id\": \"v4-digitalocean-high\"\n}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070994-HfsRELeTPFJihb837Mvt",
+        "input_sha256": "9bdef4be00d21c3eda4c1251f335b3af84399df1aaf620e7261e22cbfb54d247",
+        "latency_ms": 3535.416,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 25,
+          "completion_tokens": 23,
+          "total_tokens": 48,
+          "cost": 7.952e-06,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 7.952e-06,
+            "upstream_inference_prompt_cost": 2.8e-06,
+            "upstream_inference_completions_cost": 5.152e-06
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 7.952e-06,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "digitalocean"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "DigitalOcean",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "digitalocean",
+      "effort": "high",
+      "trial": 2,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\n  \"ok\": true,\n  \"profile_id\": \"v4-digitalocean-high\"\n}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070998-cYv0dZYhk2qHclTnSvAK",
+        "input_sha256": "aee33b502b896bea68b306bb61ff2f96f9ae236767332cde56d49351ef6ab5fe",
+        "latency_ms": 3286.111,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 25,
+          "completion_tokens": 23,
+          "total_tokens": 48,
+          "cost": 7.952e-06,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 7.952e-06,
+            "upstream_inference_prompt_cost": 2.8e-06,
+            "upstream_inference_completions_cost": 5.152e-06
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 7.952e-06,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "digitalocean"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "DigitalOcean",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "digitalocean",
+      "effort": "xhigh",
+      "trial": 1,
+      "valid": false,
+      "error": "chat failed after 1 tries: HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"deepseek/deepseek-v4-flash is temporarily ra"
+    },
+    {
+      "provider": "digitalocean",
+      "effort": "xhigh",
+      "trial": 2,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\n  \"ok\": true,\n  \"profile_id\": \"v4-digitalocean-xhigh\"\n}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784071004-VHeoaEMqaw3MF6nAfH7B",
+        "input_sha256": "b34ed7d49bf2ee27150a6b2e049ae89052aefcc56e42be4092aa808526a7889a",
+        "latency_ms": 2420.003,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 26,
+          "completion_tokens": 24,
+          "total_tokens": 50,
+          "cost": 8.288e-06,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 8.288e-06,
+            "upstream_inference_prompt_cost": 2.912e-06,
+            "upstream_inference_completions_cost": 5.376e-06
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 8.288e-06,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "digitalocean"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "DigitalOcean",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "nextbit/fp8",
+      "effort": "high",
+      "trial": 1,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"v4-nextbit-fp8-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784071006-EwedktX0oEBJx2WZIUEU",
+        "input_sha256": "2736b82f5be7439606ca6ed87a54671294c127f8b65031ec6ceeb6a202c2b48b",
+        "latency_ms": 4087.469,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 26,
+          "completion_tokens": 161,
+          "total_tokens": 187,
+          "cost": 6.103e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 6.103e-05,
+            "upstream_inference_prompt_cost": 4.68e-06,
+            "upstream_inference_completions_cost": 5.635e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 141,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 6.103e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "nextbit/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "NextBit",
+        "system_fingerprint": "vllm-0.25.0-dp4-ep-d6f08423",
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "nextbit/fp8",
+      "effort": "high",
+      "trial": 2,
+      "valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\": true, \"profile_id\": \"v4-nextbit-fp8-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784071010-5AmQvDJd3hxZrWnTS3Y7",
+        "input_sha256": "5bcd22a01882f1480e571f8d341b23fe72faf397b99ee524786cb092f74e0203",
+        "latency_ms": 4391.971,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 26,
+          "completion_tokens": 204,
+          "total_tokens": 230,
+          "cost": 7.608e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 7.608e-05,
+            "upstream_inference_prompt_cost": 4.68e-06,
+            "upstream_inference_completions_cost": 7.14e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 185,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 7.608e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "nextbit/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "NextBit",
+        "system_fingerprint": "vllm-0.25.0-dp4-ep-d6f08423",
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "provider": "nextbit/fp8",
+      "effort": "xhigh",
+      "trial": 1,
+      "valid": false,
+      "error": "invalid JSON: Unterminated string starting at: line 1 column 2 (char 1)"
+    },
+    {
+      "provider": "nextbit/fp8",
+      "effort": "xhigh",
+      "trial": 2,
+      "valid": false,
+      "error": "invalid JSON: Expecting ':' delimiter: line 1 column 5 (char 4)"
+    }
+  ]
+}

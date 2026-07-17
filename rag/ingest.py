@@ -12,7 +12,12 @@ from pathlib import Path
 
 import numpy as np
 
-from config import CHUNK_MAX_WORDS, CHUNK_OVERLAP_WORDS, EMBED_MODEL
+from config import (
+    CHUNK_MAX_WORDS,
+    CHUNK_OVERLAP_WORDS,
+    EMBED_MODEL,
+    EMBED_MODEL_REVISION,
+)
 from rag.embed import embed_passages
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -92,7 +97,8 @@ def build_index():
     (INDEX / "chunks.jsonl").write_text(
         "\n".join(json.dumps(c, ensure_ascii=False) for c in chunks), encoding="utf-8")
     (INDEX / "meta.json").write_text(json.dumps({
-        "embed_model": EMBED_MODEL, "chunk_max_words": CHUNK_MAX_WORDS,
+        "embed_model": EMBED_MODEL, "embed_model_revision": EMBED_MODEL_REVISION,
+        "chunk_max_words": CHUNK_MAX_WORDS,
         "chunk_overlap_words": CHUNK_OVERLAP_WORDS, "n_chunks": len(chunks),
     }, indent=2), encoding="utf-8")
     return chunks

@@ -20,6 +20,40 @@
     "llm": true,
     "timestamp": "2026-07-10 02:26:14"
   },
+  "provenance": {
+    "schema_version": "1.0.0",
+    "capture": "retrospective_phase0",
+    "run_id": "v1-accepted-20260710-022614",
+    "run_manifest": "baselines/v1/run-manifest.json",
+    "accepted_source": {
+      "commit": "9e2af0644b43bd60407ac4e2e641d7872f10564e",
+      "tree": "7072e71110253f3e839b33677b757e7c579a9213",
+      "report_git_blob_sha1": "d078b93175b4ff029161a3dc7f1d67a16d6d66be",
+      "report_sha256_git_blob": "4be424a22e7aec6742da209b53018f8078036d4711645b9a45b22446aeec4e88",
+      "report_sha256_checkout_before_provenance": "91c89bf7b85e571ab4844c7c1f4e744274dc4408c9865b06b6224a1479355cf7",
+      "report_sha256_canonical_json": "c3d01fe179d81abf83cbb57be0d5125e82a399ba25f553bbf0eac52073b6b1ee"
+    },
+    "models": {
+      "embedding": {
+        "requested_id": "intfloat/e5-small-v2",
+        "resolved_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+        "capture": "retrospective_and_confirmed_by_offline_reproduction"
+      },
+      "generator": {
+        "requested_id": "meta-llama/llama-3.1-8b-instruct",
+        "provider_revision": null
+      },
+      "judge": {
+        "requested_id": "google/gemini-2.5-flash-lite",
+        "provider_revision": null
+      }
+    },
+    "dependencies": {
+      "original_llm_run": "not_captured",
+      "deterministic_reproduction": "baselines/v1/reproduction-pip-freeze.txt"
+    },
+    "known_failures": "baselines/v1/known-failures.md"
+  },
   "items": [
     {
       "id": "q01",

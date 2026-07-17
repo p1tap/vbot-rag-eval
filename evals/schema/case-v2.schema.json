@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/p1tap/vbot-rag-eval/evals/schema/case-v2.schema.json",
+  "title": "Vbot RAG V2 evaluation case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "dataset_version",
+    "split",
+    "lane",
+    "question",
+    "language",
+    "answerability",
+    "answer_action",
+    "reference_answer",
+    "required_claims",
+    "acceptable_evidence",
+    "distractor_evidence",
+    "evidence_granularity",
+    "reasoning_hops",
+    "intent_family_id",
+    "evidence_cluster_id",
+    "conversation_id",
+    "turn_index",
+    "as_of",
+    "severity",
+    "traffic_weight",
+    "tags",
+    "authoring",
+    "review",
+    "unanswerable"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0-dev"},
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._:-]+$"},
+    "dataset_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "split": {"enum": ["dev", "release", "adversarial", "real_user", "reserve"]},
+    "lane": {
+      "enum": [
+        "single_hop",
+        "exact_identifier",
+        "multi_section",
+        "multi_document",
+        "comparison_aggregation",
+        "unanswerable",
+        "false_premise",
+        "hard_negative",
+        "temporal_conflict",
+        "structured_content",
+        "noisy_user",
+        "prompt_injection",
+        "multi_turn",
+        "authorization",
+        "global_corpus",
+        "legacy_v1_answerable",
+        "legacy_v1_unanswerable"
+      ]
+    },
+    "question": {"type": "string", "minLength": 1},
+    "language": {"type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Za-z0-9]+)*$"},
+    "answerability": {"enum": ["answerable", "unanswerable"]},
+    "answer_action": {
+      "enum": [
+        "answer",
+        "abstain_absent",
+        "clarify_ambiguous",
+        "abstain_conflict",
+        "abstain_obsolete",
+        "abstain_unauthorized",
+        "reject_injection"
+      ]
+    },
+    "reference_answer": {"type": "string", "minLength": 1},
+    "required_claims": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/claim"}
+    },
+    "acceptable_evidence": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidenceId"},
+      "uniqueItems": true
+    },
+    "distractor_evidence": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidenceId"},
+      "uniqueItems": true
+    },
+    "evidence_granularity": {"enum": ["none", "legacy_heading", "span"]},
+    "reasoning_hops": {"type": "integer", "minimum": 0},
+    "intent_family_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._:-]+$"},
+    "evidence_cluster_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._:-]+$"},
+    "conversation_id": {"type": ["string", "null"]},
+    "turn_index": {"type": ["integer", "null"], "minimum": 0},
+    "as_of": {
+      "oneOf": [
+        {"type": "string", "format": "date"},
+        {"type": "null"}
+      ]
+    },
+    "severity": {"enum": ["unassigned", "low", "standard", "high", "critical"]},
+    "traffic_weight": {
+      "oneOf": [
+        {"type": "number", "minimum": 0, "maximum": 1},
+        {"type": "null"}
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._:-]+$"},
+      "uniqueItems": true
+    },
+    "authoring": {"$ref": "#/$defs/authoring"},
+    "review": {"$ref": "#/$defs/review"},
+    "unanswerable": {
+      "oneOf": [
+        {"$ref": "#/$defs/unanswerable"},
+        {"type": "null"}
+      ]
+    },
+    "legacy": {"$ref": "#/$defs/legacy"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"answerability": {"const": "answerable"}}},
+      "then": {
+        "properties": {
+          "answer_action": {"const": "answer"},
+          "required_claims": {"minItems": 1},
+          "acceptable_evidence": {"minItems": 1},
+          "evidence_granularity": {"enum": ["legacy_heading", "span"]},
+          "reasoning_hops": {"minimum": 1},
+          "unanswerable": {"type": "null"}
+        }
+      },
+      "else": {
+        "properties": {
+          "answer_action": {"not": {"const": "answer"}},
+          "required_claims": {"maxItems": 0},
+          "acceptable_evidence": {"maxItems": 0},
+          "evidence_granularity": {"const": "none"},
+          "reasoning_hops": {"const": 0},
+          "unanswerable": {"$ref": "#/$defs/unanswerable"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "evidenceId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*::[a-z0-9][a-z0-9._:-]*$"
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "evidence_ids", "status"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^c[0-9]+$"},
+        "text": {"type": "string", "minLength": 1},
+        "evidence_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/evidenceId"},
+          "uniqueItems": true
+        },
+        "status": {"enum": ["legacy_unatomized", "draft", "atomic_verified"]}
+      }
+    },
+    "authoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "identity_disclosure", "independent_of_corpus_authors", "model_assistance"],
+      "properties": {
+        "method": {"enum": ["human", "model_proposed_human_verified", "model_proposed_human_rewritten", "model_proposed_ai_verified", "deterministic_fixture"]},
+        "identity_disclosure": {"enum": ["not_recorded", "private_pseudonym", "public_name"]},
+        "independent_of_corpus_authors": {"type": ["boolean", "null"]},
+        "model_assistance": {"enum": ["none", "candidate_generation", "wording_edit", "unknown"]}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewers", "reviewed_at", "notes"],
+      "properties": {
+        "status": {"enum": ["migrated_pending_v2_review", "draft", "in_review", "approved", "rejected"]},
+        "reviewers": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "reviewer_kinds": {
+          "type": "array",
+          "items": {"enum": ["human", "ai_agent", "deterministic_check"]},
+          "uniqueItems": true
+        },
+        "reviewed_at": {
+          "oneOf": [
+            {"type": "string", "format": "date-time"},
+            {"type": "null"}
+          ]
+        },
+        "notes": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "unanswerable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reason", "notes"],
+      "properties": {
+        "reason": {
+          "enum": [
+            "absent_from_corpus",
+            "ambiguous",
+            "conflicting_sources",
+            "obsolete_only",
+            "unauthorized",
+            "subjective",
+            "malformed",
+            "prompt_injection"
+          ]
+        },
+        "notes": {"type": "string", "minLength": 1}
+      }
+    },
+    "legacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_dataset", "source_dataset_sha256", "source_record_sha256", "v1_record"],
+      "properties": {
+        "source_dataset": {"const": "evals/golden.jsonl"},
+        "source_dataset_sha256": {"$ref": "#/$defs/sha256"},
+        "source_record_sha256": {"$ref": "#/$defs/sha256"},
+        "v1_record": {"$ref": "#/$defs/v1Record"}
+      }
+    },
+    "v1Record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "question", "answerable", "relevant", "answer"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[qu][0-9]{2}$"},
+        "question": {"type": "string", "minLength": 1},
+        "answerable": {"type": "boolean"},
+        "relevant": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/evidenceId"},
+          "uniqueItems": true
+        },
+        "answer": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

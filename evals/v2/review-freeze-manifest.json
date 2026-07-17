@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "frozen_at_utc": "2026-07-17T07:13:55.105348+00:00",
+  "provenance": {
+    "reviewer_id": "owner-reviewer-1",
+    "reviewer_identity": "private; direct identifiers omitted",
+    "review_kind": "owner_human_review",
+    "source": "localhost D1-backed review application"
+  },
+  "reviewed_cases": {
+    "path": "evals/v2/reviewed/vbot-human-reviewed-100.jsonl",
+    "sha256": "2b2cd4f25d9c30e451005216a6789117adea8e4d5f7136cdd415af4b69a5a3cf",
+    "case_count": 100,
+    "approved_count": 100,
+    "decision_versions_sha256": "e0b6bb7ef0eb4847d5dfa6cfad88202941b1e3ba67d0be46ea23d2c241e39ad4",
+    "source_dataset_fingerprint_sha256": "a19966e537f9cdf781ebc3c2d18d09375115ea3e9352a4d97320e97d74d2c67a"
+  },
+  "judge_calibration": {
+    "path": "evals/v2/judge-calibration/human-labels.jsonl",
+    "sha256": "f411576104b635977bb21fa993adfc5103a7e03369598c0b027ade0ca0f7a5ed",
+    "task_count": 175,
+    "case_count": 42,
+    "decision_counts": {
+      "generated_claim_support:contradicted": 2,
+      "generated_claim_support:supported": 60,
+      "generated_claim_support:unsupported": 18,
+      "required_claim_coverage:contradicted": 5,
+      "required_claim_coverage:covered": 57,
+      "required_claim_coverage:missing": 33
+    },
+    "task_versions_sha256": "1d679304177038386b2525037260cf2b402185eff67af0b7d7e0246e52ce15b4",
+    "queue_sha256": "1b6d81a8bc7fe66430a8956f217ad7e45ca2b031ad86bb29c9403657cfb172fc",
+    "run_id": "rag-eval-938daf6a-a3ec-4c34-a1ae-80b79a63a847"
+  }
+}

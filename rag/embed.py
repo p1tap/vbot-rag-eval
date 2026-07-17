@@ -13,13 +13,13 @@ import numpy as np
 import torch
 from transformers import AutoModel, AutoTokenizer
 
-from config import EMBED_MODEL
+from config import EMBED_MODEL, EMBED_MODEL_REVISION
 
 
 @lru_cache(maxsize=2)
-def _load(model_name):
-    tok = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModel.from_pretrained(model_name)
+def _load(model_name, revision):
+    tok = AutoTokenizer.from_pretrained(model_name, revision=revision)
+    model = AutoModel.from_pretrained(model_name, revision=revision)
     model.eval()
     return tok, model
 
@@ -31,13 +31,30 @@ def _mean_pool(last_hidden, attention_mask):
     return summed / counts
 
 
-def _encode(texts, prefix, model_name=None, batch_size=16):
-    tok, model = _load(model_name or EMBED_MODEL)
+def _encode(
+    texts,
+    prefix,
+    model_name=None,
+    model_revision=None,
+    batch_size=16,
+    max_length=512,
+):
+    name = model_name or EMBED_MODEL
+    revision = model_revision
+    if revision is None and name == EMBED_MODEL:
+        revision = EMBED_MODEL_REVISION
+    tok, model = _load(name, revision)
     out = []
     for i in range(0, len(texts), batch_size):
         batch = [f"{prefix}{t}" for t in texts[i : i + batch_size]]
-        enc = tok(batch, padding=True, truncation=True, max_length=512, return_tensors="pt")
-        with torch.no_grad():
+        enc = tok(
+            batch,
+            padding=True,
+            truncation=True,
+            max_length=max_length,
+            return_tensors="pt",
+        )
+        with torch.inference_mode():
             hidden = model(**enc).last_hidden_state
         vecs = _mean_pool(hidden, enc["attention_mask"])
         vecs = torch.nn.functional.normalize(vecs, p=2, dim=1)
@@ -45,9 +62,27 @@ def _encode(texts, prefix, model_name=None, batch_size=16):
     return np.vstack(out).astype(np.float32)
 
 
-def embed_passages(texts, model_name=None):
-    return _encode(texts, "passage: ", model_name)
+def embed_passages(
+    texts, model_name=None, model_revision=None, batch_size=16, max_length=512
+):
+    return _encode(
+        texts,
+        "passage: ",
+        model_name,
+        model_revision,
+        batch_size=batch_size,
+        max_length=max_length,
+    )
 
 
-def embed_queries(texts, model_name=None):
-    return _encode(texts, "query: ", model_name)
+def embed_queries(
+    texts, model_name=None, model_revision=None, batch_size=16, max_length=512
+):
+    return _encode(
+        texts,
+        "query: ",
+        model_name,
+        model_revision,
+        batch_size=batch_size,
+        max_length=max_length,
+    )

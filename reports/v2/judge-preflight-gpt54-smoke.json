@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "captured_at_utc": "2026-07-14T23:03:55.881241+00:00",
+  "catalog_only": false,
+  "results": [
+    {
+      "profile_id": "gpt-5.4-high",
+      "model": "openai/gpt-5.4",
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "require_parameters": true
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "default_enabled": false,
+        "supported_efforts": [
+          "xhigh",
+          "high",
+          "medium",
+          "low",
+          "none"
+        ],
+        "default_effort": "medium"
+      },
+      "supported_parameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"gpt-5.4-high\"}",
+        "requested_model": "openai/gpt-5.4",
+        "response_model": "openai/gpt-5.4",
+        "response_id": "gen-1784070234-4GhOoyolHbKuLCPAnuaQ",
+        "input_sha256": "da1900fa9a394bd7a987a397c23a89b2e5c2f983ed30bf57f4a844854950580d",
+        "latency_ms": 2384.479,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 74,
+          "completion_tokens": 57,
+          "total_tokens": 131,
+          "cost": 0.00104,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00104,
+            "upstream_inference_prompt_cost": 0.000185,
+            "upstream_inference_completions_cost": 0.000855
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 30,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 0.00104,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "require_parameters": true
+          }
+        },
+        "response_provider": "OpenAI",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "quantization": null,
+        "service_tier": "default"
+      }
+    }
+  ],
+  "valid": true
+}

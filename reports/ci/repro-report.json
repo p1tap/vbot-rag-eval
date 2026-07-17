@@ -1,0 +1,676 @@
+{
+  "summary": {
+    "recall_at_k": 0.974,
+    "mrr": 0.844,
+    "answer_rate": null,
+    "correctness": null,
+    "faithfulness": null,
+    "abstention": null
+  },
+  "config": {
+    "chunk_max_words": 180,
+    "chunk_overlap_words": 40,
+    "top_k": 4,
+    "embed_model": "intfloat/e5-small-v2",
+    "embed_model_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "gen_model": "meta-llama/llama-3.1-8b-instruct",
+    "judge_model": "google/gemini-2.5-flash-lite",
+    "gen_max_tokens": 300,
+    "gen_temperature": 0.0
+  },
+  "meta": {
+    "n": 49,
+    "n_answerable": 38,
+    "llm": false,
+    "timestamp": "2026-07-17 22:00:48"
+  },
+  "provenance": {
+    "schema_version": "1.0.0",
+    "run_id": "rag-eval-9782acb5-9223-449c-a6f8-675762f2eb31",
+    "captured_at_utc": "2026-07-17T15:00:48.480237+00:00",
+    "source": {
+      "commit": "9e2af0644b43bd60407ac4e2e641d7872f10564e",
+      "tree": "7072e71110253f3e839b33677b757e7c579a9213",
+      "dirty": true
+    },
+    "inputs_sha256": {
+      "config.py": "b2540d2111af0dc50935978d4031bd49068c33c77a7324596f8e47176a93298e",
+      "evals/golden.jsonl": "c65ca56a5bf07834d72eed68614f0debd1625a2a12ad6e6ece42e345acd77008",
+      "corpus/backbone-findings.md": "4eb1052c0da49dadfaf70f739fd4f746306dc7cbb4876b429ca743481f668982",
+      "corpus/backbone-plan.md": "ccd3d38d674178b42be5243ccb5cbd2bc1e1d7f12ff5a1c431524cdfa521d2e3",
+      "corpus/gateway-readme.md": "3f34e3bf5dfc52878a08067f4d3d53c05179fa6a9ff36f2d6b09fd54f1ff4492"
+    },
+    "index_sha256": {
+      "index/meta.json": "336f86068533f0a847767f88bb7154cc9dd0ef2af70799e93ad29d7cb98bfe62",
+      "index/chunks.jsonl": "7df542c59a7a3e2aa4f028d9593fa29508955ca3e2c80ba0956a3220765ec5fc",
+      "index/embeddings.npy": "bbdd4d984f877e1ae4fec84cd9b60bbc013c55e505c3a928fa61ccd7deac65b8"
+    },
+    "models": {
+      "embedding": {
+        "requested_id": "intfloat/e5-small-v2",
+        "revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52"
+      },
+      "generator": {
+        "requested_id": "meta-llama/llama-3.1-8b-instruct",
+        "provider_revision": null,
+        "request_options_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      },
+      "judge": {
+        "requested_id": "google/gemini-2.5-flash-lite",
+        "provider_revision": null,
+        "request_options_sha256": "09a4549077fb02dba3fe9b028cfe94b7fde79a6d25026bd205551e12234a888c"
+      }
+    },
+    "generation": {
+      "enabled": false,
+      "route_kind": "openrouter_default",
+      "answer_prompt_sha256": "1a54aa03e8e843ea3a0b6ebebd11f566f4ba755a602263cea11d1a19998f4ea5"
+    },
+    "runtime": {
+      "python": "3.10.11 | packaged by Anaconda, Inc. | (main, May 16 2023, 00:55:32) [MSC v.1916 64 bit (AMD64)]",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "machine": "AMD64",
+      "dependencies": {
+        "huggingface-hub": "0.36.0",
+        "numpy": "1.26.4",
+        "requests": "2.32.3",
+        "safetensors": "0.5.3",
+        "tokenizers": "0.22.2",
+        "torch": "2.7.1+cu128",
+        "transformers": "4.57.3"
+      },
+      "python_no_user_site": null,
+      "python_hash_seed": null
+    }
+  },
+  "items": [
+    {
+      "id": "q01",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::roadmap",
+        "backbone-plan::dataset-spec",
+        "backbone-plan::status"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q02",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::why-this-target-and-not-generic-rp-style",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "id": "q03",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q04",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::run",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "id": "q05",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "id": "q06",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "id": "q07",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::what-it-does-today-cont",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::run"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q08",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::vbot-model-gateway",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q09",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::run",
+        "backbone-plan::dataset-spec",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q10",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::run"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q11",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q12",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q13",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "backbone-plan::ship-list",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "q14",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "backbone-plan::why-this-target-and-not-generic-rp-style"
+      ],
+      "hit": true,
+      "rank": 3
+    },
+    {
+      "id": "q15",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today-cont",
+        "gateway-readme::roadmap",
+        "gateway-readme::run",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q16",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today-cont",
+        "gateway-readme::run",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q17",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::run",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "id": "q18",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::what-it-does-today-cont"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q19",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb"
+      ],
+      "hit": true,
+      "rank": 4
+    },
+    {
+      "id": "q20",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "backbone-plan::status"
+      ],
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "id": "q21",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q22",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q23",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "backbone-plan::ship-list",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q24",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "backbone-plan::ship-list",
+        "gateway-readme::roadmap",
+        "gateway-readme::what-it-does-today"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q25",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "backbone-plan::status",
+        "gateway-readme::what-it-does-today-cont",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q26",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "backbone-plan::ship-list",
+        "backbone-plan::status",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q27",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-plan::behavior-families-dataset-lanes",
+        "backbone-plan::ship-list",
+        "gateway-readme::what-it-does-today-cont"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q28",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::behavior-families-dataset-lanes",
+        "backbone-plan::evaluation-the-credibility-section",
+        "backbone-plan::dataset-spec",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q29",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::dataset-spec",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::training",
+        "backbone-plan::status"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q30",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::ship-list",
+        "backbone-plan::training",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "id": "q31",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::training",
+        "gateway-readme::run",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q32",
+      "answerable": true,
+      "retrieved": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q33",
+      "answerable": true,
+      "retrieved": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::evaluation-the-credibility-section",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q34",
+      "answerable": true,
+      "retrieved": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::dataset-spec",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q35",
+      "answerable": true,
+      "retrieved": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::why-this-target-and-not-generic-rp-style",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q36",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::ship-list",
+        "gateway-readme::roadmap",
+        "backbone-plan::status",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q37",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "q38",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::roadmap",
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::ship-list",
+        "gateway-readme::what-it-does-today"
+      ],
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "id": "u01",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "backbone-plan::ship-list",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u02",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::status",
+        "gateway-readme::roadmap",
+        "gateway-readme::run"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u03",
+      "answerable": false,
+      "retrieved": [
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-plan::dataset-spec",
+        "backbone-plan::ship-list",
+        "backbone-plan::why-this-target-and-not-generic-rp-style"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u04",
+      "answerable": false,
+      "retrieved": [
+        "backbone-plan::why-this-target-and-not-generic-rp-style",
+        "backbone-plan::dataset-spec",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u05",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::status",
+        "gateway-readme::run",
+        "gateway-readme::roadmap"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u06",
+      "answerable": false,
+      "retrieved": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::training",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u07",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::ship-list",
+        "backbone-plan::behavior-families-dataset-lanes",
+        "gateway-readme::vbot-model-gateway"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u08",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::vbot-model-gateway"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u09",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::run",
+        "gateway-readme::run",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u10",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::dataset-spec",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "gateway-readme::run"
+      ],
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "id": "u11",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today-cont",
+        "backbone-plan::dataset-spec",
+        "gateway-readme::roadmap"
+      ],
+      "hit": false,
+      "rank": 0
+    }
+  ]
+}

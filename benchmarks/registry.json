@@ -1,0 +1,51 @@
+{
+  "$schema": "./registry.schema.json",
+  "schema_version": "1.0.0",
+  "benchmarks": [
+    {
+      "id": "hotpotqa",
+      "name": "HotpotQA",
+      "status": "active",
+      "target_cases": 3000,
+      "task_type": "multi_hop_qa",
+      "source_version": "HotpotQA v1.0 / Hugging Face parquet commit 14f0ace3c3fac7bd86149c616b5b05d8282e5c6a",
+      "source_split": "dev_distractor",
+      "homepage": "https://hotpotqa.github.io/",
+      "source_url": "https://huggingface.co/datasets/hotpotqa/hotpot_qa/resolve/14f0ace3c3fac7bd86149c616b5b05d8282e5c6a/distractor/validation/0000.parquet",
+      "upstream_source_url": "https://curtis.ml.cmu.edu/datasets/hotpot/hotpot_dev_distractor_v1.json",
+      "license": "CC BY-SA 4.0",
+      "human_annotation_provenance": "Crowd-authored multi-hop questions with answer and sentence-level supporting-fact annotations.",
+      "raw_sha256": "c20b638ca82b21d04fe12e14ff417ad05153d4d215a65de54497fca4e972f7c6"
+    },
+    {
+      "id": "natural_questions",
+      "name": "Natural Questions",
+      "status": "planned",
+      "target_cases": 5000,
+      "task_type": "extractive_qa",
+      "source_version": "Natural Questions v1.0 dev / Hugging Face commit e8103d566bef4154c2c12b17c6095ec5275840cc",
+      "source_split": "dev",
+      "homepage": "https://github.com/google-research-datasets/natural-questions",
+      "source_url": "https://huggingface.co/datasets/google-research-datasets/natural_questions/tree/e8103d566bef4154c2c12b17c6095ec5275840cc/dev",
+      "upstream_source_url": "https://ai.google.com/research/NaturalQuestions",
+      "license": "CC BY-SA 3.0",
+      "human_annotation_provenance": "Real Google search queries with human long-answer, short-answer, and null-answer annotations.",
+      "raw_sha256": "563569ee0f1f5c02be4d3803c56f1110a96d0010858533ee8fb6352f8842234b"
+    },
+    {
+      "id": "fever",
+      "name": "FEVER",
+      "status": "planned",
+      "target_cases": 2000,
+      "task_type": "fact_verification",
+      "source_version": "FEVER 1.0 shared-task dev / June 2017 Wikipedia dump",
+      "source_split": "dev",
+      "homepage": "https://fever.ai/dataset/fever.html",
+      "source_url": "https://fever.ai/dataset/fever.html",
+      "upstream_source_url": "https://fever.ai/dataset/fever.html",
+      "license": "CC BY-SA 3.0",
+      "human_annotation_provenance": "Human-generated claims labelled Supported, Refuted, or Not Enough Information, with evidence where applicable.",
+      "raw_sha256": "939d6a8bb180ed10d4d71a0c2c813b9e3cb4a077a21b188f80e612b213515e98"
+    }
+  ]
+}

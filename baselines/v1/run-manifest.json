@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "v1-accepted-20260710-022614",
+  "status": "accepted",
+  "created_at": "2026-07-14T00:46:17+07:00",
+  "accepted_run": {
+    "source": {
+      "repository": "https://github.com/p1tap/vbot-rag-eval.git",
+      "branch": "main",
+      "commit": "9e2af0644b43bd60407ac4e2e641d7872f10564e",
+      "tree": "7072e71110253f3e839b33677b757e7c579a9213"
+    },
+    "report": {
+      "source_path": "eval-report.json",
+      "archived_path": "baselines/v1/accepted-eval-report.json",
+      "git_blob_sha1": "d078b93175b4ff029161a3dc7f1d67a16d6d66be",
+      "sha256_git_blob": "4be424a22e7aec6742da209b53018f8078036d4711645b9a45b22446aeec4e88",
+      "sha256_checkout_before_phase0_provenance": "91c89bf7b85e571ab4844c7c1f4e744274dc4408c9865b06b6224a1479355cf7",
+      "sha256_canonical_json": "c3d01fe179d81abf83cbb57be0d5125e82a399ba25f553bbf0eac52073b6b1ee"
+    },
+    "inputs": {
+      "config.py": "35f1570f14e1e9d6a26c59da3f7517f262e968f236cd406b1e656a090543d65d",
+      "evals/golden.jsonl": "c65ca56a5bf07834d72eed68614f0debd1625a2a12ad6e6ece42e345acd77008",
+      "corpus/gateway-readme.md": "3f34e3bf5dfc52878a08067f4d3d53c05179fa6a9ff36f2d6b09fd54f1ff4492",
+      "corpus/backbone-plan.md": "ccd3d38d674178b42be5243ccb5cbd2bc1e1d7f12ff5a1c431524cdfa521d2e3",
+      "corpus/backbone-findings.md": "4eb1052c0da49dadfaf70f739fd4f746306dc7cbb4876b429ca743481f668982"
+    },
+    "models": {
+      "embedding": {
+        "requested_id": "intfloat/e5-small-v2",
+        "resolved_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+        "revision_capture": "retrospective_cache_ref_created_before_run_and_confirmed_by_offline_reproduction"
+      },
+      "generator": {
+        "requested_id": "meta-llama/llama-3.1-8b-instruct",
+        "provider_revision": null
+      },
+      "judge": {
+        "requested_id": "google/gemini-2.5-flash-lite",
+        "provider_revision": null
+      }
+    },
+    "dependencies": {
+      "status": "not_captured_at_original_llm_run_time",
+      "note": "The accepted artifact predates dependency capture; do not infer exact original package versions."
+    },
+    "case_counts": {
+      "total": 49,
+      "answerable": 38,
+      "unanswerable": 11
+    },
+    "summary": {
+      "recall_at_k": 0.974,
+      "mrr": 0.844,
+      "answer_rate": 1.0,
+      "correctness": 0.926,
+      "faithfulness": 0.926,
+      "abstention": 0.909
+    }
+  },
+  "deterministic_reproduction": {
+    "source_commit": "9e2af0644b43bd60407ac4e2e641d7872f10564e",
+    "clean_checkout": true,
+    "checkout_method": "git archive",
+    "network_mode": "offline_model_cache",
+    "environment": {
+      "path": "baselines/v1/reproduction-environment.json",
+      "sha256": "63b1c486d8c605bf6a045f435a8b965c9a0944048708d626524ce1a3ac7fb2e4"
+    },
+    "dependency_snapshot": {
+      "path": "baselines/v1/reproduction-pip-freeze.txt",
+      "sha256": "e27a078dd6a5526707e8d52091c1bd263e1df6551a83ac83f04e5dafcf741440"
+    },
+    "report": {
+      "path": "baselines/v1/reproduction-report.json",
+      "sha256": "233e3821cb732c1a1618c15061f94ca98ca799963292f1584e7b18cfe1ba8875"
+    },
+    "index": {
+      "meta_sha256": "f830ad8d00e710f77d0adbeb6b2b80d55a930f8a5d35078130b9cfb00a96d68b",
+      "chunks_sha256": "7df542c59a7a3e2aa4f028d9593fa29508955ca3e2c80ba0956a3220765ec5fc",
+      "embeddings_sha256": "bbdd4d984f877e1ae4fec84cd9b60bbc013c55e505c3a928fa61ccd7deac65b8",
+      "note": "Raw embedding bytes are platform-sensitive evidence, not the promotion criterion."
+    },
+    "summary": {
+      "recall_at_k": 0.974,
+      "mrr": 0.844
+    },
+    "comparison": {
+      "recall_at_k_delta": 0.0,
+      "mrr_delta": 0.0,
+      "verdict": "pass"
+    }
+  },
+  "known_failures": {
+    "path": "baselines/v1/known-failures.md",
+    "retrieval": ["q13"],
+    "generation": ["q17", "q18", "q21", "q34", "q35"],
+    "abstention": ["u07"],
+    "judge_review": ["q02", "q20", "q29", "q36"]
+  },
+  "limitations": [
+    "Original generation dependency versions were not captured.",
+    "The provider did not expose immutable generator or judge revisions.",
+    "Original judge rationales and raw responses were not retained.",
+    "The deterministic reproduction validates retrieval only; it does not re-score paid LLM outputs."
+  ]
+}

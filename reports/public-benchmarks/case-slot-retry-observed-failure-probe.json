@@ -1,0 +1,277 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T10:49:13.363803+00:00",
+  "status": "passed",
+  "runner_version": "2.1.0",
+  "runner_source_sha256": "351b8266c637b81c39f85067f696c8c472e78f684e68ab47e9ed093ebbab3f30",
+  "probe_source_sha256": "c3ffb3a15b91ba219bbe416abea39bfd088d12b3806e6746b66d39fc946902c1",
+  "target": {
+    "benchmark_id": "hotpotqa",
+    "batch_id": "hotpotqa:00466",
+    "case_ids": [
+      "hotpotqa:dev_distractor:5a8ee4315542990e94052ba7",
+      "hotpotqa:dev_distractor:5ac082535542992a796ded2f",
+      "hotpotqa:dev_distractor:5ab6f7415542991d322236f4",
+      "hotpotqa:dev_distractor:5ac19ff35542991316484b61"
+    ],
+    "predecessor_failure": "v2.0.3 returned C4 without citation_ids on all three batch attempts"
+  },
+  "outcome": {
+    "valid": true,
+    "execution_events": [
+      "retried_invalid_case_slots"
+    ],
+    "case_slot_retry_count": 1,
+    "result_count": 4,
+    "semantic_values_inferred": false
+  },
+  "batch_record": {
+    "schema_version": "1.1.0",
+    "batch_id": "hotpotqa:00466",
+    "benchmark_id": "hotpotqa",
+    "case_ids": [
+      "hotpotqa:dev_distractor:5a8ee4315542990e94052ba7",
+      "hotpotqa:dev_distractor:5ac082535542992a796ded2f",
+      "hotpotqa:dev_distractor:5ab6f7415542991d322236f4",
+      "hotpotqa:dev_distractor:5ac19ff35542991316484b61"
+    ],
+    "wire_case_id_mapping": [
+      {
+        "wire_case_id": "C1",
+        "case_id": "hotpotqa:dev_distractor:5a8ee4315542990e94052ba7"
+      },
+      {
+        "wire_case_id": "C2",
+        "case_id": "hotpotqa:dev_distractor:5ac082535542992a796ded2f"
+      },
+      {
+        "wire_case_id": "C3",
+        "case_id": "hotpotqa:dev_distractor:5ab6f7415542991d322236f4"
+      },
+      {
+        "wire_case_id": "C4",
+        "case_id": "hotpotqa:dev_distractor:5ac19ff35542991316484b61"
+      }
+    ],
+    "input_sha256": "9873146cf09e56e7572dd1be280e383a2d268ef7e3d88f908aaeef1e64a7a287",
+    "wire_input_sha256": "eed8516be409b49e824da998d2b8716c2f63c2073d26557da2521d10c260a546",
+    "messages_sha256": "7086c66ffb394ff2532236c5c949559bb4d42e44754d52e5501343cea20ec6bf",
+    "response_format_sha256": "52d585d57f8af166bac91b3b9376c8060c7fe0f6ac1f38eec62f0022089344e4",
+    "profile_id": "qwen3.5-9b-local",
+    "profile_sha256": "ce2cc57cb93ac203088480f91f8381bf17603396a1fba8b95c4f096b3013077f",
+    "valid": true,
+    "results": [
+      {
+        "case_id": "hotpotqa:dev_distractor:5a8ee4315542990e94052ba7",
+        "prediction": "Treaty of Gandamak",
+        "citation_ids": [
+          "D3",
+          "D4"
+        ]
+      },
+      {
+        "case_id": "hotpotqa:dev_distractor:5ac082535542992a796ded2f",
+        "prediction": "Bolax",
+        "citation_ids": [
+          "D1",
+          "D2"
+        ]
+      },
+      {
+        "case_id": "hotpotqa:dev_distractor:5ab6f7415542991d322236f4",
+        "prediction": "1978",
+        "citation_ids": [
+          "D3"
+        ]
+      },
+      {
+        "case_id": "hotpotqa:dev_distractor:5ac19ff35542991316484b61",
+        "prediction": "__UNANSWERABLE__",
+        "citation_ids": []
+      }
+    ],
+    "errors": [],
+    "calls": [
+      {
+        "content": "{\"case_id\":\"C1\",\"prediction\":\"Treaty of Gandamak\",\"citation_ids\":[\"D3\",\"D4\"]},{\"case_id\":\"C2\",\"prediction\":\"Bolax\",\"citation_ids\":[\"D1\",\"D2\"]},{\"case_id\":\"C3\",\"prediction\":\"1978\",\"citation_ids\":[\"D3\"]},{\"case_id\":\"C4\",\"prediction\":\"The Graveyard Book of Phineas and Ferb was published in 2008, while The Graveyard Book (Neil Gaiman) is a different book; however, the query likely refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel or similar. Based on evidence D3 ('The Graveyard Book') was published in 2008. Evidence D1 shows Phineas video game released Feb/March 2009. If the query refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel, then the novel came first (Feb 2008). But if it refers to a specific book titled 'The Graveyard Book of Phineas and Ferb', that title does not appear in evidence. Assuming typo for 'Phineas and Ferb: The Video Game' vs Neil Gaiman's 'The Graveyard Book': Novel first (2008). If query implies the video game is called 'Graveyard Book...', it doesn't exist. Given ambiguity, but D3 says novel published 2008, D1 game Feb/March 2009. So if comparing those two: book first. But question asks about 'The Graveyard Book of Phineas and Ferb' which is not in evidence. Thus __UNANSWERABLE__.\"}",
+        "requested_model": "qwen3.5-rag-32k:latest",
+        "response_model": "qwen3.5-rag-32k:latest",
+        "response_id": null,
+        "input_sha256": "4be23d75224ef5e4090e58a18537dd00727632711cb0fa25ad7fbb69e1ef4e31",
+        "latency_ms": 6189.965,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 5256,
+          "completion_tokens": 370,
+          "total_tokens": 5626
+        },
+        "cost": null,
+        "request_timeout_seconds": 180.0,
+        "endpoint_kind": "local_ollama_native",
+        "endpoint_sha256": "65dc2471edc1b6ec37d1cf63a22372cf681f08dc57cb58a2fbdc51daf47fd3ec",
+        "request_options": {
+          "think": false
+        },
+        "response_provider": "ollama-local",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null,
+        "execution_scope": "batch",
+        "wire_case_ids": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ]
+      },
+      {
+        "content": "{\"case_id\":\"C1\",\"prediction\":\"Treaty of Gandamak\",\"citation_ids\":[\"D3\",\"D4\"]},{\"case_id\":\"C2\",\"prediction\":\"Bolax\",\"citation_ids\":[\"D1\",\"D2\"]},{\"case_id\":\"C3\",\"prediction\":\"1978\",\"citation_ids\":[\"D3\"]},{\"case_id\":\"C4\",\"prediction\":\"The Graveyard Book of Phineas and Ferb was published in 2008, while The Graveyard Book (Neil Gaiman) is a different book; however, the query likely refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel or similar. Based on evidence D3 ('The Graveyard Book') was published in 2008. Evidence D1 shows Phineas video game released Feb/March 2009. If the query refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel, then the novel came first (Feb 2008). But if it refers to a specific book titled 'The Graveyard Book of Phineas and Ferb', that title does not appear in evidence. Assuming typo for 'Phineas and Ferb: The Video Game' vs Neil Gaiman's 'The Graveyard Book': Novel first (2008). If query implies the video game is called 'Graveyard Book...', it doesn't exist. Given ambiguity, but D3 says novel published 2008, D1 game Feb/March 2009. So if comparing those two: book first. But question asks about 'The Graveyard Book of Phineas and Ferb' which is not in evidence. Thus __UNANSWERABLE__.\"}",
+        "requested_model": "qwen3.5-rag-32k:latest",
+        "response_model": "qwen3.5-rag-32k:latest",
+        "response_id": null,
+        "input_sha256": "4be23d75224ef5e4090e58a18537dd00727632711cb0fa25ad7fbb69e1ef4e31",
+        "latency_ms": 5324.769,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 5256,
+          "completion_tokens": 370,
+          "total_tokens": 5626
+        },
+        "cost": null,
+        "request_timeout_seconds": 180.0,
+        "endpoint_kind": "local_ollama_native",
+        "endpoint_sha256": "65dc2471edc1b6ec37d1cf63a22372cf681f08dc57cb58a2fbdc51daf47fd3ec",
+        "request_options": {
+          "think": false
+        },
+        "response_provider": "ollama-local",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null,
+        "execution_scope": "batch",
+        "wire_case_ids": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ]
+      },
+      {
+        "content": "{\"case_id\":\"C1\",\"prediction\":\"Treaty of Gandamak\",\"citation_ids\":[\"D3\",\"D4\"]},{\"case_id\":\"C2\",\"prediction\":\"Bolax\",\"citation_ids\":[\"D1\",\"D2\"]},{\"case_id\":\"C3\",\"prediction\":\"1978\",\"citation_ids\":[\"D3\"]},{\"case_id\":\"C4\",\"prediction\":\"The Graveyard Book of Phineas and Ferb was published in 2008, while The Graveyard Book (Neil Gaiman) is a different book; however, the query likely refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel or similar. Based on evidence D3 ('The Graveyard Book') was published in 2008. Evidence D1 shows Phineas video game released Feb/March 2009. If the query refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel, then the novel came first (Feb 2008). But if it refers to a specific book titled 'The Graveyard Book of Phineas and Ferb', that title does not appear in evidence. Assuming typo for 'Phineas and Ferb: The Video Game' vs Neil Gaiman's 'The Graveyard Book': Novel first (2008). If query implies the video game is called 'Graveyard Book...', it doesn't exist. Given ambiguity, but D3 says novel published 2008, D1 game Feb/March 2009. So if comparing those two: book first. But question asks about 'The Graveyard Book of Phineas and Ferb' which is not in evidence. Thus __UNANSWERABLE__.\"}",
+        "requested_model": "qwen3.5-rag-32k:latest",
+        "response_model": "qwen3.5-rag-32k:latest",
+        "response_id": null,
+        "input_sha256": "4be23d75224ef5e4090e58a18537dd00727632711cb0fa25ad7fbb69e1ef4e31",
+        "latency_ms": 5315.93,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 5256,
+          "completion_tokens": 370,
+          "total_tokens": 5626
+        },
+        "cost": null,
+        "request_timeout_seconds": 180.0,
+        "endpoint_kind": "local_ollama_native",
+        "endpoint_sha256": "65dc2471edc1b6ec37d1cf63a22372cf681f08dc57cb58a2fbdc51daf47fd3ec",
+        "request_options": {
+          "think": false
+        },
+        "response_provider": "ollama-local",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null,
+        "execution_scope": "batch",
+        "wire_case_ids": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ]
+      },
+      {
+        "content": "{\n  \"results\": [\n    {\n      \"case_id\": \"C4\",\n      \"prediction\": \"__UNANSWERABLE__\",\n      \"citation_ids\": []\n    }\n  ]\n}",
+        "requested_model": "qwen3.5-rag-32k:latest",
+        "response_model": "qwen3.5-rag-32k:latest",
+        "response_id": null,
+        "input_sha256": "4e3ff6e424a8676fc58ea4d7766a9b716c05833926b4bcbc5d00fb17ba697fbc",
+        "latency_ms": 2976.157,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 1534,
+          "completion_tokens": 48,
+          "total_tokens": 1582
+        },
+        "cost": null,
+        "request_timeout_seconds": 180.0,
+        "endpoint_kind": "local_ollama_native",
+        "endpoint_sha256": "65dc2471edc1b6ec37d1cf63a22372cf681f08dc57cb58a2fbdc51daf47fd3ec",
+        "request_options": {
+          "think": false
+        },
+        "response_provider": "ollama-local",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null,
+        "execution_scope": "case_slot_retry",
+        "wire_case_ids": [
+          "C4"
+        ]
+      }
+    ],
+    "raw_outputs": [
+      "{\"case_id\":\"C1\",\"prediction\":\"Treaty of Gandamak\",\"citation_ids\":[\"D3\",\"D4\"]},{\"case_id\":\"C2\",\"prediction\":\"Bolax\",\"citation_ids\":[\"D1\",\"D2\"]},{\"case_id\":\"C3\",\"prediction\":\"1978\",\"citation_ids\":[\"D3\"]},{\"case_id\":\"C4\",\"prediction\":\"The Graveyard Book of Phineas and Ferb was published in 2008, while The Graveyard Book (Neil Gaiman) is a different book; however, the query likely refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel or similar. Based on evidence D3 ('The Graveyard Book') was published in 2008. Evidence D1 shows Phineas video game released Feb/March 2009. If the query refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel, then the novel came first (Feb 2008). But if it refers to a specific book titled 'The Graveyard Book of Phineas and Ferb', that title does not appear in evidence. Assuming typo for 'Phineas and Ferb: The Video Game' vs Neil Gaiman's 'The Graveyard Book': Novel first (2008). If query implies the video game is called 'Graveyard Book...', it doesn't exist. Given ambiguity, but D3 says novel published 2008, D1 game Feb/March 2009. So if comparing those two: book first. But question asks about 'The Graveyard Book of Phineas and Ferb' which is not in evidence. Thus __UNANSWERABLE__.\"}",
+      "{\"case_id\":\"C1\",\"prediction\":\"Treaty of Gandamak\",\"citation_ids\":[\"D3\",\"D4\"]},{\"case_id\":\"C2\",\"prediction\":\"Bolax\",\"citation_ids\":[\"D1\",\"D2\"]},{\"case_id\":\"C3\",\"prediction\":\"1978\",\"citation_ids\":[\"D3\"]},{\"case_id\":\"C4\",\"prediction\":\"The Graveyard Book of Phineas and Ferb was published in 2008, while The Graveyard Book (Neil Gaiman) is a different book; however, the query likely refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel or similar. Based on evidence D3 ('The Graveyard Book') was published in 2008. Evidence D1 shows Phineas video game released Feb/March 2009. If the query refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel, then the novel came first (Feb 2008). But if it refers to a specific book titled 'The Graveyard Book of Phineas and Ferb', that title does not appear in evidence. Assuming typo for 'Phineas and Ferb: The Video Game' vs Neil Gaiman's 'The Graveyard Book': Novel first (2008). If query implies the video game is called 'Graveyard Book...', it doesn't exist. Given ambiguity, but D3 says novel published 2008, D1 game Feb/March 2009. So if comparing those two: book first. But question asks about 'The Graveyard Book of Phineas and Ferb' which is not in evidence. Thus __UNANSWERABLE__.\"}",
+      "{\"case_id\":\"C1\",\"prediction\":\"Treaty of Gandamak\",\"citation_ids\":[\"D3\",\"D4\"]},{\"case_id\":\"C2\",\"prediction\":\"Bolax\",\"citation_ids\":[\"D1\",\"D2\"]},{\"case_id\":\"C3\",\"prediction\":\"1978\",\"citation_ids\":[\"D3\"]},{\"case_id\":\"C4\",\"prediction\":\"The Graveyard Book of Phineas and Ferb was published in 2008, while The Graveyard Book (Neil Gaiman) is a different book; however, the query likely refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel or similar. Based on evidence D3 ('The Graveyard Book') was published in 2008. Evidence D1 shows Phineas video game released Feb/March 2009. If the query refers to 'Phineas and Ferb: The Video Game' vs Neil Gaiman's novel, then the novel came first (Feb 2008). But if it refers to a specific book titled 'The Graveyard Book of Phineas and Ferb', that title does not appear in evidence. Assuming typo for 'Phineas and Ferb: The Video Game' vs Neil Gaiman's 'The Graveyard Book': Novel first (2008). If query implies the video game is called 'Graveyard Book...', it doesn't exist. Given ambiguity, but D3 says novel published 2008, D1 game Feb/March 2009. So if comparing those two: book first. But question asks about 'The Graveyard Book of Phineas and Ferb' which is not in evidence. Thus __UNANSWERABLE__.\"}",
+      "{\n  \"results\": [\n    {\n      \"case_id\": \"C4\",\n      \"prediction\": \"__UNANSWERABLE__\",\n      \"citation_ids\": []\n    }\n  ]\n}"
+    ],
+    "normalization_attempts": [
+      [
+        "wrapped_comma_separated_results",
+        "wrapped_results_array"
+      ],
+      [
+        "wrapped_comma_separated_results",
+        "wrapped_results_array"
+      ],
+      [
+        "wrapped_comma_separated_results",
+        "wrapped_results_array"
+      ]
+    ],
+    "normalization_events": [],
+    "execution_events": [
+      "retried_invalid_case_slots"
+    ],
+    "case_slot_retry_records": [
+      {
+        "wire_case_id": "C4",
+        "input_sha256": "c0507e7f19b869abbfcb39dc8347882ed65bb9ed8957081e8a624c00fcd2a4fd",
+        "messages_sha256": "5c3c98c2fb4f138a2fac8ca56ed4272cdcfd7ebbb679e2d5d21a95eecd168ae2",
+        "response_format_sha256": "78c71a260142c318804a345e4a77cc51151cb7da934b99d79b5d4b03b47e74a0",
+        "valid": true,
+        "errors": [],
+        "normalization_attempts": [
+          []
+        ],
+        "normalization_events": [],
+        "call_indexes_within_case_slot_calls": [
+          0
+        ]
+      }
+    ],
+    "raw_contract_valid": false,
+    "completed_at_utc": "2026-07-17T10:49:13.363803+00:00"
+  }
+}

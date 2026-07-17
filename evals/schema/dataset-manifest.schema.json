@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/p1tap/vbot-rag-eval/evals/schema/dataset-manifest.schema.json",
+  "title": "Vbot RAG evaluation dataset manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "dataset_version",
+    "case_record_versions",
+    "status",
+    "created_at",
+    "case_schema",
+    "corpus_manifest",
+    "fingerprint_sha256",
+    "fingerprint_method",
+    "source_datasets",
+    "partitions",
+    "governance",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "dataset_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "dataset_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "case_record_versions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+      }
+    },
+    "status": {"enum": ["development", "frozen", "retired"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "case_schema": {"const": "evals/schema/case-v2.schema.json"},
+    "corpus_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "corpus_id",
+        "corpus_version",
+        "fingerprint_sha256",
+        "evidence_catalog_sha256"
+      ],
+      "properties": {
+        "path": {"const": "corpus/manifest.json"},
+        "corpus_id": {"type": "string", "minLength": 1},
+        "corpus_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "fingerprint_sha256": {"$ref": "#/$defs/sha256"},
+        "evidence_catalog_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "fingerprint_sha256": {"$ref": "#/$defs/sha256"},
+    "fingerprint_method": {
+      "const": "sha256 of sorted '<split>\\t<path>\\t<file_sha256>\\n' records"
+    },
+    "source_datasets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "migration"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"$ref": "#/$defs/sha256"},
+          "migration": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "partitions": {
+      "type": "array",
+      "minItems": 5,
+      "items": {"$ref": "#/$defs/partition"}
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frozen_edit_policy", "holdout_access_policy", "legacy_v1_policy"],
+      "properties": {
+        "frozen_edit_policy": {"type": "string", "minLength": 1},
+        "holdout_access_policy": {"type": "string", "minLength": 1},
+        "legacy_v1_policy": {"type": "string", "minLength": 1}
+      }
+    },
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "partition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["split", "visibility", "frozen", "expected_cases", "files"],
+      "properties": {
+        "split": {"enum": ["dev", "release", "adversarial", "real_user", "reserve"]},
+        "visibility": {"enum": ["public", "sealed"]},
+        "frozen": {"type": "boolean"},
+        "expected_cases": {"type": "integer", "minimum": 0},
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "sha256", "cases"],
+            "properties": {
+              "path": {"type": "string", "minLength": 1},
+              "sha256": {"$ref": "#/$defs/sha256"},
+              "cases": {"type": "integer", "minimum": 1}
+            }
+          }
+        }
+      }
+    }
+  }
+}

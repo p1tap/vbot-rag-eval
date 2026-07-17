@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T08:48:30.075067+00:00",
+  "scope": "bounded_http_service_load_test",
+  "generation_mode": "mock_no_model_inference",
+  "model_inference_capacity_evidence": false,
+  "warning": "Mock generation measures retrieval and HTTP control-plane throughput only; it is not model-inference capacity.",
+  "configuration": {
+    "url": "http://127.0.0.1:8001/v1/answer",
+    "request_count": 100,
+    "concurrency": 4,
+    "timeout_seconds": 30.0
+  },
+  "results": {
+    "wall_seconds": 10.441173600003822,
+    "success_count": 97,
+    "error_count": 3,
+    "error_rate": 0.03,
+    "throughput_requests_per_second": 9.57746742185796,
+    "latency_ms": {
+      "mean": 409.5914190002077,
+      "p50": 341.11400000256253,
+      "p95": 485.16293999200565,
+      "p99": 2124.9946560082026,
+      "max": 2126.059499991243
+    }
+  },
+  "errors": [
+    {
+      "status": 500,
+      "latency_ms": 2120.5706000037026,
+      "request_id": null,
+      "error": null
+    },
+    {
+      "status": 500,
+      "latency_ms": 2124.983900008374,
+      "request_id": null,
+      "error": null
+    },
+    {
+      "status": 500,
+      "latency_ms": 2126.059499991243,
+      "request_id": null,
+      "error": null
+    }
+  ]
+}

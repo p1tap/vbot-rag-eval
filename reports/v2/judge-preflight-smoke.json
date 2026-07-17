@@ -1,0 +1,389 @@
+{
+  "schema_version": "1.0.0",
+  "captured_at_utc": "2026-07-14T23:04:30.441942+00:00",
+  "catalog_only": false,
+  "results": [
+    {
+      "profile_id": "v4-flash-high",
+      "model": "deepseek/deepseek-v4-flash",
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "require_parameters": true
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "supported_efforts": [
+          "xhigh",
+          "high"
+        ],
+        "default_effort": "high"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\": true, \"profile_id\": \"v4-flash-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070250-uKYjieVu68xZ8rulWzdv",
+        "input_sha256": "3831f8d01dd7a08169965c3c33dbe3b273621b9bbfb5dafecc2e0811b3b18774",
+        "latency_ms": 3237.071,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 24,
+          "completion_tokens": 182,
+          "total_tokens": 206,
+          "cost": 5.432e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 5.432e-05,
+            "upstream_inference_prompt_cost": 3.36e-06,
+            "upstream_inference_completions_cost": 5.096e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 163,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 5.432e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "require_parameters": true
+          }
+        },
+        "response_provider": "AtlasCloud",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "profile_id": "v4-flash-max",
+      "model": "deepseek/deepseek-v4-flash",
+      "request_options": {
+        "reasoning": {
+          "effort": "xhigh",
+          "exclude": true
+        },
+        "provider": {
+          "require_parameters": true
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "supported_efforts": [
+          "xhigh",
+          "high"
+        ],
+        "default_effort": "high"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\": true, \"profile_id\": \"v4-flash-max\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070253-gZ1aWRZqKn7mrRUnWD5r",
+        "input_sha256": "c0ef6c279f931406aa5e4b6cf73c3227ab6ac1e61823db2bb212e7c3538ca755",
+        "latency_ms": 11660.575,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 22,
+          "completion_tokens": 17,
+          "total_tokens": 39,
+          "cost": 6.272e-06,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 6.272e-06,
+            "upstream_inference_prompt_cost": 2.464e-06,
+            "upstream_inference_completions_cost": 3.808e-06
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 6.272e-06,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "require_parameters": true
+          }
+        },
+        "response_provider": "DigitalOcean",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "profile_id": "gemini-3.5-flash-high",
+      "model": "google/gemini-3.5-flash",
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "require_parameters": true
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": true,
+        "default_enabled": true,
+        "supported_efforts": [
+          "high",
+          "medium",
+          "low",
+          "minimal"
+        ],
+        "default_effort": "medium"
+      },
+      "supported_parameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"gemini-3.5-flash-high\"}",
+        "requested_model": "google/gemini-3.5-flash",
+        "response_model": "google/gemini-3.5-flash",
+        "response_id": "gen-1784070265-XsrENxrIEgHPMdygf6p9",
+        "input_sha256": "903de07e2ff049b87e3e72f35a3cc41212dfb58a1cfa80f7b85a92fbd80ed354",
+        "latency_ms": 3097.275,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 92,
+          "completion_tokens": 228,
+          "total_tokens": 320,
+          "cost": 0.00219,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00219,
+            "upstream_inference_prompt_cost": 0.000138,
+            "upstream_inference_completions_cost": 0.002052
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 208,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 0.00219,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "require_parameters": true
+          }
+        },
+        "response_provider": "Google",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "STOP",
+        "quantization": null,
+        "service_tier": "provisioned"
+      }
+    },
+    {
+      "profile_id": "gpt-5.4-high",
+      "model": "openai/gpt-5.4",
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "require_parameters": true
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "default_enabled": false,
+        "supported_efforts": [
+          "xhigh",
+          "high",
+          "medium",
+          "low",
+          "none"
+        ],
+        "default_effort": "medium"
+      },
+      "supported_parameters": [
+        "include_reasoning",
+        "max_completion_tokens",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "tool_choice",
+        "tools"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"gpt-5.4-high\"}",
+        "requested_model": "openai/gpt-5.4",
+        "response_model": "openai/gpt-5.4",
+        "response_id": "gen-1784070269-nQRBt9wqxE57A0WCiAd5",
+        "input_sha256": "da1900fa9a394bd7a987a397c23a89b2e5c2f983ed30bf57f4a844854950580d",
+        "latency_ms": 2663.43,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 74,
+          "completion_tokens": 52,
+          "total_tokens": 126,
+          "cost": 0.000965,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000965,
+            "upstream_inference_prompt_cost": 0.000185,
+            "upstream_inference_completions_cost": 0.00078
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 25,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 0.000965,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "require_parameters": true
+          }
+        },
+        "response_provider": "OpenAI",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "completed",
+        "quantization": null,
+        "service_tier": "default"
+      }
+    }
+  ],
+  "valid": true
+}

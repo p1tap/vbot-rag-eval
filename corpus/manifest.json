@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0",
+  "corpus_id": "vbot-public-safe",
+  "corpus_version": "1.0.0",
+  "created_at": "2026-07-14T01:05:32+07:00",
+  "fingerprint_sha256": "dff71736dde3ab944cf55400a02707f802702a7f6a265b5b47e24fe8a677f4fe",
+  "fingerprint_method": "sha256 of canonical JSON of documents sorted by document_id",
+  "evidence_catalog": {
+    "path": "corpus/evidence-catalog-v1.jsonl",
+    "schema": "corpus/evidence-catalog.schema.json",
+    "sha256": "c15148e0aa42d867edbb6698c1b6f112f8767f557a8fdc172f497d90f4edf326",
+    "records": 99,
+    "builder": "scripts/build_evidence_catalog.py"
+  },
+  "documents": [
+    {
+      "document_id": "backbone-findings",
+      "path": "corpus/backbone-findings.md",
+      "format": "markdown",
+      "content_sha256": "4eb1052c0da49dadfaf70f739fd4f746306dc7cbb4876b429ca743481f668982",
+      "line_count": 43,
+      "word_count": 409,
+      "status": "active",
+      "source": {
+        "declared_repository": "p1tap/backbone-ft",
+        "declared_path": "SWEEP_FINDINGS",
+        "upstream_revision": null,
+        "local_import_commit": "7e5d6aa98c5cb70330da76e0c468c1fb09e362ea"
+      },
+      "authority": {
+        "priority": 100,
+        "valid_from": null,
+        "valid_until": null,
+        "supersedes": [],
+        "superseded_by": null
+      },
+      "sensitivity": {
+        "classification": "public_safe",
+        "secret_scan_status": "passed"
+      },
+      "ingestion": {
+        "allowed": true,
+        "access_class": "public"
+      }
+    },
+    {
+      "document_id": "backbone-plan",
+      "path": "corpus/backbone-plan.md",
+      "format": "markdown",
+      "content_sha256": "ccd3d38d674178b42be5243ccb5cbd2bc1e1d7f12ff5a1c431524cdfa521d2e3",
+      "line_count": 95,
+      "word_count": 731,
+      "status": "active",
+      "source": {
+        "declared_repository": "p1tap/backbone-ft",
+        "declared_path": "PLAN",
+        "upstream_revision": null,
+        "local_import_commit": "7e5d6aa98c5cb70330da76e0c468c1fb09e362ea"
+      },
+      "authority": {
+        "priority": 100,
+        "valid_from": null,
+        "valid_until": null,
+        "supersedes": [],
+        "superseded_by": null
+      },
+      "sensitivity": {
+        "classification": "public_safe",
+        "secret_scan_status": "passed"
+      },
+      "ingestion": {
+        "allowed": true,
+        "access_class": "public"
+      }
+    },
+    {
+      "document_id": "gateway-readme",
+      "path": "corpus/gateway-readme.md",
+      "format": "markdown",
+      "content_sha256": "3f34e3bf5dfc52878a08067f4d3d53c05179fa6a9ff36f2d6b09fd54f1ff4492",
+      "line_count": 190,
+      "word_count": 1289,
+      "status": "active",
+      "source": {
+        "declared_repository": "p1tap/vbot-model-gateway",
+        "declared_path": "README.md",
+        "upstream_revision": null,
+        "local_import_commit": "7e5d6aa98c5cb70330da76e0c468c1fb09e362ea"
+      },
+      "authority": {
+        "priority": 100,
+        "valid_from": null,
+        "valid_until": null,
+        "supersedes": [],
+        "superseded_by": null
+      },
+      "sensitivity": {
+        "classification": "public_safe",
+        "secret_scan_status": "passed"
+      },
+      "ingestion": {
+        "allowed": true,
+        "access_class": "public"
+      }
+    }
+  ],
+  "security_scan": {
+    "path": "reports/security/corpus-secret-scan.json",
+    "sha256": "c782aef3065dc42a764a469ed1844ee4b7731d17beb697e02bf23b10a3b736d6",
+    "status": "passed",
+    "finding_count": 0,
+    "scanner": "scripts/scan_corpus_secrets.py"
+  },
+  "limitations": [
+    "The original upstream commit for each imported snapshot was not captured.",
+    "Effective dates and supersession relationships were not captured for V1.",
+    "The automated scan covers high-confidence credential formats; it cannot prove that prose contains no sensitive information.",
+    "All current documents share one public access class, so this corpus cannot validate authorization isolation."
+  ]
+}

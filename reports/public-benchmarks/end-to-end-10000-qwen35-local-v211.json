@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T14:28:01.543822+00:00",
+  "status": "complete_with_fail_closed_batches",
+  "resume_claim_ready": false,
+  "identity_sha256": "1be9b45c87212cf5f3af250dd5aa9508ca4f879159ca30c158b25d121dea96a5",
+  "identity": {
+    "runner_version": "2.1.0",
+    "runner_source_sha256": "351b8266c637b81c39f85067f696c8c472e78f684e68ab47e9ed093ebbab3f30",
+    "response_contract_version": "public-rag-batch-1.3.0-local-case-retry",
+    "profile_id": "qwen3.5-9b-local",
+    "profile": {
+      "model": "qwen3.5-rag-32k:latest",
+      "temperature": 0.0,
+      "max_tokens": 1200,
+      "strict_schema": true,
+      "request_options": {
+        "think": false
+      },
+      "timeout_seconds": 180,
+      "endpoint": "http://localhost:11434",
+      "deployment_kind": "local_ollama",
+      "ollama_model_id": "a2845456d7ad",
+      "weights_blob_sha256": "dec52a44569a2a25341c4e4d3fee25846eed4f6f0b936278e3a3c900bb99d37c",
+      "modelfile_path": "config/ollama-qwen35-rag.Modelfile",
+      "modelfile_sha256": "d44b3ee249174e21a0d5f70f2a9197a8952b48892c35786111aada51c134adfe",
+      "runtime": "ollama-0.30.9",
+      "accelerator": "NVIDIA GeForce RTX 5080 16303 MiB",
+      "driver_version": "610.74"
+    },
+    "benchmarks": [
+      "hotpotqa",
+      "natural_questions",
+      "fever"
+    ],
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "suite_report_sha256": "b1b779047fe40767e04b316f32617ffb4792a3ec719b0e4070b24fbbaf02ceb6",
+    "top_k": 8,
+    "batch_size": 4,
+    "workers": 1,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 0,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "ebbaad75a45c9d4f690bc56f13e63a95686739477d1490a01848c33269c77ce3"
+  },
+  "case_count": 10000,
+  "batch_count": 2500,
+  "valid_batch_count": 2497,
+  "raw_contract_valid_batch_count": 2454,
+  "deterministically_normalized_batch_count": 23,
+  "case_slot_retry_batch_count": 20,
+  "deterministic_normalization_rate": 0.0092,
+  "case_slot_retry_batch_rate": 0.008,
+  "contract_guardrails": {
+    "max_deterministic_normalization_rate": 0.05,
+    "normalization_rate_pass": true,
+    "max_case_slot_retry_batch_rate": 0.01,
+    "case_slot_retry_rate_pass": true
+  },
+  "fail_closed_case_count": 12,
+  "metrics": {
+    "fever": {
+      "case_count": 2000,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.740174672489083,
+      "retrieval_complete_gold_rate": 0.6637554585152838,
+      "citation_precision": 0.5101810885164072,
+      "citation_recall": 0.6371690233589797,
+      "joint_correct_rate": 0.469,
+      "label_accuracy": 0.6185,
+      "evidence_complete_rate": 0.5085
+    },
+    "hotpotqa": {
+      "case_count": 3000,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.9986666666666667,
+      "retrieval_complete_gold_rate": 0.9363333333333334,
+      "citation_precision": 0.9341482456677487,
+      "citation_recall": 0.4603333333333333,
+      "joint_correct_rate": 0.11066666666666666,
+      "answer_exact_match": 0.43733333333333335,
+      "answer_f1": 0.5554110116487079,
+      "answerability_accuracy": 0.7813333333333333
+    },
+    "natural_questions": {
+      "case_count": 5000,
+      "fail_closed_count": 12,
+      "retrieval_any_gold_rate": 0.8380305602716469,
+      "retrieval_complete_gold_rate": 0.7847198641765705,
+      "citation_precision": 0.4146137104712686,
+      "citation_recall": 0.4699490662139219,
+      "joint_correct_rate": 0.3704,
+      "answer_exact_match": 0.4384,
+      "answer_f1": 0.520097981207943,
+      "answerability_accuracy": 0.6954
+    },
+    "macro": {
+      "case_count": 10000,
+      "joint_correct_rate": 0.31668888888888885
+    }
+  },
+  "operation": {
+    "call_count": 2596,
+    "worker_count": 1,
+    "invocation_wall_seconds": 12249.498028100003,
+    "evaluated_cases_per_invocation_second": 0.8163599828385034,
+    "call_latency_ms": {
+      "count": 2596,
+      "mean": 4662.087458012323,
+      "p50": 4514.531,
+      "p95": 5834.153,
+      "p99": 6516.485450000002
+    },
+    "provider_reported_cost_total": null,
+    "usage": {
+      "completion_tokens": 431260,
+      "prompt_tokens": 15981421,
+      "total_tokens": 16412681
+    }
+  },
+  "artifacts": {
+    "batch_records_path": "reports/public-benchmarks/end-to-end-10000-qwen35-local-v211.batches.jsonl",
+    "batch_records_sha256": "0c6305e96ebef826a60d3bd8e6df71f5711ca89524b9dc7d95ed4f2afd952b42",
+    "case_records_path": "reports/public-benchmarks/end-to-end-10000-qwen35-local-v211.cases.jsonl",
+    "case_records_sha256": "a4ba909588bd429aa23ad673f7afce30ede3a2f3e7ffed9e468994ec211fc0a3",
+    "case_results_canonical_sha256": "33ae3eccb8bdd318b2eb14bca6333ce37aee91e46af4d26d938493939119f616"
+  },
+  "provenance": {
+    "public_annotations": "inherited_from_pinned_publishers",
+    "local_adapter_review": "ai_agent_not_human",
+    "locally_human_reviewed_public_cases": 0
+  },
+  "limitations": [
+    "All three public inputs are development sets and may be present in model training data.",
+    "QA correctness uses normalized exact match and token F1; it does not treat an LLM judge as ground truth.",
+    "Long documents are compressed with a query-only lexical sentence selector before generation.",
+    "Fail-closed invalid batches are scored as unanswerable/not-enough-information.",
+    "Narrow deterministic serialization normalization is counted separately from raw contract validity and never changes answer content or citation values.",
+    "A malformed batch slot may be retried alone under the same profile and separately hashed strict schema; this execution fallback is counted separately and never infers a missing field.",
+    "For FEVER only, the exact QA abstention alias __UNANSWERABLE__ is deterministically canonicalized to the semantically equivalent not_enough_info label and recorded per batch."
+  ]
+}

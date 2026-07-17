@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/p1tap/vbot-rag-eval/evals/schema/coverage-matrix.schema.json",
+  "title": "Vbot RAG V2 coverage matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "dataset_version",
+    "dataset_fingerprint_sha256",
+    "corpus_id",
+    "corpus_version",
+    "corpus_fingerprint_sha256",
+    "evidence_catalog_sha256",
+    "summary",
+    "documents",
+    "lanes",
+    "legacy_lane_counts",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "dataset_version": {"type": "string", "minLength": 1},
+    "dataset_fingerprint_sha256": {"$ref": "#/$defs/sha256"},
+    "corpus_id": {"type": "string", "minLength": 1},
+    "corpus_version": {"type": "string", "minLength": 1},
+    "corpus_fingerprint_sha256": {"$ref": "#/$defs/sha256"},
+    "evidence_catalog_sha256": {"$ref": "#/$defs/sha256"},
+    "summary": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "documents": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "lanes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "lane",
+          "provisional_seed_minimum",
+          "current_cases",
+          "approved_cases",
+          "approved_seed_gap",
+          "status"
+        ],
+        "properties": {
+          "lane": {"type": "string", "minLength": 1},
+          "provisional_seed_minimum": {"type": "integer", "minimum": 1},
+          "current_cases": {"type": "integer", "minimum": 0},
+          "approved_cases": {"type": "integer", "minimum": 0},
+          "approved_seed_gap": {"type": "integer", "minimum": 0},
+          "status": {"enum": ["missing_seed", "seed_met"]}
+        }
+      }
+    },
+    "legacy_lane_counts": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "limitations": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
+

@@ -1,0 +1,50 @@
+{
+  "annotation_provenance": "Real Google search queries with human long-answer, short-answer, and null-answer annotations.",
+  "benchmark_id": "natural_questions",
+  "conversion": {
+    "conversion_loss_rate": 0.0,
+    "evidence_references_resolved": 3410,
+    "excluded_cases": 0,
+    "exclusions": [],
+    "normalized_cases": 5000,
+    "output_sha256": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+    "unique_normalized_ids": 5000,
+    "unique_source_ids": 5000
+  },
+  "distribution": {
+    "answerability": {"answerable": 2945, "unanswerable": 2055},
+    "difficulty": {},
+    "label": {},
+    "question_type": {}
+  },
+  "manual_audit": {
+    "note": "Adapter validation is complete; a stratified human spot audit is still required before publication.",
+    "status": "pending"
+  },
+  "report_version": "1.0.0",
+  "selection": {
+    "considered_cases": 5000,
+    "method": "sha256(source_record_id), ascending",
+    "selected_cases": 5000,
+    "target_cases": 5000
+  },
+  "source": {
+    "artifacts": [
+      {"bytes": 185560593, "name": "validation-00000-of-00007.parquet", "sha256": "348fb27f787e68e1c6389d0fdc3453a41fc66321ec30a2f3c451f1ef82d07c20"},
+      {"bytes": 197099510, "name": "validation-00001-of-00007.parquet", "sha256": "5be65bc20b859c5ca6041043507fbc8f34224192a70e5e767dcb2876f04468a4"},
+      {"bytes": 190921063, "name": "validation-00002-of-00007.parquet", "sha256": "d639409b817ceceacf3b2538fed27065ff296793c158707e9e07f3ab2f737a9d"},
+      {"bytes": 191104999, "name": "validation-00003-of-00007.parquet", "sha256": "4d1df3bea63e9bb567bdf3b87e8955b947f8c6f998bded0840c01bb9a13968bc"},
+      {"bytes": 192525840, "name": "validation-00004-of-00007.parquet", "sha256": "40781760176ff93afc84fb5dba1239f46a082aa2edc0e7dd4fad1a34f38435e0"},
+      {"bytes": 190204549, "name": "validation-00005-of-00007.parquet", "sha256": "3988c0d16f6b014348be130ef20ce324cf2b9bbafbddee96ad78a37e52e8903f"},
+      {"bytes": 189709804, "name": "validation-00006-of-00007.parquet", "sha256": "b3153de2b44df02e0f0a5eac8d82499ef175f99026e8e4dc30e55f4e3b22e725"}
+    ],
+    "file": "dev",
+    "license": "CC BY-SA 3.0",
+    "records": 7830,
+    "sha256": "563569ee0f1f5c02be4d3803c56f1110a96d0010858533ee8fb6352f8842234b",
+    "split": "dev",
+    "upstream_url": "https://ai.google.com/research/NaturalQuestions",
+    "url": "https://huggingface.co/datasets/google-research-datasets/natural_questions/tree/e8103d566bef4154c2c12b17c6095ec5275840cc/dev",
+    "version": "Natural Questions v1.0 dev / Hugging Face commit e8103d566bef4154c2c12b17c6095ec5275840cc"
+  }
+}
