@@ -645,6 +645,52 @@ class LlmAuditTests(unittest.TestCase):
         self.assertEqual(result.response_provider, "ollama-local")
         self.assertEqual(result.usage["total_tokens"], 17)
 
+    @patch("rag.llm.BASE_URL", "http://localhost:11434")
+    @patch("rag.llm.API_KEY", "")
+    @patch("rag.llm.requests.post")
+    def test_native_ollama_accepts_gpt_oss_reasoning_levels(self, post):
+        response = Mock(status_code=200)
+        response.json.return_value = {
+            "model": "gpt-oss:20b",
+            "message": {"content": '{"value":"ok"}'},
+            "done_reason": "stop",
+            "prompt_eval_count": 12,
+            "eval_count": 8,
+        }
+        post.return_value = response
+        chat_with_metadata(
+            "gpt-oss:20b",
+            [{"role": "user", "content": "hello"}],
+            request_options={"think": "high"},
+        )
+        self.assertEqual(post.call_args.kwargs["json"]["think"], "high")
+
+    @patch("rag.llm.BASE_URL", "https://api.deepseek.com")
+    @patch("rag.llm.API_KEY", "test-key")
+    @patch("rag.llm.requests.post")
+    def test_custom_provider_does_not_receive_openrouter_metadata_header(self, post):
+        response = Mock(status_code=200)
+        response.json.return_value = {
+            "id": "chat-1",
+            "model": "deepseek-v4-flash",
+            "choices": [
+                {"message": {"content": '{"value":"ok"}'}, "finish_reason": "stop"}
+            ],
+            "usage": {"prompt_tokens": 12, "completion_tokens": 8},
+        }
+        post.return_value = response
+        chat_with_metadata(
+            "deepseek-v4-flash",
+            [{"role": "user", "content": "hello"}],
+            request_options={
+                "thinking": {"type": "enabled"},
+                "reasoning_effort": "high",
+            },
+        )
+        headers = post.call_args.kwargs["headers"]
+        self.assertEqual(headers["Authorization"], "Bearer test-key")
+        self.assertNotIn("X-OpenRouter-Metadata", headers)
+
     @patch("rag.llm.API_KEY", "test-key")
     @patch("rag.llm.requests.post")
     def test_reasoning_and_provider_options_change_input_hash(self, post):

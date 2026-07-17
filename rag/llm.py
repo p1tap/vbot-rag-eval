@@ -118,7 +118,15 @@ def _ollama_request_payload(
         "options": options,
     }
     if "think" in audited_options:
-        payload["think"] = bool(audited_options["think"])
+        think = audited_options["think"]
+        if isinstance(think, bool):
+            payload["think"] = think
+        elif isinstance(think, str) and think in {"low", "medium", "high"}:
+            payload["think"] = think
+        else:
+            raise ValueError(
+                "native Ollama think must be false, true, low, medium, or high"
+            )
     unknown = set(audited_options) - {"think"}
     if unknown:
         raise ValueError(f"unsupported native Ollama request options: {sorted(unknown)}")
@@ -198,12 +206,9 @@ def chat_with_metadata(
         try:
             headers = {"Content-Type": "application/json"}
             if not native_ollama:
-                headers.update(
-                    {
-                        "Authorization": f"Bearer {API_KEY}",
-                        "X-OpenRouter-Metadata": "enabled",
-                    }
-                )
+                headers["Authorization"] = f"Bearer {API_KEY}"
+                if BASE_URL == "https://openrouter.ai/api/v1":
+                    headers["X-OpenRouter-Metadata"] = "enabled"
             r = requests.post(
                 endpoint,
                 headers=headers,

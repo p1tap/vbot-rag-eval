@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from scripts.benchmarks.run_end_to_end import (  # noqa: E402
+    PROFILES,
     SENTINEL,
     answer_scores,
     contract_batch,
@@ -26,6 +27,31 @@ import scripts.benchmarks.audit_suite as audit_module  # noqa: E402
 
 
 class PublicEndToEndTests(unittest.TestCase):
+    def test_deepseek_generator_is_high_effort_and_provider_pinned(self):
+        profile = PROFILES["deepseek-v4-flash-high"]
+        self.assertEqual(profile["model"], "deepseek-v4-flash")
+        self.assertEqual(
+            profile["request_options"],
+            {"thinking": {"type": "enabled"}, "reasoning_effort": "high"},
+        )
+        self.assertEqual(profile["endpoint"], "https://api.deepseek.com")
+        self.assertEqual(profile["deployment_kind"], "direct_deepseek_api")
+        self.assertTrue(profile["strict_schema"])
+        self.assertEqual(profile["max_tokens"], 2000)
+
+    def test_gpt_oss_generator_is_local_high_reasoning_and_pinned(self):
+        profile = PROFILES["gpt-oss-20b-local-high"]
+        self.assertEqual(profile["model"], "gpt-oss-rag-16k:latest")
+        self.assertEqual(profile["request_options"], {"think": "high"})
+        self.assertEqual(profile["endpoint"], "http://localhost:11434")
+        self.assertEqual(profile["deployment_kind"], "local_ollama")
+        self.assertEqual(profile["ollama_model_id"], "6f9b0942e9f4")
+        self.assertEqual(
+            profile["weights_blob_sha256"],
+            "e7b273f9636059a689e3ddcab3716e4f65abe0143ac978e46673ad0e52d09efb",
+        )
+        self.assertTrue(profile["strict_schema"])
+
     def test_invalid_batch_slot_is_retried_without_semantic_repair(self):
         class FakeCall:
             def __init__(self, content):
