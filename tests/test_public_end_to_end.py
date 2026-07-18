@@ -52,6 +52,27 @@ class PublicEndToEndTests(unittest.TestCase):
         )
         self.assertTrue(profile["strict_schema"])
 
+    def test_deepseek_openrouter_baidu_generator_is_provider_pinned(self):
+        profile = PROFILES["deepseek-v4-flash-high-openrouter-baidu"]
+        self.assertEqual(profile["model"], "deepseek/deepseek-v4-flash")
+        self.assertEqual(
+            profile["request_options"]["reasoning"],
+            {"effort": "high", "exclude": True},
+        )
+        self.assertEqual(
+            profile["request_options"]["provider"],
+            {
+                "only": ["baidu/fp8"],
+                "allow_fallbacks": False,
+                "require_parameters": True,
+            },
+        )
+        self.assertEqual(profile["endpoint"], "https://openrouter.ai/api/v1")
+        self.assertEqual(
+            profile["deployment_kind"], "openrouter_provider_pinned_baidu_fp8"
+        )
+        self.assertTrue(profile["strict_schema"])
+
     def test_invalid_batch_slot_is_retried_without_semantic_repair(self):
         class FakeCall:
             def __init__(self, content):

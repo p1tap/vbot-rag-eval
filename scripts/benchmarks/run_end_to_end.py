@@ -112,6 +112,26 @@ PROFILES = {
         "input_usd_per_million_tokens": 0.14,
         "output_usd_per_million_tokens": 0.28,
     },
+    "deepseek-v4-flash-high-openrouter-baidu": {
+        "model": "deepseek/deepseek-v4-flash",
+        "temperature": None,
+        "max_tokens": 2000,
+        "strict_schema": True,
+        "request_options": {
+            "reasoning": {"effort": "high", "exclude": True},
+            "provider": {
+                "only": ["baidu/fp8"],
+                "allow_fallbacks": False,
+                "require_parameters": True,
+            },
+        },
+        "timeout_seconds": 600,
+        "endpoint": "https://openrouter.ai/api/v1",
+        "deployment_kind": "openrouter_provider_pinned_baidu_fp8",
+        "pricing_checked_at_utc": "2026-07-18",
+        "input_usd_per_million_tokens": 0.0983,
+        "output_usd_per_million_tokens": 0.1966,
+    },
     "llama-3.1-8b-deepinfra": {
         "model": "meta-llama/llama-3.1-8b-instruct",
         "temperature": 0.0,
