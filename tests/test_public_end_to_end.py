@@ -87,6 +87,60 @@ class PublicEndToEndTests(unittest.TestCase):
         self.assertNotIn("bridge evidence", standard)
         self.assertIn("bridge evidence", benchmark_aware)
 
+    def test_hotpot_citation_completion_freezes_answer_and_adds_bridge(self):
+        class FakeCall:
+            def __init__(self, content):
+                self.content = content
+
+            def to_record(self):
+                return {"latency_ms": 1.0, "usage": {}}
+
+        batch = [
+            {
+                "case_id": "hotpot:1",
+                "benchmark_id": "hotpotqa",
+                "query": "Which city is linked through the bridge fact?",
+                "contexts": [
+                    {"citation_id": "D1", "title": "Bridge", "text": "Bridge fact."},
+                    {"citation_id": "D2", "title": "Answer", "text": "Paris."},
+                ],
+            }
+        ]
+        generated = json.dumps(
+            {
+                "results": [
+                    {
+                        "case_id": "C1",
+                        "prediction": "Paris",
+                        "citation_ids": ["D2"],
+                    }
+                ]
+            }
+        )
+        completed = json.dumps(
+            {"results": [{"case_id": "C1", "citation_ids": ["D1", "D2"]}]}
+        )
+        with patch(
+            "scripts.benchmarks.run_end_to_end.chat_with_metadata",
+            side_effect=[FakeCall(generated), FakeCall(completed)],
+        ):
+            record = run_batch(
+                batch,
+                "qwen3.5-9b-local",
+                "hotpotqa:test",
+                "benchmark_aware",
+                "complete_hotpot_chain",
+            )
+        self.assertTrue(record["valid"])
+        self.assertEqual(record["results"][0]["prediction"], "Paris")
+        self.assertEqual(record["results"][0]["citation_ids"], ["D1", "D2"])
+        self.assertTrue(record["citation_completion"]["valid"])
+        self.assertEqual(len(record["citation_completion"]["changes"]), 1)
+        self.assertEqual(
+            [call["execution_scope"] for call in record["calls"]],
+            ["batch", "citation_completion"],
+        )
+
     def test_bounded_retrieval_modes_are_deterministic_and_unique(self):
         case = {
             "benchmark_id": "hotpotqa",

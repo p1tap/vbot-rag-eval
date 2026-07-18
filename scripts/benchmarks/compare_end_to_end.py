@@ -140,6 +140,12 @@ def main() -> None:
             "candidate_prompt_policy": candidate["identity"].get(
                 "prompt_policy", "standard"
             ),
+            "baseline_citation_policy": baseline["identity"].get(
+                "citation_policy", "standard"
+            ),
+            "candidate_citation_policy": candidate["identity"].get(
+                "citation_policy", "standard"
+            ),
             "case_count": len(baseline_rows),
         },
         "macro_joint_correct_delta": macro_delta,

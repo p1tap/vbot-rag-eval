@@ -50,7 +50,7 @@ DEFAULT_FEVER_INDEX = (
 )
 SENTINEL = "__UNANSWERABLE__"
 LABELS = {"supports", "refutes", "not_enough_info"}
-RUNNER_VERSION = "2.3.0"
+RUNNER_VERSION = "2.4.0"
 WEIGHTED_HYBRID_CONFIG = {
     "hotpotqa": {"rank_constant": 10, "lexical_weight": 0.25, "dense_weight": 1.0},
     "natural_questions": {
@@ -465,6 +465,111 @@ def response_format(batch: list[dict], strict: bool) -> dict:
     }
 
 
+def citation_completion_response_format(batch: list[dict]) -> dict:
+    case_ids = [item["case_id"] for item in batch]
+    citation_ids = sorted(
+        {context["citation_id"] for item in batch for context in item["contexts"]}
+    )
+    schema = {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["results"],
+        "properties": {
+            "results": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["case_id", "citation_ids"],
+                    "properties": {
+                        "case_id": {"type": "string", "enum": case_ids},
+                        "citation_ids": {
+                            "type": "array",
+                            "items": {"type": "string", "enum": citation_ids},
+                        },
+                    },
+                },
+            }
+        },
+    }
+    return {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "public_rag_citation_completion",
+            "strict": True,
+            "schema": schema,
+        },
+    }
+
+
+def citation_completion_prompt(batch: list[dict], results: list[dict]) -> str:
+    rows = []
+    for item, result in zip(batch, results, strict=True):
+        rows.append(
+            {
+                "case_id": item["case_id"],
+                "query": item["query"],
+                "frozen_prediction": result["prediction"],
+                "current_citation_ids": result["citation_ids"],
+                "retrieved_evidence": [
+                    {
+                        "citation_id": context["citation_id"],
+                        "title": context["title"],
+                        "text": context["text"],
+                    }
+                    for context in item["contexts"]
+                ],
+            }
+        )
+    return (
+        "Complete the citations for each frozen HotpotQA answer. Do not change or "
+        "reinterpret the answer. Preserve every current citation and add only retrieved "
+        "documents required to establish the full multi-hop chain, including bridge "
+        "evidence and final-answer evidence. Do not add merely related documents. Return "
+        "exactly one result per case in input order, containing only case_id and "
+        "citation_ids.\n\n"
+        + json.dumps(rows, ensure_ascii=False)
+    )
+
+
+def validate_citation_completion(
+    value: object, batch: list[dict], results: list[dict]
+) -> list[str]:
+    if (
+        not isinstance(value, dict)
+        or set(value) != {"results"}
+        or not isinstance(value["results"], list)
+    ):
+        return ["citation completion root must contain exactly a results array"]
+    if len(value["results"]) != len(batch):
+        return ["citation completion result count does not match batch"]
+    errors = []
+    for expected, original, proposed in zip(
+        batch, results, value["results"], strict=True
+    ):
+        if not isinstance(proposed, dict) or set(proposed) != {
+            "case_id",
+            "citation_ids",
+        }:
+            errors.append(f"{expected['case_id']}: citation completion wrong fields")
+            continue
+        if proposed["case_id"] != expected["case_id"]:
+            errors.append(f"{expected['case_id']}: citation completion ID/order mismatch")
+        citations = proposed["citation_ids"]
+        allowed = {context["citation_id"] for context in expected["contexts"]}
+        if (
+            not isinstance(citations, list)
+            or any(not isinstance(item, str) for item in citations)
+            or len(citations) != len(set(citations))
+            or not set(citations) <= allowed
+        ):
+            errors.append(f"{expected['case_id']}: invalid completed citations")
+            continue
+        if not set(original["citation_ids"]) <= set(citations):
+            errors.append(f"{expected['case_id']}: citation completion removed a citation")
+    return errors
+
+
 def prompt(batch: list[dict], prompt_policy: str = "standard") -> str:
     if prompt_policy not in {"standard", "benchmark_aware"}:
         raise ValueError(f"unknown prompt policy: {prompt_policy}")
@@ -527,6 +632,91 @@ def contract_batch(batch: list[dict]) -> list[dict]:
     return [
         {**item, "case_id": f"C{position}"} for position, item in enumerate(batch, 1)
     ]
+
+
+def complete_hotpot_citations(
+    wire_batch: list[dict], results: list[dict], profile: dict
+) -> tuple[list[dict], dict, list[dict], list[str]]:
+    eligible = [
+        index
+        for index, result in enumerate(results)
+        if result["prediction"].strip().casefold() != SENTINEL.casefold()
+    ]
+    if not eligible:
+        return results, {"attempted": False, "reason": "no_answer_predictions"}, [], []
+    selected_batch = [wire_batch[index] for index in eligible]
+    selected_results = [results[index] for index in eligible]
+    messages = [
+        {"role": "system", "content": SYSTEM},
+        {
+            "role": "user",
+            "content": citation_completion_prompt(selected_batch, selected_results),
+        },
+    ]
+    response_contract = citation_completion_response_format(selected_batch)
+    calls = []
+    raw_outputs = []
+    errors = []
+    accepted = None
+    for _ in range(3):
+        try:
+            call = chat_with_metadata(
+                profile["model"],
+                messages,
+                max_tokens=min(1200, profile["max_tokens"]),
+                temperature=profile["temperature"],
+                retries=6,
+                response_format=response_contract,
+                request_options=profile["request_options"],
+                timeout_seconds=profile.get("timeout_seconds"),
+            )
+            call_record = call.to_record()
+            call_record["execution_scope"] = "citation_completion"
+            call_record["wire_case_ids"] = [item["case_id"] for item in selected_batch]
+            calls.append(call_record)
+            raw_outputs.append(call.content)
+            try:
+                candidate = json.loads(call.content)
+            except json.JSONDecodeError as exc:
+                errors = [f"invalid citation completion JSON: {exc}"]
+                continue
+            errors = validate_citation_completion(
+                candidate, selected_batch, selected_results
+            )
+            if errors:
+                continue
+            accepted = candidate["results"]
+            break
+        except Exception as exc:  # noqa: BLE001 - retain optional repair failure
+            errors = [f"{type(exc).__name__}: {exc}"]
+
+    completed = [dict(result) for result in results]
+    changes = []
+    if accepted is not None:
+        for index, proposed in zip(eligible, accepted, strict=True):
+            before = list(completed[index]["citation_ids"])
+            after = list(proposed["citation_ids"])
+            completed[index]["citation_ids"] = after
+            if after != before:
+                changes.append(
+                    {
+                        "wire_case_id": completed[index]["case_id"],
+                        "before": before,
+                        "after": after,
+                    }
+                )
+    record = {
+        "attempted": True,
+        "valid": accepted is not None,
+        "eligible_wire_case_ids": [
+            selected_results[index]["case_id"] for index in range(len(selected_results))
+        ],
+        "messages_sha256": canonical_sha256(messages),
+        "response_format_sha256": canonical_sha256(response_contract),
+        "errors": [] if accepted is not None else errors,
+        "changes": changes,
+    }
+    return completed, record, calls, raw_outputs
 
 
 def validate_output(value: object, batch: list[dict]) -> list[str]:
@@ -781,7 +971,10 @@ def run_batch(
     profile_id: str,
     batch_id: str,
     prompt_policy: str = "standard",
+    citation_policy: str = "standard",
 ) -> dict:
+    if citation_policy not in {"standard", "complete_hotpot_chain"}:
+        raise ValueError(f"unknown citation policy: {citation_policy}")
     profile = PROFILES[profile_id]
     wire_batch = contract_batch(batch)
     calls = []
@@ -837,6 +1030,18 @@ def run_batch(
             parsed = {"results": recovered}
             errors = []
             execution_events.append("retried_invalid_case_slots")
+    citation_completion_record = {"attempted": False, "reason": "policy_disabled"}
+    if (
+        parsed is not None
+        and citation_policy == "complete_hotpot_chain"
+        and batch[0]["benchmark_id"] == "hotpotqa"
+    ):
+        completed, citation_completion_record, repair_calls, repair_outputs = (
+            complete_hotpot_citations(wire_batch, parsed["results"], profile)
+        )
+        parsed = {"results": completed}
+        calls.extend(repair_calls)
+        raw_outputs.extend(repair_outputs)
     return {
         "schema_version": "1.1.0",
         "batch_id": batch_id,
@@ -874,6 +1079,7 @@ def run_batch(
         ),
         "execution_events": execution_events,
         "case_slot_retry_records": slot_retry_records,
+        "citation_completion": citation_completion_record,
         "raw_contract_valid": parsed is not None
         and not execution_events
         and not normalization_attempts[-1],
@@ -1171,6 +1377,11 @@ def main() -> None:
     parser.add_argument(
         "--prompt-policy", choices=("standard", "benchmark_aware"), default="standard"
     )
+    parser.add_argument(
+        "--citation-policy",
+        choices=("standard", "complete_hotpot_chain"),
+        default="standard",
+    )
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--max-document-chars", type=int, default=6000)
@@ -1270,6 +1481,7 @@ def main() -> None:
             ),
         },
         "prompt_policy": args.prompt_policy,
+        "citation_policy": args.citation_policy,
         "batch_size": args.batch_size,
         "workers": args.workers,
         "max_document_chars": args.max_document_chars,
@@ -1305,7 +1517,12 @@ def main() -> None:
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
         futures = {
             executor.submit(
-                run_batch, batch, args.profile, batch_id, args.prompt_policy
+                run_batch,
+                batch,
+                args.profile,
+                batch_id,
+                args.prompt_policy,
+                args.citation_policy,
             ): (
                 batch_id,
                 batch,
