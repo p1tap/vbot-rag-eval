@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-18T04:43:37.343809+00:00",
+  "status": "sample_complete",
+  "resume_claim_ready": false,
+  "identity_sha256": "7bf47216dcd2dccfbeb97225ed8cc543953409bce54b2f3af422e22d6c5bab4a",
+  "identity": {
+    "runner_version": "2.2.0",
+    "runner_source_sha256": "4f81314b8c15c4dda3504e3e3b282cff62a9711591c285598f393619d18fcc8f",
+    "response_contract_version": "public-rag-batch-1.4.0-observed-serialization",
+    "profile_id": "deepseek-v4-flash-high-openrouter-baidu",
+    "profile": {
+      "model": "deepseek/deepseek-v4-flash",
+      "temperature": null,
+      "max_tokens": 2000,
+      "strict_schema": true,
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "baidu/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        }
+      },
+      "timeout_seconds": 600,
+      "endpoint": "https://openrouter.ai/api/v1",
+      "deployment_kind": "openrouter_provider_pinned_baidu_fp8",
+      "pricing_checked_at_utc": "2026-07-18",
+      "input_usd_per_million_tokens": 0.0983,
+      "output_usd_per_million_tokens": 0.1966
+    },
+    "benchmarks": [
+      "hotpotqa",
+      "natural_questions",
+      "fever"
+    ],
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "suite_report_sha256": "b1b779047fe40767e04b316f32617ffb4792a3ec719b0e4070b24fbbaf02ceb6",
+    "top_k": 4,
+    "batch_size": 4,
+    "workers": 1,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 100,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "03022ecc8fb51ec293e620dd1e60a504fe2a97ae4baf147975fa26eb5e203453"
+  },
+  "case_count": 300,
+  "batch_count": 75,
+  "valid_batch_count": 75,
+  "raw_contract_valid_batch_count": 75,
+  "deterministically_normalized_batch_count": 0,
+  "case_slot_retry_batch_count": 0,
+  "deterministic_normalization_rate": 0.0,
+  "case_slot_retry_batch_rate": 0.0,
+  "contract_guardrails": {
+    "max_deterministic_normalization_rate": 0.05,
+    "normalization_rate_pass": true,
+    "max_case_slot_retry_batch_rate": 0.01,
+    "case_slot_retry_rate_pass": true
+  },
+  "fail_closed_case_count": 0,
+  "metrics": {
+    "fever": {
+      "case_count": 100,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.7162162162162162,
+      "retrieval_complete_gold_rate": 0.5945945945945946,
+      "citation_precision": 0.7,
+      "citation_recall": 0.6058558558558558,
+      "joint_correct_rate": 0.62,
+      "label_accuracy": 0.75,
+      "evidence_complete_rate": 0.63
+    },
+    "hotpotqa": {
+      "case_count": 100,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.99,
+      "retrieval_complete_gold_rate": 0.7,
+      "citation_precision": 0.9466666666666667,
+      "citation_recall": 0.585,
+      "joint_correct_rate": 0.33,
+      "answer_exact_match": 0.49,
+      "answer_f1": 0.6289141414141413,
+      "answerability_accuracy": 0.75
+    },
+    "natural_questions": {
+      "case_count": 100,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.7407407407407407,
+      "retrieval_complete_gold_rate": 0.7037037037037037,
+      "citation_precision": 0.48148148148148145,
+      "citation_recall": 0.6111111111111112,
+      "joint_correct_rate": 0.42,
+      "answer_exact_match": 0.47,
+      "answer_f1": 0.5613376736127317,
+      "answerability_accuracy": 0.71
+    },
+    "macro": {
+      "case_count": 300,
+      "joint_correct_rate": 0.4566666666666666
+    }
+  },
+  "operation": {
+    "call_count": 76,
+    "worker_count": 1,
+    "invocation_wall_seconds": 806.7949059999955,
+    "evaluated_cases_per_invocation_second": 0.371841713140417,
+    "call_latency_ms": {
+      "count": 76,
+      "mean": 9960.098894736846,
+      "p50": 8334.069,
+      "p95": 18191.668,
+      "p99": 35680.041000000005
+    },
+    "provider_reported_cost_total": 0.04314281820000001,
+    "usage": {
+      "completion_tokens": 71577,
+      "cost": 0.04314281820000001,
+      "prompt_tokens": 300648,
+      "total_tokens": 372225
+    }
+  },
+  "artifacts": {
+    "batch_records_path": "reports/public-benchmarks/deepseek-v4-flash-high-openrouter-baidu-pilot-300.batches.jsonl",
+    "batch_records_sha256": "f30c6d5dc826199ff201123678d9b2dffc6fa50e01b26c84e6af109cc3d54cdf",
+    "case_records_path": "reports/public-benchmarks/deepseek-v4-flash-high-openrouter-baidu-pilot-300.cases.jsonl",
+    "case_records_sha256": "733ac85e583ef595d3580c1da6041935157b0ab3cc237031038963c99365c038",
+    "case_results_canonical_sha256": "48030a759add5c980cfb253cd4f85b511d35d4589685e477af098005ab75cbe6"
+  },
+  "provenance": {
+    "public_annotations": "inherited_from_pinned_publishers",
+    "local_adapter_review": "ai_agent_not_human",
+    "locally_human_reviewed_public_cases": 0
+  },
+  "limitations": [
+    "All three public inputs are development sets and may be present in model training data.",
+    "QA correctness uses normalized exact match and token F1; it does not treat an LLM judge as ground truth.",
+    "Long documents are compressed with a query-only lexical sentence selector before generation.",
+    "Fail-closed invalid batches are scored as unanswerable/not-enough-information.",
+    "Narrow deterministic serialization normalization is counted separately from raw contract validity; it never invents or drops answer or citation values.",
+    "A malformed batch slot may be retried alone under the same profile and separately hashed strict schema; this execution fallback is counted separately and never infers a missing field.",
+    "For FEVER only, the exact QA abstention alias __UNANSWERABLE__ is deterministically canonicalized to the semantically equivalent not_enough_info label and recorded per batch."
+  ]
+}

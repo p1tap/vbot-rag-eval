@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-18T00:37:19.422032+00:00",
+  "status": "sample_complete",
+  "resume_claim_ready": false,
+  "identity_sha256": "ab2c3db251bb1904c6cef729c791758b0e209a471f1636078ace9dc6dbaddf41",
+  "identity": {
+    "runner_version": "2.2.0",
+    "runner_source_sha256": "0c65a5758c675f55fb5a6e20de75878b689c91939bc6651b6d55693ab5baa21d",
+    "response_contract_version": "public-rag-batch-1.4.0-observed-serialization",
+    "profile_id": "gpt-oss-20b-local-high",
+    "profile": {
+      "model": "gpt-oss-rag-16k:latest",
+      "temperature": 1.0,
+      "max_tokens": 2000,
+      "strict_schema": true,
+      "request_options": {
+        "think": "high"
+      },
+      "timeout_seconds": 600,
+      "endpoint": "http://localhost:11434",
+      "deployment_kind": "local_ollama",
+      "ollama_model_id": "6f9b0942e9f4",
+      "weights_blob_sha256": "e7b273f9636059a689e3ddcab3716e4f65abe0143ac978e46673ad0e52d09efb",
+      "modelfile_path": "config/ollama-gpt-oss-20b-rag.Modelfile",
+      "modelfile_sha256": "2b22abd35c455ecf79d5f51bc735fa4a2e0ded2e261348ac9ca6ff0d419588ff",
+      "runtime": "ollama-0.30.9",
+      "accelerator": "NVIDIA GeForce RTX 5080 16303 MiB",
+      "driver_version": "610.74"
+    },
+    "benchmarks": [
+      "hotpotqa",
+      "natural_questions",
+      "fever"
+    ],
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "suite_report_sha256": "b1b779047fe40767e04b316f32617ffb4792a3ec719b0e4070b24fbbaf02ceb6",
+    "top_k": 4,
+    "batch_size": 4,
+    "workers": 1,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 100,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "03022ecc8fb51ec293e620dd1e60a504fe2a97ae4baf147975fa26eb5e203453"
+  },
+  "case_count": 300,
+  "batch_count": 75,
+  "valid_batch_count": 75,
+  "raw_contract_valid_batch_count": 72,
+  "deterministically_normalized_batch_count": 0,
+  "case_slot_retry_batch_count": 3,
+  "deterministic_normalization_rate": 0.0,
+  "case_slot_retry_batch_rate": 0.04,
+  "contract_guardrails": {
+    "max_deterministic_normalization_rate": 0.05,
+    "normalization_rate_pass": true,
+    "max_case_slot_retry_batch_rate": 0.01,
+    "case_slot_retry_rate_pass": false
+  },
+  "fail_closed_case_count": 0,
+  "metrics": {
+    "fever": {
+      "case_count": 100,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.7162162162162162,
+      "retrieval_complete_gold_rate": 0.5945945945945946,
+      "citation_precision": 0.6940298507462687,
+      "citation_recall": 0.6126126126126126,
+      "joint_correct_rate": 0.61,
+      "label_accuracy": 0.72,
+      "evidence_complete_rate": 0.63
+    },
+    "hotpotqa": {
+      "case_count": 100,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.99,
+      "retrieval_complete_gold_rate": 0.7,
+      "citation_precision": 0.9533333333333334,
+      "citation_recall": 0.515,
+      "joint_correct_rate": 0.21,
+      "answer_exact_match": 0.52,
+      "answer_f1": 0.6406825396825394,
+      "answerability_accuracy": 0.75
+    },
+    "natural_questions": {
+      "case_count": 100,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.7407407407407407,
+      "retrieval_complete_gold_rate": 0.7037037037037037,
+      "citation_precision": 0.45,
+      "citation_recall": 0.6018518518518519,
+      "joint_correct_rate": 0.41,
+      "answer_exact_match": 0.46,
+      "answer_f1": 0.5363513918038211,
+      "answerability_accuracy": 0.74
+    },
+    "macro": {
+      "case_count": 300,
+      "joint_correct_rate": 0.41
+    }
+  },
+  "operation": {
+    "call_count": 84,
+    "worker_count": 1,
+    "invocation_wall_seconds": 5495.568875099998,
+    "evaluated_cases_per_invocation_second": 0.05458943501905272,
+    "call_latency_ms": {
+      "count": 84,
+      "mean": 34315.31777380951,
+      "p50": 27376.157,
+      "p95": 92445.6749,
+      "p99": 113870.75472
+    },
+    "provider_reported_cost_total": null,
+    "usage": {
+      "completion_tokens": 6393,
+      "prompt_tokens": 410190,
+      "total_tokens": 416583
+    }
+  },
+  "artifacts": {
+    "batch_records_path": "reports/public-benchmarks/gpt-oss-20b-local-high-pilot-300.batches.jsonl",
+    "batch_records_sha256": "fafc83b88ff6e4c7307ef1b0b30c856e759674450c4211487477c616922e0ff6",
+    "case_records_path": "reports/public-benchmarks/gpt-oss-20b-local-high-pilot-300.cases.jsonl",
+    "case_records_sha256": "89dd5956ae388500adbc5ab7f69c03797d0a01e9fbf6d34b1894e6b61bf926b7",
+    "case_results_canonical_sha256": "0cd1dc4f225e1c281aff0a8c67ce9f3d2b7bd58c883b5f75185150f55de8c48c"
+  },
+  "provenance": {
+    "public_annotations": "inherited_from_pinned_publishers",
+    "local_adapter_review": "ai_agent_not_human",
+    "locally_human_reviewed_public_cases": 0
+  },
+  "limitations": [
+    "All three public inputs are development sets and may be present in model training data.",
+    "QA correctness uses normalized exact match and token F1; it does not treat an LLM judge as ground truth.",
+    "Long documents are compressed with a query-only lexical sentence selector before generation.",
+    "Fail-closed invalid batches are scored as unanswerable/not-enough-information.",
+    "Narrow deterministic serialization normalization is counted separately from raw contract validity; it never invents or drops answer or citation values.",
+    "A malformed batch slot may be retried alone under the same profile and separately hashed strict schema; this execution fallback is counted separately and never infers a missing field.",
+    "For FEVER only, the exact QA abstention alias __UNANSWERABLE__ is deterministically canonicalized to the semantically equivalent not_enough_info label and recorded per batch."
+  ]
+}

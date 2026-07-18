@@ -1,0 +1,115 @@
+{
+  "benchmarks": {
+    "fever": {
+      "annotation_votes_preserved": 3213,
+      "answerability": {
+        "answerable": 1374,
+        "unanswerable": 626
+      },
+      "bytes": 5254574,
+      "cases": 2000,
+      "conversion_loss_rate": 0.0,
+      "evidence_references_resolved": 2281,
+      "labels": {
+        "not_enough_info": 626,
+        "refutes": 682,
+        "supports": 692
+      },
+      "sha256": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041",
+      "source_manifest_sha256": "939d6a8bb180ed10d4d71a0c2c813b9e3cb4a077a21b188f80e612b213515e98",
+      "unique_source_ids": 2000
+    },
+    "hotpotqa": {
+      "annotation_votes_preserved": 3000,
+      "answerability": {
+        "answerable": 3000
+      },
+      "bytes": 28787704,
+      "cases": 3000,
+      "conversion_loss_rate": 0.0,
+      "evidence_references_resolved": 7311,
+      "labels": {},
+      "sha256": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "source_manifest_sha256": "c20b638ca82b21d04fe12e14ff417ad05153d4d215a65de54497fca4e972f7c6",
+      "unique_source_ids": 3000
+    },
+    "natural_questions": {
+      "annotation_votes_preserved": 25000,
+      "answerability": {
+        "answerable": 2945,
+        "unanswerable": 2055
+      },
+      "bytes": 353513580,
+      "cases": 5000,
+      "conversion_loss_rate": 0.0,
+      "evidence_references_resolved": 3410,
+      "labels": {},
+      "sha256": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "source_manifest_sha256": "563569ee0f1f5c02be4d3803c56f1110a96d0010858533ee8fb6352f8842234b",
+      "unique_source_ids": 5000
+    }
+  },
+  "end_to_end_evaluation": {
+    "batch_count": 2500,
+    "case_count": 10000,
+    "case_slot_retry_batch_count": 1,
+    "case_slot_retry_batch_rate": 0.0004,
+    "deterministic_normalization_rate": 0.0,
+    "deterministically_normalized_batch_count": 0,
+    "metrics": {
+      "fever": {
+        "case_count": 2000,
+        "citation_precision": 0.6229923400049419,
+        "citation_recall": 0.6185234282941706,
+        "evidence_complete_rate": 0.6065,
+        "fail_closed_count": 0,
+        "joint_correct_rate": 0.5855,
+        "label_accuracy": 0.702,
+        "retrieval_any_gold_rate": 0.6950509461426492,
+        "retrieval_complete_gold_rate": 0.6179039301310044
+      },
+      "hotpotqa": {
+        "answer_exact_match": 0.5376666666666666,
+        "answer_f1": 0.6484188916489473,
+        "answerability_accuracy": 0.7983333333333333,
+        "case_count": 3000,
+        "citation_precision": 0.958107167710508,
+        "citation_recall": 0.611,
+        "fail_closed_count": 0,
+        "joint_correct_rate": 0.324,
+        "retrieval_any_gold_rate": 0.9896666666666667,
+        "retrieval_complete_gold_rate": 0.7616666666666667
+      },
+      "macro": {
+        "case_count": 10000,
+        "joint_correct_rate": 0.4345666666666667
+      },
+      "natural_questions": {
+        "answer_exact_match": 0.4638,
+        "answer_f1": 0.5357888187306538,
+        "answerability_accuracy": 0.713,
+        "case_count": 5000,
+        "citation_precision": 0.4426616915422885,
+        "citation_recall": 0.5655065082059987,
+        "fail_closed_count": 0,
+        "joint_correct_rate": 0.3942,
+        "retrieval_any_gold_rate": 0.7368421052631579,
+        "retrieval_complete_gold_rate": 0.6723259762308998
+      }
+    },
+    "path": "reports/public-benchmarks/end-to-end-10000-deepseek-v4-flash-high-openrouter-baidu-w4-v220.json",
+    "profile_id": "deepseek-v4-flash-high-openrouter-baidu",
+    "raw_contract_valid_batch_count": 2499,
+    "sha256": "89cdcb7bfe231741fa583d07227f46864ddd4b7a310cdd231be7517173cd0172"
+  },
+  "human_annotation_provenance": "inherited_from_pinned_publishers",
+  "local_review_provenance": "ai_agent_not_human",
+  "locally_ai_reviewed_case_count": 48,
+  "locally_human_reviewed_case_count": 0,
+  "public_case_count": 10000,
+  "resume_claim_blockers": [],
+  "resume_claim_ready": true,
+  "status": "end_to_end_evaluated",
+  "suite_report_version": "1.1.0",
+  "unique_case_ids": 10000
+}
