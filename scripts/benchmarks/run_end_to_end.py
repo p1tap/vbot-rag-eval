@@ -1,4 +1,5 @@
 """Run resumable, evidence-citing end-to-end generation on the public 10K suite."""
+
 from __future__ import annotations
 
 import argparse
@@ -21,6 +22,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from rag import llm  # noqa: E402
+from rag.evidence_compression import (  # noqa: E402
+    SEMANTIC_E5_CONFIG,
+    compress_documents,
+    compress_lexical,
+)
 from rag.llm import chat_with_metadata  # noqa: E402
 from rag.provenance import sha256_file  # noqa: E402
 from rag.retrievers import (  # noqa: E402
@@ -44,7 +50,7 @@ DEFAULT_FEVER_INDEX = (
 )
 SENTINEL = "__UNANSWERABLE__"
 LABELS = {"supports", "refutes", "not_enough_info"}
-RUNNER_VERSION = "2.2.0"
+RUNNER_VERSION = "2.3.0"
 WEIGHTED_HYBRID_CONFIG = {
     "hotpotqa": {"rank_constant": 10, "lexical_weight": 0.25, "dense_weight": 1.0},
     "natural_questions": {
@@ -172,7 +178,9 @@ def canonical_sha256(value: object) -> str:
 def append_jsonl(path: Path, value: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8", newline="\n") as handle:
-        handle.write(json.dumps(value, ensure_ascii=False, separators=(",", ":")) + "\n")
+        handle.write(
+            json.dumps(value, ensure_ascii=False, separators=(",", ":")) + "\n"
+        )
         handle.flush()
 
 
@@ -215,40 +223,16 @@ def ranked_ids(path: Path, sample_per_benchmark: int) -> set[str] | None:
     with path.open("r", encoding="utf-8") as handle:
         for line in handle:
             case = json.loads(line)
-            digest = hashlib.sha256(f"public-e2e-pilot-v1:{case['id']}".encode()).hexdigest()
+            digest = hashlib.sha256(
+                f"public-e2e-pilot-v1:{case['id']}".encode()
+            ).hexdigest()
             ranked.append((digest, case["id"]))
     return {case_id for _, case_id in sorted(ranked)[:sample_per_benchmark]}
 
 
 def compress_document(query: str, document: dict, max_chars: int) -> str:
-    sentences = [str(item).strip() for item in document.get("sentences", []) if str(item).strip()]
-    complete = " ".join(sentences)
-    if len(complete) <= max_chars:
-        return complete
-    if len(sentences) == 1:
-        sentences = [
-            item.strip()
-            for item in re.split(r"(?<=[.!?])\s+|[\r\n]+", complete)
-            if item.strip()
-        ]
-    query_terms = set(re.findall(r"\w+", query.casefold()))
-    ranked = []
-    for index, sentence in enumerate(sentences):
-        terms = set(re.findall(r"\w+", sentence.casefold()))
-        overlap = sum(1 + len(term) / 20 for term in query_terms & terms)
-        ranked.append((-overlap, index))
-    selected = set()
-    for _, index in sorted(ranked)[:12]:
-        selected.update(range(max(0, index - 1), min(len(sentences), index + 2)))
-    pieces = []
-    length = 0
-    for index in sorted(selected):
-        piece = f"[{index}] {sentences[index]}"
-        if pieces and length + len(piece) + 1 > max_chars:
-            continue
-        pieces.append(piece)
-        length += len(piece) + 1
-    return " ".join(pieces)[:max_chars]
+    """Backward-compatible entry point for the frozen lexical compressor."""
+    return compress_lexical(query, document, max_chars)
 
 
 def dense_work_items(
@@ -258,6 +242,7 @@ def dense_work_items(
     max_document_chars: int,
     sample_per_benchmark: int,
     retrieval_mode: str = "dense",
+    compression_mode: str = "lexical",
 ) -> list[dict]:
     source = DEFAULT_INPUTS[benchmark_id]
     selected_ids = ranked_ids(source, sample_per_benchmark)
@@ -287,7 +272,14 @@ def dense_work_items(
             offset += count
             if selected_ids is not None and case["id"] not in selected_ids:
                 continue
-            items.append(work_item(case, selected_documents, max_document_chars))
+            items.append(
+                work_item(
+                    case,
+                    selected_documents,
+                    max_document_chars,
+                    compression_mode=compression_mode,
+                )
+            )
     if offset != manifest["document_count"]:
         raise ValueError(f"dense passage offset drifted for {benchmark_id}")
     return items
@@ -338,7 +330,11 @@ def rank_bounded_documents(
 
 
 def fever_work_items(
-    *, top_k: int, max_document_chars: int, sample_per_benchmark: int
+    *,
+    top_k: int,
+    max_document_chars: int,
+    sample_per_benchmark: int,
+    compression_mode: str = "lexical",
 ) -> list[dict]:
     source = DEFAULT_INPUTS["fever"]
     selected_ids = ranked_ids(source, sample_per_benchmark)
@@ -353,24 +349,46 @@ def fever_work_items(
                     continue
                 hits = index.rank(case["query"], top_k)
                 documents = [
-                    {"id": hit.document.id, "title": hit.document.title, "sentences": [hit.document.text]}
+                    {
+                        "id": hit.document.id,
+                        "title": hit.document.title,
+                        "sentences": [hit.document.text],
+                    }
                     for hit in hits
                 ]
-                items.append(work_item(case, documents, max_document_chars))
+                items.append(
+                    work_item(
+                        case,
+                        documents,
+                        max_document_chars,
+                        compression_mode=compression_mode,
+                    )
+                )
                 if len(items) % 100 == 0:
                     print(f"prepared FEVER contexts: {len(items)}", flush=True)
     return items
 
 
-def work_item(case: dict, documents: list[dict], max_document_chars: int) -> dict:
+def work_item(
+    case: dict,
+    documents: list[dict],
+    max_document_chars: int,
+    *,
+    compression_mode: str = "lexical",
+) -> dict:
+    compressed = compress_documents(
+        case["query"], documents, max_document_chars, mode=compression_mode
+    )
     contexts = []
-    for position, document in enumerate(documents, start=1):
+    for position, (document, text) in enumerate(
+        zip(documents, compressed, strict=True), start=1
+    ):
         contexts.append(
             {
                 "citation_id": f"D{position}",
                 "document_id": document["id"],
                 "title": document["title"],
-                "text": compress_document(case["query"], document, max_document_chars),
+                "text": text,
             }
         )
     document_by_id = {document["id"]: document for document in case["documents"]}
@@ -382,7 +400,10 @@ def work_item(case: dict, documents: list[dict], max_document_chars: int) -> dic
         return unicodedata.normalize("NFC", document["title"].replace(" ", "_"))
 
     gold_document_ids = sorted(
-        {evaluation_document_id(item["document_id"]) for item in case["supporting_evidence"]}
+        {
+            evaluation_document_id(item["document_id"])
+            for item in case["supporting_evidence"]
+        }
     )
     gold_sets = []
     for vote in case["annotation_votes"]:
@@ -408,11 +429,7 @@ def response_format(batch: list[dict], strict: bool) -> dict:
         return {"type": "json_object"}
     case_ids = [item["case_id"] for item in batch]
     citation_ids = sorted(
-        {
-            context["citation_id"]
-            for item in batch
-            for context in item["contexts"]
-        }
+        {context["citation_id"] for item in batch for context in item["contexts"]}
     )
     prediction_schema = (
         {"type": "string", "enum": sorted(LABELS)}
@@ -448,7 +465,9 @@ def response_format(batch: list[dict], strict: bool) -> dict:
     }
 
 
-def prompt(batch: list[dict]) -> str:
+def prompt(batch: list[dict], prompt_policy: str = "standard") -> str:
+    if prompt_policy not in {"standard", "benchmark_aware"}:
+        raise ValueError(f"unknown prompt policy: {prompt_policy}")
     task = (
         "fact_verification"
         if batch[0]["benchmark_id"] == "fever"
@@ -462,6 +481,14 @@ def prompt(batch: list[dict]) -> str:
         "or __UNANSWERABLE__; never use supports, refutes, or "
         "not_enough_info. "
     )
+    if prompt_policy == "benchmark_aware" and batch[0]["benchmark_id"] == "hotpotqa":
+        task_rule += (
+            "HotpotQA questions can require a multi-hop evidence chain. Before answering, "
+            "identify every retrieved document needed to establish the intermediate link "
+            "and the final answer. Cite every document in that chain, including bridge "
+            "evidence, rather than citing only the document containing the answer phrase. "
+            "Do not cite unrelated documents. "
+        )
     rows = []
     for item in batch:
         rows.append(
@@ -486,7 +513,7 @@ def prompt(batch: list[dict]) -> str:
         f"Task: {task}. {task_rule}Return exactly one JSON object shaped like "
         f"{shape}, replacing the example values. Include exactly one result "
         "per case, in input order. Citation IDs are local to each case and "
-        "must be quoted strings such as [\"D1\",\"D2\"], never numeric "
+        'must be quoted strings such as ["D1","D2"], never numeric '
         "values such as [1,2]. Every result must contain exactly case_id, "
         "prediction, and citation_ids. For __UNANSWERABLE__ or "
         "not_enough_info, citation_ids must be [] and must not be omitted.\n\n"
@@ -497,26 +524,43 @@ def prompt(batch: list[dict]) -> str:
 def contract_batch(batch: list[dict]) -> list[dict]:
     """Replace long source IDs with ordered, batch-local wire identifiers."""
 
-    return [{**item, "case_id": f"C{position}"} for position, item in enumerate(batch, 1)]
+    return [
+        {**item, "case_id": f"C{position}"} for position, item in enumerate(batch, 1)
+    ]
 
 
 def validate_output(value: object, batch: list[dict]) -> list[str]:
-    if not isinstance(value, dict) or set(value) != {"results"} or not isinstance(value["results"], list):
+    if (
+        not isinstance(value, dict)
+        or set(value) != {"results"}
+        or not isinstance(value["results"], list)
+    ):
         return ["root must contain exactly a results array"]
     if len(value["results"]) != len(batch):
         return ["result count does not match batch"]
     errors = []
     for expected, result in zip(batch, value["results"]):
-        if not isinstance(result, dict) or set(result) != {"case_id", "prediction", "citation_ids"}:
+        if not isinstance(result, dict) or set(result) != {
+            "case_id",
+            "prediction",
+            "citation_ids",
+        }:
             errors.append(f"{expected['case_id']}: wrong fields")
             continue
         if result["case_id"] != expected["case_id"]:
             errors.append(f"{expected['case_id']}: ID/order mismatch")
-        if not isinstance(result["prediction"], str) or not result["prediction"].strip():
+        if (
+            not isinstance(result["prediction"], str)
+            or not result["prediction"].strip()
+        ):
             errors.append(f"{expected['case_id']}: empty prediction")
         citations = result["citation_ids"]
         allowed = {item["citation_id"] for item in expected["contexts"]}
-        if not isinstance(citations, list) or len(citations) != len(set(citations)) or not set(citations) <= allowed:
+        if (
+            not isinstance(citations, list)
+            or len(citations) != len(set(citations))
+            or not set(citations) <= allowed
+        ):
             errors.append(f"{expected['case_id']}: invalid citations")
         prediction = str(result["prediction"]).strip().casefold()
         if expected["benchmark_id"] == "fever" and prediction not in LABELS:
@@ -547,9 +591,7 @@ def one_edit_apart(left: str, right: str) -> bool:
     return True
 
 
-def expand_merged_result_pairs(
-    root_pairs: object, expected_count: int
-) -> dict | None:
+def expand_merged_result_pairs(root_pairs: object, expected_count: int) -> dict | None:
     """Expand only exact repeated result-field triplets inside results objects."""
 
     if (
@@ -674,11 +716,7 @@ def parse_provider_output(
     ):
         value = {"results": value}
         events.append("wrapped_results_array")
-    if (
-        len(batch) == 1
-        and isinstance(value, dict)
-        and set(value) == item_fields
-    ):
+    if len(batch) == 1 and isinstance(value, dict) and set(value) == item_fields:
         value = {"results": [value]}
         events.append("wrapped_single_result")
     if isinstance(value, dict) and isinstance(value.get("results"), list):
@@ -713,17 +751,15 @@ def parse_provider_output(
                     for item in prediction
                 )
                 and len({item.casefold() for item in prediction}) == len(prediction)
-                and not {
-                    item.casefold() for item in prediction
-                } & {SENTINEL.casefold(), *LABELS}
+                and not {item.casefold() for item in prediction}
+                & {SENTINEL.casefold(), *LABELS}
             ):
                 result["prediction"] = "; ".join(prediction)
                 serialized_nq_array = True
             if (
                 isinstance(result, dict)
                 and batch[0]["benchmark_id"] == "fever"
-                and str(result.get("prediction", "")).casefold()
-                == SENTINEL.casefold()
+                and str(result.get("prediction", "")).casefold() == SENTINEL.casefold()
             ):
                 result["prediction"] = "not_enough_info"
                 events.append("canonicalized_fever_abstention_label")
@@ -740,7 +776,12 @@ def parse_provider_output(
     return value, events, None
 
 
-def run_batch(batch: list[dict], profile_id: str, batch_id: str) -> dict:
+def run_batch(
+    batch: list[dict],
+    profile_id: str,
+    batch_id: str,
+    prompt_policy: str = "standard",
+) -> dict:
     profile = PROFILES[profile_id]
     wire_batch = contract_batch(batch)
     calls = []
@@ -751,7 +792,7 @@ def run_batch(batch: list[dict], profile_id: str, batch_id: str) -> dict:
     last_candidate = None
     messages = [
         {"role": "system", "content": SYSTEM},
-        {"role": "user", "content": prompt(wire_batch)},
+        {"role": "user", "content": prompt(wire_batch, prompt_policy)},
     ]
     for _ in range(3):
         try:
@@ -788,7 +829,7 @@ def run_batch(batch: list[dict], profile_id: str, batch_id: str) -> dict:
     execution_events = []
     if parsed is None:
         recovered, slot_retry_records, slot_calls, slot_outputs = recover_case_slots(
-            wire_batch, last_candidate, profile
+            wire_batch, last_candidate, profile, prompt_policy
         )
         calls.extend(slot_calls)
         raw_outputs.extend(slot_outputs)
@@ -841,7 +882,10 @@ def run_batch(batch: list[dict], profile_id: str, batch_id: str) -> dict:
 
 
 def recover_case_slots(
-    wire_batch: list[dict], candidate: object, profile: dict
+    wire_batch: list[dict],
+    candidate: object,
+    profile: dict,
+    prompt_policy: str = "standard",
 ) -> tuple[list[dict] | None, list[dict], list[dict], list[str]]:
     """Retry only invalid slots; never infer or rewrite semantic fields."""
 
@@ -868,7 +912,7 @@ def recover_case_slots(
         expected = wire_batch[index]
         slot_messages = [
             {"role": "system", "content": SYSTEM},
-            {"role": "user", "content": prompt([expected])},
+            {"role": "user", "content": prompt([expected], prompt_policy)},
         ]
         slot_calls = []
         slot_outputs = []
@@ -883,7 +927,9 @@ def recover_case_slots(
                     max_tokens=profile["max_tokens"],
                     temperature=profile["temperature"],
                     retries=6,
-                    response_format=response_format([expected], profile["strict_schema"]),
+                    response_format=response_format(
+                        [expected], profile["strict_schema"]
+                    ),
                     request_options=profile["request_options"],
                     timeout_seconds=profile.get("timeout_seconds"),
                 )
@@ -933,12 +979,19 @@ def recover_case_slots(
         recovered[index] = accepted
     if any(result is None for result in recovered):
         return None, records, calls, raw_outputs
-    return [result for result in recovered if result is not None], records, calls, raw_outputs
+    return (
+        [result for result in recovered if result is not None],
+        records,
+        calls,
+        raw_outputs,
+    )
 
 
 def normalize_answer(value: str) -> str:
     value = unicodedata.normalize("NFKD", value).casefold()
-    value = "".join(character for character in value if character not in string.punctuation)
+    value = "".join(
+        character for character in value if character not in string.punctuation
+    )
     value = re.sub(r"\b(a|an|the)\b", " ", value)
     return " ".join(value.split())
 
@@ -948,7 +1001,9 @@ def answer_scores(prediction: str, golds: list[str]) -> tuple[float, float]:
         correct = prediction.strip().casefold() == SENTINEL.casefold()
         return float(correct), float(correct)
     normalized_prediction = normalize_answer(prediction)
-    exact = max(float(normalized_prediction == normalize_answer(gold)) for gold in golds)
+    exact = max(
+        float(normalized_prediction == normalize_answer(gold)) for gold in golds
+    )
     prediction_tokens = normalized_prediction.split()
     best_f1 = 0.0
     for gold in golds:
@@ -976,12 +1031,16 @@ def case_results(batches: list[dict], work_by_id: dict[str, dict]) -> list[dict]
             result = generated.get(case_id)
             fail_closed = result is None
             if result is None:
-                prediction = "not_enough_info" if work["benchmark_id"] == "fever" else SENTINEL
+                prediction = (
+                    "not_enough_info" if work["benchmark_id"] == "fever" else SENTINEL
+                )
                 citation_ids = []
             else:
                 prediction = result["prediction"].strip()
                 citation_ids = result["citation_ids"]
-            citation_map = {row["citation_id"]: row["document_id"] for row in work["contexts"]}
+            citation_map = {
+                row["citation_id"]: row["document_id"] for row in work["contexts"]
+            }
             cited_documents = sorted({citation_map[item] for item in citation_ids})
             gold_documents = set(work["gold_document_ids"])
             retrieved_documents = set(work["retrieved_document_ids"])
@@ -992,19 +1051,33 @@ def case_results(batches: list[dict], work_by_id: dict[str, dict]) -> list[dict]
                 "prediction": prediction,
                 "fail_closed": fail_closed,
                 "gold": work["gold"],
-                "retrieval_any_gold": bool(gold_documents & retrieved_documents) if gold_documents else None,
-                "retrieval_complete_gold": gold_documents <= retrieved_documents if gold_documents else None,
-                "citation_precision": len(cited_set & gold_documents) / len(cited_set) if cited_set else None,
-                "citation_recall": len(cited_set & gold_documents) / len(gold_documents) if gold_documents else None,
+                "retrieval_any_gold": bool(gold_documents & retrieved_documents)
+                if gold_documents
+                else None,
+                "retrieval_complete_gold": gold_documents <= retrieved_documents
+                if gold_documents
+                else None,
+                "citation_precision": len(cited_set & gold_documents) / len(cited_set)
+                if cited_set
+                else None,
+                "citation_recall": len(cited_set & gold_documents) / len(gold_documents)
+                if gold_documents
+                else None,
                 "cited_document_ids": cited_documents,
             }
             if work["benchmark_id"] == "fever":
                 predicted_label = prediction.casefold()
                 label_correct = predicted_label == work["gold"]["label"]
                 if predicted_label == "not_enough_info":
-                    evidence_complete = work["gold"]["label"] == "not_enough_info" and not cited_documents
+                    evidence_complete = (
+                        work["gold"]["label"] == "not_enough_info"
+                        and not cited_documents
+                    )
                 else:
-                    evidence_complete = any(set(evidence_set) <= cited_set for evidence_set in work["gold_evidence_sets"])
+                    evidence_complete = any(
+                        set(evidence_set) <= cited_set
+                        for evidence_set in work["gold_evidence_sets"]
+                    )
                 row.update(
                     {
                         "label_correct": label_correct,
@@ -1022,7 +1095,10 @@ def case_results(batches: list[dict], work_by_id: dict[str, dict]) -> list[dict]
                             (prediction.casefold() == SENTINEL.casefold())
                             == (work["gold"]["answerability"] == "unanswerable")
                         ),
-                        "joint_correct": bool(exact and (not gold_documents or gold_documents <= cited_set)),
+                        "joint_correct": bool(
+                            exact
+                            and (not gold_documents or gold_documents <= cited_set)
+                        ),
                     }
                 )
             output.append(row)
@@ -1065,7 +1141,9 @@ def aggregate(rows: list[dict]) -> dict:
         result[benchmark_id] = metrics
     result["macro"] = {
         "case_count": len(rows),
-        "joint_correct_rate": statistics_mean([value["joint_correct_rate"] for value in result.values()]),
+        "joint_correct_rate": statistics_mean(
+            [value["joint_correct_rate"] for value in result.values()]
+        ),
     }
     return result
 
@@ -1087,6 +1165,12 @@ def main() -> None:
     parser.add_argument(
         "--retrieval-mode", choices=("dense", "weighted_hybrid"), default="dense"
     )
+    parser.add_argument(
+        "--compression-mode", choices=("lexical", "semantic_e5"), default="lexical"
+    )
+    parser.add_argument(
+        "--prompt-policy", choices=("standard", "benchmark_aware"), default="standard"
+    )
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--max-document-chars", type=int, default=6000)
@@ -1095,8 +1179,12 @@ def main() -> None:
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args()
     if min(args.top_k, args.batch_size, args.workers, args.max_document_chars) < 1:
-        raise SystemExit("top-k, batch-size, workers, and max-document-chars must be positive")
-    benchmark_ids = [item.strip() for item in args.benchmarks.split(",") if item.strip()]
+        raise SystemExit(
+            "top-k, batch-size, workers, and max-document-chars must be positive"
+        )
+    benchmark_ids = [
+        item.strip() for item in args.benchmarks.split(",") if item.strip()
+    ]
     if not benchmark_ids or set(benchmark_ids) - set(DEFAULT_INPUTS):
         raise SystemExit("unknown or empty benchmark selection")
     top_k_by_benchmark = {
@@ -1121,6 +1209,7 @@ def main() -> None:
                     top_k=top_k_by_benchmark[benchmark_id],
                     max_document_chars=args.max_document_chars,
                     sample_per_benchmark=args.sample_per_benchmark,
+                    compression_mode=args.compression_mode,
                 )
             )
         else:
@@ -1131,9 +1220,13 @@ def main() -> None:
                     max_document_chars=args.max_document_chars,
                     sample_per_benchmark=args.sample_per_benchmark,
                     retrieval_mode=args.retrieval_mode,
+                    compression_mode=args.compression_mode,
                 )
             )
-        print(f"prepared {benchmark_id}: {sum(row['benchmark_id'] == benchmark_id for row in works)}", flush=True)
+        print(
+            f"prepared {benchmark_id}: {sum(row['benchmark_id'] == benchmark_id for row in works)}",
+            flush=True,
+        )
 
     batches = []
     for benchmark_id in benchmark_ids:
@@ -1148,7 +1241,9 @@ def main() -> None:
         "profile_id": args.profile,
         "profile": PROFILES[args.profile],
         "benchmarks": benchmark_ids,
-        "source_sha256": {item: sha256_file(DEFAULT_INPUTS[item]) for item in benchmark_ids},
+        "source_sha256": {
+            item: sha256_file(DEFAULT_INPUTS[item]) for item in benchmark_ids
+        },
         "suite_report_sha256": canonical_sha256(suite),
         "top_k": (
             next(iter({top_k_by_benchmark[item] for item in benchmark_ids}))
@@ -1161,10 +1256,20 @@ def main() -> None:
         "retrieval": {
             "bounded_candidate_mode": args.retrieval_mode,
             "weighted_hybrid_config": (
-                WEIGHTED_HYBRID_CONFIG if args.retrieval_mode == "weighted_hybrid" else None
+                WEIGHTED_HYBRID_CONFIG
+                if args.retrieval_mode == "weighted_hybrid"
+                else None
             ),
             "fever_mode": "two_stage_bm25",
         },
+        "compression": {
+            "mode": args.compression_mode,
+            "max_document_chars": args.max_document_chars,
+            "semantic_e5_config": (
+                SEMANTIC_E5_CONFIG if args.compression_mode == "semantic_e5" else None
+            ),
+        },
+        "prompt_policy": args.prompt_policy,
         "batch_size": args.batch_size,
         "workers": args.workers,
         "max_document_chars": args.max_document_chars,
@@ -1180,7 +1285,9 @@ def main() -> None:
         if progress.get("identity_sha256") != identity_sha256:
             raise SystemExit(f"incompatible checkpoint identity: {progress_path}")
     else:
-        write_json(progress_path, {"identity_sha256": identity_sha256, "identity": identity})
+        write_json(
+            progress_path, {"identity_sha256": identity_sha256, "identity": identity}
+        )
 
     history = load_jsonl(checkpoint)
     by_batch = {}
@@ -1197,7 +1304,13 @@ def main() -> None:
 
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
         futures = {
-            executor.submit(run_batch, batch, args.profile, batch_id): (batch_id, batch, old)
+            executor.submit(
+                run_batch, batch, args.profile, batch_id, args.prompt_policy
+            ): (
+                batch_id,
+                batch,
+                old,
+            )
             for batch_id, batch, old in pending
         }
         completed = len(batches) - len(pending)
@@ -1223,7 +1336,9 @@ def main() -> None:
                 }
             record["run_identity_sha256"] = identity_sha256
             if old:
-                prior = {key: value for key, value in old.items() if key != "retry_history"}
+                prior = {
+                    key: value for key, value in old.items() if key != "retry_history"
+                }
                 record["retry_history"] = [*old.get("retry_history", []), prior]
             append_jsonl(checkpoint, record)
             by_batch[batch_id] = record
@@ -1257,8 +1372,7 @@ def main() -> None:
         for row in final_batches
     )
     case_slot_retry_batch_count = sum(
-        bool(row.get("valid") and row.get("execution_events"))
-        for row in final_batches
+        bool(row.get("valid") and row.get("execution_events")) for row in final_batches
     )
     normalization_rate = (
         normalized_batch_count / len(final_batches) if final_batches else 0.0
@@ -1299,8 +1413,7 @@ def main() -> None:
         "case_slot_retry_batch_rate": case_slot_retry_rate,
         "contract_guardrails": {
             "max_deterministic_normalization_rate": MAX_NORMALIZED_BATCH_RATE,
-            "normalization_rate_pass": normalization_rate
-            <= MAX_NORMALIZED_BATCH_RATE,
+            "normalization_rate_pass": normalization_rate <= MAX_NORMALIZED_BATCH_RATE,
             "max_case_slot_retry_batch_rate": MAX_CASE_SLOT_RETRY_BATCH_RATE,
             "case_slot_retry_rate_pass": case_slot_retry_rate
             <= MAX_CASE_SLOT_RETRY_BATCH_RATE,
@@ -1330,7 +1443,19 @@ def main() -> None:
             "provider_reported_cost_total": sum(costs) if costs else None,
             "usage": dict(
                 sorted(
-                    sum((Counter({key: value for key, value in call.get("usage", {}).items() if isinstance(value, (int, float))}) for call in calls), Counter()).items()
+                    sum(
+                        (
+                            Counter(
+                                {
+                                    key: value
+                                    for key, value in call.get("usage", {}).items()
+                                    if isinstance(value, (int, float))
+                                }
+                            )
+                            for call in calls
+                        ),
+                        Counter(),
+                    ).items()
                 )
             ),
         },
@@ -1349,7 +1474,11 @@ def main() -> None:
         "limitations": [
             "All three public inputs are development sets and may be present in model training data.",
             "QA correctness uses normalized exact match and token F1; it does not treat an LLM judge as ground truth.",
-            "Long documents are compressed with a query-only lexical sentence selector before generation.",
+            (
+                "Long documents are compressed with the pinned E5 semantic sentence selector before generation."
+                if args.compression_mode == "semantic_e5"
+                else "Long documents are compressed with a query-only lexical sentence selector before generation."
+            ),
             "Fail-closed invalid batches are scored as unanswerable/not-enough-information.",
             "Narrow deterministic serialization normalization is counted separately from raw contract validity; it never invents or drops answer or citation values.",
             "A malformed batch slot may be retried alone under the same profile and separately hashed strict schema; this execution fallback is counted separately and never infers a missing field.",
@@ -1358,7 +1487,16 @@ def main() -> None:
     }
     write_json(args.out, report)
     progress_path.unlink(missing_ok=True)
-    print(json.dumps({"case_count": len(rows), "metrics": report["metrics"], "operation": report["operation"]}, indent=2))
+    print(
+        json.dumps(
+            {
+                "case_count": len(rows),
+                "metrics": report["metrics"],
+                "operation": report["operation"],
+            },
+            indent=2,
+        )
+    )
     print(f"report -> {args.out}")
 
 

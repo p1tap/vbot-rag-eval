@@ -1,4 +1,5 @@
 """Compare paired public end-to-end pilot runs with fixed promotion rules."""
+
 from __future__ import annotations
 
 import argparse
@@ -7,12 +8,19 @@ import math
 from pathlib import Path
 
 
+FLOAT_TOLERANCE = 1e-12
+
+
 def load_rows(report: dict, report_path: Path) -> dict[str, dict]:
     path = Path(report["artifacts"]["case_records_path"])
     if not path.is_absolute():
         root = Path(__file__).resolve().parents[2]
         path = root / path
-    rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    rows = [
+        json.loads(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
     return {row["case_id"]: row for row in rows}
 
 
@@ -21,7 +29,9 @@ def exact_mcnemar_p(wins: int, losses: int) -> float:
     if not discordant:
         return 1.0
     smaller = min(wins, losses)
-    tail = sum(math.comb(discordant, index) for index in range(smaller + 1)) / (2**discordant)
+    tail = sum(math.comb(discordant, index) for index in range(smaller + 1)) / (
+        2**discordant
+    )
     return min(1.0, 2 * tail)
 
 
@@ -54,12 +64,15 @@ def main() -> None:
             and isinstance(cand.get(key), (int, float))
             and key != "case_count"
         }
-        if deltas[benchmark_id]["joint_correct_rate"] < -0.02:
+        if deltas[benchmark_id]["joint_correct_rate"] < -0.02 - FLOAT_TOLERANCE:
             regressions.append(
                 f"{benchmark_id} joint correctness regressed by more than 0.02"
             )
         citation_delta = deltas[benchmark_id].get("citation_precision")
-        if citation_delta is not None and citation_delta < -0.03:
+        if (
+            citation_delta is not None
+            and citation_delta < -0.03 - FLOAT_TOLERANCE
+        ):
             regressions.append(
                 f"{benchmark_id} citation precision regressed by more than 0.03"
             )
@@ -97,7 +110,7 @@ def main() -> None:
         candidate["metrics"]["macro"]["joint_correct_rate"]
         - baseline["metrics"]["macro"]["joint_correct_rate"]
     )
-    if macro_delta < 0.01:
+    if macro_delta < 0.01 - FLOAT_TOLERANCE:
         regressions.append("macro joint correctness did not improve by at least 0.01")
     decision = "PROMOTE" if not regressions else "REJECT"
     report = {
@@ -119,6 +132,14 @@ def main() -> None:
             ),
             "baseline_retrieval": baseline["identity"].get("retrieval"),
             "candidate_retrieval": candidate["identity"].get("retrieval"),
+            "baseline_compression": baseline["identity"].get("compression"),
+            "candidate_compression": candidate["identity"].get("compression"),
+            "baseline_prompt_policy": baseline["identity"].get(
+                "prompt_policy", "standard"
+            ),
+            "candidate_prompt_policy": candidate["identity"].get(
+                "prompt_policy", "standard"
+            ),
             "case_count": len(baseline_rows),
         },
         "macro_joint_correct_delta": macro_delta,

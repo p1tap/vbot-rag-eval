@@ -27,9 +27,66 @@ from scripts.benchmarks.run_end_to_end import (  # noqa: E402
     work_item,
 )
 import scripts.benchmarks.audit_suite as audit_module  # noqa: E402
+from rag.evidence_compression import compress_documents  # noqa: E402
 
 
 class PublicEndToEndTests(unittest.TestCase):
+    def test_semantic_compressor_is_lazy_bounded_and_query_ranked(self):
+        documents = [
+            {
+                "id": "d1",
+                "title": "Planets",
+                "sentences": [
+                    "Mercury is nearest the Sun.",
+                    "Venus has a dense atmosphere.",
+                    "Mars is called the red planet.",
+                    "Jupiter is the largest planet.",
+                ],
+            }
+        ]
+        with (
+            patch(
+                "rag.embed.embed_queries",
+                return_value=np.array([[1.0, 0.0]], dtype=np.float32),
+            ),
+            patch(
+                "rag.embed.embed_passages",
+                return_value=np.array(
+                    [[0.0, 1.0], [0.1, 0.9], [1.0, 0.0], [0.2, 0.8]],
+                    dtype=np.float32,
+                ),
+            ),
+        ):
+            rendered = compress_documents(
+                "Which planet is red?", documents, 45, mode="semantic_e5"
+            )
+        self.assertLessEqual(len(rendered[0]), 45)
+        self.assertIn("[2] Mars is called the red planet.", rendered[0])
+
+    def test_semantic_compressor_skips_embedding_for_short_documents(self):
+        documents = [{"id": "d1", "title": "A", "sentences": ["Short text."]}]
+        with patch("rag.embed.embed_queries") as embed_queries:
+            rendered = compress_documents("query", documents, 100, mode="semantic_e5")
+        self.assertEqual(rendered, ["Short text."])
+        embed_queries.assert_not_called()
+
+    def test_benchmark_aware_hotpot_prompt_requires_bridge_citations(self):
+        batch = [
+            {
+                "case_id": "q1",
+                "benchmark_id": "hotpotqa",
+                "query": "Question?",
+                "contexts": [
+                    {"citation_id": "D1", "title": "A", "text": "First hop."},
+                    {"citation_id": "D2", "title": "B", "text": "Second hop."},
+                ],
+            }
+        ]
+        standard = prompt(batch)
+        benchmark_aware = prompt(batch, "benchmark_aware")
+        self.assertNotIn("bridge evidence", standard)
+        self.assertIn("bridge evidence", benchmark_aware)
+
     def test_bounded_retrieval_modes_are_deterministic_and_unique(self):
         case = {
             "benchmark_id": "hotpotqa",
@@ -41,9 +98,7 @@ class PublicEndToEndTests(unittest.TestCase):
             ],
         }
         scores = np.array([0.9, 0.8, 0.7], dtype=np.float32)
-        dense = rank_bounded_documents(
-            case, scores, top_k=2, retrieval_mode="dense"
-        )
+        dense = rank_bounded_documents(case, scores, top_k=2, retrieval_mode="dense")
         hybrid = rank_bounded_documents(
             case, scores, top_k=2, retrieval_mode="weighted_hybrid"
         )
@@ -51,9 +106,12 @@ class PublicEndToEndTests(unittest.TestCase):
         self.assertEqual(len({item["id"] for item in hybrid}), 2)
         self.assertEqual(
             [item["id"] for item in hybrid],
-            [item["id"] for item in rank_bounded_documents(
-                case, scores, top_k=2, retrieval_mode="weighted_hybrid"
-            )],
+            [
+                item["id"]
+                for item in rank_bounded_documents(
+                    case, scores, top_k=2, retrieval_mode="weighted_hybrid"
+                )
+            ],
         )
 
     def test_deepseek_generator_is_high_effort_and_provider_pinned(self):
@@ -114,10 +172,7 @@ class PublicEndToEndTests(unittest.TestCase):
             '{"case_id":"C1","prediction":"A","citation_ids":["D1"]},'
             '{"case_id":"C2","prediction":"long uncertain answer"}'
         )
-        recovered = (
-            '{"case_id":"C2","prediction":"__UNANSWERABLE__",'
-            '"citation_ids":[]}'
-        )
+        recovered = '{"case_id":"C2","prediction":"__UNANSWERABLE__","citation_ids":[]}'
         batch = [
             {
                 "case_id": "q1",
@@ -249,9 +304,7 @@ class PublicEndToEndTests(unittest.TestCase):
                     "normalization_events": ["unknown_slot_repair"],
                 }
             ]
-            batch_path.write_text(
-                json.dumps(bad_slot_batch) + "\n", encoding="utf-8"
-            )
+            batch_path.write_text(json.dumps(bad_slot_batch) + "\n", encoding="utf-8")
             report["raw_contract_valid_batch_count"] = 0
             report["case_slot_retry_batch_count"] = 1
             report["artifacts"]["batch_records_sha256"] = audit_module.file_sha256(
@@ -259,9 +312,7 @@ class PublicEndToEndTests(unittest.TestCase):
             )
             report_path.write_text(json.dumps(report), encoding="utf-8")
             with patch.object(audit_module, "ROOT", root):
-                with self.assertRaisesRegex(
-                    ValueError, "unknown normalization events"
-                ):
+                with self.assertRaisesRegex(ValueError, "unknown normalization events"):
                     audit_module.validate_end_to_end(
                         report_path, source_hashes, set(case_ids)
                     )
@@ -329,9 +380,7 @@ class PublicEndToEndTests(unittest.TestCase):
         prediction = schema["properties"]["results"]["items"]["properties"][
             "prediction"
         ]
-        self.assertEqual(
-            prediction["enum"], ["not_enough_info", "refutes", "supports"]
-        )
+        self.assertEqual(prediction["enum"], ["not_enough_info", "refutes", "supports"])
         self.assertNotIn(SENTINEL, prediction["enum"])
         citation = schema["properties"]["results"]["items"]["properties"][
             "citation_ids"
@@ -344,9 +393,7 @@ class PublicEndToEndTests(unittest.TestCase):
                 "case_id": "q1",
                 "benchmark_id": "hotpotqa",
                 "query": "Question?",
-                "contexts": [
-                    {"citation_id": "D1", "title": "Title", "text": "Text"}
-                ],
+                "contexts": [{"citation_id": "D1", "title": "Title", "text": "Text"}],
             }
         ]
         rendered = prompt(batch)
@@ -357,9 +404,7 @@ class PublicEndToEndTests(unittest.TestCase):
         self.assertIn(example, rendered)
 
     def test_provider_normalization_is_narrow_and_audited(self):
-        batch = [
-            {"case_id": "q1", "benchmark_id": "hotpotqa", "contexts": []}
-        ]
+        batch = [{"case_id": "q1", "benchmark_id": "hotpotqa", "contexts": []}]
         value, events, error = parse_provider_output(
             '{"case_id":"q1","prediction":"Paris","citation_ids":["D1"]}`',
             batch,
@@ -399,9 +444,7 @@ class PublicEndToEndTests(unittest.TestCase):
         self.assertEqual(
             events, ["restored_missing_array_opener", "wrapped_results_array"]
         )
-        self.assertEqual(
-            [row["prediction"] for row in value["results"]], ["A", "B"]
-        )
+        self.assertEqual([row["prediction"] for row in value["results"]], ["A", "B"])
 
         value, events, error = parse_provider_output(
             '{"case_id":"q1","prediction":"A","citation_ids":["D1"]},'
@@ -413,9 +456,7 @@ class PublicEndToEndTests(unittest.TestCase):
             events,
             ["wrapped_comma_separated_results", "wrapped_results_array"],
         )
-        self.assertEqual(
-            [row["case_id"] for row in value["results"]], ["q1", "q2"]
-        )
+        self.assertEqual([row["case_id"] for row in value["results"]], ["q1", "q2"])
 
         value, events, error = parse_provider_output(
             '{"case_id":"q1","prediction":"A","citation_ids":[]},'
@@ -427,9 +468,7 @@ class PublicEndToEndTests(unittest.TestCase):
         self.assertEqual(events, [])
         self.assertIn("invalid_json", error)
 
-        fever = [
-            {"case_id": "f1", "benchmark_id": "fever", "contexts": []}
-        ]
+        fever = [{"case_id": "f1", "benchmark_id": "fever", "contexts": []}]
         value, events, error = parse_provider_output(
             '{"results":[{"case_id":"f1","prediction":"__UNANSWERABLE__",'
             '"citation_ids":[]}]}',
@@ -477,7 +516,9 @@ class PublicEndToEndTests(unittest.TestCase):
         )
         self.assertIsNone(error)
         self.assertEqual(events, [])
-        self.assertIn("case-1234: ID/order mismatch", validate_output(swapped, expected))
+        self.assertIn(
+            "case-1234: ID/order mismatch", validate_output(swapped, expected)
+        )
 
         flat = [
             {"case_id": "C1", "benchmark_id": "hotpotqa", "contexts": []},
@@ -610,7 +651,9 @@ class PublicEndToEndTests(unittest.TestCase):
         value, events, error = parse_provider_output(wrong_count, batch)
         self.assertIsNone(error)
         self.assertEqual(events, [])
-        self.assertIn("result count does not match batch", validate_output(value, batch))
+        self.assertIn(
+            "result count does not match batch", validate_output(value, batch)
+        )
 
         wrong_order = merged.replace(
             '"case_id":"C3","prediction":"supports","citation_ids":["D1"]',
@@ -619,7 +662,9 @@ class PublicEndToEndTests(unittest.TestCase):
         value, events, error = parse_provider_output(wrong_order, batch)
         self.assertIsNone(error)
         self.assertEqual(events, [])
-        self.assertIn("result count does not match batch", validate_output(value, batch))
+        self.assertIn(
+            "result count does not match batch", validate_output(value, batch)
+        )
 
     def test_one_edit_apart_is_strict(self):
         self.assertTrue(one_edit_apart("abc", "abb"))
@@ -649,9 +694,7 @@ class PublicEndToEndTests(unittest.TestCase):
                     "answerability": "answerable",
                     "answers": [],
                     "label": "supports",
-                    "evidence": [
-                        {"document_id": "local-1", "sentence_index": 0}
-                    ],
+                    "evidence": [{"document_id": "local-1", "sentence_index": 0}],
                 }
             ],
         }

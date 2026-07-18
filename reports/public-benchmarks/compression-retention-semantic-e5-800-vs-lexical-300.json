@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "paired_offline_gold_span_retention_diagnostic",
+  "identity": {
+    "sample_per_benchmark": 100,
+    "case_count": 300,
+    "top_k": 4,
+    "retrieval_mode": "dense",
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "runner_source_sha256": "18f277567b480ae57414646a44ded95845306778085e3995a30e7365b53c8e10",
+    "compressor_source_sha256": "ad158da23f727938ee321857d7e7017e0d2acfc7568deae3d643312e0ae26d5c"
+  },
+  "configurations": {
+    "production_lexical_6000": {
+      "compression_mode": "lexical",
+      "max_document_chars": 6000,
+      "metrics": {
+        "hotpotqa": {
+          "answerable_cases": 100,
+          "any_gold_span_retained": 99,
+          "complete_gold_span_set_retained": 70,
+          "complete_gold_document_set_retrieved": 70,
+          "any_gold_span_retention_rate": 0.99,
+          "complete_gold_span_set_retention_rate": 0.7,
+          "complete_gold_document_set_retrieval_rate": 0.7
+        },
+        "natural_questions": {
+          "answerable_cases": 68,
+          "any_gold_span_retained": 48,
+          "complete_gold_span_set_retained": 48,
+          "complete_gold_document_set_retrieved": 48,
+          "any_gold_span_retention_rate": 0.7058823529411765,
+          "complete_gold_span_set_retention_rate": 0.7058823529411765,
+          "complete_gold_document_set_retrieval_rate": 0.7058823529411765
+        },
+        "fever": {
+          "answerable_cases": 74,
+          "any_gold_span_retained": 53,
+          "complete_gold_span_set_retained": 46,
+          "complete_gold_document_set_retrieved": 46,
+          "any_gold_span_retention_rate": 0.7162162162162162,
+          "complete_gold_span_set_retention_rate": 0.6216216216216216,
+          "complete_gold_document_set_retrieval_rate": 0.6216216216216216
+        }
+      }
+    },
+    "budget_matched_lexical_800": {
+      "compression_mode": "lexical",
+      "max_document_chars": 800,
+      "metrics": {
+        "hotpotqa": {
+          "answerable_cases": 100,
+          "any_gold_span_retained": 99,
+          "complete_gold_span_set_retained": 67,
+          "complete_gold_document_set_retrieved": 70,
+          "any_gold_span_retention_rate": 0.99,
+          "complete_gold_span_set_retention_rate": 0.67,
+          "complete_gold_document_set_retrieval_rate": 0.7
+        },
+        "natural_questions": {
+          "answerable_cases": 68,
+          "any_gold_span_retained": 35,
+          "complete_gold_span_set_retained": 35,
+          "complete_gold_document_set_retrieved": 48,
+          "any_gold_span_retention_rate": 0.5147058823529411,
+          "complete_gold_span_set_retention_rate": 0.5147058823529411,
+          "complete_gold_document_set_retrieval_rate": 0.7058823529411765
+        },
+        "fever": {
+          "answerable_cases": 74,
+          "any_gold_span_retained": 45,
+          "complete_gold_span_set_retained": 41,
+          "complete_gold_document_set_retrieved": 46,
+          "any_gold_span_retention_rate": 0.6081081081081081,
+          "complete_gold_span_set_retention_rate": 0.5540540540540541,
+          "complete_gold_document_set_retrieval_rate": 0.6216216216216216
+        }
+      }
+    },
+    "candidate_semantic_e5_800": {
+      "compression_mode": "semantic_e5",
+      "max_document_chars": 800,
+      "metrics": {
+        "hotpotqa": {
+          "answerable_cases": 100,
+          "any_gold_span_retained": 99,
+          "complete_gold_span_set_retained": 70,
+          "complete_gold_document_set_retrieved": 70,
+          "any_gold_span_retention_rate": 0.99,
+          "complete_gold_span_set_retention_rate": 0.7,
+          "complete_gold_document_set_retrieval_rate": 0.7
+        },
+        "natural_questions": {
+          "answerable_cases": 68,
+          "any_gold_span_retained": 35,
+          "complete_gold_span_set_retained": 35,
+          "complete_gold_document_set_retrieved": 48,
+          "any_gold_span_retention_rate": 0.5147058823529411,
+          "complete_gold_span_set_retention_rate": 0.5147058823529411,
+          "complete_gold_document_set_retrieval_rate": 0.7058823529411765
+        },
+        "fever": {
+          "answerable_cases": 74,
+          "any_gold_span_retained": 49,
+          "complete_gold_span_set_retained": 44,
+          "complete_gold_document_set_retrieved": 46,
+          "any_gold_span_retention_rate": 0.6621621621621622,
+          "complete_gold_span_set_retention_rate": 0.5945945945945946,
+          "complete_gold_document_set_retrieval_rate": 0.6216216216216216
+        }
+      }
+    }
+  }
+}
