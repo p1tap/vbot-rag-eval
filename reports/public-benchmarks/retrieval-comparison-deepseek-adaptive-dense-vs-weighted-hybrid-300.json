@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "decision": "REJECT",
+  "scope": "paired_generator_or_retrieval_pilot_not_release_promotion",
+  "baseline": "reports\\public-benchmarks\\deepseek-v4-flash-high-openrouter-baidu-adaptive-dense-pilot-300.json",
+  "candidate": "reports\\public-benchmarks\\deepseek-v4-flash-high-openrouter-baidu-adaptive-weighted-hybrid-pilot-300.json",
+  "identity": {
+    "baseline_profile": "deepseek-v4-flash-high-openrouter-baidu",
+    "candidate_profile": "deepseek-v4-flash-high-openrouter-baidu",
+    "baseline_top_k": null,
+    "candidate_top_k": null,
+    "baseline_top_k_by_benchmark": {
+      "hotpotqa": 8,
+      "natural_questions": 6,
+      "fever": 6
+    },
+    "candidate_top_k_by_benchmark": {
+      "hotpotqa": 8,
+      "natural_questions": 6,
+      "fever": 6
+    },
+    "baseline_retrieval": {
+      "bounded_candidate_mode": "dense",
+      "weighted_hybrid_config": null,
+      "fever_mode": "two_stage_bm25"
+    },
+    "candidate_retrieval": {
+      "bounded_candidate_mode": "weighted_hybrid",
+      "weighted_hybrid_config": {
+        "hotpotqa": {
+          "rank_constant": 10,
+          "lexical_weight": 0.25,
+          "dense_weight": 1.0
+        },
+        "natural_questions": {
+          "rank_constant": 30,
+          "lexical_weight": 0.25,
+          "dense_weight": 1.0
+        }
+      },
+      "fever_mode": "two_stage_bm25"
+    },
+    "case_count": 300
+  },
+  "macro_joint_correct_delta": 0.0,
+  "metric_deltas": {
+    "fever": {
+      "citation_precision": -0.020856472911267354,
+      "citation_recall": -0.027027027027027084,
+      "evidence_complete_rate": -0.010000000000000009,
+      "fail_closed_count": 0,
+      "joint_correct_rate": -0.010000000000000009,
+      "label_accuracy": 0.020000000000000018,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": 0.0
+    },
+    "hotpotqa": {
+      "answer_exact_match": 0.010000000000000009,
+      "answer_f1": 0.010363636363636464,
+      "answerability_accuracy": 0.010000000000000009,
+      "citation_precision": -0.01109329056402042,
+      "citation_recall": 0.03500000000000003,
+      "fail_closed_count": 0,
+      "joint_correct_rate": 0.04999999999999999,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": -0.020000000000000018
+    },
+    "natural_questions": {
+      "answer_exact_match": -0.050000000000000044,
+      "answer_f1": -0.044361698763073054,
+      "answerability_accuracy": -0.030000000000000027,
+      "citation_precision": 0.0026006331976480834,
+      "citation_recall": 0.0092592592592593,
+      "fail_closed_count": 0,
+      "joint_correct_rate": -0.03999999999999998,
+      "retrieval_any_gold_rate": 0.0185185185185186,
+      "retrieval_complete_gold_rate": 0.01851851851851849
+    }
+  },
+  "paired_joint_transitions": {
+    "wins": 12,
+    "losses": 12,
+    "unchanged": 276,
+    "exact_mcnemar_two_sided_p": 1.0,
+    "by_benchmark": {
+      "fever": {
+        "wins": 2,
+        "losses": 3,
+        "unchanged": 95
+      },
+      "hotpotqa": {
+        "wins": 7,
+        "losses": 2,
+        "unchanged": 91
+      },
+      "natural_questions": {
+        "wins": 3,
+        "losses": 7,
+        "unchanged": 90
+      }
+    }
+  },
+  "fail_closed": {
+    "baseline": 0,
+    "candidate": 0
+  },
+  "rejection_reasons": [
+    "natural_questions joint correctness regressed by more than 0.02",
+    "macro joint correctness did not improve by at least 0.01"
+  ],
+  "promotion_rules": {
+    "minimum_macro_joint_correct_improvement": 0.01,
+    "maximum_per_benchmark_joint_regression": 0.02,
+    "maximum_per_benchmark_citation_precision_regression": 0.03,
+    "fail_closed_count_must_not_increase": true
+  }
+}
