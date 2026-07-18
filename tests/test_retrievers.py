@@ -142,6 +142,25 @@ class RetrieverTests(unittest.TestCase):
         )
         self.assertEqual([hit.document.id for hit in fused], ["a", "b"])
 
+    def test_rrf_weights_can_favor_the_stronger_ranking(self) -> None:
+        a = RetrievalDocument("a", "A", "")
+        b = RetrievalDocument("b", "B", "")
+        fused = reciprocal_rank_fusion(
+            [
+                [RetrievalHit(a, 1.0, 1), RetrievalHit(b, 0.5, 2)],
+                [RetrievalHit(b, 1.0, 1), RetrievalHit(a, 0.5, 2)],
+            ],
+            k=2,
+            weights=[1.0, 3.0],
+        )
+        self.assertEqual([hit.document.id for hit in fused], ["b", "a"])
+
+    def test_rrf_rejects_invalid_weights(self) -> None:
+        with self.assertRaisesRegex(ValueError, "match the number"):
+            reciprocal_rank_fusion([[]], k=1, weights=[1.0, 2.0])
+        with self.assertRaisesRegex(ValueError, "at least one positive"):
+            reciprocal_rank_fusion([[], []], k=1, weights=[0.0, 0.0])
+
     def test_fever_runner_refuses_evidence_only_scope(self) -> None:
         from scripts.benchmarks.run_retrieval import run
 

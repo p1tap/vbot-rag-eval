@@ -109,8 +109,16 @@ def main() -> None:
         "identity": {
             "baseline_profile": baseline["identity"]["profile_id"],
             "candidate_profile": candidate["identity"]["profile_id"],
-            "baseline_top_k": baseline["identity"]["top_k"],
-            "candidate_top_k": candidate["identity"]["top_k"],
+            "baseline_top_k": baseline["identity"].get("top_k"),
+            "candidate_top_k": candidate["identity"].get("top_k"),
+            "baseline_top_k_by_benchmark": baseline["identity"].get(
+                "top_k_by_benchmark"
+            ),
+            "candidate_top_k_by_benchmark": candidate["identity"].get(
+                "top_k_by_benchmark"
+            ),
+            "baseline_retrieval": baseline["identity"].get("retrieval"),
+            "candidate_retrieval": candidate["identity"].get("retrieval"),
             "case_count": len(baseline_rows),
         },
         "macro_joint_correct_delta": macro_delta,

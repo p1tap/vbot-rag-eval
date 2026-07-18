@@ -7,6 +7,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+import numpy as np
+
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
@@ -18,6 +20,7 @@ from scripts.benchmarks.run_end_to_end import (  # noqa: E402
     prompt,
     parse_provider_output,
     one_edit_apart,
+    rank_bounded_documents,
     response_format,
     run_batch,
     validate_output,
@@ -27,6 +30,32 @@ import scripts.benchmarks.audit_suite as audit_module  # noqa: E402
 
 
 class PublicEndToEndTests(unittest.TestCase):
+    def test_bounded_retrieval_modes_are_deterministic_and_unique(self):
+        case = {
+            "benchmark_id": "hotpotqa",
+            "query": "alpha target",
+            "documents": [
+                {"id": "d1", "title": "Other", "sentences": ["unrelated"]},
+                {"id": "d2", "title": "Alpha", "sentences": ["target alpha"]},
+                {"id": "d3", "title": "Third", "sentences": ["other text"]},
+            ],
+        }
+        scores = np.array([0.9, 0.8, 0.7], dtype=np.float32)
+        dense = rank_bounded_documents(
+            case, scores, top_k=2, retrieval_mode="dense"
+        )
+        hybrid = rank_bounded_documents(
+            case, scores, top_k=2, retrieval_mode="weighted_hybrid"
+        )
+        self.assertEqual([item["id"] for item in dense], ["d1", "d2"])
+        self.assertEqual(len({item["id"] for item in hybrid}), 2)
+        self.assertEqual(
+            [item["id"] for item in hybrid],
+            [item["id"] for item in rank_bounded_documents(
+                case, scores, top_k=2, retrieval_mode="weighted_hybrid"
+            )],
+        )
+
     def test_deepseek_generator_is_high_effort_and_provider_pinned(self):
         profile = PROFILES["deepseek-v4-flash-high"]
         self.assertEqual(profile["model"], "deepseek-v4-flash")
