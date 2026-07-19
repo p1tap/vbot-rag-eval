@@ -223,7 +223,7 @@ def chat_with_metadata(
                     else (body.get("choices") or [{}])[0]
                     .get("message", {})
                     .get("content", "")
-                )
+                ) or ""
                 if content.strip():
                     usage = (
                         _ollama_usage(body)

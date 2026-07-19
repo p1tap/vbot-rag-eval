@@ -1047,6 +1047,57 @@ class StructuredRunnerTests(unittest.TestCase):
             "dec52a44569a2a25341c4e4d3fee25846eed4f6f0b936278e3a3c900bb99d37c",
         )
 
+    def test_glm_candidates_are_provider_pinned_and_outside_frozen_roster(self):
+        validate_profiles(config.EXPERIMENTAL_JUDGE_PROFILES)
+        frozen_ids = {item["id"] for item in config.JUDGE_BAKEOFF_PROFILES}
+        candidates = {
+            item["id"]: item for item in config.EXPERIMENTAL_JUDGE_PROFILES
+        }
+        self.assertTrue(frozen_ids.isdisjoint(candidates))
+        self.assertEqual(len(candidates), 4)
+        for profile in candidates.values():
+            provider = profile["request_options"]["provider"]
+            self.assertIn(provider["only"], (["baidu/fp8"], ["streamlake/fp8"]))
+            self.assertFalse(provider["allow_fallbacks"])
+            self.assertTrue(provider["require_parameters"])
+            self.assertEqual(
+                provider["max_price"], {"prompt": 0.30, "completion": 0.90}
+            )
+        selected = select_bakeoff_profiles("glm-5.2-high-baidu")
+        self.assertEqual([item["id"] for item in selected], ["glm-5.2-high-baidu"])
+
+    def test_glm_operational_route_is_ordered_and_bounded(self):
+        self.assertEqual(len(config.OPERATIONAL_JUDGE_PROFILES), 1)
+        profile = config.OPERATIONAL_JUDGE_PROFILES[0]
+        self.assertNotIn(
+            profile["id"],
+            {item["id"] for item in config.JUDGE_BAKEOFF_PROFILES},
+        )
+        provider = profile["request_options"]["provider"]
+        expected = ["baidu/fp8", "streamlake/fp8"]
+        self.assertEqual(provider["order"], expected)
+        self.assertEqual(provider["only"], expected)
+        self.assertTrue(provider["allow_fallbacks"])
+        self.assertTrue(provider["require_parameters"])
+        self.assertEqual(provider["max_price"], {"prompt": 0.30, "completion": 0.90})
+        self.assertEqual(
+            profile["calibration_profile_ids"],
+            ["glm-5.2-xhigh-baidu", "glm-5.2-xhigh-streamlake"],
+        )
+        self.assertTrue((ROOT / profile["provider_parity_report"]).is_file())
+
+    def test_glm_case_authoring_route_uses_high_effort_and_qualified_order(self):
+        profile = config.OPERATIONAL_CASE_AUTHORING_PROFILES[0]
+        self.assertEqual(
+            profile["request_options"]["reasoning"],
+            {"effort": "high", "exclude": True},
+        )
+        provider = profile["request_options"]["provider"]
+        self.assertEqual(provider["order"], ["baidu/fp8", "streamlake/fp8"])
+        self.assertEqual(provider["only"], ["baidu/fp8", "streamlake/fp8"])
+        self.assertTrue(provider["allow_fallbacks"])
+        self.assertTrue(provider["require_parameters"])
+
     def test_invalid_local_diagnostic_group_fails_every_task_closed(self):
         tasks = [
             {"task_id": "q1:support:c1"},

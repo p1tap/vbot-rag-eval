@@ -86,7 +86,8 @@ def select_profiles(value: str) -> list[dict]:
     if not value:
         return production
     diagnostic = list(getattr(config, "LOCAL_JUDGE_DIAGNOSTIC_PROFILES", ()))
-    available = [*production, *diagnostic]
+    experimental = list(getattr(config, "EXPERIMENTAL_JUDGE_PROFILES", ()))
+    available = [*production, *experimental, *diagnostic]
     wanted = {item.strip() for item in value.split(",") if item.strip()}
     profiles = [item for item in available if item["id"] in wanted]
     unknown = wanted - {item["id"] for item in profiles}

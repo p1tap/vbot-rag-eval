@@ -51,14 +51,16 @@ def write_json(path: Path, value: object) -> None:
     temporary.replace(path)
 
 
-def load_records(summary: dict) -> dict[str, dict[str, dict]]:
+def load_records(
+    summary: dict, required_profiles: set[str] | None = None
+) -> dict[str, dict[str, dict]]:
     result: dict[str, dict[str, dict]] = {}
     for profile_id, profile in summary["profiles"].items():
         path = ROOT / profile["records_path"]
         if sha256_file(path) != profile["records_sha256"]:
             raise SystemExit(f"bakeoff record hash mismatch: {profile_id}")
         result[profile_id] = {row["group_id"]: row for row in load_jsonl(path)}
-    missing = REQUIRED_PROFILES - set(result)
+    missing = (required_profiles or REQUIRED_PROFILES) - set(result)
     if missing:
         raise SystemExit(f"bakeoff is missing required profiles: {sorted(missing)}")
     return result
@@ -152,6 +154,10 @@ def simulate_policy(
     groups: dict[str, list[dict]],
     records: dict[str, dict[str, dict]],
 ) -> dict:
+    primary_id = policy.get("primary", PRIMARY)
+    secondary_id = policy.get("secondary", SECONDARY)
+    adjudicator_id = policy.get("adjudicator", ADJUDICATOR)
+    maximum_id = policy.get("maximum", MAX_PROFILE)
     predictions: dict[str, dict] = {}
     consulted_calls: set[tuple[str, str]] = set()
     group_latencies: list[float] = []
@@ -172,15 +178,15 @@ def simulate_policy(
                     decisions[task_id] = fallback_decision(task["task_type"])
                     fail_closed.add(task_id)
         elif mode == "full_panel":
-            primary = _use(consulted, PRIMARY, group_id, records)
-            secondary = _use(consulted, SECONDARY, group_id, records)
-            adjudicator = _use(consulted, ADJUDICATOR, group_id, records)
-            maximum = _use(consulted, MAX_PROFILE, group_id, records)
+            primary = _use(consulted, primary_id, group_id, records)
+            secondary = _use(consulted, secondary_id, group_id, records)
+            adjudicator = _use(consulted, adjudicator_id, group_id, records)
+            maximum = _use(consulted, maximum_id, group_id, records)
             decisions, fail_closed = resolve_with_adjudicator(
                 tasks, primary, secondary, adjudicator, maximum
             )
         else:
-            primary = _use(consulted, PRIMARY, group_id, records)
+            primary = _use(consulted, primary_id, group_id, records)
             primary_verdicts = verdicts(primary)
             high_critical = any(
                 task["severity"] in {"high", "critical"} for task in tasks
@@ -216,7 +222,7 @@ def simulate_policy(
                         decisions[task_id] = fallback_decision(task["task_type"])
                         fail_closed.add(task_id)
             else:
-                secondary = _use(consulted, SECONDARY, group_id, records)
+                secondary = _use(consulted, secondary_id, group_id, records)
                 secondary_verdicts = verdicts(secondary)
                 needs_adjudication = (
                     not primary_verdicts
@@ -230,9 +236,11 @@ def simulate_policy(
                 adjudicator = None
                 maximum = None
                 if needs_adjudication:
-                    adjudicator = _use(consulted, ADJUDICATOR, group_id, records)
+                    adjudicator = _use(
+                        consulted, adjudicator_id, group_id, records
+                    )
                     if not verdicts(adjudicator):
-                        maximum = _use(consulted, MAX_PROFILE, group_id, records)
+                        maximum = _use(consulted, maximum_id, group_id, records)
                 decisions, fail_closed = resolve_with_adjudicator(
                     tasks, primary, secondary, adjudicator, maximum
                 )
@@ -457,6 +465,11 @@ def decision_markdown(report: dict) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--bakeoff", type=Path, default=DEFAULT_BAKEOFF)
+    parser.add_argument("--additional-bakeoff", type=Path, action="append", default=[])
+    parser.add_argument("--primary", default=PRIMARY)
+    parser.add_argument("--secondary", default=SECONDARY)
+    parser.add_argument("--adjudicator", default=ADJUDICATOR)
+    parser.add_argument("--maximum", default=MAX_PROFILE)
     parser.add_argument("--human-labels", type=Path, default=DEFAULT_LABELS)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--overrides", type=Path)
@@ -465,6 +478,21 @@ def main() -> None:
     args = parser.parse_args()
 
     bakeoff = json.loads(args.bakeoff.read_text(encoding="utf-8"))
+    additional_inputs = []
+    for path in args.additional_bakeoff:
+        extra = json.loads(path.read_text(encoding="utf-8"))
+        overlap = set(bakeoff["profiles"]) & set(extra["profiles"])
+        if overlap:
+            raise SystemExit(
+                f"additional bakeoff contains duplicate profiles: {sorted(overlap)}"
+            )
+        bakeoff["profiles"].update(extra["profiles"])
+        additional_inputs.append(
+            {
+                "path": path.resolve().relative_to(ROOT).as_posix(),
+                "sha256": sha256_file(path),
+            }
+        )
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     human = labels_by_task(load_jsonl(args.human_labels))
     if args.overrides:
@@ -478,9 +506,10 @@ def main() -> None:
                 "decision": override["ai_adjudicated_decision"],
                 "rationale": "Three-family AI consensus override; see adjudication artifact.",
             }
-    records = load_records(bakeoff)
+    required_profiles = {args.primary, args.secondary, args.adjudicator}
+    records = load_records(bakeoff, required_profiles)
     groups: dict[str, list[dict]] = {}
-    reference = records[PRIMARY]
+    reference = records[args.primary]
     for group_id, record in reference.items():
         groups[group_id] = record["tasks"]
     expected_tasks = {task["task_id"] for tasks in groups.values() for task in tasks}
@@ -490,18 +519,56 @@ def main() -> None:
         if set(profile_records) != set(groups):
             raise SystemExit(f"incomplete group universe for {profile_id}")
 
+    default_roles = (
+        args.primary == PRIMARY
+        and args.secondary == SECONDARY
+        and args.adjudicator == ADJUDICATOR
+        and args.maximum == MAX_PROFILE
+    )
+    role_definition = (
+        {}
+        if default_roles
+        else {
+            "primary": args.primary,
+            "secondary": args.secondary,
+            "adjudicator": args.adjudicator,
+            "maximum": args.maximum,
+        }
+    )
+    primary_prefix = "v4" if args.primary == PRIMARY else args.primary
     definitions = [
         {"id": f"single-{profile_id}", "mode": "single", "profile": profile_id}
         for profile_id in sorted(records)
     ] + [
         {
-            "id": "v4-primary-severity-sample",
+            "id": f"{primary_prefix}-primary-severity-sample",
             "mode": "severity_sample",
             "routine_sample_rate": 0.10,
+            **role_definition,
         },
-        {"id": "v4-primary-failure-cascade", "mode": "primary_failure"},
-        {"id": "v4-gemini-disagreement-gpt", "mode": "disagreement"},
-        {"id": "conservative-full-panel", "mode": "full_panel"},
+        {
+            "id": f"{primary_prefix}-primary-failure-cascade",
+            "mode": "primary_failure",
+            **role_definition,
+        },
+        {
+            "id": (
+                "v4-gemini-disagreement-gpt"
+                if default_roles
+                else f"{primary_prefix}-secondary-disagreement-adjudicator"
+            ),
+            "mode": "disagreement",
+            **role_definition,
+        },
+        {
+            "id": (
+                "conservative-full-panel"
+                if args.primary == PRIMARY
+                else f"{primary_prefix}-conservative-full-panel"
+            ),
+            "mode": "full_panel",
+            **role_definition,
+        },
     ]
 
     policies = {}
@@ -529,11 +596,14 @@ def main() -> None:
             else "frozen_human_calibration_then_ai_only_operation"
         ),
         "inputs": {
-            "bakeoff_path": args.bakeoff.relative_to(ROOT).as_posix(),
+            "bakeoff_path": args.bakeoff.resolve().relative_to(ROOT).as_posix(),
             "bakeoff_sha256": sha256_file(args.bakeoff),
-            "human_labels_path": args.human_labels.relative_to(ROOT).as_posix(),
+            "additional_bakeoffs": additional_inputs,
+            "human_labels_path": args.human_labels.resolve()
+            .relative_to(ROOT)
+            .as_posix(),
             "human_labels_sha256": sha256_file(args.human_labels),
-            "manifest_path": args.manifest.relative_to(ROOT).as_posix(),
+            "manifest_path": args.manifest.resolve().relative_to(ROOT).as_posix(),
             "manifest_sha256": sha256_file(args.manifest),
             "ai_override_path": (
                 args.overrides.resolve().relative_to(ROOT).as_posix()

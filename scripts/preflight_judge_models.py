@@ -93,8 +93,11 @@ def select_profiles(value: str) -> tuple[dict, ...]:
     validate_profiles(profiles)
     if not value:
         return profiles
+    experimental = tuple(getattr(config, "EXPERIMENTAL_JUDGE_PROFILES", ()))
+    validate_profiles(experimental)
+    available = (*profiles, *experimental)
     wanted = {item.strip() for item in value.split(",") if item.strip()}
-    selected = tuple(profile for profile in profiles if profile["id"] in wanted)
+    selected = tuple(profile for profile in available if profile["id"] in wanted)
     unknown = wanted - {profile["id"] for profile in selected}
     if unknown:
         raise ValueError(f"unknown profile ids: {sorted(unknown)}")

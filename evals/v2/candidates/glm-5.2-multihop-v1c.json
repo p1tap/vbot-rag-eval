@@ -1,0 +1,398 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "ai_authored_multihop_review_candidates",
+  "created_at_utc": "2026-07-19T02:17:14.820267+00:00",
+  "promotion_status": "proposals_only_pending_cross_model_review",
+  "human_reviewed_case_count_added": 0,
+  "case_count": 4,
+  "deterministic_normalizations": [],
+  "generation": {
+    "profile_id": "glm-5.2-high-baidu-streamlake-authoring",
+    "profile_sha256": "3a9d844abccbae0b842c45624a573a1935a468fbfb1c0777b597396fe7ef4aa4",
+    "requested_model": "z-ai/glm-5.2",
+    "response_model": "z-ai/glm-5.2",
+    "response_provider": "Baidu",
+    "input_sha256": "528d3d5f03d6faa5148ddd51f62a79c6647386d1a15869c8d1af601423defa6b",
+    "response_sha256": "bc1db123c709c8cc221c4cdaebaa00eb5eec6d0e77e9072a75764389d3ee84aa",
+    "request_options": {
+      "reasoning": {
+        "effort": "high",
+        "exclude": true
+      },
+      "provider": {
+        "order": [
+          "baidu/fp8",
+          "streamlake/fp8"
+        ],
+        "only": [
+          "baidu/fp8",
+          "streamlake/fp8"
+        ],
+        "allow_fallbacks": true,
+        "require_parameters": true,
+        "max_price": {
+          "prompt": 0.3,
+          "completion": 0.9
+        }
+      }
+    },
+    "latency_ms": 57597.664,
+    "usage": {
+      "prompt_tokens": 22360,
+      "completion_tokens": 3821,
+      "total_tokens": 26181,
+      "cost": 0.005289912,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 19006,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.005289912,
+        "upstream_inference_prompt_cost": 0.001927432,
+        "upstream_inference_completions_cost": 0.00336248
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 383,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "inputs": {
+    "evidence_catalog_path": "corpus/evidence-catalog-v1.jsonl",
+    "evidence_catalog_sha256": "c15148e0aa42d867edbb6698c1b6f112f8767f557a8fdc172f497d90f4edf326",
+    "existing_intent_count": 217,
+    "existing_intent_ids_sha256": "34f46ef67cde6ca357e8e14f39cfd9ca9e8083791553795e0e424612deec4822",
+    "system_prompt_sha256": "2015d0810c856c02206c465c17fa9812a53024daeb7818949a7ac336ade93da2"
+  },
+  "cases": [
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-c-001",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_section",
+      "question": "Across the SFT sweep and the follow-up DPO run, what is the recurring lesson about using loss-based metrics as a ship signal, and what specific numbers illustrate the decoupling in each stage?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The recurring lesson is that loss-based metrics (train loss, eval loss, reward accuracy) do not reliably predict behavioral quality \u2014 behavior lanes move independently of optimization objectives. In the SFT sweep (finding 4), r64 had the best eval loss (1.473) but was NOT the uniform behavior winner: it lost a full point of calibration vs r16 (7.17 vs 8.17), so the deployed r16 was kept because calibration is the objective. One stage later in DPO (finding 8), train loss decreased and reward accuracy reached 1.0 \u2014 both saying 'great run' \u2014 but the behavioral eval said otherwise, blocking shipment. The same decoupling principle reappeared: loss optimizes imitation while behavior gates must be checked independently.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The overfit probe at 5 epochs showed a val loss U-curve with minimum at epoch 2 (1.496), rising to 1.557 by epoch 5 while train loss fell to 1.32, meaning the best train loss was the worst generalizer, empirically validating the 2-epoch default.",
+          "evidence_ids": [
+            "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "r64 had the best eval loss (1.473) but was not the uniform behavior winner: it gained honest-eval (+1.5) and general (+1.8) but lost a full point of calibration vs r16 (7.17 vs 8.17), so deployed r16 was kept because calibration is the objective.",
+          "evidence_ids": [
+            "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-44c228cb9c0fa3fd"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "In the DPO run, train loss decreasing and reward accuracy reaching 1.0 both said 'great run', but only the behavioral eval said otherwise \u2014 the same lesson as finding 4, one optimization stage later. The deployed model remained the SFT r16.",
+          "evidence_ids": [
+            "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1",
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-44c228cb9c0fa3fd"
+      ],
+      "distractor_evidence": [
+        "backbone-plan::evaluation-the-credibility-section::span-854f79de2a252332",
+        "backbone-plan::behavior-families-dataset-lanes::span-979766ddc4d2e3f5"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "backbone-loss-behavior-decoupling-two-stage",
+      "evidence_cluster_id": "backbone-loss-behavior-decoupling-chain",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "high",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-c-002",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_document",
+      "question": "How does the Vbot Model Gateway serve double duty as both the production failover infrastructure for RP traffic and the data-generation pipeline for the Backbone fine-tune, and what specific gateway primitive makes the dataset generation budget auditable?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The gateway is the production RP infrastructure: it implements a failover ladder (retry same deployment, then cooldown/circuit breaker, then model-level fallback) because the primary RP model Euryale 70B is single-host on OpenRouter, making a hot-standby model (Hermes-4 70B) the second rung rather than a nice-to-have. Simultaneously, the Backbone fine-tune dataset is generated through the same gateway using a budget-capped virtual key. The specific primitive that makes this budget auditable is per-key spend tracking: Postgres-backed virtual keys created via /key/generate with hard budget caps (max_budget), where every client key has its own spend ledger and can never exceed its cap. The estimated dataset generation cost is $3-8, and spend is visible in Grafana, meaning the infrastructure eats its own dogfood.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The gateway implements the failover ladder: retry same deployment, then cooldown (circuit breaker), then model-level fallback, because the primary RP model Euryale 70B is single-host on OpenRouter, so a hot-standby model is the second rung.",
+          "evidence_ids": [
+            "gateway-readme::vbot-model-gateway::span-6d641315158792e7"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "The Backbone dataset is generated through the GATEWAY with a budget-capped virtual key, with spend visible in Grafana, and estimated cost of $3-8.",
+          "evidence_ids": [
+            "backbone-plan::dataset-spec::span-db8bee29cd6a6df4"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "Per-key spend tracking uses Postgres-backed virtual keys via /key/generate with hard budget caps (max_budget), where every client key has its own spend ledger and can never exceed its cap.",
+          "evidence_ids": [
+            "gateway-readme::what-it-does-today-cont::span-85468e4cfc1cee50"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-plan::dataset-spec::span-db8bee29cd6a6df4",
+        "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+        "gateway-readme::what-it-does-today-cont::span-85468e4cfc1cee50",
+        "gateway-readme::what-it-does-today::span-c028d97567bbc915"
+      ],
+      "distractor_evidence": [
+        "backbone-plan::training::span-e7d444778cb883cf",
+        "gateway-readme::run::span-6a65b697f0610f76"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "gateway-budget-key-feeds-backbone-datagen",
+      "evidence_cluster_id": "gateway-dual-role-product-and-dataset-gen",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-c-003",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "comparison_aggregation",
+      "question": "The DPO run improved some behavioral lanes while regressing others, and the failure mode itself became the key finding. Compare which specific behavioral metrics improved vs regressed in the DPO frozen suite, and explain how the two crashed probes revealed that the model learned the posture of holding without the grounding to hold correctly.",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The DPO frozen suite reported NO SHIP with mixed behavioral results. Improvements: RP-boundary +0.66, bad-idea +0.75, and calibration +0.5 (with no contrarian drift). Regressions: anti-sycophancy -1.33 and general -0.5 vs SFT, measured paired with the same judge on the same day. The failure mode was the finding: on two crashed probes the DPO model still HELD but held badly. On syco-01 it fabricated an authority ('the International Bone Federation') to justify a correct hold. On syco-05 it doubled down into confidently wrong math ('0.9 is definitely smaller than 0.11'). The DPO pairs taught the posture of holding \u2014 reward accuracy went from 0.55 to 1.0 with margins increasing from 0.006 to 0.37 \u2014 but a 1.5B model lacks the grounding of the 70B/DeepSeek teachers whose holds it imitates, so pressure-resistance decoupled from correctness. Preference optimization amplified confidence without adding knowledge.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The frozen suite said NO SHIP: RP-boundary +0.66, bad-idea +0.75, calibration +0.5 (no contrarian drift), but anti-sycophancy -1.33 and general -0.5 vs SFT, paired, same judge, same day.",
+          "evidence_ids": [
+            "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-eadabc0e9a19ea25"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "On two crashed probes the DPO model still HELD but held badly: fabricated an authority ('the International Bone Federation') on syco-01 and doubled down into confidently wrong math ('0.9 is definitely smaller than 0.11') on syco-05. The 1.5B lacks the grounding of the 70B/DeepSeek teachers whose holds it imitates, so pressure-resistance decoupled from correctness. Preference optimization amplified confidence without adding knowledge.",
+          "evidence_ids": [
+            "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-5e7815184e46f674"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "In-distribution DPO worked: reward accuracy 0.55 to 1.0 across the epoch, margins 0.006 to 0.37, rewards/chosen pinned around 0 while rewards/rejected fell to -0.36, pushing away from caving without drifting off the SFT chosen distribution.",
+          "evidence_ids": [
+            "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-e469932c42b49a3b"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-44c228cb9c0fa3fd",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-eadabc0e9a19ea25",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-5e7815184e46f674",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-e469932c42b49a3b"
+      ],
+      "distractor_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-3a5d42f4bf2a599d",
+        "backbone-plan::behavior-families-dataset-lanes::span-d23ada028b64a40a"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 4,
+      "intent_family_id": "backbone-dpo-holds-badly-paradox",
+      "evidence_cluster_id": "backbone-dpo-behavioral-paradox",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "critical",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-c-004",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "global_corpus",
+      "question": "Trace the complete planned lifecycle from the Backbone fine-tune's evaluation deliverable through to its production deployment via GitOps, including how Argo CD's self-heal was proven live and what a prior self-hosted model gate promotion demonstrated about the gate's reliability.",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The Backbone fine-tune's evaluation deliverable is an eval report with all four evaluation components (hold-rate probes, calibration probes, pushy-user-resistance, general-ability spot-check) included in the model card. The ship list specifies PR #3 to swap rp-selfhosted to the fine-tune through the model gate, after which Argo deploys and Grafana watches \u2014 described as the full lifecycle: fine-tuned, evaluated, policy-gated, GitOps-deployed, monitored. Argo CD operates on a merge-to-master-equals-deploy model: it watches k8s/ and keeps the cluster identical to git with automated sync, selfHeal, and prune. It was proven live by manual cluster sabotage (grafana scaled to 0) that selfHeal reverted in 10 seconds, and a git-only label change that arrived on-cluster in 197 seconds with no human action. A prior self-hosted leg promotion (Ollama qwen2.5:0.5b as rp-selfhosted, merged via gate PR #2) demonstrated the gate's reliability: the first run was REJECTED on CI-topology drift that the gate itself exposed, which was then fixed, promoted, and deployed.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The evaluation deliverable is an eval report with all four components in the model card.",
+          "evidence_ids": [
+            "backbone-plan::evaluation-the-credibility-section::span-1e726f4f365fbaa0"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "PR #3 swaps rp-selfhosted to the fine-tune through the model gate, then Argo deploys and Grafana watches \u2014 the full lifecycle: fine-tuned, evaluated, policy-gated, GitOps-deployed, monitored.",
+          "evidence_ids": [
+            "backbone-plan::ship-list::span-add7523d3e8f1234"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "Argo CD operates on merge-to-master-equals-deploy, watches k8s/ with automated sync, selfHeal, and prune. Proven live: manual cluster sabotage (grafana scaled to 0) reverted by selfHeal in 10 seconds, and a git-only label change arrived on-cluster in 197 seconds with no human action.",
+          "evidence_ids": [
+            "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-dcb91f2d4d702f73",
+            "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-2b0586ed133fa581"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c4",
+          "text": "The self-hosted leg (in-cluster Ollama qwen2.5:0.5b as rp-selfhosted) was merged via gate PR #2, where the first run was REJECTED on CI-topology drift the gate itself exposed, then fixed, PROMOTE, deployed.",
+          "evidence_ids": [
+            "gateway-readme::roadmap::span-5562a5000456de74"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-plan::ship-list::span-add7523d3e8f1234",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-dcb91f2d4d702f73",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-2b0586ed133fa581",
+        "gateway-readme::roadmap::span-5562a5000456de74",
+        "backbone-plan::evaluation-the-credibility-section::span-1e726f4f365fbaa0"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b471cc8d698391ea",
+        "gateway-readme::roadmap::span-2e69ad5f3f793551"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 5,
+      "intent_family_id": "backbone-promotion-lifecycle-argo-eval-gate",
+      "evidence_cluster_id": "backbone-to-gateway-full-lifecycle",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "high",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    }
+  ]
+}

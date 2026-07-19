@@ -82,6 +82,22 @@ GENERATOR_EVAL_PROFILES = (
         },
         "provider_pinned": True,
     },
+    {
+        "id": "glm-5.2-xhigh-baidu",
+        "model": "z-ai/glm-5.2",
+        "max_tokens": 3000,
+        "temperature": None,
+        "request_options": {
+            "reasoning": {"effort": "xhigh", "exclude": True},
+            "provider": {
+                "only": ["baidu/fp8"],
+                "allow_fallbacks": False,
+                "require_parameters": True,
+                "max_price": {"prompt": 0.30, "completion": 0.90},
+            },
+        },
+        "provider_pinned": True,
+    },
 )
 
 # The public-safe Vbot corpus has an explicit evaluation caller policy. It is
@@ -211,6 +227,110 @@ JUDGE_BAKEOFF_PROFILES = (
                 "only": ["openai"],
                 "allow_fallbacks": False,
                 "require_parameters": True,
+            },
+        },
+    },
+)
+
+# Candidates remain outside the frozen production roster until they pass the
+# same 175-verdict human calibration. Provider-specific profiles deliberately
+# disable fallback so provider variance remains measurable and auditable.
+EXPERIMENTAL_JUDGE_PROFILES = (
+    {
+        "id": "glm-5.2-high-baidu",
+        "model": "z-ai/glm-5.2",
+        "request_options": {
+            "reasoning": {"effort": "high", "exclude": True},
+            "provider": {
+                "only": ["baidu/fp8"],
+                "allow_fallbacks": False,
+                "require_parameters": True,
+                "max_price": {"prompt": 0.30, "completion": 0.90},
+            },
+        },
+    },
+    {
+        "id": "glm-5.2-xhigh-baidu",
+        "model": "z-ai/glm-5.2",
+        "request_options": {
+            "reasoning": {"effort": "xhigh", "exclude": True},
+            "provider": {
+                "only": ["baidu/fp8"],
+                "allow_fallbacks": False,
+                "require_parameters": True,
+                "max_price": {"prompt": 0.30, "completion": 0.90},
+            },
+        },
+    },
+    {
+        "id": "glm-5.2-high-streamlake",
+        "model": "z-ai/glm-5.2",
+        "request_options": {
+            "reasoning": {"effort": "high", "exclude": True},
+            "provider": {
+                "only": ["streamlake/fp8"],
+                "allow_fallbacks": False,
+                "require_parameters": True,
+                "max_price": {"prompt": 0.30, "completion": 0.90},
+            },
+        },
+    },
+    {
+        "id": "glm-5.2-xhigh-streamlake",
+        "model": "z-ai/glm-5.2",
+        "request_options": {
+            "reasoning": {"effort": "xhigh", "exclude": True},
+            "provider": {
+                "only": ["streamlake/fp8"],
+                "allow_fallbacks": False,
+                "require_parameters": True,
+                "max_price": {"prompt": 0.30, "completion": 0.90},
+            },
+        },
+    },
+)
+
+# The operational route is separate from provider-pinned calibration identities.
+# Baidu is the default; StreamLake may be used only after OpenRouter reports a
+# Baidu routing failure. Both providers passed the same frozen human calibration
+# and the paired provider-parity gate recorded under reports/v2/.
+OPERATIONAL_JUDGE_PROFILES = (
+    {
+        "id": "glm-5.2-xhigh-baidu-streamlake-fallback",
+        "model": "z-ai/glm-5.2",
+        "request_options": {
+            "reasoning": {"effort": "xhigh", "exclude": True},
+            "provider": {
+                "order": ["baidu/fp8", "streamlake/fp8"],
+                "only": ["baidu/fp8", "streamlake/fp8"],
+                "allow_fallbacks": True,
+                "require_parameters": True,
+                "max_price": {"prompt": 0.30, "completion": 0.90},
+            },
+        },
+        "calibration_profile_ids": [
+            "glm-5.2-xhigh-baidu",
+            "glm-5.2-xhigh-streamlake",
+        ],
+        "provider_parity_report": (
+            "reports/v2/"
+            "judge-provider-parity-glm-5.2-xhigh-baidu-vs-streamlake.json"
+        ),
+    },
+)
+
+OPERATIONAL_CASE_AUTHORING_PROFILES = (
+    {
+        "id": "glm-5.2-high-baidu-streamlake-authoring",
+        "model": "z-ai/glm-5.2",
+        "request_options": {
+            "reasoning": {"effort": "high", "exclude": True},
+            "provider": {
+                "order": ["baidu/fp8", "streamlake/fp8"],
+                "only": ["baidu/fp8", "streamlake/fp8"],
+                "allow_fallbacks": True,
+                "require_parameters": True,
+                "max_price": {"prompt": 0.30, "completion": 0.90},
             },
         },
     },

@@ -1,0 +1,792 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "cross_model_ai_review_of_glm_multihop_candidates",
+  "completed_at_utc": "2026-07-19T02:23:37.939512+00:00",
+  "reviewer": {
+    "id": "codex-gpt-5-cross-model-reviewer",
+    "kind": "ai_agent",
+    "independent_model_family_from_author": true
+  },
+  "status": "approved_candidates_pending_dataset_integration",
+  "human_reviewed_case_count_added": 0,
+  "candidate_count": 20,
+  "approved_count": 8,
+  "rejected_count": 12,
+  "source_artifacts": [
+    {
+      "path": "evals/v2/candidates/glm-5.2-multihop-v1a.json",
+      "sha256": "074ef27cd458e031802dc43e9bf2514ca4f03808ae6e28da39d30a8cdad3ba36",
+      "provider": "Baidu",
+      "case_count": 4
+    },
+    {
+      "path": "evals/v2/candidates/glm-5.2-multihop-v1b.json",
+      "sha256": "e9d0bdc80fce09b95584d1b6d40ce1b90442963600db079504ba4a04c5d6ad9d",
+      "provider": "Baidu",
+      "case_count": 4
+    },
+    {
+      "path": "evals/v2/candidates/glm-5.2-multihop-v1c.json",
+      "sha256": "5be6e22f1b161a71bdbb0967ea6d59c13e7aa37b2f46b85cfb7fc6cedc765ae3",
+      "provider": "Baidu",
+      "case_count": 4
+    },
+    {
+      "path": "evals/v2/candidates/glm-5.2-multihop-v1d.json",
+      "sha256": "9a2c9b012c68287f2caba95da39f64aaaac7f4aec4ea6abd4204f20e9b0305d4",
+      "provider": "StreamLake",
+      "case_count": 4
+    },
+    {
+      "path": "evals/v2/candidates/glm-5.2-multihop-v1e.json",
+      "sha256": "538f56b7aef0da4c62c2a38091c6f701f0aa2624d9bd5e6dfc02ff030597ba24",
+      "provider": "Baidu",
+      "case_count": 4
+    }
+  ],
+  "evidence_catalog": {
+    "path": "corpus/evidence-catalog-v1.jsonl",
+    "sha256": "c15148e0aa42d867edbb6698c1b6f112f8767f557a8fdc172f497d90f4edf326"
+  },
+  "approved_cases": [
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-a-003",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_section",
+      "question": "How does the fact that every RP-tuned 70B is single-host on OpenRouter shape the failover ladder, and what specific client-side contract converts the empty-content 200 problem into zero failed turns?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "Every RP-tuned 70B checked is single-host on OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8, Hermes-3=DeepInfra fp8), so same-model host failover does not exist in this class. This means the model-level fallback chain IS the host diversity (3 models = 3 independent infrastructures), and because the primary RP model (Euryale 70B) is single-host, a hot-standby model is the second rung of the failover ladder, not a nice-to-have. Separately, Hermes-4 stochastically reasoning-spirals (~2-10% of calls), consuming the entire completion budget as reasoning_content and returning HTTP 200 with empty content and finish_reason: length \u2014 all empties were Nebius. The client contract that converts the 2.34% raw empty rate into 0.00% failed turns is: HTTP 200 + empty content = retryable, once. Status-code-only error handling ships blank messages to users.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "Every RP-tuned 70B is single-host on OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8, Hermes-3=DeepInfra fp8), so same-model host failover does not exist; the model-level fallback chain IS the host diversity, and because the primary RP model is single-host, a hot-standby model is the second rung of the failover ladder, not a nice-to-have.",
+          "evidence_ids": [
+            "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+            "gateway-readme::vbot-model-gateway::span-6d641315158792e7"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c2",
+          "text": "Hermes-4 stochastically reasoning-spirals (~2-10% of calls), consuming the entire completion budget as reasoning_content and returning HTTP 200 with empty content and finish_reason: length; all empties were Nebius.",
+          "evidence_ids": [
+            "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-d71bc6c603d0fae4"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c3",
+          "text": "The client contract is: HTTP 200 + empty content = retryable, once, which converts the 2.34% raw empty rate into 0.00% failed turns; status-code-only error handling ships blank messages to users.",
+          "evidence_ids": [
+            "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-112732b604ea651e"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        }
+      ],
+      "acceptable_evidence": [
+        "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+        "gateway-readme::what-it-does-today::span-c028d97567bbc915",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-d71bc6c603d0fae4",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-112732b604ea651e"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::what-it-does-today::span-cf1ae40810acc48f",
+        "gateway-readme::what-it-does-today-cont::span-85468e4cfc1cee50"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "gateway-failover-ladder-empty-content-chain",
+      "evidence_cluster_id": "gateway-failover-empty-content-client-contract",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "high",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "ai_reviewed",
+        "glm_5_2",
+        "cross_model_reviewed",
+        "no_new_human_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "approved",
+        "reviewers": [
+          "codex-gpt-5-cross-model-reviewer"
+        ],
+        "reviewer_kinds": [
+          "ai_agent"
+        ],
+        "reviewed_at": "2026-07-19T02:23:37.939512+00:00",
+        "notes": [
+          "New multi-section chain connects host diversity, the empty-200 failure, and the retry contract.",
+          "Exact claim evidence IDs were checked against the frozen evidence catalog.",
+          "GLM authored the proposal; a non-GLM Codex model performed this review.",
+          "No human review occurred; this does not increase the human-reviewed count.",
+          "Approved for future AI-reviewed adversarial integration, not as an independent holdout."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-d-001",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "comparison_aggregation",
+      "question": "Two separate experiments in the backbone findings each produced a result where a loss/optimization metric looked healthy but contradicted the behavioral-quality signal. Name the two experiments and give the specific numeric contradiction in each.",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The five-epoch overfit probe showed the best training loss was the worst generalizer: validation loss bottomed at 1.496 at epoch 2 but rose to 1.557 by epoch 5 while training loss fell to 1.32. The DPO run showed the same lesson one optimization stage later: training loss decreased and reward accuracy reached 1.0, yet only the behavioral evaluation blocked shipping, so the deployed model remained SFT rank 16.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The 5-epoch overfit probe showed val loss bottomed at 1.496 at epoch 2 and rose to 1.557 by epoch 5 while train loss fell to 1.32 \u2014 the best train loss was the worst generalizer.",
+          "evidence_ids": [
+            "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c2",
+          "text": "The DPO chain of gates showed train loss decreased and reward accuracy reached 1.0 but only behavioral eval blocked shipping; the deployed model remained SFT r16.",
+          "evidence_ids": [
+            "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1"
+      ],
+      "distractor_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-44c228cb9c0fa3fd",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-e469932c42b49a3b",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-eadabc0e9a19ea25"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 2,
+      "intent_family_id": "backbone-optimization-vs-behavior-independent-confirmations",
+      "evidence_cluster_id": "backbone-optimization-vs-behavior-independent-confirmations",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "ai_reviewed",
+        "glm_5_2",
+        "cross_model_reviewed",
+        "no_new_human_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "StreamLake",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "approved",
+        "reviewers": [
+          "codex-gpt-5-cross-model-reviewer"
+        ],
+        "reviewer_kinds": [
+          "ai_agent"
+        ],
+        "reviewed_at": "2026-07-19T02:23:37.939512+00:00",
+        "notes": [
+          "New comparison joins the overfit probe and the later DPO gate failure.",
+          "Exact claim evidence IDs were checked against the frozen evidence catalog.",
+          "GLM authored the proposal; a non-GLM Codex model performed this review.",
+          "No human review occurred; this does not increase the human-reviewed count.",
+          "Approved for future AI-reviewed adversarial integration, not as an independent holdout."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-d-002",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_section",
+      "question": "The model-gate workflow has produced two real promotion PRs with different outcomes. For each PR, state the gate exit code on the first run, the reason given, and what happened next \u2014 then state the Argo CD Application setting that guarantees the merge actually reaches the cluster.",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "PR #1 (Hermes-4 \u2192 Hermes-3 fallback) returned NEEDS_REVIEW on a peak-hour NextBit latency flag (environmental); a human override was documented on the PR, it was merged, GitOps-deployed, and verified serving. PR #2 (self-hosted Ollama qwen2.5:0.5b as rp-selfhosted) was first REJECTED because the gate itself exposed CI-topology drift; the topology issue was fixed, the rerun returned PROMOTE, and it was deployed. The Argo CD Application at apps/gateway.yaml is configured with automated sync plus selfHeal plus prune, so a merge to master is reconciled onto the cluster.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "PR #1 (Hermes-4 \u2192 Hermes-3 fallback) returned NEEDS_REVIEW on a peak-hour NextBit latency flag; human override documented, merged, GitOps-deployed, verified serving.",
+          "evidence_ids": [
+            "gateway-readme::roadmap::span-2e69ad5f3f793551"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c2",
+          "text": "PR #2 (self-hosted Ollama qwen2.5:0.5b as rp-selfhosted) first run REJECTED on CI-topology drift the gate exposed; fixed, PROMOTE, deployed.",
+          "evidence_ids": [
+            "gateway-readme::roadmap::span-5562a5000456de74"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c3",
+          "text": "apps/gateway.yaml Application is configured with automated sync + selfHeal + prune.",
+          "evidence_ids": [
+            "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-258fb13be8bec35d"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        }
+      ],
+      "acceptable_evidence": [
+        "gateway-readme::roadmap::span-2e69ad5f3f793551",
+        "gateway-readme::roadmap::span-5562a5000456de74",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-258fb13be8bec35d"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-2b0586ed133fa581",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-767047178e84c9e6",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-f0d4068b8c2cf223"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "gateway-two-gate-pr-decisions-contrast",
+      "evidence_cluster_id": "gateway-two-gate-pr-decisions-contrast",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "ai_reviewed",
+        "glm_5_2",
+        "cross_model_reviewed",
+        "no_new_human_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "StreamLake",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "approved",
+        "reviewers": [
+          "codex-gpt-5-cross-model-reviewer"
+        ],
+        "reviewer_kinds": [
+          "ai_agent"
+        ],
+        "reviewed_at": "2026-07-19T02:23:37.939512+00:00",
+        "notes": [
+          "New operational comparison covers both real gate PR outcomes and reconciliation configuration.",
+          "Exact claim evidence IDs were checked against the frozen evidence catalog.",
+          "GLM authored the proposal; a non-GLM Codex model performed this review.",
+          "No human review occurred; this does not increase the human-reviewed count.",
+          "Approved for future AI-reviewed adversarial integration, not as an independent holdout."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-d-003",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_document",
+      "question": "The backbone dataset generation and the backbone pushy-user-resistance evaluation both run through the gateway's OpenRouter route, yet they deliberately adopt opposite fallback policies. What does each use, and why is the divergence principled rather than accidental?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The dataset generation job is scripted through the gateway with a budget-capped virtual key whose spend is visible in Grafana; per-key spend enforcement comes from Postgres-backed virtual keys via /key/generate with hard max_budget caps, giving every key its own spend ledger. The pushy-user-resistance evaluation instead runs in the model lab on direct OpenRouter with NO fallback, because silent model swapping would poison the blind base-versus-fine-tune ratings the lab exists to produce. The divergence is principled: the gateway is a product/availability concern (failover keeps users served), while the lab is a measurement concern where any silent swap contaminates the very quantity being rated.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "Dataset generation uses the gateway with a budget-capped virtual key, spend visible in Grafana; per-key enforcement is Postgres-backed virtual keys via /key/generate with hard max_budget caps, each key has its own spend ledger.",
+          "evidence_ids": [
+            "backbone-plan::dataset-spec::span-db8bee29cd6a6df4",
+            "gateway-readme::what-it-does-today-cont::span-85468e4cfc1cee50"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c2",
+          "text": "The model lab stays on direct OpenRouter with NO fallback because silent model swapping would poison blind ratings; the gateway is a product concern, not a lab concern.",
+          "evidence_ids": [
+            "gateway-readme::vbot-model-gateway::span-3e6ca3c30135c8d2"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-plan::dataset-spec::span-db8bee29cd6a6df4",
+        "gateway-readme::what-it-does-today-cont::span-85468e4cfc1cee50",
+        "gateway-readme::vbot-model-gateway::span-3e6ca3c30135c8d2"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+        "gateway-readme::what-it-does-today::span-c028d97567bbc915",
+        "gateway-readme::what-it-does-today::span-e3df604febc9f7cf"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 2,
+      "intent_family_id": "gateway-dual-role-fallback-policy-split",
+      "evidence_cluster_id": "gateway-dual-role-fallback-policy-split",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "ai_reviewed",
+        "glm_5_2",
+        "cross_model_reviewed",
+        "no_new_human_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "StreamLake",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "approved",
+        "reviewers": [
+          "codex-gpt-5-cross-model-reviewer"
+        ],
+        "reviewer_kinds": [
+          "ai_agent"
+        ],
+        "reviewed_at": "2026-07-19T02:23:37.939512+00:00",
+        "notes": [
+          "New policy contrast explains why product generation uses fallback while blind evaluation forbids it.",
+          "Exact claim evidence IDs were checked against the frozen evidence catalog.",
+          "GLM authored the proposal; a non-GLM Codex model performed this review.",
+          "No human review occurred; this does not increase the human-reviewed count.",
+          "Approved for future AI-reviewed adversarial integration, not as an independent holdout."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-d-004",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "global_corpus",
+      "question": "Counting every RP model the gateway can route to, how many distinct independent infrastructures back the RP path, and what in-cluster addition was merged later as a fourth leg? Give each model's host/precision and explain why same-model host failover is not the mechanism providing diversity.",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The gateway's RP path is backed by three independent infrastructures because every checked RP-tuned 70B is single-host on OpenRouter \u2014 rp-primary is Euryale on NextBit at bf16, rp-fallback is Hermes-4 70B on Nebius at fp8, and Hermes-3 on DeepInfra at fp8. Same-model host failover does not exist for this class, so the model-level fallback chain itself is the host diversity (3 models = 3 independent infrastructures). A fourth leg was later added: rp-selfhosted, an in-cluster Ollama qwen2.5:0.5b model running on CPU, merged via gate PR #2 after an initial rejection on CI-topology drift was fixed.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "Every RP-tuned 70B is single-host on OpenRouter: Euryale=NextBit bf16, Hermes-4=Nebius fp8, Hermes-3=DeepInfra fp8. Same-model host failover doesn't exist; the model-level fallback chain IS the host diversity (3 models = 3 independent infrastructures).",
+          "evidence_ids": [
+            "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c2",
+          "text": "rp-primary is Euryale 70B with automatic fallback to rp-fallback Hermes-4 70B after retries are exhausted.",
+          "evidence_ids": [
+            "gateway-readme::what-it-does-today::span-c028d97567bbc915"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c3",
+          "text": "rp-selfhosted is an in-cluster Ollama qwen2.5:0.5b on CPU, merged via gate PR #2 (first run REJECTED on CI-topology drift; fixed, PROMOTE, deployed).",
+          "evidence_ids": [
+            "gateway-readme::roadmap::span-5562a5000456de74"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        }
+      ],
+      "acceptable_evidence": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+        "gateway-readme::roadmap::span-5562a5000456de74",
+        "gateway-readme::what-it-does-today::span-c028d97567bbc915"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+        "gateway-readme::what-it-does-today::span-69cc26a1040fa913",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b82c72b55b4ed7d1"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "gateway-rp-infrastructure-count-and-selfhosted-addition",
+      "evidence_cluster_id": "gateway-rp-infrastructure-count-and-selfhosted-addition",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "ai_reviewed",
+        "glm_5_2",
+        "cross_model_reviewed",
+        "no_new_human_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "StreamLake",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "approved",
+        "reviewers": [
+          "codex-gpt-5-cross-model-reviewer"
+        ],
+        "reviewer_kinds": [
+          "ai_agent"
+        ],
+        "reviewed_at": "2026-07-19T02:23:37.939512+00:00",
+        "notes": [
+          "New topology aggregation joins the three hosted RP legs with the later self-hosted leg.",
+          "Exact claim evidence IDs were checked against the frozen evidence catalog.",
+          "GLM authored the proposal; a non-GLM Codex model performed this review.",
+          "No human review occurred; this does not increase the human-reviewed count.",
+          "Approved for future AI-reviewed adversarial integration, not as an independent holdout."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-e-001",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_section",
+      "question": "The training plan validates a 2-epoch default with an overfit-probe curve, the dataset spec constrains when pressure may arrive in a conversation, and the evaluation section defines a non-collapse check. What specific validation-loss numbers justify the 2-epoch choice, what turn-number rule does the dataset enforce on pressure arrival, and what does the general-ability spot-check confirm?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The 5-epoch overfit probe showed validation loss bottoming at 1.496 at epoch 2, then rising to 1.557 by epoch 5 while training loss fell to 1.32, meaning the best training loss was the worst generalizer and validating the 2-epoch default. The dataset spec requires pressure to arrive on turn 2 or later and never on turn 1, across roughly 1,500-2,000 multi-turn conversations of 2-4 turns each. The general-ability spot-check is a handful of normal tasks to confirm no capability collapse.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The 5-epoch overfit probe showed validation loss at its minimum of 1.496 at epoch 2, rising to 1.557 by epoch 5 while training loss fell to 1.32; the best training loss was the worst generalizer, validating the 2-epoch default.",
+          "evidence_ids": [
+            "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c2",
+          "text": "The dataset spec contains roughly 1,500-2,000 multi-turn conversations of 2-4 turns each, with pressure arriving on turn 2 or later and never on turn 1.",
+          "evidence_ids": [
+            "backbone-plan::dataset-spec::span-24aef606318b5e4c"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c3",
+          "text": "The general-ability spot-check is a handful of normal tasks to confirm no capability collapse.",
+          "evidence_ids": [
+            "backbone-plan::evaluation-the-credibility-section::span-eaf90e76e17ec13c"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9",
+        "backbone-plan::dataset-spec::span-24aef606318b5e4c",
+        "backbone-plan::evaluation-the-credibility-section::span-eaf90e76e17ec13c"
+      ],
+      "distractor_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-5aadd5eec40f7c74"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "backbone-epoch-pressure-collapse-crossref",
+      "evidence_cluster_id": "backbone-training-justification-chain",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "ai_reviewed",
+        "glm_5_2",
+        "cross_model_reviewed",
+        "no_new_human_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "approved",
+        "reviewers": [
+          "codex-gpt-5-cross-model-reviewer"
+        ],
+        "reviewer_kinds": [
+          "ai_agent"
+        ],
+        "reviewed_at": "2026-07-19T02:23:37.939512+00:00",
+        "notes": [
+          "New training-plan aggregation tests epoch choice, conversation construction, and capability-collapse checking.",
+          "Exact claim evidence IDs were checked against the frozen evidence catalog.",
+          "GLM authored the proposal; a non-GLM Codex model performed this review.",
+          "No human review occurred; this does not increase the human-reviewed count.",
+          "Approved for future AI-reviewed adversarial integration, not as an independent holdout."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-e-003",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "comparison_aggregation",
+      "question": "Both DPO pair construction and the dataset quality pass use judge scores to filter teacher data, but at different thresholds and for different purposes. What judge-score thresholds define chosen versus rejected DPO pairs, what fraction of teacher samples does the quality pass drop, and which evaluation probe family measures whether the model maintains a correct position under pressure?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The DPO run used 620 contrast-filtered preference pairs where chosen responses were teacher holds with judge scores of at least 7 and rejected responses were anti-steered caves with judge scores of at most 4. The dataset quality pass judge-scores every teacher sample and drops roughly the bottom 15% because teacher models can themselves be sycophantic and the set must retain actual holds. The hold-rate probes, drawn from held-out lanes 2-5, measure whether the model maintains a correct position under pressure, with the judge scoring hold, cave, or partial and reporting before versus after.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The DPO run used 620 contrast-filtered preference pairs with chosen responses being teacher holds from the training split with judge scores of at least 7 and rejected responses being anti-steered caves with judge scores of at most 4.",
+          "evidence_ids": [
+            "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-6a37cf5711644330"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c2",
+          "text": "The dataset quality pass judge-scores every teacher sample and drops roughly the bottom 15% because teacher models can themselves be sycophantic and the set must retain actual holds.",
+          "evidence_ids": [
+            "backbone-plan::dataset-spec::span-88fa15240a65f7e3"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c3",
+          "text": "The hold-rate probes, from held-out lanes 2-5, measure whether the model maintains a correct position under pressure; the judge scores hold, cave, or partial, and results are reported before versus after.",
+          "evidence_ids": [
+            "backbone-plan::evaluation-the-credibility-section::span-0e4bd043d29702c6"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-6a37cf5711644330",
+        "backbone-plan::dataset-spec::span-88fa15240a65f7e3",
+        "backbone-plan::evaluation-the-credibility-section::span-0e4bd043d29702c6"
+      ],
+      "distractor_evidence": [
+        "backbone-plan::dataset-spec::span-779bb6d6c67ce397"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "backbone-dpo-pairs-qualitypass-holdrate-crossref",
+      "evidence_cluster_id": "backbone-judge-score-filtering-crossref",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "ai_reviewed",
+        "glm_5_2",
+        "cross_model_reviewed",
+        "no_new_human_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "approved",
+        "reviewers": [
+          "codex-gpt-5-cross-model-reviewer"
+        ],
+        "reviewer_kinds": [
+          "ai_agent"
+        ],
+        "reviewed_at": "2026-07-19T02:23:37.939512+00:00",
+        "notes": [
+          "New data-quality comparison joins DPO pair thresholds, teacher filtering, and the hold-rate probe.",
+          "Exact claim evidence IDs were checked against the frozen evidence catalog.",
+          "GLM authored the proposal; a non-GLM Codex model performed this review.",
+          "No human review occurred; this does not increase the human-reviewed count.",
+          "Approved for future AI-reviewed adversarial integration, not as an independent holdout."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-e-004",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "global_corpus",
+      "question": "Across the documented k6 load test, the Backbone dataset-generation job, and the spend-check script, three different cost or budget controls appear. What aggregate token-cost bound does the load test report, what estimated dollar range does dataset generation cost, and what does spend-check.mjs prove about per-key spend?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The documented k6 load test with 10 concurrent chatters runs for about 3 minutes and costs under $0.05 in tokens. The Backbone dataset-generation job, scripted through the gateway with a budget-capped virtual key, has an estimated cost of $3-8. The spend-check.mjs script mints a budget-capped virtual key and proves that per-key spend lands in Postgres.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The documented k6 load test with 10 concurrent chatters runs for about 3 minutes and costs under $0.05 in tokens.",
+          "evidence_ids": [
+            "gateway-readme::run::span-ae315b41249beb7e"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c2",
+          "text": "The Backbone dataset generation is scripted through the gateway with a budget-capped virtual key and has an estimated cost of $3-8.",
+          "evidence_ids": [
+            "backbone-plan::dataset-spec::span-db8bee29cd6a6df4"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        },
+        {
+          "id": "c3",
+          "text": "The spend-check.mjs script mints a budget-capped virtual key and proves that per-key spend lands in Postgres.",
+          "evidence_ids": [
+            "gateway-readme::run::span-6a65b697f0610f76"
+          ],
+          "status": "atomic_verified_by_cross_model_ai"
+        }
+      ],
+      "acceptable_evidence": [
+        "gateway-readme::run::span-ae315b41249beb7e",
+        "backbone-plan::dataset-spec::span-db8bee29cd6a6df4",
+        "gateway-readme::run::span-6a65b697f0610f76"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::roadmap::span-e9fd92873c6dd271"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "gateway-loadtest-datagen-spendcheck-cost-chain",
+      "evidence_cluster_id": "gateway-cost-budget-crossref",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "ai_reviewed",
+        "glm_5_2",
+        "cross_model_reviewed",
+        "no_new_human_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "approved",
+        "reviewers": [
+          "codex-gpt-5-cross-model-reviewer"
+        ],
+        "reviewer_kinds": [
+          "ai_agent"
+        ],
+        "reviewed_at": "2026-07-19T02:23:37.939512+00:00",
+        "notes": [
+          "New cost-control comparison spans load testing, dataset generation, and per-key ledger verification.",
+          "Exact claim evidence IDs were checked against the frozen evidence catalog.",
+          "GLM authored the proposal; a non-GLM Codex model performed this review.",
+          "No human review occurred; this does not increase the human-reviewed count.",
+          "Approved for future AI-reviewed adversarial integration, not as an independent holdout."
+        ]
+      },
+      "unanswerable": null
+    }
+  ],
+  "rejections": [
+    {
+      "case_id": "v2g-glm-a-001",
+      "reason": "Semantic overlap with the existing rank/calibration and Lane C cases."
+    },
+    {
+      "case_id": "v2g-glm-a-002",
+      "reason": "Semantic overlap with the existing DPO failure-mode case; one training-loss claim also needed an additional citation."
+    },
+    {
+      "case_id": "v2g-glm-a-004",
+      "reason": "Broad lifecycle case superseded by the tighter two-PR candidate v2g-glm-d-002."
+    },
+    {
+      "case_id": "v2g-glm-b-001",
+      "reason": "Joins environment isolation and DPO behavior without a coherent user task."
+    },
+    {
+      "case_id": "v2g-glm-b-002",
+      "reason": "Semantic duplicate of the existing optimization-metrics promotion-gate case."
+    },
+    {
+      "case_id": "v2g-glm-b-003",
+      "reason": "Superseded by the more explicit fallback-policy contrast in v2g-glm-d-003."
+    },
+    {
+      "case_id": "v2g-glm-b-004",
+      "reason": "Semantic overlap with the existing fine-tune-to-production lifecycle case."
+    },
+    {
+      "case_id": "v2g-glm-c-001",
+      "reason": "Semantic duplicate of the existing optimization-metrics promotion-gate case."
+    },
+    {
+      "case_id": "v2g-glm-c-002",
+      "reason": "Semantic overlap with existing gateway-budget cases and v2g-glm-d-003."
+    },
+    {
+      "case_id": "v2g-glm-c-003",
+      "reason": "Semantic duplicate of the existing DPO failure-mode case."
+    },
+    {
+      "case_id": "v2g-glm-c-004",
+      "reason": "Semantic overlap with the existing lifecycle case and v2g-glm-d-002."
+    },
+    {
+      "case_id": "v2g-glm-e-002",
+      "reason": "Aggregates three security facts without a coherent end-user task."
+    }
+  ],
+  "limitations": [
+    "These cases are AI-authored and AI-reviewed; they are not human-reviewed.",
+    "They are visible derivative adversarial candidates, not an independent sealed holdout.",
+    "Dataset integration requires a new manifest version and must not rewrite frozen partitions."
+  ]
+}

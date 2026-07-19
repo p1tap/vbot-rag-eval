@@ -312,13 +312,20 @@ The initial production policy must double-judge every critical case and at
 least 10% of routine agreements. Reducing the AI audit rate requires measured
 evidence, a documented error bound, and an explicit contract update.
 
-The development-only selection chose `v4-primary-failure-cascade`: V4 high is
-the primary; Gemini is consulted on primary failures; GPT adjudicates
+The later selection chose `glm-5.2-xhigh-baidu-primary-failure-cascade`: GLM
+5.2 xhigh is primary; Gemini is consulted on primary failures; GPT adjudicates
 unresolved disagreement; missing/invalid automated evidence fails closed. No
 future human queue exists. Against the untouched human reference it observed
-zero false accepts, 73.2% development agreement, 86.5% held-back confirmation
-agreement, and 76.0% overall agreement. Its 12 invalid/unresolved tasks failed
+zero false accepts, 76.1% development agreement, 86.5% held-back confirmation
+agreement, and 78.3% overall agreement. Its 12 invalid/unresolved tasks failed
 closed.
+
+Provider qualification remained separate from policy selection. Baidu and
+StreamLake were each pinned for the same frozen xhigh calibration. They agreed
+on 152/153 jointly valid decisions (99.35%); each produced 156/175 valid tasks
+with zero false accepts. StreamLake is therefore the ordered operational backup
+but not mixed into comparative runs, and every response records its actual
+provider.
 
 When paid providers are unavailable, the explicitly selected
 `qwen3.5-9b-local-diagnostic` profile can score the frozen 175 tasks or a new

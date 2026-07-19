@@ -26,7 +26,7 @@
     "ai_override_count": 22
   },
   "files_sha256": {
-    "config.py": "0e39461b4bd82f197928ede82745b676faafdf0e7b9c5e5fbe8bdbdc29df4446",
+    "config.py": "35a11fb62a8818ae1e089779d1c12cba6036bc97d494e75c9b806ef71ccf03e6",
     "evals/schema/case-v2.schema.json": "7e34df9ea9ca4f329331ea4a09684123d1d41465dc060613314897153f2b0d2e",
     "evals/schema/judge-calibration-label.schema.json": "e971cb3119793ae94056d826cc63676c145d65025c20ed0d79dfb89f6714e69b",
     "evals/v2/coverage-matrix.json": "86aad645e7c2da556c7fb68b814e6b3551ac5fcdfa95c4c32392d9f2aa6e7b06",
@@ -45,7 +45,7 @@
     "rag/embed.py": "8bb8f24a49cf88e24b4ef2e055c41eef70753338e0cffccee287f3f80c779ebf",
     "rag/generate.py": "67f3a526ddb8ed692f000cf2db657d228de9dd6084dbb6e9b0c4279d20f45a96",
     "rag/judge_contract.py": "c11038e9d52e48367201d3a8084ff2a9e6f7f9ac905edefb198acf483da84473",
-    "rag/llm.py": "581a7b5d071206890d451fb5723bc05a7eb7e3fb5cfbe250870cc3e561deb413",
+    "rag/llm.py": "77e742102407d756ba8be17bf09d27d3427065e433055e46a64f5b3dd87fc80d",
     "rag/retrieve.py": "d8ca050e8420f05a3255ffe4792b7012284711c8abea993ee2262bab14c8359c",
     "rag/structured_answer.py": "c53c893b155d1b9864879767b8555f205067776163537a38282bd04b48b8ae54",
     "reports/v2/ai-release-seed-audit.json": "7359487b4b48f133a7e2ffe49e9d661033ea098a2d91abb9b615d259683363ad",
@@ -60,9 +60,9 @@
     "scripts/audit_calibration_consensus.py": "603960d2256e9558128aaa45d6b21a05f43c325b12188a541185beb67851cbc6",
     "scripts/build_ai_release_seed.py": "f7d943e12c8788d6c358a96ac76eb498fba65ae3817826e546a66ed45d5d4ba5",
     "scripts/import_completed_reviews.py": "38ebcfcfbc6af22446d53654e5c0134fddf2dca58fa4126b65a13c998e292800",
-    "scripts/run_judge_bakeoff.py": "d5986b26616090d6ba84b1decc6f97964cdceda639d7b9cf9f796ce7edea5fdd",
+    "scripts/run_judge_bakeoff.py": "7c45d25e1e604510c05de30e08556f38f24bae449267a1c8a5edf0a5dbe39375",
     "scripts/run_operational_judge.py": "0986a3045b0460b34336fc83b8a0bc85d2e053f99ee53ea05b93fd65992a4b2e",
     "scripts/run_structured_eval.py": "a8fe181877c522d10fd77b6d9f846bb3e257af4b40e0f1ec23305764ecc738e7",
-    "scripts/simulate_judge_cascade.py": "e8b32b527206d08f4c014ad52b933bd19a5dcb831c7aa2dbdba2b5bae58b1234"
+    "scripts/simulate_judge_cascade.py": "12ebce5b6ec5c563cc22480d1dc78d0a9cd472975b91574e77efeef8db7e2a66"
   }
 }
