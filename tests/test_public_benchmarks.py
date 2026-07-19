@@ -12,7 +12,12 @@ from jsonschema import Draft202012Validator, FormatChecker
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from rag.benchmarks import FeverAdapter, HotpotQAAdapter, NaturalQuestionsAdapter  # noqa: E402
+from rag.benchmarks import (  # noqa: E402
+    FeverAdapter,
+    HotpotQAAdapter,
+    NaturalQuestionsAdapter,
+    SquadV2Adapter,
+)
 from rag.benchmarks.base import render_jsonl  # noqa: E402
 from scripts.benchmarks import prepare  # noqa: E402
 
@@ -151,6 +156,47 @@ class PublicBenchmarkTests(unittest.TestCase):
         self.assertEqual(nei["gold"]["label"], "not_enough_info")
         self.assertEqual(nei["gold"]["answerability"], "unanswerable")
         self.assertEqual(nei["documents"], [])
+
+    def test_squad_v2_preserves_oracle_context_answers_and_nulls(self):
+        rows = [
+            {
+                "id": "answerable",
+                "title": "France",
+                "context": "Paris is the capital of France.",
+                "question": "What is the capital of France?",
+                "answers": [{"text": "Paris", "answer_start": 0}],
+                "is_impossible": False,
+            },
+            {
+                "id": "null",
+                "title": "France",
+                "context": "Paris is the capital of France.",
+                "question": "Who founded Paris?",
+                "answers": [],
+                "is_impossible": True,
+            },
+        ]
+        normalized = SquadV2Adapter().normalize_many(rows, "dev")
+        validation = prepare.validate_normalized(normalized)
+        self.assertEqual(validation["normalized_cases"], 2)
+        by_id = {case["provenance"]["source_record_id"]: case for case in normalized}
+        self.assertEqual(by_id["answerable"]["gold"]["answers"], ["Paris"])
+        self.assertEqual(len(by_id["answerable"]["supporting_evidence"]), 1)
+        self.assertTrue(by_id["answerable"]["metadata"]["oracle_context"])
+        self.assertEqual(by_id["null"]["gold"]["answerability"], "unanswerable")
+        self.assertEqual(by_id["null"]["supporting_evidence"], [])
+
+    def test_squad_v2_rejects_drifted_answer_offset(self):
+        row = {
+            "id": "drift",
+            "title": "France",
+            "context": "Paris is the capital of France.",
+            "question": "What is the capital of France?",
+            "answers": [{"text": "Paris", "answer_start": 1}],
+            "is_impossible": False,
+        }
+        with self.assertRaisesRegex(ValueError, "answer span does not resolve"):
+            SquadV2Adapter().normalize(row, "dev")
 
 
 if __name__ == "__main__":

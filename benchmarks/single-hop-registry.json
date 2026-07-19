@@ -1,0 +1,21 @@
+{
+  "$schema": "./registry.schema.json",
+  "schema_version": "1.0.0",
+  "benchmarks": [
+    {
+      "id": "squad_v2",
+      "name": "SQuAD 2.0 Oracle-Context Reader",
+      "status": "active",
+      "target_cases": 11873,
+      "task_type": "extractive_qa",
+      "source_version": "SQuAD 2.0 dev (official Stanford release)",
+      "source_split": "dev",
+      "homepage": "https://rajpurkar.github.io/SQuAD-explorer/",
+      "source_url": "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json",
+      "upstream_source_url": "https://rajpurkar.github.io/SQuAD-explorer/",
+      "license": "CC BY-SA 4.0",
+      "human_annotation_provenance": "Crowd-authored extractive questions plus adversarial unanswerable questions over supplied Wikipedia paragraphs.",
+      "raw_sha256": "80a5225e94905956a6446d296ca1093975c4d3b3260f1d6c8f68bc2ab77182d8"
+    }
+  ]
+}
