@@ -15,6 +15,22 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 RUNNER_SOURCE_PATH = ROOT / "scripts" / "benchmarks" / "run_end_to_end.py"
+ENSEMBLE_RUNNER_SOURCE_PATH = (
+    ROOT / "scripts" / "benchmarks" / "build_consistency_ensemble.py"
+)
+CASCADE_RUNNER_SOURCE_PATH = (
+    ROOT / "scripts" / "benchmarks" / "run_verifier_cascade.py"
+)
+COMPOSITION_RUNNER_SOURCE_PATH = (
+    ROOT / "scripts" / "benchmarks" / "compose_task_aware_report.py"
+)
+CASCADE_V1_SOURCE_PATH = (
+    ROOT
+    / "reports"
+    / "public-benchmarks"
+    / "provenance"
+    / "run_verifier_cascade-v1.0.0.source.txt"
+)
 
 from scripts.benchmarks.prepare import load_registry  # noqa: E402
 
@@ -74,6 +90,21 @@ def _artifact_path(relative: str) -> Path:
     return path
 
 
+def _runner_source_path(identity: dict[str, Any]) -> Path:
+    if "task_aware_composition_rule" in identity:
+        return COMPOSITION_RUNNER_SOURCE_PATH
+    if (
+        "verification_policy" in identity
+        and "task_aware_composition_rule" not in identity
+    ):
+        if identity.get("runner_version") == "1.0.0":
+            return CASCADE_V1_SOURCE_PATH
+        return CASCADE_RUNNER_SOURCE_PATH
+    if "selection_rule" in identity:
+        return ENSEMBLE_RUNNER_SOURCE_PATH
+    return RUNNER_SOURCE_PATH
+
+
 def validate_end_to_end(
     path: Path, expected_source_sha256: dict[str, str], expected_case_ids: set[str]
 ) -> dict[str, Any]:
@@ -117,12 +148,37 @@ def validate_end_to_end(
         raise ValueError("end-to-end report is a sample, not the full suite")
     if identity.get("response_contract_version") != PUBLIC_E2E_RESPONSE_CONTRACT:
         raise ValueError("end-to-end response contract is not the promoted local-slot contract")
-    if identity.get("runner_source_sha256") != file_sha256(RUNNER_SOURCE_PATH):
+    runner_source_path = _runner_source_path(identity)
+    if (
+        not runner_source_path.is_file()
+        or identity.get("runner_source_sha256") != file_sha256(runner_source_path)
+    ):
         raise ValueError("end-to-end runner source hash drifted")
     if identity.get("source_sha256") != expected_source_sha256:
         raise ValueError("end-to-end report normalized inputs drifted")
 
     artifacts = value.get("artifacts", {})
+    if "task_aware_composition_rule" in identity:
+        primary_path = _artifact_path(artifacts.get("primary_report_path", ""))
+        derived_path = _artifact_path(artifacts.get("derived_report_path", ""))
+        if file_sha256(primary_path) != artifacts.get("primary_report_sha256"):
+            raise ValueError("composition primary-report hash mismatch")
+        if file_sha256(derived_path) != artifacts.get("derived_report_sha256"):
+            raise ValueError("composition derived-report hash mismatch")
+    if (
+        "verification_policy" in identity
+        and "task_aware_composition_rule" not in identity
+    ):
+        baseline_path = _artifact_path(artifacts.get("baseline_report_path", ""))
+        verification_path = _artifact_path(
+            artifacts.get("verification_records_path", "")
+        )
+        if file_sha256(baseline_path) != artifacts.get("baseline_report_sha256"):
+            raise ValueError("derived report baseline hash mismatch")
+        if file_sha256(verification_path) != artifacts.get(
+            "verification_records_sha256"
+        ):
+            raise ValueError("derived report verification-record hash mismatch")
     case_path = _artifact_path(artifacts.get("case_records_path", ""))
     batch_path = _artifact_path(artifacts.get("batch_records_path", ""))
     if file_sha256(case_path) != artifacts.get("case_records_sha256"):

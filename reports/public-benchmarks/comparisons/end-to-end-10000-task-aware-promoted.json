@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "decision": "PROMOTE",
+  "scope": "paired_generator_or_retrieval_pilot_not_release_promotion",
+  "baseline": "reports\\public-benchmarks\\end-to-end-10000-deepseek-v4-flash-high-openrouter-baidu-benchmark-aware-nq-corrected.json",
+  "candidate": "reports\\public-benchmarks\\end-to-end-10000-task-aware-promoted.json",
+  "identity": {
+    "baseline_profile": "deepseek-v4-flash-high-openrouter-baidu",
+    "candidate_profile": "deepseek-v4-flash-high-openrouter-baidu",
+    "baseline_top_k": 4,
+    "candidate_top_k": 4,
+    "baseline_top_k_by_benchmark": {
+      "hotpotqa": 4,
+      "natural_questions": 4,
+      "fever": 4
+    },
+    "candidate_top_k_by_benchmark": {
+      "hotpotqa": 4,
+      "natural_questions": 4,
+      "fever": 4
+    },
+    "baseline_retrieval": {
+      "bounded_candidate_mode": "dense",
+      "weighted_hybrid_config": null,
+      "fever_mode": "two_stage_bm25"
+    },
+    "candidate_retrieval": {
+      "bounded_candidate_mode": "dense",
+      "weighted_hybrid_config": null,
+      "fever_mode": "two_stage_bm25"
+    },
+    "baseline_compression": {
+      "mode": "lexical",
+      "max_document_chars": 6000,
+      "semantic_e5_config": null
+    },
+    "candidate_compression": {
+      "mode": "lexical",
+      "max_document_chars": 6000,
+      "semantic_e5_config": null
+    },
+    "baseline_prompt_policy": "benchmark_aware",
+    "candidate_prompt_policy": "benchmark_aware",
+    "baseline_citation_policy": "standard",
+    "candidate_citation_policy": "standard",
+    "baseline_nq_verification_policy": "standard",
+    "candidate_nq_verification_policy": "standard",
+    "case_count": 10000
+  },
+  "macro_joint_correct_delta": 0.010866666666666747,
+  "metric_deltas": {
+    "fever": {
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "evidence_complete_rate": 0.0,
+      "fail_closed_count": 0,
+      "joint_correct_rate": 0.0,
+      "label_accuracy": 0.0,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": 0.0
+    },
+    "hotpotqa": {
+      "answer_exact_match": 0.0016666666666667052,
+      "answer_f1": 0.000928176779647405,
+      "answerability_accuracy": -0.0016666666666667052,
+      "citation_precision": -0.005136322374280078,
+      "citation_recall": 0.01766666666666672,
+      "evidence_complete_rate": 0.03500000000000003,
+      "fail_closed_count": 0,
+      "joint_correct_rate": 0.026000000000000023,
+      "legacy_union_joint_correct_rate": 0.026000000000000023,
+      "retrieval_any_complete_evidence_set_rate": 0.0,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": 0.0
+    },
+    "natural_questions": {
+      "answer_exact_match": 0.006799999999999973,
+      "answer_f1": 0.006312567697300042,
+      "answerability_accuracy": 0.0031999999999999806,
+      "citation_precision": 0.0037686042490034377,
+      "citation_recall": -0.002263723825693287,
+      "evidence_complete_rate": -0.0012000000000000899,
+      "fail_closed_count": 0,
+      "joint_correct_rate": 0.006599999999999995,
+      "legacy_union_joint_correct_rate": 0.006399999999999961,
+      "retrieval_any_complete_evidence_set_rate": 0.0,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": 0.0
+    }
+  },
+  "paired_joint_transitions": {
+    "wins": 208,
+    "losses": 97,
+    "unchanged": 9695,
+    "exact_mcnemar_two_sided_p": 1.9090793577837307e-10,
+    "by_benchmark": {
+      "fever": {
+        "wins": 0,
+        "losses": 0,
+        "unchanged": 2000
+      },
+      "hotpotqa": {
+        "wins": 110,
+        "losses": 32,
+        "unchanged": 2858
+      },
+      "natural_questions": {
+        "wins": 98,
+        "losses": 65,
+        "unchanged": 4837
+      }
+    }
+  },
+  "fail_closed": {
+    "baseline": 0,
+    "candidate": 0
+  },
+  "rejection_reasons": [],
+  "promotion_rules": {
+    "minimum_macro_joint_correct_improvement": 0.01,
+    "maximum_per_benchmark_joint_regression": 0.02,
+    "maximum_per_benchmark_citation_precision_regression": 0.03,
+    "fail_closed_count_must_not_increase": true
+  }
+}

@@ -16,21 +16,224 @@ from scripts.benchmarks.run_end_to_end import (  # noqa: E402
     PROFILES,
     SENTINEL,
     answer_scores,
+    case_results,
+    citation_completion_prompt,
+    complete_hotpot_citations,
     contract_batch,
     prompt,
     parse_provider_output,
     one_edit_apart,
     rank_bounded_documents,
+    ranked_ids,
     response_format,
     run_batch,
     validate_output,
     work_item,
 )
 import scripts.benchmarks.audit_suite as audit_module  # noqa: E402
+from scripts.benchmarks.run_verifier_cascade import (  # noqa: E402
+    recheck_batch,
+    verification_prompt,
+)
+from scripts.benchmarks.build_consistency_ensemble import (  # noqa: E402
+    citation_component_indexes,
+    normalized_top_k_by_benchmark,
+)
+from scripts.benchmarks.compose_model_routed_confirmation import (  # noqa: E402
+    exact_paired_p_value,
+)
 from rag.evidence_compression import compress_documents  # noqa: E402
 
 
 class PublicEndToEndTests(unittest.TestCase):
+    def test_model_routed_confirmation_uses_exact_paired_test(self):
+        self.assertEqual(exact_paired_p_value(0, 0), 1.0)
+        self.assertAlmostEqual(exact_paired_p_value(7, 4), 0.548828125)
+
+    def test_ranked_sample_offsets_are_disjoint_and_deterministic(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "cases.jsonl"
+            path.write_text(
+                "".join(json.dumps({"id": f"case-{index}"}) + "\n" for index in range(8)),
+                encoding="utf-8",
+            )
+            first = ranked_ids(path, 3, 0)
+            second = ranked_ids(path, 3, 3)
+            self.assertEqual(first, ranked_ids(path, 3, 0))
+            self.assertEqual(second, ranked_ids(path, 3, 3))
+            self.assertTrue(first.isdisjoint(second))
+            with self.assertRaisesRegex(ValueError, "exceeds"):
+                ranked_ids(path, 3, 6)
+
+    def test_legacy_top_k_identity_normalizes_per_benchmark(self):
+        legacy = {
+            "benchmarks": ["hotpotqa", "natural_questions", "fever"],
+            "top_k": 4,
+        }
+        self.assertEqual(
+            normalized_top_k_by_benchmark(legacy),
+            {"hotpotqa": 4, "natural_questions": 4, "fever": 4},
+        )
+
+    def test_hotpot_all_component_citation_rule_keeps_other_tasks_selected(self):
+        self.assertEqual(
+            citation_component_indexes("hotpotqa", [0, 2], 3, "all_components"),
+            [0, 1, 2],
+        )
+        self.assertEqual(
+            citation_component_indexes("natural_questions", [0, 2], 3, "all_components"),
+            [0],
+        )
+
+    def test_nq_joint_accepts_any_complete_human_evidence_annotation(self):
+        work = {
+            "case_id": "natural_questions:dev:q1",
+            "benchmark_id": "natural_questions",
+            "gold": {"answers": ["Paris"], "answerability": "answerable"},
+            "gold_document_ids": ["d1", "d2"],
+            "gold_evidence_sets": [["d1"], ["d2"]],
+            "retrieved_document_ids": ["d1"],
+            "contexts": [
+                {"citation_id": "D1", "document_id": "d1"},
+            ],
+        }
+        batch = {
+            "case_ids": [work["case_id"]],
+            "results": [
+                {
+                    "case_id": work["case_id"],
+                    "prediction": "Paris",
+                    "citation_ids": ["D1"],
+                }
+            ],
+        }
+        row = case_results([batch], {work["case_id"]: work})[0]
+        self.assertTrue(row["joint_correct"])
+        self.assertTrue(row["evidence_complete"])
+        self.assertFalse(row["legacy_union_joint_correct"])
+        self.assertFalse(row["legacy_union_evidence_complete"])
+        self.assertTrue(row["retrieval_any_complete_evidence_set"])
+
+    def test_verifier_cascade_preserves_source_ids_and_records_changes(self):
+        class FakeCall:
+            content = json.dumps(
+                {
+                    "results": [
+                        {
+                            "case_id": "C1",
+                            "prediction": "__UNANSWERABLE__",
+                            "citation_ids": [],
+                        }
+                    ]
+                }
+            )
+
+            def to_record(self):
+                return {"latency_ms": 1.0, "usage": {}}
+
+        batch = [
+            {
+                "case_id": "natural_questions:dev:q1",
+                "benchmark_id": "natural_questions",
+                "query": "Who founded it?",
+                "contexts": [
+                    {
+                        "citation_id": "D1",
+                        "title": "Article",
+                        "text": "It is headquartered in Paris.",
+                    }
+                ],
+            }
+        ]
+        original = [
+            {
+                "case_id": "natural_questions:dev:q1",
+                "prediction": "Paris",
+                "citation_ids": ["D1"],
+            }
+        ]
+        with patch(
+            "scripts.benchmarks.run_verifier_cascade.chat_with_metadata",
+            return_value=FakeCall(),
+        ):
+            result = recheck_batch(batch, original, "qwen3.5-9b-local")
+        self.assertTrue(result["valid"])
+        self.assertEqual(result["results"][0]["case_id"], batch[0]["case_id"])
+        self.assertEqual(result["results"][0]["prediction"], SENTINEL)
+        self.assertEqual(len(result["changes"]), 1)
+        self.assertIn("topically related", verification_prompt(contract_batch(batch), [{**original[0], "case_id": "C1"}]))
+
+    def test_hotpot_answer_recheck_targets_bridge_and_answer_type_errors(self):
+        batch = [
+            {
+                "case_id": "C1",
+                "benchmark_id": "hotpotqa",
+                "query": "Where was the author of the novel born?",
+                "contexts": [
+                    {
+                        "citation_id": "D1",
+                        "title": "Novel",
+                        "text": "The novel was written by Ada Example.",
+                    },
+                    {
+                        "citation_id": "D2",
+                        "title": "Ada Example",
+                        "text": "Ada Example was born in Bangkok.",
+                    },
+                ],
+            }
+        ]
+        original = [
+            {"case_id": "C1", "prediction": "Ada Example", "citation_ids": ["D1"]}
+        ]
+        rendered = verification_prompt(batch, original, "hotpot_answer_recheck")
+        self.assertIn("requested by the question", rendered)
+        self.assertIn("intermediate bridge entity", rendered)
+        self.assertIn("Prefer a directly supported minimal answer", rendered)
+
+    def test_verifier_cascade_hotpot_completion_freezes_answer(self):
+        batch = [
+            {
+                "case_id": "hotpotqa:dev:q1",
+                "benchmark_id": "hotpotqa",
+                "query": "Which city is linked through the bridge fact?",
+                "contexts": [
+                    {"citation_id": "D1", "title": "Bridge", "text": "Bridge fact."},
+                    {"citation_id": "D2", "title": "Answer", "text": "Paris."},
+                ],
+            }
+        ]
+        original = [
+            {
+                "case_id": "hotpotqa:dev:q1",
+                "prediction": "Paris",
+                "citation_ids": ["D2"],
+            }
+        ]
+        completion_record = {
+            "attempted": True,
+            "valid": True,
+            "errors": [],
+        }
+        completed = [
+            {"case_id": "C1", "prediction": "Paris", "citation_ids": ["D1", "D2"]}
+        ]
+        with patch(
+            "scripts.benchmarks.run_verifier_cascade.complete_hotpot_citations",
+            return_value=(completed, completion_record, [{"execution_scope": "citation_completion"}], ["raw"]),
+        ):
+            result = recheck_batch(
+                batch,
+                original,
+                "qwen3.5-9b-local",
+                policy="hotpot_citation_completion",
+            )
+        self.assertTrue(result["valid"])
+        self.assertEqual(result["results"][0]["case_id"], batch[0]["case_id"])
+        self.assertEqual(result["results"][0]["prediction"], "Paris")
+        self.assertEqual(result["results"][0]["citation_ids"], ["D1", "D2"])
+        self.assertEqual(len(result["changes"]), 1)
+
     def test_semantic_compressor_is_lazy_bounded_and_query_ranked(self):
         documents = [
             {
@@ -141,6 +344,110 @@ class PublicEndToEndTests(unittest.TestCase):
             ["batch", "citation_completion"],
         )
 
+    def test_nq_citation_completion_keeps_prediction_frozen(self):
+        batch = [
+            {
+                "case_id": "C1",
+                "benchmark_id": "natural_questions",
+                "query": "Where was it founded?",
+                "contexts": [
+                    {"citation_id": "D1", "title": "Article", "text": "Founded in Paris."}
+                ],
+            }
+        ]
+        rendered = citation_completion_prompt(
+            batch,
+            [{"case_id": "C1", "prediction": "Paris", "citation_ids": []}],
+        )
+        self.assertIn("frozen prediction", rendered)
+        self.assertIn("independently supplies it", rendered)
+
+    def test_single_citation_completion_skips_complete_hotpot_results(self):
+        results = [
+            {"case_id": "C1", "prediction": "Paris", "citation_ids": ["D1", "D2"]}
+        ]
+        completed, record, calls, outputs = complete_hotpot_citations(
+            [
+                {
+                    "case_id": "C1",
+                    "benchmark_id": "hotpotqa",
+                    "query": "Where?",
+                    "contexts": [],
+                }
+            ],
+            results,
+            PROFILES["qwen3.5-9b-local"],
+            single_citation_only=True,
+        )
+        self.assertEqual(completed, results)
+        self.assertFalse(record["attempted"])
+        self.assertEqual(calls, [])
+        self.assertEqual(outputs, [])
+
+    def test_nq_evidence_recheck_can_replace_unsupported_answer(self):
+        class FakeCall:
+            def __init__(self, content):
+                self.content = content
+
+            def to_record(self):
+                return {"latency_ms": 1.0, "usage": {}}
+
+        batch = [
+            {
+                "case_id": "natural_questions:dev:1",
+                "benchmark_id": "natural_questions",
+                "query": "Who founded the organization?",
+                "contexts": [
+                    {
+                        "citation_id": "D1",
+                        "title": "Organization",
+                        "text": "The organization is headquartered in Paris.",
+                    }
+                ],
+            }
+        ]
+        first_pass = json.dumps(
+            {
+                "results": [
+                    {
+                        "case_id": "C1",
+                        "prediction": "Paris",
+                        "citation_ids": ["D1"],
+                    }
+                ]
+            }
+        )
+        verified = json.dumps(
+            {
+                "results": [
+                    {
+                        "case_id": "C1",
+                        "prediction": "__UNANSWERABLE__",
+                        "citation_ids": [],
+                    }
+                ]
+            }
+        )
+        with patch(
+            "scripts.benchmarks.run_end_to_end.chat_with_metadata",
+            side_effect=[FakeCall(first_pass), FakeCall(verified)],
+        ):
+            record = run_batch(
+                batch,
+                "qwen3.5-9b-local",
+                "natural_questions:test",
+                nq_verification_policy="evidence_recheck",
+            )
+        self.assertTrue(record["valid"])
+        self.assertEqual(record["results"][0]["prediction"], "__UNANSWERABLE__")
+        self.assertEqual(record["results"][0]["citation_ids"], [])
+        self.assertTrue(record["nq_verification"]["valid"])
+        self.assertEqual(len(record["nq_verification"]["changes"]), 1)
+        self.assertEqual(
+            [call["execution_scope"] for call in record["calls"]],
+            ["batch", "nq_verification"],
+        )
+
     def test_bounded_retrieval_modes_are_deterministic_and_unique(self):
         case = {
             "benchmark_id": "hotpotqa",
@@ -212,6 +519,25 @@ class PublicEndToEndTests(unittest.TestCase):
         self.assertEqual(
             profile["deployment_kind"], "openrouter_provider_pinned_baidu_fp8"
         )
+        self.assertTrue(profile["strict_schema"])
+
+    def test_glm_generator_is_xhigh_and_provider_pinned(self):
+        profile = PROFILES["glm-5.2-xhigh-openrouter-baidu"]
+        self.assertEqual(profile["model"], "z-ai/glm-5.2")
+        self.assertEqual(
+            profile["request_options"]["reasoning"],
+            {"effort": "xhigh", "exclude": True},
+        )
+        self.assertEqual(
+            profile["request_options"]["provider"],
+            {
+                "only": ["baidu/fp8"],
+                "allow_fallbacks": False,
+                "require_parameters": True,
+                "max_price": {"prompt": 0.30, "completion": 0.90},
+            },
+        )
+        self.assertEqual(profile["endpoint"], "https://openrouter.ai/api/v1")
         self.assertTrue(profile["strict_schema"])
 
     def test_invalid_batch_slot_is_retried_without_semantic_repair(self):
@@ -400,6 +726,35 @@ class PublicEndToEndTests(unittest.TestCase):
         self.assertEqual(exact, 1.0)
         self.assertEqual(f1, 1.0)
         self.assertEqual(answer_scores(SENTINEL, []), (1.0, 1.0))
+
+    def test_squad_oracle_work_item_refuses_context_truncation(self):
+        from scripts.benchmarks.run_squad_oracle import work_item
+
+        case = {
+            "id": "squad_v2:dev:q1",
+            "query": "What?",
+            "gold": {"answers": ["answer"], "answerability": "answerable"},
+            "documents": [
+                {
+                    "id": "squad_v2:q1:paragraph",
+                    "title": "Title",
+                    "sentences": ["A complete oracle paragraph."],
+                }
+            ],
+        }
+        work = work_item(case, 100)
+        self.assertEqual(work["contexts"][0]["citation_id"], "D1")
+        self.assertEqual(work["gold_document_ids"], ["squad_v2:q1:paragraph"])
+        with self.assertRaisesRegex(ValueError, "refusing truncation"):
+            work_item(case, 5)
+
+    def test_extract_reader_empty_answer_maps_to_abstention(self):
+        from scripts.benchmarks.run_squad_extractive import prediction_from_output
+
+        self.assertEqual(prediction_from_output({"answer": ""}), (SENTINEL, []))
+        self.assertEqual(
+            prediction_from_output({"answer": " Paris "}), ("Paris", ["D1"])
+        )
 
     def test_batch_output_rejects_cross_case_citations(self):
         batch = [

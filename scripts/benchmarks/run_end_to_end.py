@@ -50,7 +50,7 @@ DEFAULT_FEVER_INDEX = (
 )
 SENTINEL = "__UNANSWERABLE__"
 LABELS = {"supports", "refutes", "not_enough_info"}
-RUNNER_VERSION = "2.4.0"
+RUNNER_VERSION = "2.5.0"
 WEIGHTED_HYBRID_CONFIG = {
     "hotpotqa": {"rank_constant": 10, "lexical_weight": 0.25, "dense_weight": 1.0},
     "natural_questions": {
@@ -152,6 +152,27 @@ PROFILES = {
         "input_usd_per_million_tokens": 0.0983,
         "output_usd_per_million_tokens": 0.1966,
     },
+    "glm-5.2-xhigh-openrouter-baidu": {
+        "model": "z-ai/glm-5.2",
+        "temperature": None,
+        "max_tokens": 3000,
+        "strict_schema": True,
+        "request_options": {
+            "reasoning": {"effort": "xhigh", "exclude": True},
+            "provider": {
+                "only": ["baidu/fp8"],
+                "allow_fallbacks": False,
+                "require_parameters": True,
+                "max_price": {"prompt": 0.30, "completion": 0.90},
+            },
+        },
+        "timeout_seconds": 600,
+        "endpoint": "https://openrouter.ai/api/v1",
+        "deployment_kind": "openrouter_provider_pinned_baidu_fp8",
+        "pricing_checked_at_utc": "2026-07-19",
+        "input_usd_per_million_tokens": 0.28,
+        "output_usd_per_million_tokens": 0.88,
+    },
     "llama-3.1-8b-deepinfra": {
         "model": "meta-llama/llama-3.1-8b-instruct",
         "temperature": 0.0,
@@ -216,7 +237,9 @@ def load_jsonl(path: Path) -> list[dict]:
     ]
 
 
-def ranked_ids(path: Path, sample_per_benchmark: int) -> set[str] | None:
+def ranked_ids(
+    path: Path, sample_per_benchmark: int, sample_offset_per_benchmark: int = 0
+) -> set[str] | None:
     if not sample_per_benchmark:
         return None
     ranked = []
@@ -227,7 +250,14 @@ def ranked_ids(path: Path, sample_per_benchmark: int) -> set[str] | None:
                 f"public-e2e-pilot-v1:{case['id']}".encode()
             ).hexdigest()
             ranked.append((digest, case["id"]))
-    return {case_id for _, case_id in sorted(ranked)[:sample_per_benchmark]}
+    start = sample_offset_per_benchmark
+    stop = start + sample_per_benchmark
+    selected = sorted(ranked)[start:stop]
+    if len(selected) != sample_per_benchmark:
+        raise ValueError(
+            f"sample window [{start}, {stop}) exceeds {path.name} case count"
+        )
+    return {case_id for _, case_id in selected}
 
 
 def compress_document(query: str, document: dict, max_chars: int) -> str:
@@ -241,11 +271,14 @@ def dense_work_items(
     top_k: int,
     max_document_chars: int,
     sample_per_benchmark: int,
+    sample_offset_per_benchmark: int = 0,
     retrieval_mode: str = "dense",
     compression_mode: str = "lexical",
 ) -> list[dict]:
     source = DEFAULT_INPUTS[benchmark_id]
-    selected_ids = ranked_ids(source, sample_per_benchmark)
+    selected_ids = ranked_ids(
+        source, sample_per_benchmark, sample_offset_per_benchmark
+    )
     index_root = (
         ROOT
         / "artifacts"
@@ -334,10 +367,13 @@ def fever_work_items(
     top_k: int,
     max_document_chars: int,
     sample_per_benchmark: int,
+    sample_offset_per_benchmark: int = 0,
     compression_mode: str = "lexical",
 ) -> list[dict]:
     source = DEFAULT_INPUTS["fever"]
-    selected_ids = ranked_ids(source, sample_per_benchmark)
+    selected_ids = ranked_ids(
+        source, sample_per_benchmark, sample_offset_per_benchmark
+    )
     if not DEFAULT_FEVER_INDEX.exists():
         raise ValueError("FEVER global index is missing")
     items = []
@@ -521,13 +557,29 @@ def citation_completion_prompt(batch: list[dict], results: list[dict]) -> str:
                 ],
             }
         )
+    benchmark_id = batch[0]["benchmark_id"]
+    if benchmark_id == "hotpotqa":
+        task_rule = (
+            "add only retrieved documents required to establish the full multi-hop "
+            "chain, including bridge evidence and final-answer evidence"
+        )
+    elif benchmark_id == "natural_questions":
+        task_rule = (
+            "add only retrieved passages that directly and unambiguously state the "
+            "frozen answer; include every passage that independently supplies it"
+        )
+    elif benchmark_id == "fever":
+        task_rule = (
+            "add only retrieved documents required to form a complete evidence set for "
+            "the frozen supports or refutes label"
+        )
+    else:
+        raise ValueError(f"unsupported citation completion benchmark: {benchmark_id}")
     return (
-        "Complete the citations for each frozen HotpotQA answer. Do not change or "
-        "reinterpret the answer. Preserve every current citation and add only retrieved "
-        "documents required to establish the full multi-hop chain, including bridge "
-        "evidence and final-answer evidence. Do not add merely related documents. Return "
-        "exactly one result per case in input order, containing only case_id and "
-        "citation_ids.\n\n"
+        "Complete the citations for each frozen prediction. Do not change or reinterpret "
+        f"the prediction. Preserve every current citation and {task_rule}. Do not add "
+        "merely related documents. Return exactly one result per case in input order, "
+        "containing only case_id and citation_ids.\n\n"
         + json.dumps(rows, ensure_ascii=False)
     )
 
@@ -635,12 +687,17 @@ def contract_batch(batch: list[dict]) -> list[dict]:
 
 
 def complete_hotpot_citations(
-    wire_batch: list[dict], results: list[dict], profile: dict
+    wire_batch: list[dict],
+    results: list[dict],
+    profile: dict,
+    single_citation_only: bool = False,
 ) -> tuple[list[dict], dict, list[dict], list[str]]:
     eligible = [
         index
         for index, result in enumerate(results)
-        if result["prediction"].strip().casefold() != SENTINEL.casefold()
+        if result["prediction"].strip().casefold()
+        not in {SENTINEL.casefold(), "not_enough_info"}
+        and (not single_citation_only or len(result["citation_ids"]) < 2)
     ]
     if not eligible:
         return results, {"attempted": False, "reason": "no_answer_predictions"}, [], []
@@ -972,9 +1029,14 @@ def run_batch(
     batch_id: str,
     prompt_policy: str = "standard",
     citation_policy: str = "standard",
+    nq_verification_policy: str = "standard",
 ) -> dict:
     if citation_policy not in {"standard", "complete_hotpot_chain"}:
         raise ValueError(f"unknown citation policy: {citation_policy}")
+    if nq_verification_policy not in {"standard", "evidence_recheck"}:
+        raise ValueError(
+            f"unknown Natural Questions verification policy: {nq_verification_policy}"
+        )
     profile = PROFILES[profile_id]
     wire_batch = contract_batch(batch)
     calls = []
@@ -1031,6 +1093,18 @@ def run_batch(
             errors = []
             execution_events.append("retried_invalid_case_slots")
     citation_completion_record = {"attempted": False, "reason": "policy_disabled"}
+    nq_verification_record = {"attempted": False, "reason": "policy_disabled"}
+    if (
+        parsed is not None
+        and nq_verification_policy == "evidence_recheck"
+        and batch[0]["benchmark_id"] == "natural_questions"
+    ):
+        verified, nq_verification_record, verify_calls, verify_outputs = (
+            recheck_nq_answers(wire_batch, parsed["results"], profile)
+        )
+        parsed = {"results": verified}
+        calls.extend(verify_calls)
+        raw_outputs.extend(verify_outputs)
     if (
         parsed is not None
         and citation_policy == "complete_hotpot_chain"
@@ -1080,11 +1154,132 @@ def run_batch(
         "execution_events": execution_events,
         "case_slot_retry_records": slot_retry_records,
         "citation_completion": citation_completion_record,
+        "nq_verification": nq_verification_record,
         "raw_contract_valid": parsed is not None
         and not execution_events
         and not normalization_attempts[-1],
         "completed_at_utc": datetime.now(timezone.utc).isoformat(),
     }
+
+
+def nq_verification_prompt(batch: list[dict], results: list[dict]) -> str:
+    rows = []
+    for item, result in zip(batch, results, strict=True):
+        rows.append(
+            {
+                "case_id": item["case_id"],
+                "query": item["query"],
+                "first_pass_prediction": result["prediction"],
+                "first_pass_citation_ids": result["citation_ids"],
+                "retrieved_evidence": [
+                    {
+                        "citation_id": context["citation_id"],
+                        "title": context["title"],
+                        "text": context["text"],
+                    }
+                    for context in item["contexts"]
+                ],
+            }
+        )
+    return (
+        "Independently verify each Natural Questions answer against only its retrieved "
+        "evidence. Retrieved passages may be topically related while not stating the "
+        "requested fact. Ignore background knowledge and the first-pass conclusion. "
+        "If the evidence directly and unambiguously states the requested fact, return "
+        "the shortest exact answer span needed by the question; otherwise return "
+        "__UNANSWERABLE__. For an answer, cite every retrieved passage needed to establish "
+        "it and every retrieved passage that independently supplies the same answer. Do "
+        "not cite merely related passages. For __UNANSWERABLE__, citations must be []. "
+        "Return exactly one result per case in input order with only case_id, prediction, "
+        "and citation_ids.\n\n"
+        + json.dumps(rows, ensure_ascii=False)
+    )
+
+
+def recheck_nq_answers(
+    wire_batch: list[dict], results: list[dict], profile: dict
+) -> tuple[list[dict], dict, list[dict], list[str]]:
+    messages = [
+        {"role": "system", "content": SYSTEM},
+        {"role": "user", "content": nq_verification_prompt(wire_batch, results)},
+    ]
+    calls = []
+    raw_outputs = []
+    errors = []
+    normalization_attempts = []
+    accepted = None
+    for _ in range(3):
+        try:
+            call = chat_with_metadata(
+                profile["model"],
+                messages,
+                max_tokens=profile["max_tokens"],
+                temperature=profile["temperature"],
+                retries=6,
+                response_format=response_format(
+                    wire_batch, profile["strict_schema"]
+                ),
+                request_options=profile["request_options"],
+                timeout_seconds=profile.get("timeout_seconds"),
+            )
+            call_record = call.to_record()
+            call_record["execution_scope"] = "nq_verification"
+            call_record["wire_case_ids"] = [item["case_id"] for item in wire_batch]
+            calls.append(call_record)
+            raw_outputs.append(call.content)
+            candidate, events, parse_error = parse_provider_output(
+                call.content, wire_batch
+            )
+            normalization_attempts.append(events)
+            if parse_error:
+                errors = [parse_error]
+                continue
+            errors = validate_output(candidate, wire_batch)
+            if errors:
+                continue
+            accepted = candidate["results"]
+            break
+        except Exception as exc:  # noqa: BLE001
+            errors = [f"{type(exc).__name__}: {exc}"]
+    if accepted is None:
+        return (
+            results,
+            {
+                "attempted": True,
+                "valid": False,
+                "errors": errors,
+                "normalization_attempts": normalization_attempts,
+                "changes": [],
+                "fallback": "preserved_first_pass_results",
+            },
+            calls,
+            raw_outputs,
+        )
+    changes = [
+        {
+            "case_id": before["case_id"],
+            "before_prediction": before["prediction"],
+            "after_prediction": after["prediction"],
+            "before_citation_ids": before["citation_ids"],
+            "after_citation_ids": after["citation_ids"],
+        }
+        for before, after in zip(results, accepted, strict=True)
+        if before["prediction"] != after["prediction"]
+        or before["citation_ids"] != after["citation_ids"]
+    ]
+    return (
+        accepted,
+        {
+            "attempted": True,
+            "valid": True,
+            "errors": [],
+            "normalization_attempts": normalization_attempts,
+            "changes": changes,
+            "messages_sha256": canonical_sha256(messages),
+        },
+        calls,
+        raw_outputs,
+    )
 
 
 def recover_case_slots(
@@ -1293,6 +1488,23 @@ def case_results(batches: list[dict], work_by_id: dict[str, dict]) -> list[dict]
                 )
             else:
                 exact, f1 = answer_scores(prediction, work["gold"]["answers"])
+                legacy_union_evidence_complete = (
+                    not gold_documents or gold_documents <= cited_set
+                )
+                if work["benchmark_id"] == "natural_questions" and gold_documents:
+                    evidence_complete = any(
+                        set(evidence_set) <= cited_set
+                        for evidence_set in work["gold_evidence_sets"]
+                    )
+                    retrieval_any_complete_evidence_set = any(
+                        set(evidence_set) <= retrieved_documents
+                        for evidence_set in work["gold_evidence_sets"]
+                    )
+                else:
+                    evidence_complete = legacy_union_evidence_complete
+                    retrieval_any_complete_evidence_set = row[
+                        "retrieval_complete_gold"
+                    ]
                 row.update(
                     {
                         "answer_exact_match": exact,
@@ -1301,9 +1513,16 @@ def case_results(batches: list[dict], work_by_id: dict[str, dict]) -> list[dict]
                             (prediction.casefold() == SENTINEL.casefold())
                             == (work["gold"]["answerability"] == "unanswerable")
                         ),
-                        "joint_correct": bool(
-                            exact
-                            and (not gold_documents or gold_documents <= cited_set)
+                        "retrieval_any_complete_evidence_set": (
+                            retrieval_any_complete_evidence_set
+                        ),
+                        "evidence_complete": evidence_complete,
+                        "legacy_union_evidence_complete": (
+                            legacy_union_evidence_complete
+                        ),
+                        "joint_correct": bool(exact and evidence_complete),
+                        "legacy_union_joint_correct": bool(
+                            exact and legacy_union_evidence_complete
                         ),
                     }
                 )
@@ -1342,6 +1561,13 @@ def aggregate(rows: list[dict]) -> dict:
                     "answer_exact_match": mean(selected, "answer_exact_match"),
                     "answer_f1": mean(selected, "answer_f1"),
                     "answerability_accuracy": mean(selected, "answerability_correct"),
+                    "evidence_complete_rate": mean(selected, "evidence_complete"),
+                    "legacy_union_joint_correct_rate": mean(
+                        selected, "legacy_union_joint_correct"
+                    ),
+                    "retrieval_any_complete_evidence_set_rate": mean(
+                        selected, "retrieval_any_complete_evidence_set"
+                    ),
                 }
             )
         result[benchmark_id] = metrics
@@ -1382,10 +1608,16 @@ def main() -> None:
         choices=("standard", "complete_hotpot_chain"),
         default="standard",
     )
+    parser.add_argument(
+        "--nq-verification-policy",
+        choices=("standard", "evidence_recheck"),
+        default="standard",
+    )
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--max-document-chars", type=int, default=6000)
     parser.add_argument("--sample-per-benchmark", type=int, default=0)
+    parser.add_argument("--sample-offset-per-benchmark", type=int, default=0)
     parser.add_argument("--retry-invalid", action="store_true")
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args()
@@ -1393,6 +1625,10 @@ def main() -> None:
         raise SystemExit(
             "top-k, batch-size, workers, and max-document-chars must be positive"
         )
+    if args.sample_offset_per_benchmark < 0:
+        raise SystemExit("sample-offset-per-benchmark cannot be negative")
+    if args.sample_offset_per_benchmark and not args.sample_per_benchmark:
+        raise SystemExit("sample-offset-per-benchmark requires sample-per-benchmark")
     benchmark_ids = [
         item.strip() for item in args.benchmarks.split(",") if item.strip()
     ]
@@ -1420,6 +1656,7 @@ def main() -> None:
                     top_k=top_k_by_benchmark[benchmark_id],
                     max_document_chars=args.max_document_chars,
                     sample_per_benchmark=args.sample_per_benchmark,
+                    sample_offset_per_benchmark=args.sample_offset_per_benchmark,
                     compression_mode=args.compression_mode,
                 )
             )
@@ -1430,6 +1667,7 @@ def main() -> None:
                     top_k=top_k_by_benchmark[benchmark_id],
                     max_document_chars=args.max_document_chars,
                     sample_per_benchmark=args.sample_per_benchmark,
+                    sample_offset_per_benchmark=args.sample_offset_per_benchmark,
                     retrieval_mode=args.retrieval_mode,
                     compression_mode=args.compression_mode,
                 )
@@ -1482,10 +1720,12 @@ def main() -> None:
         },
         "prompt_policy": args.prompt_policy,
         "citation_policy": args.citation_policy,
+        "nq_verification_policy": args.nq_verification_policy,
         "batch_size": args.batch_size,
         "workers": args.workers,
         "max_document_chars": args.max_document_chars,
         "sample_per_benchmark": args.sample_per_benchmark,
+        "sample_offset_per_benchmark": args.sample_offset_per_benchmark,
         "system_sha256": hashlib.sha256(SYSTEM.encode()).hexdigest(),
         "case_ids_sha256": canonical_sha256([row["case_id"] for row in works]),
     }
@@ -1523,6 +1763,7 @@ def main() -> None:
                 batch_id,
                 args.prompt_policy,
                 args.citation_policy,
+                args.nq_verification_policy,
             ): (
                 batch_id,
                 batch,
@@ -1700,6 +1941,7 @@ def main() -> None:
             "Narrow deterministic serialization normalization is counted separately from raw contract validity; it never invents or drops answer or citation values.",
             "A malformed batch slot may be retried alone under the same profile and separately hashed strict schema; this execution fallback is counted separately and never infers a missing field.",
             "For FEVER only, the exact QA abstention alias __UNANSWERABLE__ is deterministically canonicalized to the semantically equivalent not_enough_info label and recorded per batch.",
+            "The optional Natural Questions evidence recheck is a second model pass over only the same retrieved evidence; it has no access to gold answers and preserves the first pass if its strict contract fails.",
         ],
     }
     write_json(args.out, report)

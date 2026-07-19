@@ -146,6 +146,12 @@ def main() -> None:
             "candidate_citation_policy": candidate["identity"].get(
                 "citation_policy", "standard"
             ),
+            "baseline_nq_verification_policy": baseline["identity"].get(
+                "nq_verification_policy", "standard"
+            ),
+            "candidate_nq_verification_policy": candidate["identity"].get(
+                "nq_verification_policy", "standard"
+            ),
             "case_count": len(baseline_rows),
         },
         "macro_joint_correct_delta": macro_delta,
