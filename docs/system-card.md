@@ -2,7 +2,7 @@
 
 Status: development evidence complete where cited; no production-accuracy claim
 
-Last updated: 2026-07-18
+Last updated: 2026-07-20
 
 ## System boundary
 
@@ -45,10 +45,17 @@ reported cost where available.
 - Public retrieval: pinned E5 improved complete-support recall over BM25 from
   59.30% to 76.17% on HotpotQA and 39.83% to 67.23% on Natural Questions.
   RRF was rejected where evidence completeness regressed.
-- Public end-to-end: runner `2.2.0` evaluated 10,000/10,000 cases with zero
-  fail-closed cases; the audit confirmed 10,000 unique IDs. Local Qwen macro
-  joint correctness was 31.87%, demonstrating reproducible scale rather than
-  quality leadership.
+- Public end-to-end: the promoted specialist report evaluated 10,000/10,000
+  cases with zero fail-closed cases and 60.50% strict macro joint
+  answer-and-citation correctness: 60.53% HotpotQA, 57.06% Natural Questions,
+  and 63.90% FEVER. Task-specific selectors were gated on disjoint confirmation
+  data before composition. The independent audit recomputed every metric,
+  confirmed 10,000 unique IDs, and passed the declared 60% macro gate.
+- Separate single-hop reader: a frozen 1,000-case SQuAD 2.0 oracle-context run
+  with a pinned local SQuAD-2.0-fine-tuned extractive reader reached 91.08% F1
+  and 87.50% exact match with zero fail-closed cases. Retrieval is excluded and
+  the source is the public development set, so this is not comparable to the
+  public end-to-end score or a blinded generalization result.
 - Domain action policy: 100 development cases reached 100% contract validity,
   88% action accuracy, and zero false answers. The one-time 50-case AI-only
   release run reached 100%, 90%, and zero, respectively.
@@ -106,8 +113,9 @@ reported cost where available.
   the derivative adversarial action gate; it is not promoted as production-safe.
 - No genuine real-user partition exists; the final inventory remains blocked
   on `real_user_partition_has_cases` rather than fabricating user evidence.
-- The selected cross-family judge depends on external providers; zero-balance
-  or rate-limit failures must fail closed rather than route silently.
+- The selected cross-family judge depends on external providers. Comparative
+  runs pin one provider and fail closed; the operational GLM route explicitly
+  orders calibrated Baidu then StreamLake and records the provider actually used.
 - Confidence intervals are wide for the 21-case non-answer domain lane.
 - The deferred 100-hour endurance/load test is outside this RAG completion
   scope.

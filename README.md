@@ -160,31 +160,49 @@ The full 10,000-case import is complete at the machine-validation layer:
 | FEVER shared-task dev | 2,000 | 3,213 evidence-set votes; 2,281 evidence spans | 0 |
 | **Total** | **10,000** | **31,213 votes/sets; 13,002 evidence spans** | **0** |
 
-All 10,000 normalized case IDs are unique. The raw and normalized payloads
-remain ignored local artifacts; pinned source manifests, normalized checksums,
-distributions, and conversion results are captured in the scrubbed reports
-under [`reports/public-benchmarks`](reports/public-benchmarks). The combined
-machine audit is
+All 10,000 normalized case IDs are unique. The large normalized retrieval
+contexts remain ignored local artifacts. The exact evaluated question text and
+publisher provenance are published in the compact
+[`question manifest`](reports/public-benchmarks/end-to-end-10000-specialist-promoted.questions.jsonl),
+while pinned source manifests, normalized checksums, distributions, and
+conversion results are captured in the scrubbed reports under
+[`reports/public-benchmarks`](reports/public-benchmarks). The combined machine
+audit is
 [`public-suite-10000.json`](reports/public-benchmarks/public-suite-10000.json).
 
-The end-to-end public evaluation is now claim-ready. A 48-case stratified
-adapter sample passed a local AI semantic audit; the report explicitly records
-zero locally human-reviewed public cases. Frozen 300-case pilots found 48.3%
-macro joint correctness for pinned GPT-5.4 high at `k=8` versus 19.0% for the
-Llama 3.1 8B baseline at `k=4`. The full GPT run stopped after 26 valid batches
-when OpenRouter returned insufficient-credit errors. A weights-pinned local
-Qwen 3.5 9B runner then completed a full 10K diagnostic at 31.67%, but that run
-was rejected after three Natural Questions batches failed closed.
+The end-to-end public evaluation is claim-ready. A 48-case stratified adapter
+sample passed a local AI semantic audit; the report explicitly records zero
+locally human-reviewed public cases. The promoted specialist report evaluates
+all 10,000 cases with zero fail-closed cases and reaches **60.50% strict macro
+joint answer-and-citation correctness**. Its benchmark scores are 63.90% FEVER,
+60.53% HotpotQA, and 57.06% Natural Questions.
 
-Runner `2.2.0` added only the exact observed serialization repairs. Its
-seven-batch live probe passed 7/7, its fresh 300-case pilot passed 300/300, and
-the clean full rerun passed 10,000/10,000 cases and 2,500/2,500 batches with
-zero fail-closed cases. The versioned audit independently confirmed 10,000
-unique case IDs and `resume_claim_ready: true`. Local Qwen achieved 31.87%
-macro joint correctness; 41 batches (1.64%) used allowlisted deterministic
-normalization and 13 batches (0.52%) used isolated slot retry, below the frozen
-5% and 1% caps. This proves reproducible evaluation scale, not frontier answer
-quality.
+The earlier task-aware composition raised the corrected 49.04% DeepSeek
+baseline to 50.13%. Task-specific answer selection and supporting-evidence
+retrieval then raised that result to 60.50%; each specialist passed its declared
+development and disjoint-confirmation gate before full-suite composition. The
+original local Qwen full-run baseline was 31.87%. Natural Questions evidence
+correctness accepts any one complete non-null human annotation, matching the
+official alternative-annotation rule; the former union requirement remains a
+legacy diagnostic. The independent specialist audit recomputed every metric,
+confirmed 10,000 unique IDs, and passed the 60% macro gate. See the
+[`promoted report`](reports/public-benchmarks/end-to-end-10000-specialist-promoted.json),
+[`case-level results`](reports/public-benchmarks/end-to-end-10000-specialist-promoted.cases.jsonl),
+and [`independent audit`](reports/public-benchmarks/end-to-end-10000-specialist-promoted-audit.json).
+
+### Separate single-hop reader lane
+
+SQuAD 2.0 is reported separately because the official paragraph is supplied to
+the reader and retrieval is not evaluated. On a frozen 1,000-case sample of the
+official development set, a pinned local SQuAD-2.0-fine-tuned extractive reader
+reaches **91.08% token F1**, **87.50% exact match**, and 94.1% answerability
+accuracy with zero fail-closed cases. This public development-set result is not
+a blinded out-of-domain test and must not be compared directly with the
+retrieval-inclusive 10,000-case macro joint score. See the
+[`confirmation report`](reports/public-benchmarks/squad-v2-oracle-context-deberta-v3-large-confirmation-1000.json)
+with its exact [`question manifest`](reports/public-benchmarks/squad-v2-oracle-context-deberta-v3-large-confirmation-1000.questions.jsonl),
+and the
+[`paired comparison`](reports/public-benchmarks/comparisons/squad-v2-oracle-context-deberta-v3-large-confirmation-1000.json).
 
 A direct GPT-5.6 Sol candidate path now uses OpenAI's Batch/Responses API with
 one case per request, token-aware shards, hash-bound input/output/error
@@ -312,10 +330,12 @@ support and required-claim coverage separately, retaining raw output, input
 hashes, model identity, retries, tokens, latency, and provider-reported cost.
 
 The frozen V1 evaluator remains unchanged for reproducibility. V2 is a separate
-development path. Its 175 human calibration verdicts are frozen. The completed
-DeepSeek-high, Gemini-high, and GPT-high checkpoints selected a conservative
-no-human cascade; DeepSeek-max is explicitly incomplete after OpenRouter
-returned HTTP 402.
+development path. Its 175 human calibration verdicts are frozen. A later GLM
+5.2 calibration selected an xhigh Baidu primary with the existing cross-family
+failure cascade: 78.3% overall and 86.5% confirmation agreement, zero observed
+false accepts, and 12 invalid/unresolved tasks failed closed. StreamLake passed
+a provider-parity gate at 99.35% paired decision agreement and is the ordered
+operational fallback; provider-pinned evaluation runs still disable fallback.
 See [`docs/structured-evaluation.md`](docs/structured-evaluation.md).
 
 The selected local Qwen development policy reached 100% contract validity,
