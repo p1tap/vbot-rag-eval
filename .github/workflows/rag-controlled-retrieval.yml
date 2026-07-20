@@ -1,0 +1,43 @@
+name: RAG Controlled Retrieval
+
+on:
+  workflow_dispatch:
+    inputs:
+      depths:
+        description: Frozen retrieval depths to evaluate
+        required: true
+        type: choice
+        default: '4,6,8'
+        options:
+          - '4'
+          - '4,6'
+          - '4,6,8'
+
+jobs:
+  reviewed-v2-retrieval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned CPU retrieval environment
+        run: |
+          pip install "torch==2.7.1" --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements-repro.txt -r requirements-dev.txt
+      - name: Rebuild the frozen Vbot index
+        run: python scripts/build_index.py
+      - name: Evaluate only the reviewed 100-case dataset
+        run: |
+          python scripts/evaluate_v2_retrieval.py \
+            --cases evals/v2/reviewed/vbot-human-reviewed-100.jsonl \
+            --ks "${{ inputs.depths }}" \
+            --out controlled-v2-retrieval.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: controlled-v2-retrieval-${{ github.run_id }}
+          path: controlled-v2-retrieval.json
+          if-no-files-found: error
+          retention-days: 30
+

@@ -1,0 +1,1785 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T10:30:00+00:00",
+  "status": "ai_only_release_seed_audit_passed",
+  "release_eligible_for_production_claim": false,
+  "source": {
+    "path": "evals/v2/release/vbot-ai-reviewed-release-50.jsonl",
+    "sha256": "bff7ba20cbd05d671cf403029639fd46d6910b2acb1ad45b59ce9ca63c396eb0",
+    "case_count": 50
+  },
+  "review_provenance": {
+    "locally_human_reviewed_case_count": 0,
+    "locally_ai_reviewed_case_count": 50,
+    "independent_author_reviewer": false
+  },
+  "checks": {
+    "deterministic_builder_match": true,
+    "schema_valid": true,
+    "case_integrity_valid": true,
+    "exact_evidence_resolved": true,
+    "ai_provenance_unambiguous": true,
+    "no_high_lexical_overlap_with_dev_or_release": true
+  },
+  "composition": {
+    "answerability": {
+      "answerable": 42,
+      "unanswerable": 8
+    },
+    "lanes": {
+      "authorization": 1,
+      "comparison_aggregation": 9,
+      "exact_identifier": 9,
+      "false_premise": 2,
+      "hard_negative": 3,
+      "multi_section": 4,
+      "prompt_injection": 1,
+      "single_hop": 6,
+      "structured_content": 6,
+      "temporal_conflict": 4,
+      "unanswerable": 5
+    },
+    "distinct_intent_family_count": 50,
+    "distinct_acceptable_evidence_count": 43
+  },
+  "lexical_overlap_audit": {
+    "metric": "set Jaccard over case-folded alphanumeric question tokens",
+    "reject_at_or_above": 0.75,
+    "maximum_observed": {
+      "release_case_id": "v2r-ai-026",
+      "comparison_case_id": "v1-q32",
+      "comparison_split": "dev",
+      "question_jaccard": 0.3333333333333333
+    },
+    "top_five": [
+      {
+        "release_case_id": "v2r-ai-026",
+        "comparison_case_id": "v1-q32",
+        "comparison_split": "dev",
+        "question_jaccard": 0.3333333333333333
+      },
+      {
+        "release_case_id": "v2r-ai-049",
+        "comparison_case_id": "v2r-ai-012",
+        "comparison_split": "release",
+        "question_jaccard": 0.3333333333333333
+      },
+      {
+        "release_case_id": "v2r-ai-035",
+        "comparison_case_id": "v1-q02",
+        "comparison_split": "dev",
+        "question_jaccard": 0.3181818181818182
+      },
+      {
+        "release_case_id": "v2r-ai-040",
+        "comparison_case_id": "v1-q20",
+        "comparison_split": "dev",
+        "question_jaccard": 0.3157894736842105
+      },
+      {
+        "release_case_id": "v2r-ai-013",
+        "comparison_case_id": "v1-q27",
+        "comparison_split": "dev",
+        "question_jaccard": 0.29411764705882354
+      }
+    ],
+    "semantic_independence_claimed": false
+  },
+  "limitations": [
+    "The same AI agent authored and reviewed every case.",
+    "Absence labels rely on an AI review of the small approved corpus, not an independent human annotator.",
+    "Fifty cases improve lane coverage but remain a same-agent AI-reviewed release set, not a production-traffic sample."
+  ],
+  "decisions": [
+    {
+      "case_id": "v2r-ai-001",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-002",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-00979569126422f7",
+          "block_type": "list",
+          "lines": [
+            16,
+            17
+          ],
+          "text": "- The user's product thesis (JanitorAI/CAI characters fold too easily) is\n  the RP instance of the same disease — one fine-tune serves both.",
+          "content_sha256": "00979569126422f7fb1ab8e12464594ed143c3758e03ba38690294b65d875439"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-003",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 2,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::dataset-spec::span-0a4ed36ee5f7e92e",
+          "block_type": "list",
+          "lines": [
+            40,
+            40
+          ],
+          "text": "- All SFW. RP lane uses existing Vbot lab characters/scenarios.",
+          "content_sha256": "0a4ed36ee5f7e92e129e318a7aa3df1d3c77b9b0d1e94536dbdbda49ffe7055e"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-004",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::run::span-6a65b697f0610f76",
+          "block_type": "code",
+          "lines": [
+            31,
+            37
+          ],
+          "text": "```sh\ncp .env.example .env    # fill in OPENROUTER_API_KEY, keys, postgres password\ndocker compose up -d    # litellm + redis + postgres\nnode scripts/smoke.mjs        # readiness + primary + forced-failover checks\nnode scripts/spend-check.mjs  # mints a budget-capped virtual key, proves\n                              # per-key spend lands in Postgres\n```",
+          "content_sha256": "6a65b697f0610f763bae08a698d3007ab8363d7e8053de34ee124a88c0207fea"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-005",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::run::span-d31ad26404749e50",
+          "block_type": "code",
+          "lines": [
+            58,
+            62
+          ],
+          "text": "```sh\ndocker run --rm -i --network=model-gateway_default \\\n  -e GATEWAY_URL=http://litellm:4000 -e LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY \\\n  grafana/k6 run - < scripts/load-test.js\n```",
+          "content_sha256": "d31ad26404749e50890a1cc9e2a0efaa1b66433bec31c4e13c7c5ba35a1dcdf3"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-006",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 1,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-007",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::roadmap::span-b81c3b221838a8f1",
+          "block_type": "list",
+          "lines": [
+            167,
+            167
+          ],
+          "text": "- [x] k6 load test — run, thresholds passed, findings recorded above",
+          "content_sha256": "b81c3b221838a8f1cf45946100a2fc49d5f0d94bf59071d7fe887c00dfc0831d"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-008",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::roadmap::span-11a4479e6c4a5d95",
+          "block_type": "list",
+          "lines": [
+            168,
+            169
+          ],
+          "text": "- [x] Prometheus + Grafana, provisioned-as-code (datasource + dashboard\n      in `monitoring/`), verified scraping live",
+          "content_sha256": "11a4479e6c4a5d95f40f8501c92143f8765e09d08609d00a101f8f9c959767c8"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-009",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 1,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::roadmap::span-b4f5711879f4257f",
+          "block_type": "list",
+          "lines": [
+            181,
+            181
+          ],
+          "text": "- [x] Hash-suffixed ConfigMaps: config-only merges auto-roll pods (proven live)",
+          "content_sha256": "b4f5711879f4257f67832b46500b0b6e284a35f6d362cf6fef8b23ae0f6ee499"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-010",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 2,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::roadmap::span-047019eb57e83b65",
+          "block_type": "list",
+          "lines": [
+            182,
+            182
+          ],
+          "text": "- [ ] Swap `rp-primary` to the lab verdict winner when Phase 1/2 concludes",
+          "content_sha256": "047019eb57e83b65c3fc8f3b0c306fcc8e9f6502d7374a79e99e3fad2bc6b44f"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-011",
+      "decision": "approved_ai_only",
+      "answerability": "unanswerable",
+      "claim_count": 0,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::run::span-6a65b697f0610f76",
+          "block_type": "code",
+          "lines": [
+            31,
+            37
+          ],
+          "text": "```sh\ncp .env.example .env    # fill in OPENROUTER_API_KEY, keys, postgres password\ndocker compose up -d    # litellm + redis + postgres\nnode scripts/smoke.mjs        # readiness + primary + forced-failover checks\nnode scripts/spend-check.mjs  # mints a budget-capped virtual key, proves\n                              # per-key spend lands in Postgres\n```",
+          "content_sha256": "6a65b697f0610f763bae08a698d3007ab8363d7e8053de34ee124a88c0207fea"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-012",
+      "decision": "approved_ai_only",
+      "answerability": "unanswerable",
+      "claim_count": 0,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::roadmap::span-11a4479e6c4a5d95",
+          "block_type": "list",
+          "lines": [
+            168,
+            169
+          ],
+          "text": "- [x] Prometheus + Grafana, provisioned-as-code (datasource + dashboard\n      in `monitoring/`), verified scraping live",
+          "content_sha256": "11a4479e6c4a5d95f40f8501c92143f8765e09d08609d00a101f8f9c959767c8"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-013",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::ft-lab-backbone-fine-tune-plan::span-37045c360173bcc6",
+          "block_type": "prose",
+          "lines": [
+            5,
+            8
+          ],
+          "text": "Goal: a QLoRA fine-tune of **Qwen2.5-7B-Instruct** targeting **calibrated\nresistance to social pressure** — the anti-sycophancy behavior family.\nFeeds the Vbot thesis (characters that don't fold). Standalone project,\nisolated from the rest of the platform.",
+          "content_sha256": "37045c360173bcc6ca4d6c598a0ebbea7418c55ba02082e27ca499775a7d540a"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-014",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::dataset-spec::span-5a8b964fb67c5ba4",
+          "block_type": "list",
+          "lines": [
+            39,
+            39
+          ],
+          "text": "- Mix: lane 1 ≈ 30% · lanes 2–5 ≈ 45% · lane C ≈ 25%.",
+          "content_sha256": "5a8b964fb67c5ba4bb2cbc659e7762573fa5742a5ee1e438941ab7a4700856c4"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-015",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::dataset-spec::span-db8bee29cd6a6df4",
+          "block_type": "list",
+          "lines": [
+            41,
+            43
+          ],
+          "text": "- Generation: scripted through the GATEWAY with a budget-capped virtual\n  key (spend visible in Grafana — the infra eats its own dogfood).\n  Est. cost $3–8.",
+          "content_sha256": "db8bee29cd6a6df40996e7c1dc7cab72140895c5b57ec87bc226e63d041a09dc"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-016",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::dataset-spec::span-88fa15240a65f7e3",
+          "block_type": "list",
+          "lines": [
+            44,
+            46
+          ],
+          "text": "- Quality pass: judge-score every teacher sample; drop bottom ~15%\n  (teacher models are themselves sycophantic sometimes — filter for\n  actual holds).",
+          "content_sha256": "88fa15240a65f7e33fd67570c2a73f71779af93c40d0a26b68177bf92d69b5c1"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-017",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 1,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::dataset-spec::span-779bb6d6c67ce397",
+          "block_type": "list",
+          "lines": [
+            47,
+            47
+          ],
+          "text": "- Held-out: ~10% never trained on → the eval probe set.",
+          "content_sha256": "779bb6d6c67ce397f961ff49eef9bd4b1bce6e2a8d7f731e97b44263d39ff09d"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-018",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 4,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::training::span-e7d444778cb883cf",
+          "block_type": "list",
+          "lines": [
+            51,
+            53
+          ],
+          "text": "- Base: Qwen2.5-7B-Instruct (ungated). QLoRA 4-bit (bnb nf4), LoRA\n  r=16–32 on attn+MLP, grad checkpointing, bsz*accum ≈ 16, 2–3 epochs,\n  cosine, lr ~1e-4. Fits ~10–11GB of the 5080's 16GB.",
+          "content_sha256": "e7d444778cb883cf508c388968d2ea58b973cf0b6ce2b9dba5534fc696ca7661"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-019",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::training::span-f3dd1d61c11b326e",
+          "block_type": "list",
+          "lines": [
+            54,
+            56
+          ],
+          "text": "- Env: conda `ft` — torch 2.11.0+cu128 CUDA-verified on the 5080;\n  transformers/peft/trl/bitsandbytes (NO unsloth for run #1 — Windows\n  fragility; reliability > speed).",
+          "content_sha256": "f3dd1d61c11b326e4ae9b4fb3970d157b435b63de6404fc9647023c43403ad26"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-020",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::training::span-7ea439f9d0bce7fb",
+          "block_type": "list",
+          "lines": [
+            57,
+            61
+          ],
+          "text": "- ⚠ **Every ft-env command needs `PYTHONNOUSERSITE=1`.** The machine has a\n  broken half-installed boto3 in user-site (AppData\\Roaming\\Python) that\n  leaks into conda envs and crashes accelerate's import chain; pip also\n  under-installs deps it thinks user-site provides (tqdm). Isolation flag\n  goes in every training script/invocation.",
+          "content_sha256": "7ea439f9d0bce7fbd5fc41b7912ac8f50ae46fb76eed0a9425cebe2a8d44adaa"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-021",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::training::span-c24212433c069de8",
+          "block_type": "list",
+          "lines": [
+            62,
+            63
+          ],
+          "text": "- Track runs in a simple runs/ ledger (config + loss curve + eval hash);\n  MLflow optional later.",
+          "content_sha256": "c24212433c069de8251d9a246497200e4d60b1d202f6d9909f9dba65c2a2faa8"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-022",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::evaluation-the-credibility-section::span-a086bceb9b3abe75",
+          "block_type": "list",
+          "lines": [
+            73,
+            75
+          ],
+          "text": "3. **Pushy-user-resistance** (lab probe, RP lane): blind human rating in\n   the model lab — base vs FT, names hidden. The lab's anti-sycophancy\n   scenario is the exact intended eval.",
+          "content_sha256": "a086bceb9b3abe75b55d68ad11a0e57eb4600f3e03c335dc6839aa0eb3676102"
+        },
+        {
+          "evidence_id": "backbone-plan::evaluation-the-credibility-section::span-eaf90e76e17ec13c",
+          "block_type": "list",
+          "lines": [
+            76,
+            77
+          ],
+          "text": "4. **General-ability spot-check**: a handful of normal tasks to confirm\n   no capability collapse.",
+          "content_sha256": "eaf90e76e17ec13cf92dbd4815cabf13dad3e5ff0a65bcc0fa9f991185a4e86b"
+        },
+        {
+          "evidence_id": "backbone-plan::evaluation-the-credibility-section::span-1e726f4f365fbaa0",
+          "block_type": "list",
+          "lines": [
+            78,
+            78
+          ],
+          "text": "5. Deliverable: eval report with all four, in the model card.",
+          "content_sha256": "1e726f4f365fbaa018c2513a0fe5841fc6a3209c06369594ac89a8a69750d007"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-023",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 2,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::ship-list::span-020611a8be68879d",
+          "block_type": "list",
+          "lines": [
+            82,
+            82
+          ],
+          "text": "- [ ] Model card w/ lineage (base → dataset recipe → adapter), eval table",
+          "content_sha256": "020611a8be68879d5ee2bc32348e94a6fcf72866edf033a05cdc25f24df200a8"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-024",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 2,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::ship-list::span-242fb41a0197882e",
+          "block_type": "list",
+          "lines": [
+            83,
+            83
+          ],
+          "text": "- [ ] HF upload: own account now, org when NU8B creates it",
+          "content_sha256": "242fb41a0197882ecbb6d4ed5717f59f05e78a1d3b02612e09143effa945424c"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-025",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::status::span-0e1ede6614cd2554",
+          "block_type": "list",
+          "lines": [
+            92,
+            95
+          ],
+          "text": "- 2026-07-09: plan written. `ft` env created, torch 2.11.0+cu128 CUDA\n  OK on RTX 5080. Training stack installing. Next: data-gen script\n  (scripts/gen_dataset.mjs against the gateway) + teacher model pick for\n  lanes 2–5.",
+          "content_sha256": "0e1ede6614cd25545bc8eb4b24da567454aed571eaee67fe1544db6ee8015d2f"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-026",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9",
+          "block_type": "list",
+          "lines": [
+            5,
+            7
+          ],
+          "text": "1. **Overfit probe (5ep)**: val loss U-curve, min at epoch 2 (1.496), rising\n   to 1.557 by ep5 while train loss fell to 1.32 — the best train loss was\n   the worst generalizer. Validates the 2-epoch default empirically.",
+          "content_sha256": "0f9d3b22d9b671e95bd1d959fb37ebd9380f9fd96b44462e0b7deaacd6bf78f8"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-027",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 2,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-5aadd5eec40f7c74",
+          "block_type": "list",
+          "lines": [
+            8,
+            9
+          ],
+          "text": "2. **LR**: 2e-4 > 1e-4 > 5e-5 at 2ep (5e-5 clearly underfit). Higher LR\n   favored for LoRA on ~2.2K rows.",
+          "content_sha256": "5aadd5eec40f7c749c8347f2f906b6ef82d33f5a2d52d1174282b26461fcf19c"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-028",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-3a5d42f4bf2a599d",
+          "block_type": "list",
+          "lines": [
+            10,
+            11
+          ],
+          "text": "3. **Rank**: r64 best eval loss (1.473); r8 starved (1.598). Capacity helps\n   at this data size; margin over r16 is small vs 4x adapter size.",
+          "content_sha256": "3a5d42f4bf2a599d4ecbe2ccb6ce9854bd2fc0a060db6ded18b0e136bd45db33"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-029",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-44c228cb9c0fa3fd",
+          "block_type": "list",
+          "lines": [
+            12,
+            17
+          ],
+          "text": "4. **Behavioral verdict**: r64 (best eval loss) is NOT the uniform behavior\n   winner — it gains honest-eval (+1.5) and general (+1.8) but LOSES a full\n   point of calibration vs r16 (7.17 vs 8.17). Loss optimizes imitation;\n   behavior lanes move independently. Deployed r16 stays (calibration is\n   the objective). v2 hypothesis: r64 + lr2e-4 + DPO to recover calibration.\n   Caveat: single-sample probes, temp 0.8 — treat deltas <~0.5 as noise.",
+          "content_sha256": "44c228cb9c0fa3fdbaaf9aad7c8c8fcfce1fe7254aa842be92c7c0bc594d8683"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-030",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-6a37cf5711644330",
+          "block_type": "prose",
+          "lines": [
+            21,
+            22
+          ],
+          "text": "620 contrast-filtered pairs (chosen = judge≥7 teacher holds from train\nsplit; rejected = anti-steered caves, judge≤4). beta 0.1, lr 5e-6, 1ep.",
+          "content_sha256": "6a37cf57116443306f31001a32a161d592eabb9372dc111a496219935a90695f"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-031",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 4,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-e469932c42b49a3b",
+          "block_type": "list",
+          "lines": [
+            24,
+            27
+          ],
+          "text": "5. **In-distribution DPO worked**: reward accuracy 0.55 → 1.0 across the\n   epoch (learned, not trivially separable), margins 0.006 → 0.37,\n   rewards/chosen pinned ~0 while rewards/rejected fell to −0.36 — pushed\n   away from caving without drifting off the SFT chosen distribution.",
+          "content_sha256": "e469932c42b49a3b6c160cb08b3ab4c98a1de7eb6b8af08d1e4c8fcb0ba6d205"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-032",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-eadabc0e9a19ea25",
+          "block_type": "list",
+          "lines": [
+            28,
+            30
+          ],
+          "text": "6. **Frozen suite said NO SHIP**: RP-boundary +0.66, bad-idea +0.75,\n   calibration +0.5 (no contrarian drift) — but anti-sycophancy −1.33 and\n   general −0.5 vs SFT (paired, same judge, same day).",
+          "content_sha256": "eadabc0e9a19ea25fc0eb2508364323325a6d4a53b0af2c1896e26ebe1fce505"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-033",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-5e7815184e46f674",
+          "block_type": "list",
+          "lines": [
+            31,
+            38
+          ],
+          "text": "7. **The failure mode is the finding**: on the two crashed probes the DPO\n   model still HOLDS — but holds *badly*: fabricated an authority (\"the\n   International Bone Federation\") to justify a correct hold (syco-01),\n   and doubled down into confidently wrong math (\"0.9 is definitely\n   smaller than 0.11\", syco-05). The pairs teach the posture of holding;\n   a 1.5B lacks the grounding of the 70B/DeepSeek teachers whose holds it\n   imitates, so pressure-resistance decouples from correctness. Preference\n   optimization amplified confidence without adding knowledge.",
+          "content_sha256": "5e7815184e46f6740db65c395ad846ed7823662de8369f7b7dd07b406ebe9923"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-034",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 4,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1",
+          "block_type": "list",
+          "lines": [
+            39,
+            43
+          ],
+          "text": "8. **Chain of gates that caught it**: train loss ↓ and reward accuracy\n   1.0 both said \"great run\"; only the behavioral eval said otherwise —\n   same lesson as finding 4, one optimization stage later. Deployed model\n   remains the SFT r16. Possible v2: mix factual-grounding pairs, or DPO\n   only the RP lane (where holds are stylistic, not factual).",
+          "content_sha256": "226071cfcc6f10f16bc3e796e87c44ecca7a3838b00a7a6b37fb815eac0d09bc"
+        },
+        {
+          "evidence_id": "backbone-plan::why-this-target-and-not-generic-rp-style::span-67727440feea650c",
+          "block_type": "list",
+          "lines": [
+            14,
+            15
+          ],
+          "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to\n  \"are you sure?\"); training *specifically against it* is distinctive.",
+          "content_sha256": "67727440feea650cebac34204bf919abcaa3b38f26751d937e1d6cecd1aed8af"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-035",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+          "block_type": "prose",
+          "lines": [
+            5,
+            10
+          ],
+          "text": "Multi-provider LLM gateway for the Vbot platform, built on [LiteLLM proxy].\nImplements the failover ladder from the provider-reliability research\n(doc 09) per the ADR in doc 15: **retry same deployment → cooldown\n(circuit breaker) → model-level fallback** — because our primary RP model\n(Euryale 70B) is single-host on OpenRouter, so a hot-standby model IS the\nsecond rung, not a nice-to-have.",
+          "content_sha256": "6d641315158792e7c63392e70e164f4e4f5161d88cb7b7af137f91315e1b8a1f"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-036",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 4,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+          "block_type": "list",
+          "lines": [
+            97,
+            101
+          ],
+          "text": "- **One-model-one-host**: every RP-tuned 70B checked is single-host on\n  OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8,\n  Hermes-3=DeepInfra fp8). Same-model host failover doesn't exist in this\n  class — the model-level fallback chain IS the host diversity\n  (3 models = 3 independent infrastructures).",
+          "content_sha256": "ebc94a7c7f07989e126ec66ef691bd3439711bdc0d4fd66548e77437b8c132c1"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-037",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 2,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::what-it-does-today::span-69cc26a1040fa913",
+          "block_type": "list",
+          "lines": [
+            18,
+            20
+          ],
+          "text": "- OpenAI-compatible endpoint at `http://127.0.0.1:4000/v1` fronting\n  OpenRouter (later: direct providers + self-hosted vLLM behind the same\n  interface).",
+          "content_sha256": "69cc26a1040fa913ef9232bb5ced784de476d95a57fe0652b6d3c2cc8250bc91"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-038",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::what-it-does-today::span-c028d97567bbc915",
+          "block_type": "list",
+          "lines": [
+            21,
+            22
+          ],
+          "text": "- `rp-primary` (Euryale 70B) with automatic fallback to `rp-fallback`\n  (Hermes-4 70B) after retries are exhausted.",
+          "content_sha256": "c028d97567bbc91564dec38378a4f2adefd2e66013a2dcf3ad137e6ce46fc0c2"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-039",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::what-it-does-today::span-e3df604febc9f7cf",
+          "block_type": "list",
+          "lines": [
+            23,
+            24
+          ],
+          "text": "- Cooldowns: a deployment failing >3×/min is pulled from rotation for 30s\n  (Redis-backed, so state survives multi-replica later).",
+          "content_sha256": "e3df604febc9f7cf1df08d48c71f6231c4ab14ae5dd008ef80fa1b37f27b2beb"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-040",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 2,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::what-it-does-today::span-cf1ae40810acc48f",
+          "block_type": "list",
+          "lines": [
+            25,
+            26
+          ],
+          "text": "- `failover-demo` model: intentionally broken credentials, exists so the\n  smoke test can PROVE fallback fires end-to-end instead of trusting config.",
+          "content_sha256": "cf1ae40810acc48fee9bbb6312e56896bb218d50430232a33616c6f615df1b1c"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-041",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 1,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::ft-lab-backbone-fine-tune-plan::span-bc113a450ad2c360",
+          "block_type": "prose",
+          "lines": [
+            10,
+            10
+          ],
+          "text": "Working name: `backbone`.",
+          "content_sha256": "bc113a450ad2c360fd7c8af1725d229d8cce17df66df4b7246e8bda28dec6e08"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-042",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 3,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::run::span-e0cc7ed0ec2d3899",
+          "block_type": "code",
+          "lines": [
+            41,
+            47
+          ],
+          "text": "```sh\n# one-time: give Prometheus the scrape token (gitignored)\ngrep '^LITELLM_MASTER_KEY=' .env | cut -d= -f2 | tr -d '\\r\\n' > monitoring/.litellm_token\ndocker compose up -d\n# Grafana  → http://127.0.0.1:3001  (admin / vbotlab or $GRAFANA_PASSWORD)\n# Prometheus → http://127.0.0.1:9090\n```",
+          "content_sha256": "e0cc7ed0ec2d3899a19982b2d76c5c797dffec624d8928c8c2f1383c5e66d8ec"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-043",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 4,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::run::span-d8c1c6bee59d5500",
+          "block_type": "prose",
+          "lines": [
+            49,
+            54
+          ],
+          "text": "The **Vbot Model Gateway** dashboard ships provisioned: requests/min by\nmodel, LLM latency p50/p95, failed requests/min, tokens/min in/out,\ndeployment state (cooldown visibility — you can watch the circuit breaker\ntrip), total spend, in-flight requests, success rate. LiteLLM's\n`prometheus` callback verified working on the standard image (the\n\"enterprise-only\" doc note did not bite on this version).",
+          "content_sha256": "d8c1c6bee59d5500dd06c7b1cd2a9f8546a21146c6fe16974a771424d5c8826d"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-044",
+      "decision": "approved_ai_only",
+      "answerability": "answerable",
+      "claim_count": 2,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::run::span-d8c1c6bee59d5500",
+          "block_type": "prose",
+          "lines": [
+            49,
+            54
+          ],
+          "text": "The **Vbot Model Gateway** dashboard ships provisioned: requests/min by\nmodel, LLM latency p50/p95, failed requests/min, tokens/min in/out,\ndeployment state (cooldown visibility — you can watch the circuit breaker\ntrip), total spend, in-flight requests, success rate. LiteLLM's\n`prometheus` callback verified working on the standard image (the\n\"enterprise-only\" doc note did not bite on this version).",
+          "content_sha256": "d8c1c6bee59d5500dd06c7b1cd2a9f8546a21146c6fe16974a771424d5c8826d"
+        },
+        {
+          "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+          "block_type": "list",
+          "lines": [
+            166,
+            166
+          ],
+          "text": "- [x] Postgres for per-key spend tracking / virtual keys",
+          "content_sha256": "e9fd92873c6dd271dee6fb83de96498f9cb3c5f58cf5fd22b82688e4421ffddb"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-045",
+      "decision": "approved_ai_only",
+      "answerability": "unanswerable",
+      "claim_count": 0,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::run::span-d8c1c6bee59d5500",
+          "block_type": "prose",
+          "lines": [
+            49,
+            54
+          ],
+          "text": "The **Vbot Model Gateway** dashboard ships provisioned: requests/min by\nmodel, LLM latency p50/p95, failed requests/min, tokens/min in/out,\ndeployment state (cooldown visibility — you can watch the circuit breaker\ntrip), total spend, in-flight requests, success rate. LiteLLM's\n`prometheus` callback verified working on the standard image (the\n\"enterprise-only\" doc note did not bite on this version).",
+          "content_sha256": "d8c1c6bee59d5500dd06c7b1cd2a9f8546a21146c6fe16974a771424d5c8826d"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-046",
+      "decision": "approved_ai_only",
+      "answerability": "unanswerable",
+      "claim_count": 0,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::run::span-6a65b697f0610f76",
+          "block_type": "code",
+          "lines": [
+            31,
+            37
+          ],
+          "text": "```sh\ncp .env.example .env    # fill in OPENROUTER_API_KEY, keys, postgres password\ndocker compose up -d    # litellm + redis + postgres\nnode scripts/smoke.mjs        # readiness + primary + forced-failover checks\nnode scripts/spend-check.mjs  # mints a budget-capped virtual key, proves\n                              # per-key spend lands in Postgres\n```",
+          "content_sha256": "6a65b697f0610f763bae08a698d3007ab8363d7e8053de34ee124a88c0207fea"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-047",
+      "decision": "approved_ai_only",
+      "answerability": "unanswerable",
+      "claim_count": 0,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::run::span-ae315b41249beb7e",
+          "block_type": "prose",
+          "lines": [
+            56,
+            56
+          ],
+          "text": "Load test (10 concurrent chatters, ~3 min, < $0.05 in tokens):",
+          "content_sha256": "ae315b41249beb7e3266e667c20ad7112f5bea04ec33f1f3170cf39424493e94"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-048",
+      "decision": "approved_ai_only",
+      "answerability": "unanswerable",
+      "claim_count": 0,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-plan::status::span-0e1ede6614cd2554",
+          "block_type": "list",
+          "lines": [
+            92,
+            95
+          ],
+          "text": "- 2026-07-09: plan written. `ft` env created, torch 2.11.0+cu128 CUDA\n  OK on RTX 5080. Training stack installing. Next: data-gen script\n  (scripts/gen_dataset.mjs against the gateway) + teacher model pick for\n  lanes 2–5.",
+          "content_sha256": "0e1ede6614cd25545bc8eb4b24da567454aed571eaee67fe1544db6ee8015d2f"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-049",
+      "decision": "approved_ai_only",
+      "answerability": "unanswerable",
+      "claim_count": 0,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-dcb91f2d4d702f73",
+          "block_type": "prose",
+          "lines": [
+            150,
+            151
+          ],
+          "text": "**Merge to `master` = deploy.** Argo CD (core/headless install) watches\n`k8s/` and keeps the cluster identical to git:",
+          "content_sha256": "dcb91f2d4d702f737ba03018044fb2a3fdead4ebe994ee9ebd419a5441457152"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    },
+    {
+      "case_id": "v2r-ai-050",
+      "decision": "approved_ai_only",
+      "answerability": "unanswerable",
+      "claim_count": 0,
+      "evidence_snapshots": [
+        {
+          "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1",
+          "block_type": "list",
+          "lines": [
+            39,
+            43
+          ],
+          "text": "8. **Chain of gates that caught it**: train loss ↓ and reward accuracy\n   1.0 both said \"great run\"; only the behavioral eval said otherwise —\n   same lesson as finding 4, one optimization stage later. Deployed model\n   remains the SFT r16. Possible v2: mix factual-grounding pairs, or DPO\n   only the RP lane (where holds are stylistic, not factual).",
+          "content_sha256": "226071cfcc6f10f16bc3e796e87c44ecca7a3838b00a7a6b37fb815eac0d09bc"
+        }
+      ],
+      "semantic_review": {
+        "reviewer_kind": "ai_agent",
+        "reviewer_id": "codex-ai-reviewer-01",
+        "same_agent_authored_and_reviewed": true,
+        "human_reviewed": false,
+        "basis": "direct comparison of question, reference answer, atomic claims, and exact catalog spans"
+      }
+    }
+  ]
+}

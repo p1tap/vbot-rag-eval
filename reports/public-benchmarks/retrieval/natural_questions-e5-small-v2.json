@@ -1,0 +1,61 @@
+{
+  "benchmark_id": "natural_questions",
+  "cases": {
+    "answerable_scored": 2945,
+    "candidate_documents_ranked": 627324,
+    "total": 5000,
+    "without_gold_evidence": 2055
+  },
+  "limitations": [
+    "This is bounded candidate ranking, not open-corpus retrieval.",
+    "Passages are truncated to the pinned model maximum of 512 tokens.",
+    "Cases without gold evidence are excluded from retrieval quality metrics.",
+    "End-to-end generation and answer correctness are not measured here."
+  ],
+  "metrics": {
+    "1": {
+      "case_recall_all": 0.3735144312393888,
+      "case_recall_any": 0.4438030560271647,
+      "evidence_recall": 0.4073684210526315,
+      "mrr": 0.4438030560271647
+    },
+    "10": {
+      "case_recall_all": 0.8193548387096774,
+      "case_recall_any": 0.865874363327674,
+      "evidence_recall": 0.8427900396151671,
+      "mrr": 0.5839881962971932
+    },
+    "2": {
+      "case_recall_all": 0.5307300509337861,
+      "case_recall_any": 0.6054329371816638,
+      "evidence_recall": 0.5678381437464631,
+      "mrr": 0.5246179966044142
+    },
+    "4": {
+      "case_recall_all": 0.6723259762308998,
+      "case_recall_any": 0.7368421052631579,
+      "evidence_recall": 0.7042388228636107,
+      "mrr": 0.5643463497453296
+    },
+    "5": {
+      "case_recall_all": 0.7113752122241087,
+      "case_recall_any": 0.7721561969439729,
+      "evidence_recall": 0.7413073005093377,
+      "mrr": 0.5714091680814934
+    }
+  },
+  "report_version": "1.0.0",
+  "retrieval_scope": "per_query_long_answer_candidates",
+  "retriever": {
+    "max_tokens": 512,
+    "model": "intfloat/e5-small-v2",
+    "model_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "name": "e5_small_v2"
+  },
+  "source": {
+    "passages_sha256": "0c1878d3b862fe41832d269ed7a707afc14680a44d1995284949b71c92e4bf70",
+    "queries_sha256": "50f3f1cd81a3e70fca754b6870bc19aaed8254c379eb5bc04c888d37859fc5ce",
+    "sha256": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e"
+  },
+  "status": "retrieval_only_generation_pending"
+}

@@ -1,0 +1,436 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T06:19:03.217622+00:00",
+  "status": "ai_model_spot_audit_passed",
+  "purpose": "Verify that public-source labels and evidence survived adapter normalization; this is not a re-annotation of the public benchmark.",
+  "review_provenance": {
+    "reviewer_kind": "ai_agent",
+    "reviewer_id": "codex-primary-agent",
+    "runtime_model_identity": "not_exposed_by_runtime",
+    "locally_human_reviewed": false,
+    "method": [
+      "direct semantic inspection of all 48 displayed audit cases",
+      "full normalized-schema and evidence-cross-reference audit",
+      "pinned source/output checksum verification"
+    ]
+  },
+  "source_audit": {
+    "version": "1.0.0",
+    "case_count": 48,
+    "canonical_sha256": "8de04a79a76257e385d5fa9948b76926b5e629e95eda6f15ff9126ac68166293",
+    "strata": {
+      "hotpotqa/bridge": 8,
+      "hotpotqa/comparison": 4,
+      "natural_questions/answerable": 10,
+      "natural_questions/unanswerable": 10,
+      "fever/supports": 6,
+      "fever/refutes": 5,
+      "fever/not_enough_info": 5
+    }
+  },
+  "normalized_suite": {
+    "case_count": 10000,
+    "unique_case_ids": 10000,
+    "benchmark_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    }
+  },
+  "decision_counts": {
+    "approved": 48,
+    "revise": 0,
+    "rejected": 0
+  },
+  "decisions": [
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5ae60426554299546bf83019",
+      "case_id": "hotpotqa:dev_distractor:5ae60426554299546bf83019",
+      "benchmark_id": "hotpotqa",
+      "stratum": "bridge",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5a793bc95542994bb9456fc3",
+      "case_id": "hotpotqa:dev_distractor:5a793bc95542994bb9456fc3",
+      "benchmark_id": "hotpotqa",
+      "stratum": "bridge",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5ac286c055429963665199f8",
+      "case_id": "hotpotqa:dev_distractor:5ac286c055429963665199f8",
+      "benchmark_id": "hotpotqa",
+      "stratum": "bridge",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5ae5d008554299546bf82f7d",
+      "case_id": "hotpotqa:dev_distractor:5ae5d008554299546bf82f7d",
+      "benchmark_id": "hotpotqa",
+      "stratum": "bridge",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5adfb60655429942ec259b08",
+      "case_id": "hotpotqa:dev_distractor:5adfb60655429942ec259b08",
+      "benchmark_id": "hotpotqa",
+      "stratum": "bridge",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5ae3e5d05542994393b9e79f",
+      "case_id": "hotpotqa:dev_distractor:5ae3e5d05542994393b9e79f",
+      "benchmark_id": "hotpotqa",
+      "stratum": "bridge",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5a82f05255429966c78a6aa2",
+      "case_id": "hotpotqa:dev_distractor:5a82f05255429966c78a6aa2",
+      "benchmark_id": "hotpotqa",
+      "stratum": "bridge",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5ac240ef55429951e9e684ef",
+      "case_id": "hotpotqa:dev_distractor:5ac240ef55429951e9e684ef",
+      "benchmark_id": "hotpotqa",
+      "stratum": "bridge",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5ab7ff1d5542990e739ec7b9",
+      "case_id": "hotpotqa:dev_distractor:5ab7ff1d5542990e739ec7b9",
+      "benchmark_id": "hotpotqa",
+      "stratum": "comparison",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5a8cf064554299585d9e3775",
+      "case_id": "hotpotqa:dev_distractor:5a8cf064554299585d9e3775",
+      "benchmark_id": "hotpotqa",
+      "stratum": "comparison",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5a75f7db5542994ccc918670",
+      "case_id": "hotpotqa:dev_distractor:5a75f7db5542994ccc918670",
+      "benchmark_id": "hotpotqa",
+      "stratum": "comparison",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:hotpotqa:dev_distractor:5a7322a25542991f9a20c634",
+      "case_id": "hotpotqa:dev_distractor:5a7322a25542991f9a20c634",
+      "benchmark_id": "hotpotqa",
+      "stratum": "comparison",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:7759740568821141515",
+      "case_id": "natural_questions:dev:7759740568821141515",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:4064534769148169274",
+      "case_id": "natural_questions:dev:4064534769148169274",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:349164000093084738",
+      "case_id": "natural_questions:dev:349164000093084738",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:1968753758186279266",
+      "case_id": "natural_questions:dev:1968753758186279266",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:1409220662262492873",
+      "case_id": "natural_questions:dev:1409220662262492873",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-89839634525298434",
+      "case_id": "natural_questions:dev:-89839634525298434",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-5242214421933718346",
+      "case_id": "natural_questions:dev:-5242214421933718346",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:6379798071561314250",
+      "case_id": "natural_questions:dev:6379798071561314250",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-6081006991734955423",
+      "case_id": "natural_questions:dev:-6081006991734955423",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-2281675922136458544",
+      "case_id": "natural_questions:dev:-2281675922136458544",
+      "benchmark_id": "natural_questions",
+      "stratum": "answerable",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-6102307238036073620",
+      "case_id": "natural_questions:dev:-6102307238036073620",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-7139820502339748816",
+      "case_id": "natural_questions:dev:-7139820502339748816",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-180026720978065865",
+      "case_id": "natural_questions:dev:-180026720978065865",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:3737690449325385558",
+      "case_id": "natural_questions:dev:3737690449325385558",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-342424386210695622",
+      "case_id": "natural_questions:dev:-342424386210695622",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:8071279052188597387",
+      "case_id": "natural_questions:dev:8071279052188597387",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-4574755751132226748",
+      "case_id": "natural_questions:dev:-4574755751132226748",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-3518761305265807887",
+      "case_id": "natural_questions:dev:-3518761305265807887",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:7592138359320413972",
+      "case_id": "natural_questions:dev:7592138359320413972",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:natural_questions:dev:-5420491822486573526",
+      "case_id": "natural_questions:dev:-5420491822486573526",
+      "benchmark_id": "natural_questions",
+      "stratum": "unanswerable",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:158421",
+      "case_id": "fever:dev:158421",
+      "benchmark_id": "fever",
+      "stratum": "supports",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:180697",
+      "case_id": "fever:dev:180697",
+      "benchmark_id": "fever",
+      "stratum": "supports",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:2983",
+      "case_id": "fever:dev:2983",
+      "benchmark_id": "fever",
+      "stratum": "supports",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:205133",
+      "case_id": "fever:dev:205133",
+      "benchmark_id": "fever",
+      "stratum": "supports",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:115789",
+      "case_id": "fever:dev:115789",
+      "benchmark_id": "fever",
+      "stratum": "supports",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:305",
+      "case_id": "fever:dev:305",
+      "benchmark_id": "fever",
+      "stratum": "supports",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:139077",
+      "case_id": "fever:dev:139077",
+      "benchmark_id": "fever",
+      "stratum": "refutes",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:28278",
+      "case_id": "fever:dev:28278",
+      "benchmark_id": "fever",
+      "stratum": "refutes",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:194923",
+      "case_id": "fever:dev:194923",
+      "benchmark_id": "fever",
+      "stratum": "refutes",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:56559",
+      "case_id": "fever:dev:56559",
+      "benchmark_id": "fever",
+      "stratum": "refutes",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:150536",
+      "case_id": "fever:dev:150536",
+      "benchmark_id": "fever",
+      "stratum": "refutes",
+      "status": "approved",
+      "note": "The query, normalized gold state, annotation summary, and displayed supporting evidence are internally consistent with the inherited label."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:87566",
+      "case_id": "fever:dev:87566",
+      "benchmark_id": "fever",
+      "stratum": "not_enough_info",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:35537",
+      "case_id": "fever:dev:35537",
+      "benchmark_id": "fever",
+      "stratum": "not_enough_info",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:28494",
+      "case_id": "fever:dev:28494",
+      "benchmark_id": "fever",
+      "stratum": "not_enough_info",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:73345",
+      "case_id": "fever:dev:73345",
+      "benchmark_id": "fever",
+      "stratum": "not_enough_info",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    },
+    {
+      "audit_id": "public-audit:fever:dev:82571",
+      "case_id": "fever:dev:82571",
+      "benchmark_id": "fever",
+      "stratum": "not_enough_info",
+      "status": "approved",
+      "note": "The unanswerable/NEI gold state, empty answer set, vote summary, and absence of required supporting evidence are internally consistent."
+    }
+  ],
+  "limitations": [
+    "This is an AI-reviewed conversion-fidelity audit, not local human re-annotation.",
+    "The 10,000 public cases retain human-annotation provenance from their publishers.",
+    "End-to-end RAG quality across the public suite remains a separate required gate."
+  ]
+}

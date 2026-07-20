@@ -1,0 +1,61 @@
+{
+  "benchmark_id": "hotpotqa",
+  "cases": {
+    "answerable_scored": 3000,
+    "candidate_documents_ranked": 29848,
+    "total": 3000,
+    "without_gold_evidence": 0
+  },
+  "limitations": [
+    "This is bounded candidate ranking, not open-corpus retrieval.",
+    "Passages are truncated to the pinned model maximum of 512 tokens.",
+    "Cases without gold evidence are excluded from retrieval quality metrics.",
+    "End-to-end generation and answer correctness are not measured here."
+  ],
+  "metrics": {
+    "1": {
+      "case_recall_all": 0.0,
+      "case_recall_any": 0.8906666666666667,
+      "evidence_recall": 0.44533333333333336,
+      "mrr": 0.8906666666666667
+    },
+    "10": {
+      "case_recall_all": 1.0,
+      "case_recall_any": 1.0,
+      "evidence_recall": 1.0,
+      "mrr": 0.9357798941798944
+    },
+    "2": {
+      "case_recall_all": 0.5033333333333333,
+      "case_recall_any": 0.9573333333333334,
+      "evidence_recall": 0.7303333333333333,
+      "mrr": 0.924
+    },
+    "4": {
+      "case_recall_all": 0.7616666666666667,
+      "case_recall_any": 0.9896666666666667,
+      "evidence_recall": 0.8756666666666667,
+      "mrr": 0.9340833333333335
+    },
+    "5": {
+      "case_recall_all": 0.8223333333333334,
+      "case_recall_any": 0.9943333333333333,
+      "evidence_recall": 0.9083333333333333,
+      "mrr": 0.9350166666666667
+    }
+  },
+  "report_version": "1.0.0",
+  "retrieval_scope": "per_query_10_document_distractor_corpus",
+  "retriever": {
+    "max_tokens": 512,
+    "model": "intfloat/e5-small-v2",
+    "model_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "name": "e5_small_v2"
+  },
+  "source": {
+    "passages_sha256": "50d8c7e9d085dbcbdb8704639f0fea863caeba21a42f386065e1febb30f32bb1",
+    "queries_sha256": "d469a81011fccfc7c19368f8127806c0e499b385865f8be4b450e4a5b9b9438d",
+    "sha256": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683"
+  },
+  "status": "retrieval_only_generation_pending"
+}

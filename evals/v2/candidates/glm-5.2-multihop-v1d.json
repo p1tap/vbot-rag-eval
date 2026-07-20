@@ -1,0 +1,375 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "ai_authored_multihop_review_candidates",
+  "created_at_utc": "2026-07-19T02:20:30.534220+00:00",
+  "promotion_status": "proposals_only_pending_cross_model_review",
+  "human_reviewed_case_count_added": 0,
+  "case_count": 4,
+  "deterministic_normalizations": [],
+  "generation": {
+    "profile_id": "glm-5.2-high-baidu-streamlake-authoring",
+    "profile_sha256": "3a9d844abccbae0b842c45624a573a1935a468fbfb1c0777b597396fe7ef4aa4",
+    "requested_model": "z-ai/glm-5.2",
+    "response_model": "z-ai/glm-5.2",
+    "response_provider": "StreamLake",
+    "input_sha256": "7f3826f0d04895d4bead1c0a67817717f7e8809f54bb9a094dbe1039e6d3a903",
+    "response_sha256": "95e42747e44fae4669d3fa7679e05359806cff4ca1557277332dd9c28e6c4c4b",
+    "request_options": {
+      "reasoning": {
+        "effort": "high",
+        "exclude": true
+      },
+      "provider": {
+        "order": [
+          "baidu/fp8",
+          "streamlake/fp8"
+        ],
+        "only": [
+          "baidu/fp8",
+          "streamlake/fp8"
+        ],
+        "allow_fallbacks": true,
+        "require_parameters": true,
+        "max_price": {
+          "prompt": 0.3,
+          "completion": 0.9
+        }
+      }
+    },
+    "latency_ms": 93454.254,
+    "usage": {
+      "prompt_tokens": 42283,
+      "completion_tokens": 3047,
+      "total_tokens": 45330,
+      "cost": 0.00648490563,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 33021,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.00648490563,
+        "upstream_inference_prompt_cost": 0.00399794423,
+        "upstream_inference_completions_cost": 0.0024869614
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 461,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "inputs": {
+    "evidence_catalog_path": "corpus/evidence-catalog-v1.jsonl",
+    "evidence_catalog_sha256": "c15148e0aa42d867edbb6698c1b6f112f8767f557a8fdc172f497d90f4edf326",
+    "existing_intent_count": 221,
+    "existing_intent_ids_sha256": "d24a87ffd52512e27ad0bda6352d6636508544076e3f9d142798605ba075cd3f",
+    "existing_case_count": 174,
+    "existing_cases_sha256": "91cef42a3282ae6446bf53a664bc32fe4975801b7b6b0114236106a0fc1c6b13",
+    "system_prompt_sha256": "2015d0810c856c02206c465c17fa9812a53024daeb7818949a7ac336ade93da2"
+  },
+  "cases": [
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-d-001",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "comparison_aggregation",
+      "question": "Two separate experiments in the backbone findings each produced a result where a loss/optimization metric looked healthy but contradicted the behavioral-quality signal. Name the two experiments and give the specific numeric contradiction in each.",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The five-epoch overfit probe showed the best training loss was the worst generalizer: validation loss bottomed at 1.496 at epoch 2 but rose to 1.557 by epoch 5 while training loss fell to 1.32. The DPO run showed the same lesson one optimization stage later: training loss decreased and reward accuracy reached 1.0, yet only the behavioral evaluation blocked shipping, so the deployed model remained SFT rank 16.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The 5-epoch overfit probe showed val loss bottomed at 1.496 at epoch 2 and rose to 1.557 by epoch 5 while train loss fell to 1.32 \u2014 the best train loss was the worst generalizer.",
+          "evidence_ids": [
+            "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "The DPO chain of gates showed train loss decreased and reward accuracy reached 1.0 but only behavioral eval blocked shipping; the deployed model remained SFT r16.",
+          "evidence_ids": [
+            "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1"
+      ],
+      "distractor_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-44c228cb9c0fa3fd",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-e469932c42b49a3b",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-eadabc0e9a19ea25"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 2,
+      "intent_family_id": "backbone-optimization-vs-behavior-independent-confirmations",
+      "evidence_cluster_id": "backbone-optimization-vs-behavior-independent-confirmations",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "StreamLake",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-d-002",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_section",
+      "question": "The model-gate workflow has produced two real promotion PRs with different outcomes. For each PR, state the gate exit code on the first run, the reason given, and what happened next \u2014 then state the Argo CD Application setting that guarantees the merge actually reaches the cluster.",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "PR #1 (Hermes-4 \u2192 Hermes-3 fallback) returned NEEDS_REVIEW on a peak-hour NextBit latency flag (environmental); a human override was documented on the PR, it was merged, GitOps-deployed, and verified serving. PR #2 (self-hosted Ollama qwen2.5:0.5b as rp-selfhosted) was first REJECTED because the gate itself exposed CI-topology drift; the topology issue was fixed, the rerun returned PROMOTE, and it was deployed. The Argo CD Application at apps/gateway.yaml is configured with automated sync plus selfHeal plus prune, so a merge to master is reconciled onto the cluster.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "PR #1 (Hermes-4 \u2192 Hermes-3 fallback) returned NEEDS_REVIEW on a peak-hour NextBit latency flag; human override documented, merged, GitOps-deployed, verified serving.",
+          "evidence_ids": [
+            "gateway-readme::roadmap::span-2e69ad5f3f793551"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "PR #2 (self-hosted Ollama qwen2.5:0.5b as rp-selfhosted) first run REJECTED on CI-topology drift the gate exposed; fixed, PROMOTE, deployed.",
+          "evidence_ids": [
+            "gateway-readme::roadmap::span-5562a5000456de74"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "apps/gateway.yaml Application is configured with automated sync + selfHeal + prune.",
+          "evidence_ids": [
+            "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-258fb13be8bec35d"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "gateway-readme::roadmap::span-2e69ad5f3f793551",
+        "gateway-readme::roadmap::span-5562a5000456de74",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-258fb13be8bec35d"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-2b0586ed133fa581",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-767047178e84c9e6",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-f0d4068b8c2cf223"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "gateway-two-gate-pr-decisions-contrast",
+      "evidence_cluster_id": "gateway-two-gate-pr-decisions-contrast",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "StreamLake",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-d-003",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_document",
+      "question": "The backbone dataset generation and the backbone pushy-user-resistance evaluation both run through the gateway's OpenRouter route, yet they deliberately adopt opposite fallback policies. What does each use, and why is the divergence principled rather than accidental?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The dataset generation job is scripted through the gateway with a budget-capped virtual key whose spend is visible in Grafana; per-key spend enforcement comes from Postgres-backed virtual keys via /key/generate with hard max_budget caps, giving every key its own spend ledger. The pushy-user-resistance evaluation instead runs in the model lab on direct OpenRouter with NO fallback, because silent model swapping would poison the blind base-versus-fine-tune ratings the lab exists to produce. The divergence is principled: the gateway is a product/availability concern (failover keeps users served), while the lab is a measurement concern where any silent swap contaminates the very quantity being rated.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "Dataset generation uses the gateway with a budget-capped virtual key, spend visible in Grafana; per-key enforcement is Postgres-backed virtual keys via /key/generate with hard max_budget caps, each key has its own spend ledger.",
+          "evidence_ids": [
+            "backbone-plan::dataset-spec::span-db8bee29cd6a6df4",
+            "gateway-readme::what-it-does-today-cont::span-85468e4cfc1cee50"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "The model lab stays on direct OpenRouter with NO fallback because silent model swapping would poison blind ratings; the gateway is a product concern, not a lab concern.",
+          "evidence_ids": [
+            "gateway-readme::vbot-model-gateway::span-3e6ca3c30135c8d2"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-plan::dataset-spec::span-db8bee29cd6a6df4",
+        "gateway-readme::what-it-does-today-cont::span-85468e4cfc1cee50",
+        "gateway-readme::vbot-model-gateway::span-3e6ca3c30135c8d2"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+        "gateway-readme::what-it-does-today::span-c028d97567bbc915",
+        "gateway-readme::what-it-does-today::span-e3df604febc9f7cf"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 2,
+      "intent_family_id": "gateway-dual-role-fallback-policy-split",
+      "evidence_cluster_id": "gateway-dual-role-fallback-policy-split",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "StreamLake",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-d-004",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "global_corpus",
+      "question": "Counting every RP model the gateway can route to, how many distinct independent infrastructures back the RP path, and what in-cluster addition was merged later as a fourth leg? Give each model's host/precision and explain why same-model host failover is not the mechanism providing diversity.",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The gateway's RP path is backed by three independent infrastructures because every checked RP-tuned 70B is single-host on OpenRouter \u2014 rp-primary is Euryale on NextBit at bf16, rp-fallback is Hermes-4 70B on Nebius at fp8, and Hermes-3 on DeepInfra at fp8. Same-model host failover does not exist for this class, so the model-level fallback chain itself is the host diversity (3 models = 3 independent infrastructures). A fourth leg was later added: rp-selfhosted, an in-cluster Ollama qwen2.5:0.5b model running on CPU, merged via gate PR #2 after an initial rejection on CI-topology drift was fixed.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "Every RP-tuned 70B is single-host on OpenRouter: Euryale=NextBit bf16, Hermes-4=Nebius fp8, Hermes-3=DeepInfra fp8. Same-model host failover doesn't exist; the model-level fallback chain IS the host diversity (3 models = 3 independent infrastructures).",
+          "evidence_ids": [
+            "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "rp-primary is Euryale 70B with automatic fallback to rp-fallback Hermes-4 70B after retries are exhausted.",
+          "evidence_ids": [
+            "gateway-readme::what-it-does-today::span-c028d97567bbc915"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "rp-selfhosted is an in-cluster Ollama qwen2.5:0.5b on CPU, merged via gate PR #2 (first run REJECTED on CI-topology drift; fixed, PROMOTE, deployed).",
+          "evidence_ids": [
+            "gateway-readme::roadmap::span-5562a5000456de74"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+        "gateway-readme::roadmap::span-5562a5000456de74",
+        "gateway-readme::what-it-does-today::span-c028d97567bbc915"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+        "gateway-readme::what-it-does-today::span-69cc26a1040fa913",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b82c72b55b4ed7d1"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "gateway-rp-infrastructure-count-and-selfhosted-addition",
+      "evidence_cluster_id": "gateway-rp-infrastructure-count-and-selfhosted-addition",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "StreamLake",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    }
+  ]
+}

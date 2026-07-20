@@ -1,0 +1,2550 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-19T18:48:02.175910+00:00",
+  "status": "full_application_complete",
+  "promotion_ready": true,
+  "identity": {
+    "runner_version": "1.0.0",
+    "runner_source_sha256": "bcca21f8bea3b2bf22f1c4beed23b48f4d18ddf0e323c786727def3b9492e7df",
+    "label_policy": "maximum_document_relation_with_frozen_threshold_0.75",
+    "evidence_policy": "baseline_evidence_on_label_agreement_plus_selected_document_classifier",
+    "feature_names": [
+      "reciprocal_retrieval_rank",
+      "retrieval_rank",
+      "entailment_probability",
+      "contradiction_probability",
+      "neutral_probability",
+      "selected_relation_probability",
+      "maximum_case_relation_probability",
+      "relative_selected_relation_probability",
+      "cited_by_baseline",
+      "label_agrees_with_baseline",
+      "predicted_supports",
+      "predicted_refutes",
+      "claim_title_token_recall",
+      "claim_document_token_recall",
+      "title_token_count",
+      "document_token_count"
+    ],
+    "candidate_models": [
+      "logistic_regression",
+      "random_forest",
+      "extra_trees",
+      "gradient_boosting"
+    ],
+    "model_selection": "five-fold case-grouped out-of-fold development evaluation",
+    "selected_model": "logistic_regression",
+    "selected_evidence_probability_threshold": 0.7,
+    "threshold_selection": "maximize out-of-fold development joint and recall, then choose the lowest eligible threshold, subject to baseline citation precision plus a one-point safety margin",
+    "development_precision_safety_margin": 0.01,
+    "random_state": 42,
+    "sklearn_version": "1.5.1",
+    "training_pair_count": 7524,
+    "training_positive_evidence_count": 455,
+    "development_confirmation_overlap_count": 0,
+    "case_ids_sha256": "3a4164483159934f21e342a21d2e1840ea0c4431e3a326b4861d6f99c944a081",
+    "adapter_artifacts": {
+      "directory": "artifacts/models/fever-deberta-nli-lora-offset0-800",
+      "files": {
+        "adapter_config.json": "ba9cd3623accda71ea6571fb4bf15ababf859bf99f4a2c0672731f36ba752de2",
+        "adapter_model.safetensors": "f9d287369485f805ae62f7f314cc980817d58d1f395d427bbc1fdc5ea1d87254",
+        "added_tokens.json": "a4b6bfe668f2b3cf6f0cd535e98a0663d2d0d4a4a15f13075ad3597d33985a23",
+        "README.md": "1659217e1f1e774ddcd52e5c49a814ebe3cd0682e7d3a3f59d8d9c65bb70c9ef",
+        "special_tokens_map.json": "a627d4e20da5e9482f6a08f667ead8809ff9a22dbf6284b91dacd57f217b4555",
+        "spm.model": "c679fbf93643d19aab7ee10c0b99e460bdbc02fedf34b92b05af343b4af586fd",
+        "tokenizer.json": "3f4396dfb66cdb8201182b0834472608cb06626c5a1cfeb13df610ed7ff88fac",
+        "tokenizer_config.json": "609e068018b3a4d78a0cbc3a5615949931ffbbdb645c3cd7dd6f0267a280dc40"
+      },
+      "training_report_path": "reports/public-benchmarks/fever-deberta-nli-lora-training-offset0-800.json",
+      "training_report_sha256": "0086e7083d5c3a17a41580dea8d6a92dbc19f9d197d9dd1372a8416b9c06b170"
+    }
+  },
+  "identity_sha256": "3ed994a0fe6bea2246267123b2e6cd264d780cba0169c34b434eb75d59fe8def",
+  "inputs": {
+    "development": {
+      "path": "reports/public-benchmarks/fever-local-nli-lora-top12-offset0-development-800.json",
+      "sha256": "b4f3eabf2ec387305a6d548ad2ae1a363156562d9eb3a7354457f764b95f70fd"
+    },
+    "confirmation": {
+      "path": "reports/public-benchmarks/fever-local-nli-lora-top12-offset800-confirmation-v2-300.json",
+      "sha256": "20ac3e8981bd71111e67d2f95665fd4b6f49d778f29b6519f0d2124d5bee7eb9"
+    },
+    "replication": {
+      "path": "reports/public-benchmarks/fever-local-nli-lora-top12-offset1100-replication-v2-300.json",
+      "sha256": "fe892c820fb8d1912b8840b25c9252ef95df1bd2cae56a622496bd4e3715c303"
+    },
+    "full": {
+      "path": "reports/public-benchmarks/fever-local-nli-lora-top12-full-2000.json",
+      "sha256": "031b4411bcf558f98485484642c4bcb3351b5f046bc5eb0ef67b22feffcdce20"
+    },
+    "baseline": {
+      "path": "reports/public-benchmarks/end-to-end-10000-task-aware-promoted.json",
+      "sha256": "6470b6102b639069e1d924229ce88686ce30849dae53f53412d6009a61ef1483"
+    }
+  },
+  "development_precision_floor": 0.6384203980099503,
+  "selected_development_policy": {
+    "threshold": 0.7,
+    "joint_correct_rate": 0.645,
+    "citation_precision": 0.6394743589743591,
+    "citation_recall": 0.6113401843863656
+  },
+  "model_selection": [
+    {
+      "model_name": "logistic_regression",
+      "selected_oof": {
+        "threshold": 0.7,
+        "joint_correct_rate": 0.645,
+        "citation_precision": 0.6394743589743591,
+        "citation_recall": 0.6113401843863656
+      },
+      "threshold_sweep": [
+        {
+          "threshold": 0.05,
+          "joint_correct_rate": 0.665,
+          "citation_precision": 0.3171043956043957,
+          "citation_recall": 0.6407954833798529
+        },
+        {
+          "threshold": 0.06,
+          "joint_correct_rate": 0.66375,
+          "citation_precision": 0.3465313575313575,
+          "citation_recall": 0.6402034170684259
+        },
+        {
+          "threshold": 0.07,
+          "joint_correct_rate": 0.6625,
+          "citation_precision": 0.3759146187146187,
+          "citation_recall": 0.6387232512898586
+        },
+        {
+          "threshold": 0.08,
+          "joint_correct_rate": 0.6625,
+          "citation_precision": 0.3906024253524254,
+          "citation_recall": 0.6387232512898586
+        },
+        {
+          "threshold": 0.09,
+          "joint_correct_rate": 0.6625,
+          "citation_precision": 0.4053992507492507,
+          "citation_recall": 0.6387232512898586
+        },
+        {
+          "threshold": 0.1,
+          "joint_correct_rate": 0.6625,
+          "citation_precision": 0.41940790875790873,
+          "citation_recall": 0.6382792015562885
+        },
+        {
+          "threshold": 0.11,
+          "joint_correct_rate": 0.6625,
+          "citation_precision": 0.43446259851259866,
+          "citation_recall": 0.6382792015562885
+        },
+        {
+          "threshold": 0.12,
+          "joint_correct_rate": 0.66125,
+          "citation_precision": 0.4413928293928295,
+          "citation_recall": 0.6367990357777213
+        },
+        {
+          "threshold": 0.13,
+          "joint_correct_rate": 0.66125,
+          "citation_precision": 0.44632767787767796,
+          "citation_recall": 0.6367990357777213
+        },
+        {
+          "threshold": 0.14,
+          "joint_correct_rate": 0.66,
+          "citation_precision": 0.45040697080697084,
+          "citation_recall": 0.635910936310581
+        },
+        {
+          "threshold": 0.15,
+          "joint_correct_rate": 0.66,
+          "citation_precision": 0.45812673992673997,
+          "citation_recall": 0.635910936310581
+        },
+        {
+          "threshold": 0.16,
+          "joint_correct_rate": 0.65875,
+          "citation_precision": 0.46557118437118433,
+          "citation_recall": 0.6341347373763003
+        },
+        {
+          "threshold": 0.17,
+          "joint_correct_rate": 0.65875,
+          "citation_precision": 0.4775672161172161,
+          "citation_recall": 0.6341347373763003
+        },
+        {
+          "threshold": 0.18,
+          "joint_correct_rate": 0.65875,
+          "citation_precision": 0.4842116605616607,
+          "citation_recall": 0.6341347373763003
+        },
+        {
+          "threshold": 0.19,
+          "joint_correct_rate": 0.65875,
+          "citation_precision": 0.49568150183150206,
+          "citation_recall": 0.6341347373763003
+        },
+        {
+          "threshold": 0.2,
+          "joint_correct_rate": 0.65875,
+          "citation_precision": 0.5023164224664227,
+          "citation_recall": 0.6341347373763003
+        },
+        {
+          "threshold": 0.21,
+          "joint_correct_rate": 0.65875,
+          "citation_precision": 0.5085164224664227,
+          "citation_recall": 0.6341347373763003
+        },
+        {
+          "threshold": 0.22,
+          "joint_correct_rate": 0.65875,
+          "citation_precision": 0.5147640415140418,
+          "citation_recall": 0.6341347373763003
+        },
+        {
+          "threshold": 0.23,
+          "joint_correct_rate": 0.65875,
+          "citation_precision": 0.5188259462759466,
+          "citation_recall": 0.6341347373763003
+        },
+        {
+          "threshold": 0.24,
+          "joint_correct_rate": 0.6575,
+          "citation_precision": 0.5237949938949942,
+          "citation_recall": 0.6336906876427302
+        },
+        {
+          "threshold": 0.25,
+          "joint_correct_rate": 0.6575,
+          "citation_precision": 0.5306918192918195,
+          "citation_recall": 0.6336906876427302
+        },
+        {
+          "threshold": 0.26,
+          "joint_correct_rate": 0.6575,
+          "citation_precision": 0.5353751526251529,
+          "citation_recall": 0.6330986213313035
+        },
+        {
+          "threshold": 0.27,
+          "joint_correct_rate": 0.6575,
+          "citation_precision": 0.5388227716727718,
+          "citation_recall": 0.6330986213313035
+        },
+        {
+          "threshold": 0.28,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.5449227716727719,
+          "citation_recall": 0.6322105218641632
+        },
+        {
+          "threshold": 0.29,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.5494370573870576,
+          "citation_recall": 0.6322105218641632
+        },
+        {
+          "threshold": 0.3,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5509727716727718,
+          "citation_recall": 0.6299902731963124
+        },
+        {
+          "threshold": 0.31,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.554020390720391,
+          "citation_recall": 0.6299902731963124
+        },
+        {
+          "threshold": 0.32,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5572346764346766,
+          "citation_recall": 0.6299902731963124
+        },
+        {
+          "threshold": 0.33,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5592346764346766,
+          "citation_recall": 0.6299902731963124
+        },
+        {
+          "threshold": 0.34,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5632156288156288,
+          "citation_recall": 0.6299902731963124
+        },
+        {
+          "threshold": 0.35,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5670045177045179,
+          "citation_recall": 0.6299902731963124
+        },
+        {
+          "threshold": 0.36,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5698378510378511,
+          "citation_recall": 0.6299902731963124
+        },
+        {
+          "threshold": 0.37,
+          "joint_correct_rate": 0.6525,
+          "citation_precision": 0.574765628815629,
+          "citation_recall": 0.6273259747948914
+        },
+        {
+          "threshold": 0.38,
+          "joint_correct_rate": 0.6525,
+          "citation_precision": 0.5773013431013432,
+          "citation_recall": 0.6273259747948914
+        },
+        {
+          "threshold": 0.39,
+          "joint_correct_rate": 0.6525,
+          "citation_precision": 0.5786346764346765,
+          "citation_recall": 0.6264378753277511
+        },
+        {
+          "threshold": 0.4,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5823013431013433,
+          "citation_recall": 0.6246616763934705
+        },
+        {
+          "threshold": 0.41,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5838100732600735,
+          "citation_recall": 0.6246616763934705
+        },
+        {
+          "threshold": 0.42,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5848100732600735,
+          "citation_recall": 0.6246616763934705
+        },
+        {
+          "threshold": 0.43,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5859767399267402,
+          "citation_recall": 0.6246616763934705
+        },
+        {
+          "threshold": 0.44,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5888100732600735,
+          "citation_recall": 0.6246616763934705
+        },
+        {
+          "threshold": 0.45,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5924767399267401,
+          "citation_recall": 0.6246616763934705
+        },
+        {
+          "threshold": 0.46,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5944767399267401,
+          "citation_recall": 0.6237735769263301
+        },
+        {
+          "threshold": 0.47,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5948100732600735,
+          "citation_recall": 0.6237735769263301
+        },
+        {
+          "threshold": 0.48,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5962434065934068,
+          "citation_recall": 0.6237735769263301
+        },
+        {
+          "threshold": 0.49,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5995767399267402,
+          "citation_recall": 0.6237735769263301
+        },
+        {
+          "threshold": 0.5,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.6021124542124545,
+          "citation_recall": 0.6237735769263301
+        },
+        {
+          "threshold": 0.51,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6041600732600736,
+          "citation_recall": 0.6219973779920495
+        },
+        {
+          "threshold": 0.52,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6061600732600735,
+          "citation_recall": 0.6219973779920495
+        },
+        {
+          "threshold": 0.53,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6096600732600734,
+          "citation_recall": 0.6219973779920495
+        },
+        {
+          "threshold": 0.54,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6106600732600734,
+          "citation_recall": 0.6219973779920495
+        },
+        {
+          "threshold": 0.55,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6136600732600734,
+          "citation_recall": 0.6219973779920495
+        },
+        {
+          "threshold": 0.56,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6174934065934068,
+          "citation_recall": 0.6219973779920495
+        },
+        {
+          "threshold": 0.57,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6206600732600734,
+          "citation_recall": 0.6219973779920495
+        },
+        {
+          "threshold": 0.58,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6214410256410258,
+          "citation_recall": 0.6211092785249092
+        },
+        {
+          "threshold": 0.59,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6235410256410259,
+          "citation_recall": 0.6211092785249092
+        },
+        {
+          "threshold": 0.6,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.6255410256410258,
+          "citation_recall": 0.6211092785249092
+        },
+        {
+          "threshold": 0.61,
+          "joint_correct_rate": 0.6475,
+          "citation_precision": 0.6255410256410259,
+          "citation_recall": 0.6166687811892075
+        },
+        {
+          "threshold": 0.62,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.6257076923076924,
+          "citation_recall": 0.6148925822549269
+        },
+        {
+          "threshold": 0.63,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.6267076923076924,
+          "citation_recall": 0.6148925822549269
+        },
+        {
+          "threshold": 0.64,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.6291410256410257,
+          "citation_recall": 0.6148925822549269
+        },
+        {
+          "threshold": 0.65,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.6311410256410257,
+          "citation_recall": 0.6148925822549269
+        },
+        {
+          "threshold": 0.66,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6341410256410257,
+          "citation_recall": 0.6113401843863656
+        },
+        {
+          "threshold": 0.67,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6341410256410257,
+          "citation_recall": 0.6113401843863656
+        },
+        {
+          "threshold": 0.68,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6343076923076924,
+          "citation_recall": 0.6113401843863656
+        },
+        {
+          "threshold": 0.69,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6348076923076924,
+          "citation_recall": 0.6113401843863656
+        },
+        {
+          "threshold": 0.7,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6394743589743591,
+          "citation_recall": 0.6113401843863656
+        },
+        {
+          "threshold": 0.71,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6404743589743591,
+          "citation_recall": 0.6113401843863656
+        },
+        {
+          "threshold": 0.72,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6398076923076924,
+          "citation_recall": 0.6104520849192253
+        },
+        {
+          "threshold": 0.73,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6411410256410256,
+          "citation_recall": 0.6104520849192253
+        },
+        {
+          "threshold": 0.74,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6411410256410256,
+          "citation_recall": 0.6104520849192253
+        },
+        {
+          "threshold": 0.75,
+          "joint_correct_rate": 0.64375,
+          "citation_precision": 0.642474358974359,
+          "citation_recall": 0.6086758859849447
+        },
+        {
+          "threshold": 0.76,
+          "joint_correct_rate": 0.64375,
+          "citation_precision": 0.6458076923076923,
+          "citation_recall": 0.6086758859849447
+        },
+        {
+          "threshold": 0.77,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6451410256410256,
+          "citation_recall": 0.6051234881163834
+        },
+        {
+          "threshold": 0.78,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.647474358974359,
+          "citation_recall": 0.6051234881163834
+        },
+        {
+          "threshold": 0.79,
+          "joint_correct_rate": 0.63875,
+          "citation_precision": 0.6488076923076924,
+          "citation_recall": 0.6015710902478221
+        },
+        {
+          "threshold": 0.8,
+          "joint_correct_rate": 0.6375,
+          "citation_precision": 0.6491410256410256,
+          "citation_recall": 0.5997948913135415
+        },
+        {
+          "threshold": 0.81,
+          "joint_correct_rate": 0.63625,
+          "citation_precision": 0.6491410256410256,
+          "citation_recall": 0.5980186923792609
+        },
+        {
+          "threshold": 0.82,
+          "joint_correct_rate": 0.635,
+          "citation_precision": 0.6501410256410256,
+          "citation_recall": 0.5962424934449801
+        },
+        {
+          "threshold": 0.83,
+          "joint_correct_rate": 0.635,
+          "citation_precision": 0.652474358974359,
+          "citation_recall": 0.5962424934449801
+        },
+        {
+          "threshold": 0.84,
+          "joint_correct_rate": 0.6325,
+          "citation_precision": 0.650974358974359,
+          "citation_recall": 0.5926900955764189
+        },
+        {
+          "threshold": 0.85,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6516410256410257,
+          "citation_recall": 0.5909138966421383
+        },
+        {
+          "threshold": 0.86,
+          "joint_correct_rate": 0.62875,
+          "citation_precision": 0.6506410256410257,
+          "citation_recall": 0.5882495982407173
+        },
+        {
+          "threshold": 0.87,
+          "joint_correct_rate": 0.62875,
+          "citation_precision": 0.6508333333333334,
+          "citation_recall": 0.587361498773577
+        },
+        {
+          "threshold": 0.88,
+          "joint_correct_rate": 0.62875,
+          "citation_precision": 0.6511666666666668,
+          "citation_recall": 0.587361498773577
+        },
+        {
+          "threshold": 0.89,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6525,
+          "citation_recall": 0.5855852998392964
+        },
+        {
+          "threshold": 0.9,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6535,
+          "citation_recall": 0.5855852998392964
+        },
+        {
+          "threshold": 0.91,
+          "joint_correct_rate": 0.625,
+          "citation_precision": 0.6535,
+          "citation_recall": 0.5820329019707351
+        },
+        {
+          "threshold": 0.92,
+          "joint_correct_rate": 0.62375,
+          "citation_precision": 0.652952380952381,
+          "citation_recall": 0.5802567030364545
+        },
+        {
+          "threshold": 0.93,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6521666666666668,
+          "citation_recall": 0.5784805041021738
+        },
+        {
+          "threshold": 0.94,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6533333333333333,
+          "citation_recall": 0.5784805041021738
+        },
+        {
+          "threshold": 0.95,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6536666666666667,
+          "citation_recall": 0.5784805041021738
+        }
+      ]
+    },
+    {
+      "model_name": "random_forest",
+      "selected_oof": {
+        "threshold": 0.49,
+        "joint_correct_rate": 0.62625,
+        "citation_precision": 0.6388523809523808,
+        "citation_recall": 0.5829210014378754
+      },
+      "threshold_sweep": [
+        {
+          "threshold": 0.05,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.47789578754578776,
+          "citation_recall": 0.6311744058191661
+        },
+        {
+          "threshold": 0.06,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.4953910256410257,
+          "citation_recall": 0.6311744058191661
+        },
+        {
+          "threshold": 0.07,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.5140251526251527,
+          "citation_recall": 0.6311744058191661
+        },
+        {
+          "threshold": 0.08,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.5224203907203908,
+          "citation_recall": 0.6302863063520258
+        },
+        {
+          "threshold": 0.09,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.5347203907203909,
+          "citation_recall": 0.6270299416391778
+        },
+        {
+          "threshold": 0.1,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5420680097680101,
+          "citation_recall": 0.6256977924384673
+        },
+        {
+          "threshold": 0.11,
+          "joint_correct_rate": 0.65125,
+          "citation_precision": 0.5448600732600735,
+          "citation_recall": 0.6212572951027657
+        },
+        {
+          "threshold": 0.12,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.5581957875457878,
+          "citation_recall": 0.6188890298570584
+        },
+        {
+          "threshold": 0.13,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.5653624542124542,
+          "citation_recall": 0.6188890298570584
+        },
+        {
+          "threshold": 0.14,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.5721547619047621,
+          "citation_recall": 0.618000930389918
+        },
+        {
+          "threshold": 0.15,
+          "joint_correct_rate": 0.64875,
+          "citation_precision": 0.5743023809523811,
+          "citation_recall": 0.6162247314556374
+        },
+        {
+          "threshold": 0.16,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.5806357142857145,
+          "citation_recall": 0.6135604330542165
+        },
+        {
+          "threshold": 0.17,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.5840047619047619,
+          "citation_recall": 0.6135604330542165
+        },
+        {
+          "threshold": 0.18,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.5860190476190477,
+          "citation_recall": 0.6135604330542165
+        },
+        {
+          "threshold": 0.19,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.5892857142857144,
+          "citation_recall": 0.6135604330542165
+        },
+        {
+          "threshold": 0.2,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.5936523809523812,
+          "citation_recall": 0.6135604330542165
+        },
+        {
+          "threshold": 0.21,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.5961190476190477,
+          "citation_recall": 0.6126723335870761
+        },
+        {
+          "threshold": 0.22,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6005000000000001,
+          "citation_recall": 0.6126723335870761
+        },
+        {
+          "threshold": 0.23,
+          "joint_correct_rate": 0.64375,
+          "citation_precision": 0.5998333333333333,
+          "citation_recall": 0.6108961346527955
+        },
+        {
+          "threshold": 0.24,
+          "joint_correct_rate": 0.6425,
+          "citation_precision": 0.6009333333333334,
+          "citation_recall": 0.6073437367842341
+        },
+        {
+          "threshold": 0.25,
+          "joint_correct_rate": 0.6425,
+          "citation_precision": 0.6053333333333334,
+          "citation_recall": 0.6073437367842341
+        },
+        {
+          "threshold": 0.26,
+          "joint_correct_rate": 0.6425,
+          "citation_precision": 0.6079555555555556,
+          "citation_recall": 0.606899687050664
+        },
+        {
+          "threshold": 0.27,
+          "joint_correct_rate": 0.6425,
+          "citation_precision": 0.6090500000000001,
+          "citation_recall": 0.606899687050664
+        },
+        {
+          "threshold": 0.28,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6085499999999999,
+          "citation_recall": 0.6051234881163834
+        },
+        {
+          "threshold": 0.29,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6122166666666666,
+          "citation_recall": 0.6051234881163834
+        },
+        {
+          "threshold": 0.3,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6139833333333333,
+          "citation_recall": 0.6051234881163834
+        },
+        {
+          "threshold": 0.31,
+          "joint_correct_rate": 0.64,
+          "citation_precision": 0.6162166666666666,
+          "citation_recall": 0.6033472891821028
+        },
+        {
+          "threshold": 0.32,
+          "joint_correct_rate": 0.63875,
+          "citation_precision": 0.6185499999999999,
+          "citation_recall": 0.5997948913135415
+        },
+        {
+          "threshold": 0.33,
+          "joint_correct_rate": 0.63875,
+          "citation_precision": 0.6188833333333333,
+          "citation_recall": 0.5997948913135415
+        },
+        {
+          "threshold": 0.34,
+          "joint_correct_rate": 0.63875,
+          "citation_precision": 0.6225499999999999,
+          "citation_recall": 0.5997948913135415
+        },
+        {
+          "threshold": 0.35,
+          "joint_correct_rate": 0.6375,
+          "citation_precision": 0.62305,
+          "citation_recall": 0.5980186923792609
+        },
+        {
+          "threshold": 0.36,
+          "joint_correct_rate": 0.635,
+          "citation_precision": 0.6232166666666665,
+          "citation_recall": 0.5944662945106995
+        },
+        {
+          "threshold": 0.37,
+          "joint_correct_rate": 0.635,
+          "citation_precision": 0.6245499999999999,
+          "citation_recall": 0.5944662945106995
+        },
+        {
+          "threshold": 0.38,
+          "joint_correct_rate": 0.63375,
+          "citation_precision": 0.6248833333333332,
+          "citation_recall": 0.5935781950435592
+        },
+        {
+          "threshold": 0.39,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6252166666666665,
+          "citation_recall": 0.5900257971749979
+        },
+        {
+          "threshold": 0.4,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6259833333333333,
+          "citation_recall": 0.5882495982407173
+        },
+        {
+          "threshold": 0.41,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6276499999999998,
+          "citation_recall": 0.5882495982407173
+        },
+        {
+          "threshold": 0.42,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6279833333333332,
+          "citation_recall": 0.5882495982407173
+        },
+        {
+          "threshold": 0.43,
+          "joint_correct_rate": 0.62875,
+          "citation_precision": 0.6304833333333333,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.44,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6328166666666666,
+          "citation_recall": 0.584697200372156
+        },
+        {
+          "threshold": 0.45,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.63315,
+          "citation_recall": 0.584697200372156
+        },
+        {
+          "threshold": 0.46,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.63415,
+          "citation_recall": 0.584697200372156
+        },
+        {
+          "threshold": 0.47,
+          "joint_correct_rate": 0.62625,
+          "citation_precision": 0.6344833333333333,
+          "citation_recall": 0.5829210014378754
+        },
+        {
+          "threshold": 0.48,
+          "joint_correct_rate": 0.62625,
+          "citation_precision": 0.6364833333333333,
+          "citation_recall": 0.5829210014378754
+        },
+        {
+          "threshold": 0.49,
+          "joint_correct_rate": 0.62625,
+          "citation_precision": 0.6388523809523808,
+          "citation_recall": 0.5829210014378754
+        },
+        {
+          "threshold": 0.5,
+          "joint_correct_rate": 0.62625,
+          "citation_precision": 0.6388523809523808,
+          "citation_recall": 0.5829210014378754
+        },
+        {
+          "threshold": 0.51,
+          "joint_correct_rate": 0.625,
+          "citation_precision": 0.6388523809523808,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.52,
+          "joint_correct_rate": 0.625,
+          "citation_precision": 0.6388523809523808,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.53,
+          "joint_correct_rate": 0.625,
+          "citation_precision": 0.6398523809523808,
+          "citation_recall": 0.5802567030364545
+        },
+        {
+          "threshold": 0.54,
+          "joint_correct_rate": 0.62375,
+          "citation_precision": 0.6398999999999999,
+          "citation_recall": 0.5784805041021738
+        },
+        {
+          "threshold": 0.55,
+          "joint_correct_rate": 0.62375,
+          "citation_precision": 0.6398999999999999,
+          "citation_recall": 0.5784805041021738
+        },
+        {
+          "threshold": 0.56,
+          "joint_correct_rate": 0.62375,
+          "citation_precision": 0.6403,
+          "citation_recall": 0.5784805041021738
+        },
+        {
+          "threshold": 0.57,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6393,
+          "citation_recall": 0.5767043051678932
+        },
+        {
+          "threshold": 0.58,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6393,
+          "citation_recall": 0.5767043051678932
+        },
+        {
+          "threshold": 0.59,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6403,
+          "citation_recall": 0.5767043051678932
+        },
+        {
+          "threshold": 0.6,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6403,
+          "citation_recall": 0.5758162057007529
+        },
+        {
+          "threshold": 0.61,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6404,
+          "citation_recall": 0.5758162057007529
+        },
+        {
+          "threshold": 0.62,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6383333333333334,
+          "citation_recall": 0.570487608897911
+        },
+        {
+          "threshold": 0.63,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6383333333333334,
+          "citation_recall": 0.570487608897911
+        },
+        {
+          "threshold": 0.64,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6393333333333334,
+          "citation_recall": 0.570487608897911
+        },
+        {
+          "threshold": 0.65,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6383333333333334,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.66,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6396666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.67,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6396666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.68,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6416666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.69,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6416666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.7,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.71,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.72,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.73,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.74,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.75,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.76,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.77,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6436666666666667,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.78,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.79,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.8,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.81,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.82,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.83,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.84,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.85,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.86,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.87,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.88,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.89,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.9,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.91,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.92,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.93,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.94,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.95,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.5678233104964899
+        }
+      ]
+    },
+    {
+      "model_name": "extra_trees",
+      "selected_oof": {
+        "threshold": 0.52,
+        "joint_correct_rate": 0.6325,
+        "citation_precision": 0.6390333333333332,
+        "citation_recall": 0.5935781950435592
+      },
+      "threshold_sweep": [
+        {
+          "threshold": 0.05,
+          "joint_correct_rate": 0.6575,
+          "citation_precision": 0.45022046287046313,
+          "citation_recall": 0.6329506047534467
+        },
+        {
+          "threshold": 0.06,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.46991404151404176,
+          "citation_recall": 0.6325065550198765
+        },
+        {
+          "threshold": 0.07,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.4815902319902321,
+          "citation_recall": 0.6325065550198765
+        },
+        {
+          "threshold": 0.08,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.4944402319902322,
+          "citation_recall": 0.6325065550198765
+        },
+        {
+          "threshold": 0.09,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.5046394383394385,
+          "citation_recall": 0.6325065550198765
+        },
+        {
+          "threshold": 0.1,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.5096061050061051,
+          "citation_recall": 0.6325065550198765
+        },
+        {
+          "threshold": 0.11,
+          "joint_correct_rate": 0.65625,
+          "citation_precision": 0.5151584859584859,
+          "citation_recall": 0.6325065550198765
+        },
+        {
+          "threshold": 0.12,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5307029304029305,
+          "citation_recall": 0.6307303560855959
+        },
+        {
+          "threshold": 0.13,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5347727716727719,
+          "citation_recall": 0.6307303560855959
+        },
+        {
+          "threshold": 0.14,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5414203907203909,
+          "citation_recall": 0.630138289774169
+        },
+        {
+          "threshold": 0.15,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5505957875457879,
+          "citation_recall": 0.6295462234627421
+        },
+        {
+          "threshold": 0.16,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5638291208791212,
+          "citation_recall": 0.629102173729172
+        },
+        {
+          "threshold": 0.17,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5690791208791212,
+          "citation_recall": 0.6282140742620317
+        },
+        {
+          "threshold": 0.18,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5761791208791212,
+          "citation_recall": 0.6282140742620317
+        },
+        {
+          "threshold": 0.19,
+          "joint_correct_rate": 0.655,
+          "citation_precision": 0.5791791208791212,
+          "citation_recall": 0.6264378753277511
+        },
+        {
+          "threshold": 0.2,
+          "joint_correct_rate": 0.6525,
+          "citation_precision": 0.5812124542124544,
+          "citation_recall": 0.6246616763934705
+        },
+        {
+          "threshold": 0.21,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.5837481684981687,
+          "citation_recall": 0.6211092785249092
+        },
+        {
+          "threshold": 0.22,
+          "joint_correct_rate": 0.65,
+          "citation_precision": 0.5870148351648353,
+          "citation_recall": 0.6202211790577689
+        },
+        {
+          "threshold": 0.23,
+          "joint_correct_rate": 0.64875,
+          "citation_precision": 0.5898481684981688,
+          "citation_recall": 0.6184449801234881
+        },
+        {
+          "threshold": 0.24,
+          "joint_correct_rate": 0.64875,
+          "citation_precision": 0.5945880952380954,
+          "citation_recall": 0.6175568806563478
+        },
+        {
+          "threshold": 0.25,
+          "joint_correct_rate": 0.64875,
+          "citation_precision": 0.5959880952380954,
+          "citation_recall": 0.6175568806563478
+        },
+        {
+          "threshold": 0.26,
+          "joint_correct_rate": 0.64875,
+          "citation_precision": 0.6008214285714287,
+          "citation_recall": 0.6175568806563478
+        },
+        {
+          "threshold": 0.27,
+          "joint_correct_rate": 0.6475,
+          "citation_precision": 0.6003214285714288,
+          "citation_recall": 0.6157806817220672
+        },
+        {
+          "threshold": 0.28,
+          "joint_correct_rate": 0.6475,
+          "citation_precision": 0.6036547619047622,
+          "citation_recall": 0.6157806817220672
+        },
+        {
+          "threshold": 0.29,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.605254761904762,
+          "citation_recall": 0.6140044827877866
+        },
+        {
+          "threshold": 0.3,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.6081357142857144,
+          "citation_recall": 0.6140044827877866
+        },
+        {
+          "threshold": 0.31,
+          "joint_correct_rate": 0.64625,
+          "citation_precision": 0.6111357142857144,
+          "citation_recall": 0.6140044827877866
+        },
+        {
+          "threshold": 0.32,
+          "joint_correct_rate": 0.645,
+          "citation_precision": 0.6107730880230882,
+          "citation_recall": 0.6122282838535059
+        },
+        {
+          "threshold": 0.33,
+          "joint_correct_rate": 0.6425,
+          "citation_precision": 0.6119397546897548,
+          "citation_recall": 0.6086758859849447
+        },
+        {
+          "threshold": 0.34,
+          "joint_correct_rate": 0.6425,
+          "citation_precision": 0.6144579365079367,
+          "citation_recall": 0.6086758859849447
+        },
+        {
+          "threshold": 0.35,
+          "joint_correct_rate": 0.6425,
+          "citation_precision": 0.616980158730159,
+          "citation_recall": 0.6086758859849447
+        },
+        {
+          "threshold": 0.36,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6186388888888891,
+          "citation_recall": 0.606899687050664
+        },
+        {
+          "threshold": 0.37,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6200000000000001,
+          "citation_recall": 0.606899687050664
+        },
+        {
+          "threshold": 0.38,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6234833333333334,
+          "citation_recall": 0.606899687050664
+        },
+        {
+          "threshold": 0.39,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6259833333333333,
+          "citation_recall": 0.606899687050664
+        },
+        {
+          "threshold": 0.4,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6277166666666667,
+          "citation_recall": 0.606899687050664
+        },
+        {
+          "threshold": 0.41,
+          "joint_correct_rate": 0.64125,
+          "citation_precision": 0.6303833333333333,
+          "citation_recall": 0.606899687050664
+        },
+        {
+          "threshold": 0.42,
+          "joint_correct_rate": 0.64,
+          "citation_precision": 0.6297166666666667,
+          "citation_recall": 0.6051234881163834
+        },
+        {
+          "threshold": 0.43,
+          "joint_correct_rate": 0.64,
+          "citation_precision": 0.6297833333333333,
+          "citation_recall": 0.6051234881163834
+        },
+        {
+          "threshold": 0.44,
+          "joint_correct_rate": 0.6375,
+          "citation_precision": 0.6312166666666665,
+          "citation_recall": 0.6015710902478221
+        },
+        {
+          "threshold": 0.45,
+          "joint_correct_rate": 0.6375,
+          "citation_precision": 0.6320499999999999,
+          "citation_recall": 0.5997948913135415
+        },
+        {
+          "threshold": 0.46,
+          "joint_correct_rate": 0.6375,
+          "citation_precision": 0.63645,
+          "citation_recall": 0.5997948913135415
+        },
+        {
+          "threshold": 0.47,
+          "joint_correct_rate": 0.6375,
+          "citation_precision": 0.63645,
+          "citation_recall": 0.5997948913135415
+        },
+        {
+          "threshold": 0.48,
+          "joint_correct_rate": 0.63375,
+          "citation_precision": 0.6342166666666665,
+          "citation_recall": 0.5953543939778398
+        },
+        {
+          "threshold": 0.49,
+          "joint_correct_rate": 0.63375,
+          "citation_precision": 0.6352523809523809,
+          "citation_recall": 0.5953543939778398
+        },
+        {
+          "threshold": 0.5,
+          "joint_correct_rate": 0.6325,
+          "citation_precision": 0.6366333333333332,
+          "citation_recall": 0.5935781950435592
+        },
+        {
+          "threshold": 0.51,
+          "joint_correct_rate": 0.6325,
+          "citation_precision": 0.6366999999999998,
+          "citation_recall": 0.5935781950435592
+        },
+        {
+          "threshold": 0.52,
+          "joint_correct_rate": 0.6325,
+          "citation_precision": 0.6390333333333332,
+          "citation_recall": 0.5935781950435592
+        },
+        {
+          "threshold": 0.53,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6390333333333332,
+          "citation_recall": 0.5900257971749979
+        },
+        {
+          "threshold": 0.54,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6410333333333332,
+          "citation_recall": 0.5900257971749979
+        },
+        {
+          "threshold": 0.55,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6410333333333332,
+          "citation_recall": 0.5900257971749979
+        },
+        {
+          "threshold": 0.56,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6410333333333332,
+          "citation_recall": 0.5900257971749979
+        },
+        {
+          "threshold": 0.57,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6413666666666665,
+          "citation_recall": 0.5882495982407173
+        },
+        {
+          "threshold": 0.58,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6413666666666665,
+          "citation_recall": 0.5882495982407173
+        },
+        {
+          "threshold": 0.59,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6416999999999999,
+          "citation_recall": 0.5882495982407173
+        },
+        {
+          "threshold": 0.6,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6419,
+          "citation_recall": 0.5882495982407173
+        },
+        {
+          "threshold": 0.61,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6414,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.62,
+          "joint_correct_rate": 0.62875,
+          "citation_precision": 0.6412333333333333,
+          "citation_recall": 0.5838091009050157
+        },
+        {
+          "threshold": 0.63,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6410666666666667,
+          "citation_recall": 0.5820329019707351
+        },
+        {
+          "threshold": 0.64,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6420666666666667,
+          "citation_recall": 0.5820329019707351
+        },
+        {
+          "threshold": 0.65,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6420666666666667,
+          "citation_recall": 0.5820329019707351
+        },
+        {
+          "threshold": 0.66,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6430666666666667,
+          "citation_recall": 0.5820329019707351
+        },
+        {
+          "threshold": 0.67,
+          "joint_correct_rate": 0.62625,
+          "citation_precision": 0.6427333333333334,
+          "citation_recall": 0.5802567030364545
+        },
+        {
+          "threshold": 0.68,
+          "joint_correct_rate": 0.62625,
+          "citation_precision": 0.6437333333333334,
+          "citation_recall": 0.5802567030364545
+        },
+        {
+          "threshold": 0.69,
+          "joint_correct_rate": 0.62375,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5767043051678932
+        },
+        {
+          "threshold": 0.7,
+          "joint_correct_rate": 0.62375,
+          "citation_precision": 0.6473333333333333,
+          "citation_recall": 0.5767043051678932
+        },
+        {
+          "threshold": 0.71,
+          "joint_correct_rate": 0.62375,
+          "citation_precision": 0.6473333333333333,
+          "citation_recall": 0.5767043051678932
+        },
+        {
+          "threshold": 0.72,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6473333333333333,
+          "citation_recall": 0.5749281062336126
+        },
+        {
+          "threshold": 0.73,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6473333333333333,
+          "citation_recall": 0.5749281062336126
+        },
+        {
+          "threshold": 0.74,
+          "joint_correct_rate": 0.62,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5713757083650512
+        },
+        {
+          "threshold": 0.75,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6443333333333334,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.76,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.77,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.78,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.79,
+          "joint_correct_rate": 0.61875,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5695995094307706
+        },
+        {
+          "threshold": 0.8,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.81,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.82,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.83,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.84,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.85,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.86,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.87,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.88,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.89,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.9,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.91,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.92,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.93,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.94,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        },
+        {
+          "threshold": 0.95,
+          "joint_correct_rate": 0.6175,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5678233104964899
+        }
+      ]
+    },
+    {
+      "model_name": "gradient_boosting",
+      "selected_oof": {
+        "threshold": 0.3,
+        "joint_correct_rate": 0.63,
+        "citation_precision": 0.6395666666666666,
+        "citation_recall": 0.5864733993064367
+      },
+      "threshold_sweep": [
+        {
+          "threshold": 0.05,
+          "joint_correct_rate": 0.64375,
+          "citation_precision": 0.6039822954822958,
+          "citation_recall": 0.6100080351856552
+        },
+        {
+          "threshold": 0.06,
+          "joint_correct_rate": 0.64,
+          "citation_precision": 0.60934126984127,
+          "citation_recall": 0.6046794383828132
+        },
+        {
+          "threshold": 0.07,
+          "joint_correct_rate": 0.63875,
+          "citation_precision": 0.6102777777777779,
+          "citation_recall": 0.6024591897149625
+        },
+        {
+          "threshold": 0.08,
+          "joint_correct_rate": 0.63625,
+          "citation_precision": 0.6121222222222222,
+          "citation_recall": 0.5971305929121206
+        },
+        {
+          "threshold": 0.09,
+          "joint_correct_rate": 0.63625,
+          "citation_precision": 0.6171222222222222,
+          "citation_recall": 0.5971305929121206
+        },
+        {
+          "threshold": 0.1,
+          "joint_correct_rate": 0.63625,
+          "citation_precision": 0.6186500000000001,
+          "citation_recall": 0.5971305929121206
+        },
+        {
+          "threshold": 0.11,
+          "joint_correct_rate": 0.63625,
+          "citation_precision": 0.6218166666666668,
+          "citation_recall": 0.5971305929121206
+        },
+        {
+          "threshold": 0.12,
+          "joint_correct_rate": 0.63625,
+          "citation_precision": 0.6273166666666669,
+          "citation_recall": 0.5971305929121206
+        },
+        {
+          "threshold": 0.13,
+          "joint_correct_rate": 0.63625,
+          "citation_precision": 0.6293833333333334,
+          "citation_recall": 0.5971305929121206
+        },
+        {
+          "threshold": 0.14,
+          "joint_correct_rate": 0.63375,
+          "citation_precision": 0.6287166666666667,
+          "citation_recall": 0.5935781950435592
+        },
+        {
+          "threshold": 0.15,
+          "joint_correct_rate": 0.63375,
+          "citation_precision": 0.6298833333333335,
+          "citation_recall": 0.5935781950435592
+        },
+        {
+          "threshold": 0.16,
+          "joint_correct_rate": 0.63375,
+          "citation_precision": 0.6309666666666667,
+          "citation_recall": 0.5935781950435592
+        },
+        {
+          "threshold": 0.17,
+          "joint_correct_rate": 0.6325,
+          "citation_precision": 0.6319,
+          "citation_recall": 0.5918019961092786
+        },
+        {
+          "threshold": 0.18,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6323000000000001,
+          "citation_recall": 0.5891376977078576
+        },
+        {
+          "threshold": 0.19,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6327333333333334,
+          "citation_recall": 0.5891376977078576
+        },
+        {
+          "threshold": 0.2,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6327333333333334,
+          "citation_recall": 0.5891376977078576
+        },
+        {
+          "threshold": 0.21,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6327333333333334,
+          "citation_recall": 0.5891376977078576
+        },
+        {
+          "threshold": 0.22,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6359,
+          "citation_recall": 0.5891376977078576
+        },
+        {
+          "threshold": 0.23,
+          "joint_correct_rate": 0.63125,
+          "citation_precision": 0.6352333333333333,
+          "citation_recall": 0.5882495982407173
+        },
+        {
+          "threshold": 0.24,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6362333333333332,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.25,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6365666666666666,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.26,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6375666666666666,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.27,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6375666666666666,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.28,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6375666666666666,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.29,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6375666666666666,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.3,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6395666666666666,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.31,
+          "joint_correct_rate": 0.63,
+          "citation_precision": 0.6406666666666667,
+          "citation_recall": 0.5864733993064367
+        },
+        {
+          "threshold": 0.32,
+          "joint_correct_rate": 0.62875,
+          "citation_precision": 0.6426666666666667,
+          "citation_recall": 0.584697200372156
+        },
+        {
+          "threshold": 0.33,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.642,
+          "citation_recall": 0.5829210014378754
+        },
+        {
+          "threshold": 0.34,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.642,
+          "citation_recall": 0.5829210014378754
+        },
+        {
+          "threshold": 0.35,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.643,
+          "citation_recall": 0.5829210014378754
+        },
+        {
+          "threshold": 0.36,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.642,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.37,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6423333333333333,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.38,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6423333333333333,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.39,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.4,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.41,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.42,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.43,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.44,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.45,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.46,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.47,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6453333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.48,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6453333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.49,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6453333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.5,
+          "joint_correct_rate": 0.6275,
+          "citation_precision": 0.6453333333333332,
+          "citation_recall": 0.5811448025035948
+        },
+        {
+          "threshold": 0.51,
+          "joint_correct_rate": 0.62625,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5793686035693141
+        },
+        {
+          "threshold": 0.52,
+          "joint_correct_rate": 0.62625,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5793686035693141
+        },
+        {
+          "threshold": 0.53,
+          "joint_correct_rate": 0.625,
+          "citation_precision": 0.6433333333333333,
+          "citation_recall": 0.5775924046350335
+        },
+        {
+          "threshold": 0.54,
+          "joint_correct_rate": 0.625,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5775924046350335
+        },
+        {
+          "threshold": 0.55,
+          "joint_correct_rate": 0.625,
+          "citation_precision": 0.6443333333333332,
+          "citation_recall": 0.5775924046350335
+        },
+        {
+          "threshold": 0.56,
+          "joint_correct_rate": 0.625,
+          "citation_precision": 0.6453333333333332,
+          "citation_recall": 0.5775924046350335
+        },
+        {
+          "threshold": 0.57,
+          "joint_correct_rate": 0.625,
+          "citation_precision": 0.6463333333333332,
+          "citation_recall": 0.5775924046350335
+        },
+        {
+          "threshold": 0.58,
+          "joint_correct_rate": 0.62375,
+          "citation_precision": 0.6453333333333332,
+          "citation_recall": 0.5758162057007529
+        },
+        {
+          "threshold": 0.59,
+          "joint_correct_rate": 0.62375,
+          "citation_precision": 0.6453333333333332,
+          "citation_recall": 0.5758162057007529
+        },
+        {
+          "threshold": 0.6,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5740400067664722
+        },
+        {
+          "threshold": 0.61,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5740400067664722
+        },
+        {
+          "threshold": 0.62,
+          "joint_correct_rate": 0.6225,
+          "citation_precision": 0.6446666666666667,
+          "citation_recall": 0.5740400067664722
+        },
+        {
+          "threshold": 0.63,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.644,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.64,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.644,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.65,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.644,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.66,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.644,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.67,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.644,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.68,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.645,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.69,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.645,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.7,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.645,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.71,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.645,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.72,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.645,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.73,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.645,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.74,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.645,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.75,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.645,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.76,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.645,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.77,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.78,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.79,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.8,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.81,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.82,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.83,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.84,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.85,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.86,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.87,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.88,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.89,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.9,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.91,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.92,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.93,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.94,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        },
+        {
+          "threshold": 0.95,
+          "joint_correct_rate": 0.62125,
+          "citation_precision": 0.6453333333333334,
+          "citation_recall": 0.5722638078321916
+        }
+      ]
+    }
+  ],
+  "development": {
+    "case_count": 800,
+    "baseline_metrics": {
+      "fever": {
+        "case_count": 800,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.6767317939609236,
+        "retrieval_complete_gold_rate": 0.5985790408525755,
+        "citation_precision": 0.6284203980099503,
+        "citation_recall": 0.6000909244692549,
+        "joint_correct_rate": 0.575,
+        "label_accuracy": 0.69625,
+        "evidence_complete_rate": 0.59875
+      },
+      "macro": {
+        "case_count": 800,
+        "joint_correct_rate": 0.575
+      }
+    },
+    "selected_metrics": {
+      "fever": {
+        "case_count": 800,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.7673179396092362,
+        "retrieval_complete_gold_rate": 0.6838365896980462,
+        "citation_precision": 0.6414743589743591,
+        "citation_recall": 0.6148925822549269,
+        "joint_correct_rate": 0.64625,
+        "label_accuracy": 0.76625,
+        "evidence_complete_rate": 0.665
+      },
+      "macro": {
+        "case_count": 800,
+        "joint_correct_rate": 0.64625
+      }
+    },
+    "paired": {
+      "selected_only_win_count": 96,
+      "baseline_only_win_count": 39,
+      "net_win_count": 57,
+      "exact_paired_two_sided_p_value": 1.0064989577328037e-06
+    }
+  },
+  "confirmation": {
+    "case_count": 300,
+    "baseline_metrics": {
+      "fever": {
+        "case_count": 300,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.678391959798995,
+        "retrieval_complete_gold_rate": 0.6080402010050251,
+        "citation_precision": 0.5812395309882747,
+        "citation_recall": 0.597571189279732,
+        "joint_correct_rate": 0.5633333333333334,
+        "label_accuracy": 0.69,
+        "evidence_complete_rate": 0.5733333333333334
+      },
+      "macro": {
+        "case_count": 300,
+        "joint_correct_rate": 0.5633333333333334
+      }
+    },
+    "selected_metrics": {
+      "fever": {
+        "case_count": 300,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.7487437185929648,
+        "retrieval_complete_gold_rate": 0.678391959798995,
+        "citation_precision": 0.5962335216572504,
+        "citation_recall": 0.5999641062455132,
+        "joint_correct_rate": 0.63,
+        "label_accuracy": 0.72,
+        "evidence_complete_rate": 0.64
+      },
+      "macro": {
+        "case_count": 300,
+        "joint_correct_rate": 0.63
+      }
+    },
+    "paired": {
+      "selected_only_win_count": 38,
+      "baseline_only_win_count": 18,
+      "net_win_count": 20,
+      "exact_paired_two_sided_p_value": 0.010454818321892184
+    }
+  },
+  "replication": {
+    "case_count": 300,
+    "baseline_metrics": {
+      "fever": {
+        "case_count": 300,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.76,
+        "retrieval_complete_gold_rate": 0.68,
+        "citation_precision": 0.6455223880597015,
+        "citation_recall": 0.6670833333333333,
+        "joint_correct_rate": 0.6133333333333333,
+        "label_accuracy": 0.7066666666666667,
+        "evidence_complete_rate": 0.6433333333333333
+      },
+      "macro": {
+        "case_count": 300,
+        "joint_correct_rate": 0.6133333333333333
+      }
+    },
+    "selected_metrics": {
+      "fever": {
+        "case_count": 300,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.825,
+        "retrieval_complete_gold_rate": 0.75,
+        "citation_precision": 0.631854043392505,
+        "citation_recall": 0.6004166666666666,
+        "joint_correct_rate": 0.6366666666666667,
+        "label_accuracy": 0.6966666666666667,
+        "evidence_complete_rate": 0.65
+      },
+      "macro": {
+        "case_count": 300,
+        "joint_correct_rate": 0.6366666666666667
+      }
+    },
+    "paired": {
+      "selected_only_win_count": 34,
+      "baseline_only_win_count": 27,
+      "net_win_count": 7,
+      "exact_paired_two_sided_p_value": 0.4426260049464714
+    }
+  },
+  "full": {
+    "case_count": 2000,
+    "baseline_metrics": {
+      "fever": {
+        "case_count": 2000,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.6950509461426492,
+        "retrieval_complete_gold_rate": 0.6179039301310044,
+        "citation_precision": 0.6281811377245509,
+        "citation_recall": 0.616521972690095,
+        "joint_correct_rate": 0.5875,
+        "label_accuracy": 0.7045,
+        "evidence_complete_rate": 0.61
+      },
+      "macro": {
+        "case_count": 2000,
+        "joint_correct_rate": 0.5875
+      }
+    },
+    "selected_metrics": {
+      "fever": {
+        "case_count": 2000,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.7751091703056768,
+        "retrieval_complete_gold_rate": 0.6972343522561864,
+        "citation_precision": 0.6304586584133942,
+        "citation_recall": 0.599765197199695,
+        "joint_correct_rate": 0.639,
+        "label_accuracy": 0.7415,
+        "evidence_complete_rate": 0.6535
+      },
+      "macro": {
+        "case_count": 2000,
+        "joint_correct_rate": 0.639
+      }
+    },
+    "paired": {
+      "selected_only_win_count": 238,
+      "baseline_only_win_count": 135,
+      "net_win_count": 103,
+      "exact_paired_two_sided_p_value": 1.0725488617768005e-07
+    }
+  },
+  "combined_confirmation": {
+    "case_count": 600,
+    "baseline_metrics": {
+      "fever": {
+        "case_count": 600,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.7192982456140351,
+        "retrieval_complete_gold_rate": 0.6441102756892231,
+        "citation_precision": 0.6135416666666668,
+        "citation_recall": 0.6324143692564747,
+        "joint_correct_rate": 0.5883333333333334,
+        "label_accuracy": 0.6983333333333334,
+        "evidence_complete_rate": 0.6083333333333333
+      },
+      "macro": {
+        "case_count": 600,
+        "joint_correct_rate": 0.5883333333333334
+      }
+    },
+    "selected_metrics": {
+      "fever": {
+        "case_count": 600,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.7869674185463659,
+        "retrieval_complete_gold_rate": 0.7142857142857143,
+        "citation_precision": 0.6136319845857419,
+        "citation_recall": 0.6001909535744122,
+        "joint_correct_rate": 0.6333333333333333,
+        "label_accuracy": 0.7083333333333334,
+        "evidence_complete_rate": 0.645
+      },
+      "macro": {
+        "case_count": 600,
+        "joint_correct_rate": 0.6333333333333333
+      }
+    },
+    "paired": {
+      "selected_only_win_count": 72,
+      "baseline_only_win_count": 45,
+      "net_win_count": 27,
+      "exact_paired_two_sided_p_value": 0.015864496824406372
+    }
+  },
+  "artifacts": {
+    "model_path": "artifacts/models/fever-selected-evidence-selector-v4.joblib",
+    "model_sha256": "19ae0a60692ba5d6084a5472e3428af93c8f15bc816d9525683e29dba9a237d8",
+    "case_records_path": "reports/public-benchmarks/fever-selected-evidence-selector-v4-full-2000.cases.jsonl",
+    "case_records_sha256": "47e903e81a0a0792b7b06cf4605073ca007fb9223f1446607a0bd9e4d77866e5",
+    "case_results_canonical_sha256": "4019e1058db37986efa57e2b9cbb9dfefc66f103fd52d375ba703389e65d2b59"
+  },
+  "limitations": [
+    "The evidence model family and threshold use only case-grouped out-of-fold predictions in the declared development window.",
+    "The disjoint confirmation windows jointly control promotion.",
+    "Promotion requires full-run citation precision no lower than the frozen DeepSeek baseline.",
+    "The full score includes development and confirmation cases and is not another holdout."
+  ]
+}

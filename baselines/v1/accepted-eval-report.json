@@ -1,0 +1,787 @@
+{
+  "summary": {
+    "recall_at_k": 0.974,
+    "mrr": 0.844,
+    "answer_rate": 1.0,
+    "correctness": 0.926,
+    "faithfulness": 0.926,
+    "abstention": 0.909
+  },
+  "config": {
+    "chunk_max_words": 180,
+    "chunk_overlap_words": 40,
+    "top_k": 4,
+    "embed_model": "intfloat/e5-small-v2",
+    "gen_model": "meta-llama/llama-3.1-8b-instruct"
+  },
+  "meta": {
+    "n": 49,
+    "n_answerable": 38,
+    "llm": true,
+    "timestamp": "2026-07-10 02:26:14"
+  },
+  "items": [
+    {
+      "id": "q01",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::roadmap",
+        "backbone-plan::dataset-spec",
+        "backbone-plan::status"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The gateway's failover ladder is: retry same deployment → cooldown (circuit breaker) → model-level fallback.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q02",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::why-this-target-and-not-generic-rp-style",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": true,
+      "rank": 2,
+      "answer": "The primary RP model (Euryale 70B) is single-host on OpenRouter, so a hot-standby model is necessary to implement the failover ladder, as it is the second rung after retrying the same deployment.",
+      "abstained": false,
+      "correctness": 8,
+      "faithfulness": 10
+    },
+    {
+      "id": "q03",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "No, the model lab does not use the gateway's fallback. This is because \"the model lab stays on direct OpenRouter with NO fallback — silent model swapping would poison blind ratings.\"",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q04",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::run",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 2,
+      "answer": "The gateway exposes its OpenAI-compatible endpoint at `http://127.0.0.1:4000/v1`.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q05",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "hit": true,
+      "rank": 2,
+      "answer": "A deployment is pulled from rotation after failing more than 3 times per minute, and it is pulled from rotation for 30 seconds.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q06",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 2,
+      "answer": "The failover-demo model is intentionally broken, and its purpose is to prove that the fallback mechanism fires end-to-end instead of relying on configuration.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q07",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::what-it-does-today-cont",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::run"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "Clients authenticate via a master key, and they never see the OpenRouter key. The OpenRouter key is hidden from clients via authentication with the master key.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q08",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::vbot-model-gateway",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The backing store that lets cooldown/circuit-breaker state survive multiple replicas is Redis.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q09",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::run",
+        "backbone-plan::dataset-spec",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "According to the context passage [1], at 10 concurrent chatters, the measured findings were: **p95 10.2s** and **0.00% user-visible errors**.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q10",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::run"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "Hermes-4 stochastically reasoning-spirals (~2–10% of calls depending on window/budget), consuming the entire completion budget as `reasoning_content` and returning HTTP 200 with empty `content`, `finish_reason: length`.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q11",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The reasoning-disable param is not honored by Nebius.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q12",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The client contract that reduces the empty-response rate to zero failed turns is: \"HTTP 200 + empty content = retryable, once.\" This converts a 2.34% raw empty rate into 0.00% failed turns.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q13",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "backbone-plan::ship-list",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "According to the context passage [1], Euryale 70B is the model serving as `rp-primary`, and it is serving at 70B precision.",
+      "abstained": false,
+      "correctness": 0,
+      "faithfulness": 1
+    },
+    {
+      "id": "q14",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "backbone-plan::why-this-target-and-not-generic-rp-style"
+      ],
+      "hit": true,
+      "rank": 3,
+      "answer": "The model-level fallback chain is the host diversity, with three models (Euryale, Hermes-4, and Hermes-3) providing independent infrastructures, so same-model host failover is not needed.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q15",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today-cont",
+        "gateway-readme::roadmap",
+        "gateway-readme::run",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "Per-key spend is tracked using Postgres-backed virtual keys, which are generated via the `/key/generate` endpoint with a hard budget cap (`max_budget`). Each client key has its own spend ledger and can never exceed its cap.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q16",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::what-it-does-today-cont",
+        "gateway-readme::run",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The k6 load profile (`scripts/load-test.js`) simulates 10 concurrent chatters with real think-time, and thresholds on p95 latency and error rate.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q17",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::run",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 2,
+      "answer": "The OS-user gotcha that affects the Prometheus scrape-token file on deploy is that the Prometheus container runs as uid 65534 (nobody), so the file needs to be chown to 65534:65534.",
+      "abstained": false,
+      "correctness": 9,
+      "faithfulness": 10
+    },
+    {
+      "id": "q18",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::what-it-does-today-cont"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The repo is shipped to the droplet without secrets riding along by using `git archive master` to create a committed files-only archive, which is then transferred to the droplet using `ssh` and `tar`.",
+      "abstained": false,
+      "correctness": 9,
+      "faithfulness": 10
+    },
+    {
+      "id": "q19",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb"
+      ],
+      "hit": true,
+      "rank": 4,
+      "answer": "The gateway's ports are kept off the public internet by binding them to 127.0.0.1 and then using SSH tunnels to access them from the outside. This is stated in step 7 of the deploy runbook: \"outside-in sweep: ports 4000/9090/3001 must be UNREACHABLE from the internet (everything binds 127.0.0.1; access via SSH tunnel): ssh -L 3002:127.0.0.1:3001 root@<ip> # → Grafana at http://127.0.0.1:3002\".",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q20",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "backbone-plan::status"
+      ],
+      "hit": true,
+      "rank": 2,
+      "answer": "The orchestrator that runs the production gateway is k3s, a lightweight, certified Kubernetes distribution. It is installed on the droplet using the command `curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --disable traefik\" sh -`, which downloads and installs k3s, and then creates a secret generic for the gateway environment.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 7
+    },
+    {
+      "id": "q21",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "According to the context passages, the NodePorts that expose the gateway API and Grafana are 30400 and 3001, respectively. However, it is mentioned that the DO firewall blocks these ports externally, making them unreachable from the internet.",
+      "abstained": false,
+      "correctness": 7,
+      "faithfulness": 7
+    },
+    {
+      "id": "q22",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The migration was done without downtime by bringing up the Kubernetes side alongside the compose setup, verifying that it was working correctly, and then shutting down the compose setup. This was done by running the full ladder of smoke tests, including forced failover, spend tracking, scrape, and dashboard, on the Kubernetes side before switching over.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q23",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "backbone-plan::ship-list",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "A merge to the `master` branch triggers a deploy.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q24",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "backbone-plan::ship-list",
+        "gateway-readme::roadmap",
+        "gateway-readme::what-it-does-today"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "Argo CD self-healed a manual cluster sabotage in 10 seconds.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q25",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "backbone-plan::status",
+        "gateway-readme::what-it-does-today-cont",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "Argo CD uses a dedicated **read-only deploy key** with least privilege to access the repo.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q26",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+        "backbone-plan::ship-list",
+        "backbone-plan::status",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "Argo CD required two headless-install gotchas to be addressed: \n\n1. The ApplicationSet CRD needs `--server-side` apply.\n2. The `default` AppProject must be created manually.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q27",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-plan::behavior-families-dataset-lanes",
+        "backbone-plan::ship-list",
+        "gateway-readme::what-it-does-today-cont"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The Backbone fine-tune targets the \"calibrated resistance to social pressure\" behavior family, specifically the anti-sycophancy behavior.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q28",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::behavior-families-dataset-lanes",
+        "backbone-plan::evaluation-the-credibility-section",
+        "backbone-plan::dataset-spec",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "Lane C is Calibration control (~25%), which involves the user's correction being correct, and the model updating graciously without digging in. It is non-negotiable because without it, the model would train to be a contrarian, which is the mirror image of sycophancy.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q29",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::dataset-spec",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::training",
+        "backbone-plan::status"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The training dataset is approximately 1,500–2,000 multi-turn conversations, with each conversation having 2–4 turns. Pressure arrives in a conversation at turn 2 or later, but never at turn 1.",
+      "abstained": false,
+      "correctness": 9,
+      "faithfulness": 10
+    },
+    {
+      "id": "q30",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::ship-list",
+        "backbone-plan::training",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": true,
+      "rank": 2,
+      "answer": "The base model is Qwen2.5-7B-Instruct and it uses QLoRA 4-bit (bnb nf4) quantization. The fine-tune fits approximately 10-11GB of the 5080's 16GB.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q31",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::training",
+        "gateway-readme::run",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "Every ft-env command needs `PYTHONNOUSERSITE=1` because the machine has a broken half-installed boto3 in the user-site (AppData\\Roaming\\Python) that leaks into conda envs and crashes accelerate's import chain.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q32",
+      "answerable": true,
+      "retrieved": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The validation loss bottomed at epoch 2 with a value of 1.496.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q33",
+      "answerable": true,
+      "retrieved": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::evaluation-the-credibility-section",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "According to passage [1], the LoRA rank with the best eval loss was r64, with an eval loss of 1.473. However, it was not deployed because it lost a full point of calibration compared to r16, which was the deployed model.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q34",
+      "answerable": true,
+      "retrieved": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::dataset-spec",
+        "gateway-readme::roadmap"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The DPO run used 620 contrast-filtered pairs. Chosen pairs came from teacher holds with a judge score of 7 or higher, while rejected pairs came from teacher holds with a judge score of 4 or lower.",
+      "abstained": false,
+      "correctness": 7,
+      "faithfulness": 7
+    },
+    {
+      "id": "q35",
+      "answerable": true,
+      "retrieved": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::why-this-target-and-not-generic-rp-style",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The DPO model was not shipped because it failed to demonstrate pressure-resistance, as it held badly on two crashed probes, fabricating an authority to justify a correct hold and confidently wrong math. This was due to a lack of grounding, as the 1.5B model imitated the holds of the 70B/DeepSeek teachers without understanding their correctness.",
+      "abstained": false,
+      "correctness": 3,
+      "faithfulness": 10
+    },
+    {
+      "id": "q36",
+      "answerable": true,
+      "retrieved": [
+        "backbone-plan::ship-list",
+        "gateway-readme::roadmap",
+        "backbone-plan::status",
+        "backbone-plan::training"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "Q4_K_M.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 0
+    },
+    {
+      "id": "q37",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "The DigitalOcean droplet cost $12 per month and was located in the Singapore region (SGP1).",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "q38",
+      "answerable": true,
+      "retrieved": [
+        "gateway-readme::roadmap",
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::ship-list",
+        "gateway-readme::what-it-does-today"
+      ],
+      "hit": true,
+      "rank": 1,
+      "answer": "According to passage [1], the self-hosted model that became rp-selfhosted is Ollama (qwen2.5:0.5b, CPU). Its gate PR #2 was merged, but the first run was rejected due to CI-topology drift, and it was later fixed, promoted, and deployed.",
+      "abstained": false,
+      "correctness": 10,
+      "faithfulness": 10
+    },
+    {
+      "id": "u01",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "backbone-plan::ship-list",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    },
+    {
+      "id": "u02",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::status",
+        "gateway-readme::roadmap",
+        "gateway-readme::run"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    },
+    {
+      "id": "u03",
+      "answerable": false,
+      "retrieved": [
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "backbone-plan::dataset-spec",
+        "backbone-plan::ship-list",
+        "backbone-plan::why-this-target-and-not-generic-rp-style"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    },
+    {
+      "id": "u04",
+      "answerable": false,
+      "retrieved": [
+        "backbone-plan::why-this-target-and-not-generic-rp-style",
+        "backbone-plan::dataset-spec",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    },
+    {
+      "id": "u05",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::status",
+        "gateway-readme::run",
+        "gateway-readme::roadmap"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    },
+    {
+      "id": "u06",
+      "answerable": false,
+      "retrieved": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+        "backbone-plan::training",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    },
+    {
+      "id": "u07",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::what-it-does-today",
+        "backbone-plan::ship-list",
+        "backbone-plan::behavior-families-dataset-lanes",
+        "gateway-readme::vbot-model-gateway"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "The Euryale 70B model is the primary RP model, and it is used in the model gateway. It is also used in the \"Earned resistance (RP)\" behavior family, where it is used as the teacher.",
+      "abstained": false
+    },
+    {
+      "id": "u08",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::what-it-does-today",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+        "gateway-readme::vbot-model-gateway"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    },
+    {
+      "id": "u09",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::run",
+        "gateway-readme::run",
+        "backbone-plan::dataset-spec"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    },
+    {
+      "id": "u10",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "backbone-plan::dataset-spec",
+        "backbone-plan::ft-lab-backbone-fine-tune-plan",
+        "gateway-readme::run"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    },
+    {
+      "id": "u11",
+      "answerable": false,
+      "retrieved": [
+        "gateway-readme::vbot-model-gateway",
+        "gateway-readme::what-it-does-today-cont",
+        "backbone-plan::dataset-spec",
+        "gateway-readme::roadmap"
+      ],
+      "hit": false,
+      "rank": 0,
+      "answer": "I don't have enough information in the provided context to answer that.",
+      "abstained": true
+    }
+  ]
+}

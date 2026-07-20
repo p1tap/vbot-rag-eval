@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T13:26:46Z",
+  "status": "passed",
+  "scope": "clean_container_packaging_and_http_contract_smoke",
+  "image": {
+    "tag": "vbot-rag-api:v2-dev4",
+    "id": "sha256:832a09742c28681e5082ea0094945431ab7335568fe76eb7a2b59329175df413",
+    "size_bytes": 1172163799,
+    "base_image": "python:3.11-slim@sha256:db3ff2e1800a8581e2c48a27c3995339d47bdf046da21c7627accd3d51053a93"
+  },
+  "runtime": {
+    "host_binding": "127.0.0.1:8002",
+    "service_version": "1.0.0",
+    "evaluation_dataset_version": "2.0.0-dev.4",
+    "evaluation_dataset_fingerprint_sha256": "9e56ca801388bf5885804d60cad3ce1ccaf6ee76a2bfa449a22b13d7fa25415d",
+    "generation_mode": "mock_no_model_inference",
+    "model_inference_capacity_evidence": false,
+    "index_chunks": 22
+  },
+  "checks": {
+    "health_ready": true,
+    "version_endpoint": true,
+    "answer_action": "answer",
+    "returned_source_count": 4,
+    "structured_validation": true,
+    "container_stopped_after_test": true
+  },
+  "limitations": [
+    "This smoke verifies clean-image packaging, E5 readiness, retrieval, HTTP routing, and the structured response surface.",
+    "Generation was an explicit deterministic mock and is not model-inference quality or capacity evidence."
+  ]
+}

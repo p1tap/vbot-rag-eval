@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T07:02:49.025659+00:00",
+  "status": "sample_complete",
+  "resume_claim_ready": false,
+  "identity_sha256": "8bb5f31775aca864c906ee78e9770976cb34df5f0aeed0cb6c015e3d0c97771f",
+  "identity": {
+    "runner_version": "1.0.2",
+    "response_contract_version": "public-rag-batch-1.0.2",
+    "profile_id": "gpt-5.4-high",
+    "profile": {
+      "model": "openai/gpt-5.4",
+      "temperature": null,
+      "max_tokens": 6000,
+      "strict_schema": true,
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "openai"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        }
+      }
+    },
+    "benchmarks": [
+      "hotpotqa",
+      "natural_questions",
+      "fever"
+    ],
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "suite_report_sha256": "e7746caa607a4734f16a89c7ed7473ed26b6ea909f485ae519e7c5f1ba4739c7",
+    "top_k": 8,
+    "batch_size": 4,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 100,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "03022ecc8fb51ec293e620dd1e60a504fe2a97ae4baf147975fa26eb5e203453"
+  },
+  "case_count": 300,
+  "batch_count": 75,
+  "valid_batch_count": 75,
+  "fail_closed_case_count": 0,
+  "metrics": {
+    "fever": {
+      "case_count": 100,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.7567567567567568,
+      "retrieval_complete_gold_rate": 0.6351351351351351,
+      "citation_precision": 0.68,
+      "citation_recall": 0.6666666666666666,
+      "joint_correct_rate": 0.61,
+      "label_accuracy": 0.72,
+      "evidence_complete_rate": 0.62
+    },
+    "hotpotqa": {
+      "case_count": 100,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 1.0,
+      "retrieval_complete_gold_rate": 0.91,
+      "citation_precision": 0.9560439560439561,
+      "citation_recall": 0.82,
+      "joint_correct_rate": 0.48,
+      "answer_exact_match": 0.61,
+      "answer_f1": 0.7712920634920633,
+      "answerability_accuracy": 0.91
+    },
+    "natural_questions": {
+      "case_count": 100,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.8518518518518519,
+      "retrieval_complete_gold_rate": 0.8148148148148148,
+      "citation_precision": 0.46710526315789475,
+      "citation_recall": 0.6388888888888888,
+      "joint_correct_rate": 0.36,
+      "answer_exact_match": 0.44,
+      "answer_f1": 0.5273328946536138,
+      "answerability_accuracy": 0.72
+    },
+    "macro": {
+      "case_count": 300,
+      "joint_correct_rate": 0.4833333333333332
+    }
+  },
+  "operation": {
+    "call_count": 75,
+    "provider_reported_cost_total": 2.99676,
+    "usage": {
+      "completion_tokens": 115839,
+      "cost": 2.99676,
+      "prompt_tokens": 503670,
+      "total_tokens": 619509
+    }
+  },
+  "artifacts": {
+    "batch_records_path": "reports/public-benchmarks/end-to-end-pilot-gpt-300-k8.batches.jsonl",
+    "batch_records_sha256": "b00ba70efd9606fcc8fc553842eb676eed89b9ac25a7327d05fece17ba507671",
+    "case_records_path": "reports/public-benchmarks/end-to-end-pilot-gpt-300-k8.cases.jsonl",
+    "case_records_sha256": "14acfbefbb9b8356235d980a6bfd848742189e4e2829b828cd86f147ef266655",
+    "case_results_canonical_sha256": "3181af6bfea34adc4fdb73d26566b5bbcaffc8943df9906e6d14798495ec59a2"
+  },
+  "provenance": {
+    "public_annotations": "inherited_from_pinned_publishers",
+    "local_adapter_review": "ai_agent_not_human",
+    "locally_human_reviewed_public_cases": 0
+  },
+  "limitations": [
+    "All three public inputs are development sets and may be present in model training data.",
+    "QA correctness uses normalized exact match and token F1; it does not treat an LLM judge as ground truth.",
+    "Long documents are compressed with a query-only lexical sentence selector before generation.",
+    "Fail-closed invalid batches are scored as unanswerable/not-enough-information."
+  ]
+}

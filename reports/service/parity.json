@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T13:28:57.797448+00:00",
+  "status": "passed",
+  "fixture": {
+    "path": "benchmarks/fixtures/service-parity.json",
+    "sha256": "e9c4efa1c82b832c0bd4d8b91f4c0c7df95b357ff19ea771efdec0fbb85c0a25",
+    "index_fingerprint_sha256": "faac534ff6d68669dbc08b55aecc1c5490407b2e500a3fa40b7c96853b1e54ed"
+  },
+  "service_base_url": "http://127.0.0.1:8002",
+  "case_count": 4,
+  "passed_count": 4,
+  "cases": [
+    {
+      "case": 1,
+      "expected": [
+        "gateway-readme::vbot-model-gateway::0",
+        "backbone-plan::status::0",
+        "gateway-readme::roadmap::1",
+        "backbone-plan::dataset-spec::0"
+      ],
+      "offline": [
+        "gateway-readme::vbot-model-gateway::0",
+        "backbone-plan::status::0",
+        "gateway-readme::roadmap::1",
+        "backbone-plan::dataset-spec::0"
+      ],
+      "service": [
+        "gateway-readme::vbot-model-gateway::0",
+        "backbone-plan::status::0",
+        "gateway-readme::roadmap::1",
+        "backbone-plan::dataset-spec::0"
+      ],
+      "passed": true,
+      "request_id": "59a7f5a1-0aec-4327-ae56-d34f5a541cf9"
+    },
+    {
+      "case": 2,
+      "expected": [
+        "gateway-readme::vbot-model-gateway::0",
+        "gateway-readme::what-it-does-today::0",
+        "backbone-plan::why-this-target-and-not-generic-rp-style::0",
+        "backbone-plan::evaluation-the-credibility-section::0"
+      ],
+      "offline": [
+        "gateway-readme::vbot-model-gateway::0",
+        "gateway-readme::what-it-does-today::0",
+        "backbone-plan::why-this-target-and-not-generic-rp-style::0",
+        "backbone-plan::evaluation-the-credibility-section::0"
+      ],
+      "service": [
+        "gateway-readme::vbot-model-gateway::0",
+        "gateway-readme::what-it-does-today::0",
+        "backbone-plan::why-this-target-and-not-generic-rp-style::0",
+        "backbone-plan::evaluation-the-credibility-section::0"
+      ],
+      "passed": true,
+      "request_id": "83690a10-b2f8-49f1-bc73-00b61e855bde"
+    },
+    {
+      "case": 3,
+      "expected": [
+        "gateway-readme::run::1",
+        "gateway-readme::what-it-does-today::0",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::0",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::0"
+      ],
+      "offline": [
+        "gateway-readme::run::1",
+        "gateway-readme::what-it-does-today::0",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::0",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::0"
+      ],
+      "service": [
+        "gateway-readme::run::1",
+        "gateway-readme::what-it-does-today::0",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::0",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::0"
+      ],
+      "passed": true,
+      "request_id": "77a2690c-27b1-4a2e-9f88-c21ce21a3c5f"
+    },
+    {
+      "case": 4,
+      "expected": [
+        "backbone-plan::status::0",
+        "gateway-readme::roadmap::1",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::0",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::0"
+      ],
+      "offline": [
+        "backbone-plan::status::0",
+        "gateway-readme::roadmap::1",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::0",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::0"
+      ],
+      "service": [
+        "backbone-plan::status::0",
+        "gateway-readme::roadmap::1",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::0",
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::0"
+      ],
+      "passed": true,
+      "request_id": "d94dc595-fcbd-4215-b4fe-0991582e13b3"
+    }
+  ]
+}

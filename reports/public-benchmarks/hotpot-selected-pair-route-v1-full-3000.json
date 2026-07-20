@@ -1,0 +1,236 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-19T21:16:44.825247+00:00",
+  "status": "promotion_ready",
+  "promotion_ready": true,
+  "identity": {
+    "runner_version": "1.0.0",
+    "runner_source_sha256": "2e312a9ab34de26621cfccf0008ede01d05d97be996fe52c1cb9787ac48e009c",
+    "policy": "grouped_oof_pair_selector_then_frozen_batch1_or_batch4_route_selector",
+    "development_sample": 2400,
+    "development_offset": 0,
+    "confirmation_windows": {
+      "confirmation": [
+        300,
+        2400
+      ],
+      "replication": [
+        300,
+        2700
+      ]
+    },
+    "pair_threshold": 0.15,
+    "route_threshold": 0.63,
+    "citation_precision_floor": 0.94,
+    "random_state": 42,
+    "sklearn_version": "1.5.1",
+    "development_case_ids_sha256": "a76576396fca9099642d7a82e13e1976bace784387d04e92391d8a50bde29680",
+    "full_case_ids_sha256": "c235c36fb734967fba402f91adfd637bdedbd208107f948d8515f8c5e1ba686c"
+  },
+  "identity_sha256": "4ac18dae15853653a7239ee564200e393c5af03d58f25b770ef5e84c5faab21a",
+  "case_count": 3000,
+  "fail_closed_case_count": 0,
+  "metrics": {
+    "hotpotqa": {
+      "case_count": 3000,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.9986666666666667,
+      "retrieval_complete_gold_rate": 0.9363333333333334,
+      "citation_precision": 0.9500398996808026,
+      "citation_recall": 0.9108333333333334,
+      "joint_correct_rate": 0.6053333333333333,
+      "answer_exact_match": 0.6413333333333333,
+      "answer_f1": 0.7709865051908286,
+      "answerability_accuracy": 0.9273333333333333,
+      "evidence_complete_rate": 0.8623333333333333,
+      "legacy_union_joint_correct_rate": 0.6053333333333333,
+      "retrieval_any_complete_evidence_set_rate": 0.9363333333333334
+    },
+    "macro": {
+      "case_count": 3000,
+      "joint_correct_rate": 0.6053333333333333
+    }
+  },
+  "selected_batch4_route_count": 677,
+  "combined_confirmation": {
+    "case_count": 600,
+    "baseline_metrics": {
+      "hotpotqa": {
+        "case_count": 600,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.9966666666666667,
+        "retrieval_complete_gold_rate": 0.9483333333333334,
+        "citation_precision": 0.9446366782006922,
+        "citation_recall": 0.8866666666666667,
+        "joint_correct_rate": 0.5633333333333334,
+        "answer_exact_match": 0.6183333333333333,
+        "answer_f1": 0.763887582375199,
+        "answerability_accuracy": 0.9283333333333333,
+        "evidence_complete_rate": 0.8233333333333334,
+        "legacy_union_joint_correct_rate": 0.5633333333333334,
+        "retrieval_any_complete_evidence_set_rate": 0.9483333333333334
+      },
+      "macro": {
+        "case_count": 600,
+        "joint_correct_rate": 0.5633333333333334
+      }
+    },
+    "selected_metrics": {
+      "hotpotqa": {
+        "case_count": 600,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.9966666666666667,
+        "retrieval_complete_gold_rate": 0.9483333333333334,
+        "citation_precision": 0.9525028441410693,
+        "citation_recall": 0.915,
+        "joint_correct_rate": 0.585,
+        "answer_exact_match": 0.6283333333333333,
+        "answer_f1": 0.7798205198081363,
+        "answerability_accuracy": 0.9416666666666667,
+        "evidence_complete_rate": 0.865,
+        "legacy_union_joint_correct_rate": 0.585,
+        "retrieval_any_complete_evidence_set_rate": 0.9483333333333334
+      },
+      "macro": {
+        "case_count": 600,
+        "joint_correct_rate": 0.585
+      }
+    },
+    "paired": {
+      "selected_only_win_count": 24,
+      "baseline_only_win_count": 11,
+      "net_win_count": 13,
+      "exact_paired_two_sided_p_value": 0.04095959151163697
+    }
+  },
+  "confirmation": {
+    "case_count": 300,
+    "baseline_metrics": {
+      "hotpotqa": {
+        "case_count": 300,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.9966666666666667,
+        "retrieval_complete_gold_rate": 0.94,
+        "citation_precision": 0.9356321839080457,
+        "citation_recall": 0.8833333333333333,
+        "joint_correct_rate": 0.5566666666666666,
+        "answer_exact_match": 0.6133333333333333,
+        "answer_f1": 0.753674539885066,
+        "answerability_accuracy": 0.93,
+        "evidence_complete_rate": 0.8133333333333334,
+        "legacy_union_joint_correct_rate": 0.5566666666666666,
+        "retrieval_any_complete_evidence_set_rate": 0.94
+      },
+      "macro": {
+        "case_count": 300,
+        "joint_correct_rate": 0.5566666666666666
+      }
+    },
+    "selected_metrics": {
+      "hotpotqa": {
+        "case_count": 300,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.9966666666666667,
+        "retrieval_complete_gold_rate": 0.94,
+        "citation_precision": 0.9526255707762555,
+        "citation_recall": 0.9133333333333333,
+        "joint_correct_rate": 0.5966666666666667,
+        "answer_exact_match": 0.6266666666666667,
+        "answer_f1": 0.7714508746614008,
+        "answerability_accuracy": 0.9366666666666666,
+        "evidence_complete_rate": 0.8633333333333333,
+        "legacy_union_joint_correct_rate": 0.5966666666666667,
+        "retrieval_any_complete_evidence_set_rate": 0.94
+      },
+      "macro": {
+        "case_count": 300,
+        "joint_correct_rate": 0.5966666666666667
+      }
+    },
+    "paired": {
+      "selected_only_win_count": 14,
+      "baseline_only_win_count": 2,
+      "net_win_count": 12,
+      "exact_paired_two_sided_p_value": 0.004180908203125
+    }
+  },
+  "replication": {
+    "case_count": 300,
+    "baseline_metrics": {
+      "hotpotqa": {
+        "case_count": 300,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.9966666666666667,
+        "retrieval_complete_gold_rate": 0.9566666666666667,
+        "citation_precision": 0.9537037037037037,
+        "citation_recall": 0.89,
+        "joint_correct_rate": 0.57,
+        "answer_exact_match": 0.6233333333333333,
+        "answer_f1": 0.7741006248653308,
+        "answerability_accuracy": 0.9266666666666666,
+        "evidence_complete_rate": 0.8333333333333334,
+        "legacy_union_joint_correct_rate": 0.57,
+        "retrieval_any_complete_evidence_set_rate": 0.9566666666666667
+      },
+      "macro": {
+        "case_count": 300,
+        "joint_correct_rate": 0.57
+      }
+    },
+    "selected_metrics": {
+      "hotpotqa": {
+        "case_count": 300,
+        "fail_closed_count": 0,
+        "retrieval_any_gold_rate": 0.9966666666666667,
+        "retrieval_complete_gold_rate": 0.9566666666666667,
+        "citation_precision": 0.9523809523809523,
+        "citation_recall": 0.9166666666666666,
+        "joint_correct_rate": 0.5733333333333334,
+        "answer_exact_match": 0.63,
+        "answer_f1": 0.7881901649548709,
+        "answerability_accuracy": 0.9466666666666667,
+        "evidence_complete_rate": 0.8666666666666667,
+        "legacy_union_joint_correct_rate": 0.5733333333333334,
+        "retrieval_any_complete_evidence_set_rate": 0.9566666666666667
+      },
+      "macro": {
+        "case_count": 300,
+        "joint_correct_rate": 0.5733333333333334
+      }
+    },
+    "paired": {
+      "selected_only_win_count": 10,
+      "baseline_only_win_count": 9,
+      "net_win_count": 1,
+      "exact_paired_two_sided_p_value": 1.0
+    }
+  },
+  "inputs": {
+    "batch1": {
+      "path": "reports/public-benchmarks/hotpot-top8-deepseek-batch1-full-3000.json",
+      "sha256": "7d3bc02d41358425aed18dd4a2051a2f2b85768cb09337ced854454efbebfe37",
+      "identity_sha256": "bec1854d3d81d3aa2000b64ea2e2c2230745b3c290b93b3a0a243f37c4aca038"
+    },
+    "batch4": {
+      "path": "reports/public-benchmarks/hotpot-top8-deepseek-full-3000.json",
+      "sha256": "fac84a47485d67e04a08b6668ae5c266843a21259456b166a73b2821696ac96e",
+      "identity_sha256": "4368b9eb0bc0858bd5b39bbe003fb6ce2b4ff2b2bcbcd6c191f20c0bf3de4b58"
+    },
+    "baseline_policy": {
+      "path": "reports/public-benchmarks/hotpot-selected-batch1-selector-v4-full-3000.json",
+      "sha256": "00dd27039d07a6663ee59110ce4b0361670f457995c84fc79d4edf68e7731240",
+      "identity_sha256": "e51dae6ba925a0a3894933c97c3fb3f46f76f0581b2e183d7f6aa28954b845b7"
+    }
+  },
+  "artifacts": {
+    "model_path": "artifacts/models/hotpot-pair-route-selector-offset0-2400.joblib",
+    "model_sha256": "cfcf33d2e98b9d9eeeed5809a6802316d9485cb3c1188103d0e09bb33fd04677",
+    "case_records_path": "reports/public-benchmarks/hotpot-selected-pair-route-v1-full-3000.cases.jsonl",
+    "case_records_sha256": "77bc4546f40352737c7149a830352e056b9c70f66880ed4fe4af457ce1a0a21a",
+    "case_results_canonical_sha256": "0f79a1f4b3bd707f0fe7b869aa24d33286ea47ab88b85db0e40a79b6ae9c3311"
+  },
+  "limitations": [
+    "The complete 3,000-case score includes development and confirmation cases and is not another holdout.",
+    "The route selector may only retain the batch-size-1 DeepSeek result or select the existing batch-size-4 DeepSeek result."
+  ]
+}

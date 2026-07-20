@@ -1,0 +1,476 @@
+{
+  "schema_version": "1.0.0",
+  "captured_at_utc": "2026-07-19T00:01:18.603283+00:00",
+  "catalog_only": false,
+  "results": [
+    {
+      "profile_id": "glm-5.2-high-baidu",
+      "model": "z-ai/glm-5.2",
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "baidu/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.3,
+            "completion": 0.9
+          }
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "default_enabled": true,
+        "supported_efforts": [
+          "xhigh",
+          "high"
+        ],
+        "default_effort": "high"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "parallel_tool_calls",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\n\"ok\": true,\n\"profile_id\": \"glm-5.2-high-baidu\"\n}",
+        "requested_model": "z-ai/glm-5.2",
+        "response_model": "z-ai/glm-5.2",
+        "response_id": "gen-1784419248-vqCP9XVpEtVa8QQYrwWC",
+        "input_sha256": "fd736e567af3e15c1d497e4add22bebbe03e6d2054e9997d15f4e045cf24eb63",
+        "latency_ms": 3513.348,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 220,
+          "completion_tokens": 203,
+          "total_tokens": 423,
+          "cost": 0.000196692,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 191,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.000196692,
+            "upstream_inference_prompt_cost": 1.8052e-05,
+            "upstream_inference_completions_cost": 0.00017864
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 180,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 0.000196692,
+        "request_timeout_seconds": 90.0,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "baidu/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.3,
+              "completion": 0.9
+            }
+          }
+        },
+        "response_provider": "Baidu",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "profile_id": "glm-5.2-xhigh-baidu",
+      "model": "z-ai/glm-5.2",
+      "request_options": {
+        "reasoning": {
+          "effort": "xhigh",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "baidu/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.3,
+            "completion": 0.9
+          }
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "default_enabled": true,
+        "supported_efforts": [
+          "xhigh",
+          "high"
+        ],
+        "default_effort": "high"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "parallel_tool_calls",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\": true, \"profile_id\": \"glm-5.2-xhigh-baidu\"}",
+        "requested_model": "z-ai/glm-5.2",
+        "response_model": "z-ai/glm-5.2",
+        "response_id": "gen-1784419252-f9tf5u7LrCrlTg2yXtvQ",
+        "input_sha256": "6b02d4af9a291c0cf1644dd76694284110a412fc7310446684e98a041b27b327",
+        "latency_ms": 4196.725,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 222,
+          "completion_tokens": 241,
+          "total_tokens": 463,
+          "cost": 0.00023092,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 190,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00023092,
+            "upstream_inference_prompt_cost": 1.884e-05,
+            "upstream_inference_completions_cost": 0.00021208
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 219,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 0.00023092,
+        "request_timeout_seconds": 90.0,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "baidu/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.3,
+              "completion": 0.9
+            }
+          }
+        },
+        "response_provider": "Baidu",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "profile_id": "glm-5.2-high-streamlake",
+      "model": "z-ai/glm-5.2",
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "streamlake/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.3,
+            "completion": 0.9
+          }
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "default_enabled": true,
+        "supported_efforts": [
+          "xhigh",
+          "high"
+        ],
+        "default_effort": "high"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "parallel_tool_calls",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\n  \"ok\": true,\n  \"profile_id\": \"glm-5.2-high-streamlake\"\n}",
+        "requested_model": "z-ai/glm-5.2",
+        "response_model": "z-ai/glm-5.2",
+        "response_id": "gen-1784419256-zatlffsr4KvbFFWYkj8N",
+        "input_sha256": "d3c1809b9f4f8e1e1d6dd3d99dc1c6be92b5eb1d16007cb63e780679d33e675d",
+        "latency_ms": 9972.549,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 34,
+          "completion_tokens": 367,
+          "total_tokens": 401,
+          "cost": 0.00030820504,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 24,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00030820504,
+            "upstream_inference_prompt_cost": 3.81524e-06,
+            "upstream_inference_completions_cost": 0.0003043898
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 342,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 0.00030820504,
+        "request_timeout_seconds": 90.0,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "streamlake/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.3,
+              "completion": 0.9
+            }
+          }
+        },
+        "response_provider": "StreamLake",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "profile_id": "glm-5.2-xhigh-streamlake",
+      "model": "z-ai/glm-5.2",
+      "request_options": {
+        "reasoning": {
+          "effort": "xhigh",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "streamlake/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true,
+          "max_price": {
+            "prompt": 0.3,
+            "completion": 0.9
+          }
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "default_enabled": true,
+        "supported_efforts": [
+          "xhigh",
+          "high"
+        ],
+        "default_effort": "high"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "parallel_tool_calls",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"glm-5.2-xhigh-streamlake\"}",
+        "requested_model": "z-ai/glm-5.2",
+        "response_model": "z-ai/glm-5.2",
+        "response_id": "gen-1784419266-cQoIifzzTCZ5v7Iu1Qze",
+        "input_sha256": "d28161ac8d14b25e59b3b1c132a84f5e648ec0f4b83a60592f8fef35e4e25e6f",
+        "latency_ms": 13248.987,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 35,
+          "completion_tokens": 446,
+          "total_tokens": 481,
+          "cost": 0.00037377665,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 25,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00037377665,
+            "upstream_inference_prompt_cost": 3.86425e-06,
+            "upstream_inference_completions_cost": 0.0003699124
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 426,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 0.00037377665,
+        "request_timeout_seconds": 90.0,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "streamlake/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true,
+            "max_price": {
+              "prompt": 0.3,
+              "completion": 0.9
+            }
+          }
+        },
+        "response_provider": "StreamLake",
+        "system_fingerprint": null,
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    }
+  ],
+  "valid": true
+}

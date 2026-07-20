@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "decision": "PROMOTE",
+  "scope": "paired_generator_or_retrieval_pilot_not_release_promotion",
+  "baseline": "reports\\public-benchmarks\\gpt-oss-20b-local-high-pilot-30.json",
+  "candidate": "reports\\public-benchmarks\\deepseek-v4-flash-high-openrouter-baidu-pilot-30.json",
+  "identity": {
+    "baseline_profile": "gpt-oss-20b-local-high",
+    "candidate_profile": "deepseek-v4-flash-high-openrouter-baidu",
+    "baseline_top_k": 4,
+    "candidate_top_k": 4,
+    "case_count": 30
+  },
+  "macro_joint_correct_delta": 0.06666666666666665,
+  "metric_deltas": {
+    "fever": {
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "evidence_complete_rate": 0.0,
+      "fail_closed_count": 0,
+      "joint_correct_rate": 0.0,
+      "label_accuracy": 0.0,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": 0.0
+    },
+    "hotpotqa": {
+      "answer_exact_match": -0.09999999999999998,
+      "answer_f1": -0.09999999999999998,
+      "answerability_accuracy": -0.09999999999999998,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "fail_closed_count": 0,
+      "joint_correct_rate": 0.09999999999999998,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": 0.0
+    },
+    "natural_questions": {
+      "answer_exact_match": 0.10000000000000003,
+      "answer_f1": 0.10514285714285715,
+      "answerability_accuracy": 0.0,
+      "citation_precision": 0.12698412698412698,
+      "citation_recall": 0.0,
+      "fail_closed_count": 0,
+      "joint_correct_rate": 0.10000000000000003,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": 0.0
+    }
+  },
+  "paired_joint_transitions": {
+    "wins": 2,
+    "losses": 0,
+    "unchanged": 28,
+    "exact_mcnemar_two_sided_p": 0.5,
+    "by_benchmark": {
+      "fever": {
+        "wins": 0,
+        "losses": 0,
+        "unchanged": 10
+      },
+      "hotpotqa": {
+        "wins": 1,
+        "losses": 0,
+        "unchanged": 9
+      },
+      "natural_questions": {
+        "wins": 1,
+        "losses": 0,
+        "unchanged": 9
+      }
+    }
+  },
+  "fail_closed": {
+    "baseline": 0,
+    "candidate": 0
+  },
+  "rejection_reasons": [],
+  "promotion_rules": {
+    "minimum_macro_joint_correct_improvement": 0.01,
+    "maximum_per_benchmark_joint_regression": 0.02,
+    "maximum_per_benchmark_citation_precision_regression": 0.03,
+    "fail_closed_count_must_not_increase": true
+  }
+}

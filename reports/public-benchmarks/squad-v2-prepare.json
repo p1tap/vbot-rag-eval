@@ -1,0 +1,53 @@
+{
+  "annotation_provenance": "Crowd-authored extractive questions plus adversarial unanswerable questions over supplied Wikipedia paragraphs.",
+  "benchmark_id": "squad_v2",
+  "conversion": {
+    "conversion_loss_rate": 0.0,
+    "evidence_references_resolved": 5928,
+    "excluded_cases": 0,
+    "exclusions": [],
+    "normalized_cases": 11873,
+    "output_sha256": "96de1b5e9370146901ab6f051aa1bc4becdb8f393165fbc6384df8a5a566ec85",
+    "unique_normalized_ids": 11873,
+    "unique_source_ids": 11873
+  },
+  "distribution": {
+    "answerability": {
+      "answerable": 5928,
+      "unanswerable": 5945
+    },
+    "difficulty": {},
+    "label": {},
+    "question_type": {}
+  },
+  "evaluation_lane": "oracle_context_reader",
+  "manual_audit": {
+    "note": "Adapter validation is complete; a stratified human spot audit is still required before publication.",
+    "status": "pending"
+  },
+  "report_version": "1.0.0",
+  "retrieval_included": false,
+  "selection": {
+    "considered_cases": 11873,
+    "method": "all official dev cases in source order after unique-ID validation",
+    "selected_cases": 11873,
+    "target_cases": 11873
+  },
+  "source": {
+    "artifacts": [
+      {
+        "bytes": 4370528,
+        "name": "dev-v2.0.json",
+        "sha256": "80a5225e94905956a6446d296ca1093975c4d3b3260f1d6c8f68bc2ab77182d8"
+      }
+    ],
+    "file": "dev-v2.0.json",
+    "license": "CC BY-SA 4.0",
+    "records": 11873,
+    "sha256": "80a5225e94905956a6446d296ca1093975c4d3b3260f1d6c8f68bc2ab77182d8",
+    "split": "dev",
+    "upstream_url": "https://rajpurkar.github.io/SQuAD-explorer/",
+    "url": "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json",
+    "version": "SQuAD 2.0 dev (official Stanford release)"
+  }
+}

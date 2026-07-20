@@ -1,0 +1,45 @@
+{
+  "annotation_provenance": "Human-generated claims labelled Supported, Refuted, or Not Enough Information, with evidence where applicable.",
+  "benchmark_id": "fever",
+  "conversion": {
+    "conversion_loss_rate": 0.0,
+    "evidence_references_resolved": 2281,
+    "excluded_cases": 0,
+    "exclusions": [],
+    "normalized_cases": 2000,
+    "output_sha256": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041",
+    "unique_normalized_ids": 2000,
+    "unique_source_ids": 2000
+  },
+  "distribution": {
+    "answerability": {"answerable": 1374, "unanswerable": 626},
+    "difficulty": {},
+    "label": {"not_enough_info": 626, "refutes": 682, "supports": 692},
+    "question_type": {}
+  },
+  "manual_audit": {
+    "note": "Adapter validation is complete; a stratified human spot audit is still required before publication.",
+    "status": "pending"
+  },
+  "report_version": "1.0.0",
+  "selection": {
+    "considered_cases": 2000,
+    "method": "sha256(source_record_id), ascending; NFC-normalized page-title resolution; skip and report only claims whose evidence pages remain absent from the pinned official corpus",
+    "selected_cases": 2000,
+    "target_cases": 2000
+  },
+  "source": {
+    "artifacts": [
+      {"bytes": 4349935, "name": "shared_task_dev.jsonl", "sha256": "e89865bfe1b4dd054e03dd57d7241a6fde24862905f31117cf0cd719f7c78df7"},
+      {"bytes": 1713485474, "name": "wiki-pages.zip", "sha256": "4b06d95da6adf7fe02d2796176c670dacccb21348da89cba4c50676ab99665f2"}
+    ],
+    "file": "raw",
+    "license": "CC BY-SA 3.0",
+    "records": 19998,
+    "sha256": "939d6a8bb180ed10d4d71a0c2c813b9e3cb4a077a21b188f80e612b213515e98",
+    "split": "dev",
+    "upstream_url": "https://fever.ai/dataset/fever.html",
+    "url": "https://fever.ai/dataset/fever.html",
+    "version": "FEVER 1.0 shared-task dev / June 2017 Wikipedia dump"
+  }
+}

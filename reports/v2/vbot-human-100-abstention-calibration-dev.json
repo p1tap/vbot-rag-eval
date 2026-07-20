@@ -1,0 +1,1882 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-07-17T06:31:56.075712+00:00",
+  "status": "provisional",
+  "release_eligible": false,
+  "freeze_blockers": [
+    "no operating point satisfies both guardrails"
+  ],
+  "source": {
+    "path": "reports\\v2\\vbot-human-100-retrieval-depth.json",
+    "sha256": "23832ec13176576b260ba9dcf683d721f9ef204d7e72bd38a433be6e50df6b71",
+    "dataset": {
+      "path": "evals\\v2\\reviewed\\vbot-human-reviewed-100.jsonl",
+      "sha256": "1f7674d351e9975eff80e5e7f3f7b104ec6d216f0cd2b72484990444180e1c30",
+      "dataset_fingerprint_sha256": null,
+      "case_count": 100,
+      "locally_approved_cases": 100
+    },
+    "feature_scope": "unique_heading_rank_at_k4"
+  },
+  "policy": {
+    "kind": "answer_if_feature_greater_than_or_equal_to_threshold",
+    "feature": "top1_score",
+    "answerability_auc": 0.7775768535262206,
+    "guardrails": {
+      "max_false_answer_rate": 0.05,
+      "max_false_refusal_rate": 0.15
+    },
+    "selected_operating_point": null
+  },
+  "scalar_feature_diagnostics": {
+    "raw_chunks_needed_for_distinct_topk": {
+      "answerability_auc": 0.48553345388788427,
+      "selected_operating_point": null
+    },
+    "top1_score": {
+      "answerability_auc": 0.7775768535262206,
+      "selected_operating_point": null
+    },
+    "top1_top2_margin": {
+      "answerability_auc": 0.5605786618444847,
+      "selected_operating_point": null
+    },
+    "topk_mean_score": {
+      "answerability_auc": 0.755877034358047,
+      "selected_operating_point": null
+    },
+    "topk_min_score": {
+      "answerability_auc": 0.6901748040988547,
+      "selected_operating_point": null
+    },
+    "topk_score_std": {
+      "answerability_auc": 0.6841470765521398,
+      "selected_operating_point": null
+    }
+  },
+  "sample": {
+    "cases": 100,
+    "answerable": 79,
+    "unanswerable": 21
+  },
+  "risk_coverage_curve": [
+    {
+      "threshold": null,
+      "answered_cases": 0,
+      "coverage": 0.0,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 79,
+      "false_refusal_rate": 1.0,
+      "false_refusal_rate_95ci": [
+        0.9536287883460772,
+        1.0
+      ]
+    },
+    {
+      "threshold": 0.8920568227767944,
+      "answered_cases": 1,
+      "coverage": 0.01,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 78,
+      "false_refusal_rate": 0.9873417721518988,
+      "false_refusal_rate_95ci": [
+        0.9317242812303406,
+        0.9977620061449501
+      ]
+    },
+    {
+      "threshold": 0.8904921412467957,
+      "answered_cases": 2,
+      "coverage": 0.02,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 77,
+      "false_refusal_rate": 0.9746835443037974,
+      "false_refusal_rate_95ci": [
+        0.9123141537110886,
+        0.9930296326934152
+      ]
+    },
+    {
+      "threshold": 0.8864689469337463,
+      "answered_cases": 3,
+      "coverage": 0.03,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 76,
+      "false_refusal_rate": 0.9620253164556962,
+      "false_refusal_rate_95ci": [
+        0.8941993723231529,
+        0.9870019131105641
+      ]
+    },
+    {
+      "threshold": 0.8699482679367065,
+      "answered_cases": 4,
+      "coverage": 0.04,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 75,
+      "false_refusal_rate": 0.9493670886075949,
+      "false_refusal_rate_95ci": [
+        0.8769228272429488,
+        0.9801359572199815
+      ]
+    },
+    {
+      "threshold": 0.8689019083976746,
+      "answered_cases": 5,
+      "coverage": 0.05,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 74,
+      "false_refusal_rate": 0.9367088607594937,
+      "false_refusal_rate_95ci": [
+        0.8602511483722118,
+        0.9726651351199317
+      ]
+    },
+    {
+      "threshold": 0.8673771619796753,
+      "answered_cases": 6,
+      "coverage": 0.06,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 73,
+      "false_refusal_rate": 0.9240506329113924,
+      "false_refusal_rate_95ci": [
+        0.8440458309717235,
+        0.9647279515496333
+      ]
+    },
+    {
+      "threshold": 0.8665376901626587,
+      "answered_cases": 7,
+      "coverage": 0.07,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 72,
+      "false_refusal_rate": 0.9113924050632911,
+      "false_refusal_rate_95ci": [
+        0.8282165775378829,
+        0.9564147040126869
+      ]
+    },
+    {
+      "threshold": 0.8654337525367737,
+      "answered_cases": 8,
+      "coverage": 0.08,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 71,
+      "false_refusal_rate": 0.8987341772151899,
+      "false_refusal_rate_95ci": [
+        0.8127005885203687,
+        0.9477881920594146
+      ]
+    },
+    {
+      "threshold": 0.864434003829956,
+      "answered_cases": 9,
+      "coverage": 0.09,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 70,
+      "false_refusal_rate": 0.8860759493670886,
+      "false_refusal_rate_95ci": [
+        0.7974520728901779,
+        0.9388942067188184
+      ]
+    },
+    {
+      "threshold": 0.8641113638877869,
+      "answered_cases": 10,
+      "coverage": 0.1,
+      "selective_risk": 0.0,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_answer_rate_95ci": [
+        0.0,
+        0.154639018924847
+      ],
+      "false_refusal_count": 69,
+      "false_refusal_rate": 0.8734177215189873,
+      "false_refusal_rate_95ci": [
+        0.7824364133349648,
+        0.9297673653032448
+      ]
+    },
+    {
+      "threshold": 0.8625333905220032,
+      "answered_cases": 11,
+      "coverage": 0.11,
+      "selective_risk": 0.09090909090909091,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 69,
+      "false_refusal_rate": 0.8734177215189873,
+      "false_refusal_rate_95ci": [
+        0.7824364133349648,
+        0.9297673653032448
+      ]
+    },
+    {
+      "threshold": 0.8619157671928406,
+      "answered_cases": 12,
+      "coverage": 0.12,
+      "selective_risk": 0.08333333333333333,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 68,
+      "false_refusal_rate": 0.8607594936708861,
+      "false_refusal_rate_95ci": [
+        0.7676266841134808,
+        0.9204345935539421
+      ]
+    },
+    {
+      "threshold": 0.8617449402809143,
+      "answered_cases": 13,
+      "coverage": 0.13,
+      "selective_risk": 0.07692307692307693,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 67,
+      "false_refusal_rate": 0.8481012658227848,
+      "false_refusal_rate_95ci": [
+        0.7530014556229535,
+        0.9109173210736826
+      ]
+    },
+    {
+      "threshold": 0.8605281114578247,
+      "answered_cases": 14,
+      "coverage": 0.14,
+      "selective_risk": 0.07142857142857142,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 66,
+      "false_refusal_rate": 0.8354430379746836,
+      "false_refusal_rate_95ci": [
+        0.738543347728053,
+        0.9012329279977964
+      ]
+    },
+    {
+      "threshold": 0.8594545125961304,
+      "answered_cases": 15,
+      "coverage": 0.15,
+      "selective_risk": 0.06666666666666667,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 65,
+      "false_refusal_rate": 0.8227848101265823,
+      "false_refusal_rate_95ci": [
+        0.7242380412359362,
+        0.8913957335191265
+      ]
+    },
+    {
+      "threshold": 0.8592877984046936,
+      "answered_cases": 16,
+      "coverage": 0.16,
+      "selective_risk": 0.0625,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 64,
+      "false_refusal_rate": 0.810126582278481,
+      "false_refusal_rate_95ci": [
+        0.7100735815818702,
+        0.8814176922024057
+      ]
+    },
+    {
+      "threshold": 0.8591319918632507,
+      "answered_cases": 17,
+      "coverage": 0.17,
+      "selective_risk": 0.058823529411764705,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 63,
+      "false_refusal_rate": 0.7974683544303798,
+      "false_refusal_rate_95ci": [
+        0.696039875520555,
+        0.8713088972929341
+      ]
+    },
+    {
+      "threshold": 0.8568416833877563,
+      "answered_cases": 18,
+      "coverage": 0.18,
+      "selective_risk": 0.05555555555555555,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 62,
+      "false_refusal_rate": 0.7848101265822784,
+      "false_refusal_rate_95ci": [
+        0.682128319163289,
+        0.8610779526794132
+      ]
+    },
+    {
+      "threshold": 0.8560677170753479,
+      "answered_cases": 19,
+      "coverage": 0.19,
+      "selective_risk": 0.05263157894736842,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 61,
+      "false_refusal_rate": 0.7721518987341772,
+      "false_refusal_rate_95ci": [
+        0.6683315177395119,
+        0.8507322531324035
+      ]
+    },
+    {
+      "threshold": 0.8552373051643372,
+      "answered_cases": 20,
+      "coverage": 0.2,
+      "selective_risk": 0.05,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 60,
+      "false_refusal_rate": 0.759493670886076,
+      "false_refusal_rate_95ci": [
+        0.6546430708772921,
+        0.8402781990238368
+      ]
+    },
+    {
+      "threshold": 0.8542909026145935,
+      "answered_cases": 21,
+      "coverage": 0.21,
+      "selective_risk": 0.047619047619047616,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 59,
+      "false_refusal_rate": 0.7468354430379747,
+      "false_refusal_rate_95ci": [
+        0.6410574056272599,
+        0.8297213633030821
+      ]
+    },
+    {
+      "threshold": 0.8541235327720642,
+      "answered_cases": 22,
+      "coverage": 0.22,
+      "selective_risk": 0.045454545454545456,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 58,
+      "false_refusal_rate": 0.7341772151898734,
+      "false_refusal_rate_95ci": [
+        0.6275696449007995,
+        0.8190666230587558
+      ]
+    },
+    {
+      "threshold": 0.8528526425361633,
+      "answered_cases": 23,
+      "coverage": 0.23,
+      "selective_risk": 0.043478260869565216,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 57,
+      "false_refusal_rate": 0.7215189873417721,
+      "false_refusal_rate_95ci": [
+        0.6141755025997595,
+        0.8083182643890088
+      ]
+    },
+    {
+      "threshold": 0.8524291515350342,
+      "answered_cases": 24,
+      "coverage": 0.24,
+      "selective_risk": 0.041666666666666664,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 56,
+      "false_refusal_rate": 0.7088607594936709,
+      "false_refusal_rate_95ci": [
+        0.6008711991561764,
+        0.7974800668618054
+      ]
+    },
+    {
+      "threshold": 0.8516492247581482,
+      "answered_cases": 25,
+      "coverage": 0.25,
+      "selective_risk": 0.04,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 55,
+      "false_refusal_rate": 0.6962025316455697,
+      "false_refusal_rate_95ci": [
+        0.5876533928859551,
+        0.7865553721612399
+      ]
+    },
+    {
+      "threshold": 0.8501789569854736,
+      "answered_cases": 26,
+      "coverage": 0.26,
+      "selective_risk": 0.038461538461538464,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 54,
+      "false_refusal_rate": 0.6835443037974683,
+      "false_refusal_rate_95ci": [
+        0.5745191237451232,
+        0.7755471403312849
+      ]
+    },
+    {
+      "threshold": 0.8497573137283325,
+      "answered_cases": 27,
+      "coverage": 0.27,
+      "selective_risk": 0.037037037037037035,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 53,
+      "false_refusal_rate": 0.6708860759493671,
+      "false_refusal_rate_95ci": [
+        0.5614657669235915,
+        0.7644579961820298
+      ]
+    },
+    {
+      "threshold": 0.8489469885826111,
+      "answered_cases": 28,
+      "coverage": 0.28,
+      "selective_risk": 0.03571428571428571,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 52,
+      "false_refusal_rate": 0.6582278481012658,
+      "false_refusal_rate_95ci": [
+        0.5484909943250701,
+        0.7532902678097645
+      ]
+    },
+    {
+      "threshold": 0.8483118414878845,
+      "answered_cases": 29,
+      "coverage": 0.29,
+      "selective_risk": 0.034482758620689655,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 51,
+      "false_refusal_rate": 0.6455696202531646,
+      "false_refusal_rate_95ci": [
+        0.5355927424329845,
+        0.7420460187310634
+      ]
+    },
+    {
+      "threshold": 0.8478942513465881,
+      "answered_cases": 30,
+      "coverage": 0.3,
+      "selective_risk": 0.03333333333333333,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 50,
+      "false_refusal_rate": 0.6329113924050633,
+      "false_refusal_rate_95ci": [
+        0.5227691853982361,
+        0.730727074795025
+      ]
+    },
+    {
+      "threshold": 0.8477205038070679,
+      "answered_cases": 31,
+      "coverage": 0.31,
+      "selective_risk": 0.03225806451612903,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 49,
+      "false_refusal_rate": 0.620253164556962,
+      "false_refusal_rate_95ci": [
+        0.5100187124379016,
+        0.7193350467845725
+      ]
+    },
+    {
+      "threshold": 0.8476276993751526,
+      "answered_cases": 32,
+      "coverage": 0.32,
+      "selective_risk": 0.03125,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 48,
+      "false_refusal_rate": 0.6075949367088608,
+      "false_refusal_rate_95ci": [
+        0.4973399088270549,
+        0.7078713494246327
+      ]
+    },
+    {
+      "threshold": 0.8471905589103699,
+      "answered_cases": 33,
+      "coverage": 0.33,
+      "selective_risk": 0.030303030303030304,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 47,
+      "false_refusal_rate": 0.5949367088607594,
+      "false_refusal_rate_95ci": [
+        0.4847315399147578,
+        0.6963372173661428
+      ]
+    },
+    {
+      "threshold": 0.8467419147491455,
+      "answered_cases": 34,
+      "coverage": 0.34,
+      "selective_risk": 0.029411764705882353,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 46,
+      "false_refusal_rate": 0.5822784810126582,
+      "false_refusal_rate_95ci": [
+        0.47219253771133196,
+        0.684733718598782
+      ]
+    },
+    {
+      "threshold": 0.8460113406181335,
+      "answered_cases": 35,
+      "coverage": 0.35,
+      "selective_risk": 0.02857142857142857,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 45,
+      "false_refusal_rate": 0.569620253164557,
+      "false_refusal_rate_95ci": [
+        0.4597219896855097,
+        0.6730617656538177
+      ]
+    },
+    {
+      "threshold": 0.843438446521759,
+      "answered_cases": 36,
+      "coverage": 0.36,
+      "selective_risk": 0.027777777777777776,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 44,
+      "false_refusal_rate": 0.5569620253164557,
+      "false_refusal_rate_95ci": [
+        0.44731912948308383,
+        0.6613221248854566
+      ]
+    },
+    {
+      "threshold": 0.8430221676826477,
+      "answered_cases": 37,
+      "coverage": 0.37,
+      "selective_risk": 0.02702702702702703,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 43,
+      "false_refusal_rate": 0.5443037974683544,
+      "false_refusal_rate_95ci": [
+        0.4349833293376871,
+        0.6495154240600667
+      ]
+    },
+    {
+      "threshold": 0.8426970839500427,
+      "answered_cases": 38,
+      "coverage": 0.38,
+      "selective_risk": 0.02631578947368421,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 42,
+      "false_refusal_rate": 0.5316455696202531,
+      "false_refusal_rate_95ci": [
+        0.4227140939927444,
+        0.6376421584342223
+      ]
+    },
+    {
+      "threshold": 0.8424842953681946,
+      "answered_cases": 39,
+      "coverage": 0.39,
+      "selective_risk": 0.02564102564102564,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 41,
+      "false_refusal_rate": 0.5189873417721519,
+      "false_refusal_rate_95ci": [
+        0.4105110559940594,
+        0.6257026954621209
+      ]
+    },
+    {
+      "threshold": 0.8423542380332947,
+      "answered_cases": 40,
+      "coverage": 0.4,
+      "selective_risk": 0.025,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 40,
+      "false_refusal_rate": 0.5063291139240507,
+      "false_refusal_rate_95ci": [
+        0.3983739722469014,
+        0.6136972782384921
+      ]
+    },
+    {
+      "threshold": 0.8409767746925354,
+      "answered_cases": 41,
+      "coverage": 0.41,
+      "selective_risk": 0.024390243902439025,
+      "false_answer_count": 1,
+      "false_answer_rate": 0.047619047619047616,
+      "false_answer_rate_95ci": [
+        0.008455987809826399,
+        0.22669360074122563
+      ],
+      "false_refusal_count": 39,
+      "false_refusal_rate": 0.4936708860759494,
+      "false_refusal_rate_95ci": [
+        0.38630272176150804,
+        0.6016260277530987
+      ]
+    },
+    {
+      "threshold": 0.8408488035202026,
+      "answered_cases": 42,
+      "coverage": 0.42,
+      "selective_risk": 0.047619047619047616,
+      "false_answer_count": 2,
+      "false_answer_rate": 0.09523809523809523,
+      "false_answer_rate_95ci": [
+        0.02651876743807452,
+        0.2891413907391826
+      ],
+      "false_refusal_count": 39,
+      "false_refusal_rate": 0.4936708860759494,
+      "false_refusal_rate_95ci": [
+        0.38630272176150804,
+        0.6016260277530987
+      ]
+    },
+    {
+      "threshold": 0.8405247926712036,
+      "answered_cases": 43,
+      "coverage": 0.43,
+      "selective_risk": 0.046511627906976744,
+      "false_answer_count": 2,
+      "false_answer_rate": 0.09523809523809523,
+      "false_answer_rate_95ci": [
+        0.02651876743807452,
+        0.2891413907391826
+      ],
+      "false_refusal_count": 38,
+      "false_refusal_rate": 0.4810126582278481,
+      "false_refusal_rate_95ci": [
+        0.37429730453787924,
+        0.5894889440059407
+      ]
+    },
+    {
+      "threshold": 0.8401092290878296,
+      "answered_cases": 44,
+      "coverage": 0.44,
+      "selective_risk": 0.045454545454545456,
+      "false_answer_count": 2,
+      "false_answer_rate": 0.09523809523809523,
+      "false_answer_rate_95ci": [
+        0.02651876743807452,
+        0.2891413907391826
+      ],
+      "false_refusal_count": 37,
+      "false_refusal_rate": 0.46835443037974683,
+      "false_refusal_rate_95ci": [
+        0.36235784156577755,
+        0.5772859060072555
+      ]
+    },
+    {
+      "threshold": 0.8395856618881226,
+      "answered_cases": 45,
+      "coverage": 0.45,
+      "selective_risk": 0.044444444444444446,
+      "false_answer_count": 2,
+      "false_answer_rate": 0.09523809523809523,
+      "false_answer_rate_95ci": [
+        0.02651876743807452,
+        0.2891413907391826
+      ],
+      "false_refusal_count": 36,
+      "false_refusal_rate": 0.45569620253164556,
+      "false_refusal_rate_95ci": [
+        0.3504845759399334,
+        0.565016670662313
+      ]
+    },
+    {
+      "threshold": 0.8388876914978027,
+      "answered_cases": 46,
+      "coverage": 0.46,
+      "selective_risk": 0.043478260869565216,
+      "false_answer_count": 2,
+      "false_answer_rate": 0.09523809523809523,
+      "false_answer_rate_95ci": [
+        0.02651876743807452,
+        0.2891413907391826
+      ],
+      "false_refusal_count": 35,
+      "false_refusal_rate": 0.4430379746835443,
+      "false_refusal_rate_95ci": [
+        0.33867787511454334,
+        0.5526808705169161
+      ]
+    },
+    {
+      "threshold": 0.8384891152381897,
+      "answered_cases": 47,
+      "coverage": 0.47,
+      "selective_risk": 0.0425531914893617,
+      "false_answer_count": 2,
+      "false_answer_rate": 0.09523809523809523,
+      "false_answer_rate_95ci": [
+        0.02651876743807452,
+        0.2891413907391826
+      ],
+      "false_refusal_count": 34,
+      "false_refusal_rate": 0.43037974683544306,
+      "false_refusal_rate_95ci": [
+        0.3269382343461824,
+        0.5402780103144904
+      ]
+    },
+    {
+      "threshold": 0.8384300470352173,
+      "answered_cases": 48,
+      "coverage": 0.48,
+      "selective_risk": 0.0625,
+      "false_answer_count": 3,
+      "false_answer_rate": 0.14285714285714285,
+      "false_answer_rate_95ci": [
+        0.04981012499725268,
+        0.34636060280620945
+      ],
+      "false_refusal_count": 34,
+      "false_refusal_rate": 0.43037974683544306,
+      "false_refusal_rate_95ci": [
+        0.3269382343461824,
+        0.5402780103144904
+      ]
+    },
+    {
+      "threshold": 0.8367760181427002,
+      "answered_cases": 49,
+      "coverage": 0.49,
+      "selective_risk": 0.061224489795918366,
+      "false_answer_count": 3,
+      "false_answer_rate": 0.14285714285714285,
+      "false_answer_rate_95ci": [
+        0.04981012499725268,
+        0.34636060280620945
+      ],
+      "false_refusal_count": 33,
+      "false_refusal_rate": 0.4177215189873418,
+      "false_refusal_rate_95ci": [
+        0.315266281401218,
+        0.527807462288668
+      ]
+    },
+    {
+      "threshold": 0.836479663848877,
+      "answered_cases": 50,
+      "coverage": 0.5,
+      "selective_risk": 0.06,
+      "false_answer_count": 3,
+      "false_answer_rate": 0.14285714285714285,
+      "false_answer_rate_95ci": [
+        0.04981012499725268,
+        0.34636060280620945
+      ],
+      "false_refusal_count": 32,
+      "false_refusal_rate": 0.4050632911392405,
+      "false_refusal_rate_95ci": [
+        0.3036627826338571,
+        0.5152684600852422
+      ]
+    },
+    {
+      "threshold": 0.8360409140586853,
+      "answered_cases": 51,
+      "coverage": 0.51,
+      "selective_risk": 0.058823529411764705,
+      "false_answer_count": 3,
+      "false_answer_rate": 0.14285714285714285,
+      "false_answer_rate_95ci": [
+        0.04981012499725268,
+        0.34636060280620945
+      ],
+      "false_refusal_count": 31,
+      "false_refusal_rate": 0.3924050632911392,
+      "false_refusal_rate_95ci": [
+        0.2921286505753673,
+        0.5026600911729452
+      ]
+    },
+    {
+      "threshold": 0.8359035849571228,
+      "answered_cases": 52,
+      "coverage": 0.52,
+      "selective_risk": 0.057692307692307696,
+      "false_answer_count": 3,
+      "false_answer_rate": 0.14285714285714285,
+      "false_answer_rate_95ci": [
+        0.04981012499725268,
+        0.34636060280620945
+      ],
+      "false_refusal_count": 30,
+      "false_refusal_rate": 0.379746835443038,
+      "false_refusal_rate_95ci": [
+        0.2806649532154275,
+        0.48998128756209824
+      ]
+    },
+    {
+      "threshold": 0.8357536792755127,
+      "answered_cases": 53,
+      "coverage": 0.53,
+      "selective_risk": 0.05660377358490566,
+      "false_answer_count": 3,
+      "false_answer_rate": 0.14285714285714285,
+      "false_answer_rate_95ci": [
+        0.04981012499725268,
+        0.34636060280620945
+      ],
+      "false_refusal_count": 29,
+      "false_refusal_rate": 0.3670886075949367,
+      "false_refusal_rate_95ci": [
+        0.26927292520497503,
+        0.477230814601764
+      ]
+    },
+    {
+      "threshold": 0.8345434665679932,
+      "answered_cases": 54,
+      "coverage": 0.54,
+      "selective_risk": 0.05555555555555555,
+      "false_answer_count": 3,
+      "false_answer_rate": 0.14285714285714285,
+      "false_answer_rate_95ci": [
+        0.04981012499725268,
+        0.34636060280620945
+      ],
+      "false_refusal_count": 28,
+      "false_refusal_rate": 0.35443037974683544,
+      "false_refusal_rate_95ci": [
+        0.25795398126893665,
+        0.4644072575670155
+      ]
+    },
+    {
+      "threshold": 0.8345252871513367,
+      "answered_cases": 55,
+      "coverage": 0.55,
+      "selective_risk": 0.05454545454545454,
+      "false_answer_count": 3,
+      "false_answer_rate": 0.14285714285714285,
+      "false_answer_rate_95ci": [
+        0.04981012499725268,
+        0.34636060280620945
+      ],
+      "false_refusal_count": 27,
+      "false_refusal_rate": 0.34177215189873417,
+      "false_refusal_rate_95ci": [
+        0.24670973219023554,
+        0.4515090056749299
+      ]
+    },
+    {
+      "threshold": 0.834090530872345,
+      "answered_cases": 56,
+      "coverage": 0.56,
+      "selective_risk": 0.07142857142857142,
+      "false_answer_count": 4,
+      "false_answer_rate": 0.19047619047619047,
+      "false_answer_rate_95ci": [
+        0.07667565052761793,
+        0.40000564690204926
+      ],
+      "false_refusal_count": 27,
+      "false_refusal_rate": 0.34177215189873417,
+      "false_refusal_rate_95ci": [
+        0.24670973219023554,
+        0.4515090056749299
+      ]
+    },
+    {
+      "threshold": 0.8333448171615601,
+      "answered_cases": 57,
+      "coverage": 0.57,
+      "selective_risk": 0.07017543859649122,
+      "false_answer_count": 4,
+      "false_answer_rate": 0.19047619047619047,
+      "false_answer_rate_95ci": [
+        0.07667565052761793,
+        0.40000564690204926
+      ],
+      "false_refusal_count": 26,
+      "false_refusal_rate": 0.3291139240506329,
+      "false_refusal_rate_95ci": [
+        0.23554200381797014,
+        0.43853423307640843
+      ]
+    },
+    {
+      "threshold": 0.8331357836723328,
+      "answered_cases": 58,
+      "coverage": 0.58,
+      "selective_risk": 0.06896551724137931,
+      "false_answer_count": 4,
+      "false_answer_rate": 0.19047619047619047,
+      "false_answer_rate_95ci": [
+        0.07667565052761793,
+        0.40000564690204926
+      ],
+      "false_refusal_count": 25,
+      "false_refusal_rate": 0.31645569620253167,
+      "false_refusal_rate_95ci": [
+        0.22445285966871514,
+        0.4254808762548768
+      ]
+    },
+    {
+      "threshold": 0.8330863118171692,
+      "answered_cases": 59,
+      "coverage": 0.59,
+      "selective_risk": 0.0847457627118644,
+      "false_answer_count": 5,
+      "false_answer_rate": 0.23809523809523808,
+      "false_answer_rate_95ci": [
+        0.10628013022636468,
+        0.4509117368295075
+      ],
+      "false_refusal_count": 25,
+      "false_refusal_rate": 0.31645569620253167,
+      "false_refusal_rate_95ci": [
+        0.22445285966871514,
+        0.4254808762548768
+      ]
+    },
+    {
+      "threshold": 0.8329753875732422,
+      "answered_cases": 60,
+      "coverage": 0.6,
+      "selective_risk": 0.08333333333333333,
+      "false_answer_count": 5,
+      "false_answer_rate": 0.23809523809523808,
+      "false_answer_rate_95ci": [
+        0.10628013022636468,
+        0.4509117368295075
+      ],
+      "false_refusal_count": 24,
+      "false_refusal_rate": 0.3037974683544304,
+      "false_refusal_rate_95ci": [
+        0.21344462783876017,
+        0.4123466071140449
+      ]
+    },
+    {
+      "threshold": 0.8324517011642456,
+      "answered_cases": 61,
+      "coverage": 0.61,
+      "selective_risk": 0.09836065573770492,
+      "false_answer_count": 6,
+      "false_answer_rate": 0.2857142857142857,
+      "false_answer_rate_95ci": [
+        0.1381386295212213,
+        0.49956380716085597
+      ],
+      "false_refusal_count": 24,
+      "false_refusal_rate": 0.3037974683544304,
+      "false_refusal_rate_95ci": [
+        0.21344462783876017,
+        0.4123466071140449
+      ]
+    },
+    {
+      "threshold": 0.8321462273597717,
+      "answered_cases": 62,
+      "coverage": 0.62,
+      "selective_risk": 0.0967741935483871,
+      "false_answer_count": 6,
+      "false_answer_rate": 0.2857142857142857,
+      "false_answer_rate_95ci": [
+        0.1381386295212213,
+        0.49956380716085597
+      ],
+      "false_refusal_count": 23,
+      "false_refusal_rate": 0.2911392405063291,
+      "false_refusal_rate_95ci": [
+        0.20251993313819472,
+        0.39912880084382363
+      ]
+    },
+    {
+      "threshold": 0.8317494988441467,
+      "answered_cases": 63,
+      "coverage": 0.63,
+      "selective_risk": 0.09523809523809523,
+      "false_answer_count": 6,
+      "false_answer_rate": 0.2857142857142857,
+      "false_answer_rate_95ci": [
+        0.1381386295212213,
+        0.49956380716085597
+      ],
+      "false_refusal_count": 22,
+      "false_refusal_rate": 0.27848101265822783,
+      "false_refusal_rate_95ci": [
+        0.19168173561099117,
+        0.38582449740024033
+      ]
+    },
+    {
+      "threshold": 0.8294686079025269,
+      "answered_cases": 64,
+      "coverage": 0.64,
+      "selective_risk": 0.109375,
+      "false_answer_count": 7,
+      "false_answer_rate": 0.3333333333333333,
+      "false_answer_rate_95ci": [
+        0.17194752605083477,
+        0.5462654802574476
+      ],
+      "false_refusal_count": 22,
+      "false_refusal_rate": 0.27848101265822783,
+      "false_refusal_rate_95ci": [
+        0.19168173561099117,
+        0.38582449740024033
+      ]
+    },
+    {
+      "threshold": 0.8287153244018555,
+      "answered_cases": 65,
+      "coverage": 0.65,
+      "selective_risk": 0.1076923076923077,
+      "false_answer_count": 7,
+      "false_answer_rate": 0.3333333333333333,
+      "false_answer_rate_95ci": [
+        0.17194752605083477,
+        0.5462654802574476
+      ],
+      "false_refusal_count": 21,
+      "false_refusal_rate": 0.26582278481012656,
+      "false_refusal_rate_95ci": [
+        0.1809333769412442,
+        0.3724303550992005
+      ]
+    },
+    {
+      "threshold": 0.8283915519714355,
+      "answered_cases": 66,
+      "coverage": 0.66,
+      "selective_risk": 0.12121212121212122,
+      "false_answer_count": 8,
+      "false_answer_rate": 0.38095238095238093,
+      "false_answer_rate_95ci": [
+        0.20751011368564493,
+        0.5912134622488425
+      ],
+      "false_refusal_count": 21,
+      "false_refusal_rate": 0.26582278481012656,
+      "false_refusal_rate_95ci": [
+        0.1809333769412442,
+        0.3724303550992005
+      ]
+    },
+    {
+      "threshold": 0.8281232714653015,
+      "answered_cases": 67,
+      "coverage": 0.67,
+      "selective_risk": 0.11940298507462686,
+      "false_answer_count": 8,
+      "false_answer_rate": 0.38095238095238093,
+      "false_answer_rate_95ci": [
+        0.20751011368564493,
+        0.5912134622488425
+      ],
+      "false_refusal_count": 20,
+      "false_refusal_rate": 0.25316455696202533,
+      "false_refusal_rate_95ci": [
+        0.1702786366969179,
+        0.3589425943727401
+      ]
+    },
+    {
+      "threshold": 0.8276885747909546,
+      "answered_cases": 68,
+      "coverage": 0.68,
+      "selective_risk": 0.1323529411764706,
+      "false_answer_count": 9,
+      "false_answer_rate": 0.42857142857142855,
+      "false_answer_rate_95ci": [
+        0.2446996892537596,
+        0.6345344563069328
+      ],
+      "false_refusal_count": 20,
+      "false_refusal_rate": 0.25316455696202533,
+      "false_refusal_rate_95ci": [
+        0.1702786366969179,
+        0.3589425943727401
+      ]
+    },
+    {
+      "threshold": 0.8276186585426331,
+      "answered_cases": 69,
+      "coverage": 0.69,
+      "selective_risk": 0.14492753623188406,
+      "false_answer_count": 10,
+      "false_answer_rate": 0.47619047619047616,
+      "false_answer_rate_95ci": [
+        0.2834400610153417,
+        0.6763046541715557
+      ],
+      "false_refusal_count": 20,
+      "false_refusal_rate": 0.25316455696202533,
+      "false_refusal_rate_95ci": [
+        0.1702786366969179,
+        0.3589425943727401
+      ]
+    },
+    {
+      "threshold": 0.8262395858764648,
+      "answered_cases": 70,
+      "coverage": 0.7,
+      "selective_risk": 0.14285714285714285,
+      "false_answer_count": 10,
+      "false_answer_rate": 0.47619047619047616,
+      "false_answer_rate_95ci": [
+        0.2834400610153417,
+        0.6763046541715557
+      ],
+      "false_refusal_count": 19,
+      "false_refusal_rate": 0.24050632911392406,
+      "false_refusal_rate_95ci": [
+        0.15972180097616331,
+        0.345356929122708
+      ]
+    },
+    {
+      "threshold": 0.8258988261222839,
+      "answered_cases": 71,
+      "coverage": 0.71,
+      "selective_risk": 0.14084507042253522,
+      "false_answer_count": 10,
+      "false_answer_rate": 0.47619047619047616,
+      "false_answer_rate_95ci": [
+        0.2834400610153417,
+        0.6763046541715557
+      ],
+      "false_refusal_count": 18,
+      "false_refusal_rate": 0.22784810126582278,
+      "false_refusal_rate_95ci": [
+        0.14926774686759647,
+        0.331668482260488
+      ]
+    },
+    {
+      "threshold": 0.8257984519004822,
+      "answered_cases": 72,
+      "coverage": 0.72,
+      "selective_risk": 0.1388888888888889,
+      "false_answer_count": 10,
+      "false_answer_rate": 0.47619047619047616,
+      "false_answer_rate_95ci": [
+        0.2834400610153417,
+        0.6763046541715557
+      ],
+      "false_refusal_count": 17,
+      "false_refusal_rate": 0.21518987341772153,
+      "false_refusal_rate_95ci": [
+        0.13892204732058672,
+        0.317871680836711
+      ]
+    },
+    {
+      "threshold": 0.8254849910736084,
+      "answered_cases": 73,
+      "coverage": 0.73,
+      "selective_risk": 0.1506849315068493,
+      "false_answer_count": 11,
+      "false_answer_rate": 0.5238095238095238,
+      "false_answer_rate_95ci": [
+        0.3236953458284443,
+        0.7165599389846583
+      ],
+      "false_refusal_count": 17,
+      "false_refusal_rate": 0.21518987341772153,
+      "false_refusal_rate_95ci": [
+        0.13892204732058672,
+        0.317871680836711
+      ]
+    },
+    {
+      "threshold": 0.8252407908439636,
+      "answered_cases": 74,
+      "coverage": 0.74,
+      "selective_risk": 0.14864864864864866,
+      "false_answer_count": 11,
+      "false_answer_rate": 0.5238095238095238,
+      "false_answer_rate_95ci": [
+        0.3236953458284443,
+        0.7165599389846583
+      ],
+      "false_refusal_count": 16,
+      "false_refusal_rate": 0.20253164556962025,
+      "false_refusal_rate_95ci": [
+        0.12869110270706585,
+        0.3039601244794451
+      ]
+    },
+    {
+      "threshold": 0.8245897889137268,
+      "answered_cases": 75,
+      "coverage": 0.75,
+      "selective_risk": 0.14666666666666667,
+      "false_answer_count": 11,
+      "false_answer_rate": 0.5238095238095238,
+      "false_answer_rate_95ci": [
+        0.3236953458284443,
+        0.7165599389846583
+      ],
+      "false_refusal_count": 15,
+      "false_refusal_rate": 0.189873417721519,
+      "false_refusal_rate_95ci": [
+        0.11858230779759438,
+        0.2899264184181298
+      ]
+    },
+    {
+      "threshold": 0.8227588534355164,
+      "answered_cases": 76,
+      "coverage": 0.76,
+      "selective_risk": 0.14473684210526316,
+      "false_answer_count": 11,
+      "false_answer_rate": 0.5238095238095238,
+      "false_answer_rate_95ci": [
+        0.3236953458284443,
+        0.7165599389846583
+      ],
+      "false_refusal_count": 14,
+      "false_refusal_rate": 0.17721518987341772,
+      "false_refusal_rate_95ci": [
+        0.10860426648087348,
+        0.27576195876406395
+      ]
+    },
+    {
+      "threshold": 0.8219438791275024,
+      "answered_cases": 77,
+      "coverage": 0.77,
+      "selective_risk": 0.14285714285714285,
+      "false_answer_count": 11,
+      "false_answer_rate": 0.5238095238095238,
+      "false_answer_rate_95ci": [
+        0.3236953458284443,
+        0.7165599389846583
+      ],
+      "false_refusal_count": 13,
+      "false_refusal_rate": 0.16455696202531644,
+      "false_refusal_rate_95ci": [
+        0.0987670720022036,
+        0.26145665227194703
+      ]
+    },
+    {
+      "threshold": 0.8197070956230164,
+      "answered_cases": 78,
+      "coverage": 0.78,
+      "selective_risk": 0.15384615384615385,
+      "false_answer_count": 12,
+      "false_answer_rate": 0.5714285714285714,
+      "false_answer_rate_95ci": [
+        0.3654655436930671,
+        0.7553003107462404
+      ],
+      "false_refusal_count": 13,
+      "false_refusal_rate": 0.16455696202531644,
+      "false_refusal_rate_95ci": [
+        0.0987670720022036,
+        0.26145665227194703
+      ]
+    },
+    {
+      "threshold": 0.8194985389709473,
+      "answered_cases": 79,
+      "coverage": 0.79,
+      "selective_risk": 0.1518987341772152,
+      "false_answer_count": 12,
+      "false_answer_rate": 0.5714285714285714,
+      "false_answer_rate_95ci": [
+        0.3654655436930671,
+        0.7553003107462404
+      ],
+      "false_refusal_count": 12,
+      "false_refusal_rate": 0.1518987341772152,
+      "false_refusal_rate_95ci": [
+        0.08908267892631742,
+        0.24699854437704644
+      ]
+    },
+    {
+      "threshold": 0.8191106915473938,
+      "answered_cases": 80,
+      "coverage": 0.8,
+      "selective_risk": 0.15,
+      "false_answer_count": 12,
+      "false_answer_rate": 0.5714285714285714,
+      "false_answer_rate_95ci": [
+        0.3654655436930671,
+        0.7553003107462404
+      ],
+      "false_refusal_count": 11,
+      "false_refusal_rate": 0.13924050632911392,
+      "false_refusal_rate_95ci": [
+        0.0795654064460579,
+        0.23237331588651916
+      ]
+    },
+    {
+      "threshold": 0.8188251256942749,
+      "answered_cases": 81,
+      "coverage": 0.81,
+      "selective_risk": 0.14814814814814814,
+      "false_answer_count": 12,
+      "false_answer_rate": 0.5714285714285714,
+      "false_answer_rate_95ci": [
+        0.3654655436930671,
+        0.7553003107462404
+      ],
+      "false_refusal_count": 10,
+      "false_refusal_rate": 0.12658227848101267,
+      "false_refusal_rate_95ci": [
+        0.07023263469675514,
+        0.2175635866650352
+      ]
+    },
+    {
+      "threshold": 0.8179108500480652,
+      "answered_cases": 82,
+      "coverage": 0.82,
+      "selective_risk": 0.15853658536585366,
+      "false_answer_count": 13,
+      "false_answer_rate": 0.6190476190476191,
+      "false_answer_rate_95ci": [
+        0.4087865377511576,
+        0.7924898863143551
+      ],
+      "false_refusal_count": 10,
+      "false_refusal_rate": 0.12658227848101267,
+      "false_refusal_rate_95ci": [
+        0.07023263469675514,
+        0.2175635866650352
+      ]
+    },
+    {
+      "threshold": 0.8172758221626282,
+      "answered_cases": 83,
+      "coverage": 0.83,
+      "selective_risk": 0.1566265060240964,
+      "false_answer_count": 13,
+      "false_answer_rate": 0.6190476190476191,
+      "false_answer_rate_95ci": [
+        0.4087865377511576,
+        0.7924898863143551
+      ],
+      "false_refusal_count": 9,
+      "false_refusal_rate": 0.11392405063291139,
+      "false_refusal_rate_95ci": [
+        0.061105793281181514,
+        0.20254792710982203
+      ]
+    },
+    {
+      "threshold": 0.8169747591018677,
+      "answered_cases": 84,
+      "coverage": 0.84,
+      "selective_risk": 0.15476190476190477,
+      "false_answer_count": 13,
+      "false_answer_rate": 0.6190476190476191,
+      "false_answer_rate_95ci": [
+        0.4087865377511576,
+        0.7924898863143551
+      ],
+      "false_refusal_count": 8,
+      "false_refusal_rate": 0.10126582278481013,
+      "false_refusal_rate_95ci": [
+        0.05221180794058543,
+        0.18729941147963136
+      ]
+    },
+    {
+      "threshold": 0.8148501515388489,
+      "answered_cases": 85,
+      "coverage": 0.85,
+      "selective_risk": 0.16470588235294117,
+      "false_answer_count": 14,
+      "false_answer_rate": 0.6666666666666666,
+      "false_answer_rate_95ci": [
+        0.4537345197425524,
+        0.8280524739491653
+      ],
+      "false_refusal_count": 8,
+      "false_refusal_rate": 0.10126582278481013,
+      "false_refusal_rate_95ci": [
+        0.05221180794058543,
+        0.18729941147963136
+      ]
+    },
+    {
+      "threshold": 0.8141616582870483,
+      "answered_cases": 86,
+      "coverage": 0.86,
+      "selective_risk": 0.1744186046511628,
+      "false_answer_count": 15,
+      "false_answer_rate": 0.7142857142857143,
+      "false_answer_rate_95ci": [
+        0.5004361928391441,
+        0.8618613704787788
+      ],
+      "false_refusal_count": 8,
+      "false_refusal_rate": 0.10126582278481013,
+      "false_refusal_rate_95ci": [
+        0.05221180794058543,
+        0.18729941147963136
+      ]
+    },
+    {
+      "threshold": 0.8137578368186951,
+      "answered_cases": 87,
+      "coverage": 0.87,
+      "selective_risk": 0.1839080459770115,
+      "false_answer_count": 16,
+      "false_answer_rate": 0.7619047619047619,
+      "false_answer_rate_95ci": [
+        0.5490882631704924,
+        0.8937198697736354
+      ],
+      "false_refusal_count": 8,
+      "false_refusal_rate": 0.10126582278481013,
+      "false_refusal_rate_95ci": [
+        0.05221180794058543,
+        0.18729941147963136
+      ]
+    },
+    {
+      "threshold": 0.8122047781944275,
+      "answered_cases": 88,
+      "coverage": 0.88,
+      "selective_risk": 0.18181818181818182,
+      "false_answer_count": 16,
+      "false_answer_rate": 0.7619047619047619,
+      "false_answer_rate_95ci": [
+        0.5490882631704924,
+        0.8937198697736354
+      ],
+      "false_refusal_count": 7,
+      "false_refusal_rate": 0.08860759493670886,
+      "false_refusal_rate_95ci": [
+        0.04358529598731306,
+        0.17178342246211697
+      ]
+    },
+    {
+      "threshold": 0.8113479018211365,
+      "answered_cases": 89,
+      "coverage": 0.89,
+      "selective_risk": 0.1797752808988764,
+      "false_answer_count": 16,
+      "false_answer_rate": 0.7619047619047619,
+      "false_answer_rate_95ci": [
+        0.5490882631704924,
+        0.8937198697736354
+      ],
+      "false_refusal_count": 6,
+      "false_refusal_rate": 0.0759493670886076,
+      "false_refusal_rate_95ci": [
+        0.03527204845036669,
+        0.15595416902827658
+      ]
+    },
+    {
+      "threshold": 0.8105291128158569,
+      "answered_cases": 90,
+      "coverage": 0.9,
+      "selective_risk": 0.17777777777777778,
+      "false_answer_count": 16,
+      "false_answer_rate": 0.7619047619047619,
+      "false_answer_rate_95ci": [
+        0.5490882631704924,
+        0.8937198697736354
+      ],
+      "false_refusal_count": 5,
+      "false_refusal_rate": 0.06329113924050633,
+      "false_refusal_rate_95ci": [
+        0.027334864880068373,
+        0.13974885162778813
+      ]
+    },
+    {
+      "threshold": 0.8097376227378845,
+      "answered_cases": 91,
+      "coverage": 0.91,
+      "selective_risk": 0.17582417582417584,
+      "false_answer_count": 16,
+      "false_answer_rate": 0.7619047619047619,
+      "false_answer_rate_95ci": [
+        0.5490882631704924,
+        0.8937198697736354
+      ],
+      "false_refusal_count": 4,
+      "false_refusal_rate": 0.05063291139240506,
+      "false_refusal_rate_95ci": [
+        0.019864042780018548,
+        0.12307717275705116
+      ]
+    },
+    {
+      "threshold": 0.8064772486686707,
+      "answered_cases": 92,
+      "coverage": 0.92,
+      "selective_risk": 0.17391304347826086,
+      "false_answer_count": 16,
+      "false_answer_rate": 0.7619047619047619,
+      "false_answer_rate_95ci": [
+        0.5490882631704924,
+        0.8937198697736354
+      ],
+      "false_refusal_count": 3,
+      "false_refusal_rate": 0.0379746835443038,
+      "false_refusal_rate_95ci": [
+        0.012998086889435871,
+        0.10580062767684709
+      ]
+    },
+    {
+      "threshold": 0.8031501173973083,
+      "answered_cases": 93,
+      "coverage": 0.93,
+      "selective_risk": 0.1827956989247312,
+      "false_answer_count": 17,
+      "false_answer_rate": 0.8095238095238095,
+      "false_answer_rate_95ci": [
+        0.5999943530979508,
+        0.9233243494723822
+      ],
+      "false_refusal_count": 3,
+      "false_refusal_rate": 0.0379746835443038,
+      "false_refusal_rate_95ci": [
+        0.012998086889435871,
+        0.10580062767684709
+      ]
+    },
+    {
+      "threshold": 0.8005257248878479,
+      "answered_cases": 94,
+      "coverage": 0.94,
+      "selective_risk": 0.18085106382978725,
+      "false_answer_count": 17,
+      "false_answer_rate": 0.8095238095238095,
+      "false_answer_rate_95ci": [
+        0.5999943530979508,
+        0.9233243494723822
+      ],
+      "false_refusal_count": 2,
+      "false_refusal_rate": 0.02531645569620253,
+      "false_refusal_rate_95ci": [
+        0.006970367306584818,
+        0.08768584628891136
+      ]
+    },
+    {
+      "threshold": 0.7986798882484436,
+      "answered_cases": 95,
+      "coverage": 0.95,
+      "selective_risk": 0.17894736842105263,
+      "false_answer_count": 17,
+      "false_answer_rate": 0.8095238095238095,
+      "false_answer_rate_95ci": [
+        0.5999943530979508,
+        0.9233243494723822
+      ],
+      "false_refusal_count": 1,
+      "false_refusal_rate": 0.012658227848101266,
+      "false_refusal_rate_95ci": [
+        0.0022379938550498787,
+        0.06827571876965954
+      ]
+    },
+    {
+      "threshold": 0.796966016292572,
+      "answered_cases": 96,
+      "coverage": 0.96,
+      "selective_risk": 0.1875,
+      "false_answer_count": 18,
+      "false_answer_rate": 0.8571428571428571,
+      "false_answer_rate_95ci": [
+        0.6536393971937906,
+        0.9501898750027473
+      ],
+      "false_refusal_count": 1,
+      "false_refusal_rate": 0.012658227848101266,
+      "false_refusal_rate_95ci": [
+        0.0022379938550498787,
+        0.06827571876965954
+      ]
+    },
+    {
+      "threshold": 0.7965081930160522,
+      "answered_cases": 97,
+      "coverage": 0.97,
+      "selective_risk": 0.18556701030927836,
+      "false_answer_count": 18,
+      "false_answer_rate": 0.8571428571428571,
+      "false_answer_rate_95ci": [
+        0.6536393971937906,
+        0.9501898750027473
+      ],
+      "false_refusal_count": 0,
+      "false_refusal_rate": 0.0,
+      "false_refusal_rate_95ci": [
+        0.0,
+        0.04637121165392266
+      ]
+    },
+    {
+      "threshold": 0.7958311438560486,
+      "answered_cases": 98,
+      "coverage": 0.98,
+      "selective_risk": 0.19387755102040816,
+      "false_answer_count": 19,
+      "false_answer_rate": 0.9047619047619048,
+      "false_answer_rate_95ci": [
+        0.7108586092608176,
+        0.9734812325619255
+      ],
+      "false_refusal_count": 0,
+      "false_refusal_rate": 0.0,
+      "false_refusal_rate_95ci": [
+        0.0,
+        0.04637121165392266
+      ]
+    },
+    {
+      "threshold": 0.7924270033836365,
+      "answered_cases": 99,
+      "coverage": 0.99,
+      "selective_risk": 0.20202020202020202,
+      "false_answer_count": 20,
+      "false_answer_rate": 0.9523809523809523,
+      "false_answer_rate_95ci": [
+        0.7733063992587743,
+        0.9915440121901737
+      ],
+      "false_refusal_count": 0,
+      "false_refusal_rate": 0.0,
+      "false_refusal_rate_95ci": [
+        0.0,
+        0.04637121165392266
+      ]
+    },
+    {
+      "threshold": 0.7862503528594971,
+      "answered_cases": 100,
+      "coverage": 1.0,
+      "selective_risk": 0.21,
+      "false_answer_count": 21,
+      "false_answer_rate": 1.0,
+      "false_answer_rate_95ci": [
+        0.8453609810751531,
+        1.0
+      ],
+      "false_refusal_count": 0,
+      "false_refusal_rate": 0.0,
+      "false_refusal_rate_95ci": [
+        0.0,
+        0.04637121165392266
+      ]
+    }
+  ]
+}

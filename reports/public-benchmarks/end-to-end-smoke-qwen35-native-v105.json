@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T07:48:22.054016+00:00",
+  "status": "sample_complete",
+  "resume_claim_ready": false,
+  "identity_sha256": "2b92ee4f2bc3602f25d8f298c13af9f5ce25d4b00bfe5ee17055bea47fd45aa0",
+  "identity": {
+    "runner_version": "1.0.5",
+    "response_contract_version": "public-rag-batch-1.0.5",
+    "profile_id": "qwen3.5-9b-local",
+    "profile": {
+      "model": "qwen3.5-rag-32k:latest",
+      "temperature": 0.0,
+      "max_tokens": 1200,
+      "strict_schema": true,
+      "request_options": {
+        "think": false
+      },
+      "timeout_seconds": 180,
+      "endpoint": "http://localhost:11434",
+      "deployment_kind": "local_ollama",
+      "ollama_model_id": "a2845456d7ad",
+      "weights_blob_sha256": "dec52a44569a2a25341c4e4d3fee25846eed4f6f0b936278e3a3c900bb99d37c",
+      "modelfile_path": "config/ollama-qwen35-rag.Modelfile",
+      "modelfile_sha256": "d44b3ee249174e21a0d5f70f2a9197a8952b48892c35786111aada51c134adfe"
+    },
+    "benchmarks": [
+      "hotpotqa",
+      "natural_questions",
+      "fever"
+    ],
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "suite_report_sha256": "b1b779047fe40767e04b316f32617ffb4792a3ec719b0e4070b24fbbaf02ceb6",
+    "top_k": 8,
+    "batch_size": 3,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 3,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "bd69918b82ac9e08f7274fde5e4d408203040a5bb7b6d518d540d0209830c97a"
+  },
+  "case_count": 9,
+  "batch_count": 3,
+  "valid_batch_count": 3,
+  "fail_closed_case_count": 0,
+  "metrics": {
+    "fever": {
+      "case_count": 3,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.5,
+      "retrieval_complete_gold_rate": 0.0,
+      "citation_precision": 0.5,
+      "citation_recall": 0.25,
+      "joint_correct_rate": 0.6666666666666666,
+      "label_accuracy": 1.0,
+      "evidence_complete_rate": 0.6666666666666666
+    },
+    "hotpotqa": {
+      "case_count": 3,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 1.0,
+      "retrieval_complete_gold_rate": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 0.16666666666666666,
+      "joint_correct_rate": 0.0,
+      "answer_exact_match": 0.3333333333333333,
+      "answer_f1": 0.3333333333333333,
+      "answerability_accuracy": 0.3333333333333333
+    },
+    "natural_questions": {
+      "case_count": 3,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 1.0,
+      "retrieval_complete_gold_rate": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "joint_correct_rate": 0.6666666666666666,
+      "answer_exact_match": 0.6666666666666666,
+      "answer_f1": 0.6666666666666666,
+      "answerability_accuracy": 1.0
+    },
+    "macro": {
+      "case_count": 9,
+      "joint_correct_rate": 0.4444444444444444
+    }
+  },
+  "operation": {
+    "call_count": 3,
+    "provider_reported_cost_total": null,
+    "usage": {
+      "completion_tokens": 535,
+      "prompt_tokens": 13660,
+      "total_tokens": 14195
+    }
+  },
+  "artifacts": {
+    "batch_records_path": "reports/public-benchmarks/end-to-end-smoke-qwen35-native-v105.batches.jsonl",
+    "batch_records_sha256": "2856da386e1ecbedceb2ce1bc1423360deda7e70b202dd27ccbc619505acb948",
+    "case_records_path": "reports/public-benchmarks/end-to-end-smoke-qwen35-native-v105.cases.jsonl",
+    "case_records_sha256": "be4e1c22417eb2029d77f6fa5a863c2a8838a4eb766bc5116c9c626913b4af20",
+    "case_results_canonical_sha256": "465517702beabd58228de8e9f866fc24908e7103490579761ab477b1bf8f8f21"
+  },
+  "provenance": {
+    "public_annotations": "inherited_from_pinned_publishers",
+    "local_adapter_review": "ai_agent_not_human",
+    "locally_human_reviewed_public_cases": 0
+  },
+  "limitations": [
+    "All three public inputs are development sets and may be present in model training data.",
+    "QA correctness uses normalized exact match and token F1; it does not treat an LLM judge as ground truth.",
+    "Long documents are compressed with a query-only lexical sentence selector before generation.",
+    "Fail-closed invalid batches are scored as unanswerable/not-enough-information."
+  ]
+}

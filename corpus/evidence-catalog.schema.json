@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/p1tap/vbot-rag-eval/corpus/evidence-catalog.schema.json",
+  "title": "Vbot RAG evidence span",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evidence_id",
+    "document_id",
+    "document_sha256",
+    "heading_path",
+    "heading_key",
+    "block_type",
+    "start_line",
+    "end_line",
+    "text",
+    "content_sha256",
+    "word_count"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*::[a-z0-9][a-z0-9._:-]*::span-[a-f0-9]{16}(?:-[0-9]+)?$"
+    },
+    "document_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "document_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "heading_path": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "heading_key": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*::[a-z0-9][a-z0-9._-]*$"
+    },
+    "block_type": {"enum": ["heading", "prose", "list", "table", "code", "quote"]},
+    "start_line": {"type": "integer", "minimum": 1},
+    "end_line": {"type": "integer", "minimum": 1},
+    "text": {"type": "string", "minLength": 1},
+    "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "word_count": {"type": "integer", "minimum": 1}
+  }
+}

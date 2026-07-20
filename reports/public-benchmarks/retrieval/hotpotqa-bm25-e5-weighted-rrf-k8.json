@@ -1,0 +1,49 @@
+{
+  "benchmark_id": "hotpotqa",
+  "cases": {
+    "answerable_scored": 3000,
+    "candidate_documents_ranked": 29848,
+    "total": 3000,
+    "without_gold_evidence": 0
+  },
+  "limitations": [
+    "This is bounded candidate ranking, not open-corpus retrieval.",
+    "Cases without gold evidence are excluded from retrieval quality metrics.",
+    "End-to-end generation and answer correctness are not measured here."
+  ],
+  "metrics": {
+    "8": {
+      "case_recall_all": 0.9506666666666667,
+      "case_recall_any": 0.9986666666666667,
+      "evidence_recall": 0.9746666666666667,
+      "mrr": 0.9390845238095245
+    }
+  },
+  "ranking_latency_ms_per_query": {
+    "median": 0.321,
+    "note": "Excludes offline E5 embedding build time.",
+    "p95": 0.457
+  },
+  "report_version": "1.0.0",
+  "retrieval_scope": "per_query_10_document_distractor_corpus",
+  "retriever": {
+    "dense_model": "intfloat/e5-small-v2",
+    "dense_model_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "lexical": {
+      "b": 0.75,
+      "k1": 1.2,
+      "name": "bm25"
+    },
+    "name": "bm25_e5_rrf",
+    "rank_constant": 10,
+    "weights": {
+      "bm25": 0.25,
+      "e5": 1.0
+    }
+  },
+  "source": {
+    "passages_sha256": "50d8c7e9d085dbcbdb8704639f0fea863caeba21a42f386065e1febb30f32bb1",
+    "queries_sha256": "d469a81011fccfc7c19368f8127806c0e499b385865f8be4b450e4a5b9b9438d",
+    "sha256": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683"
+  }
+}

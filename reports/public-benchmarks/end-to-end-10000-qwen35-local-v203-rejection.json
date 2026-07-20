@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "status": "rejected_stopped_after_repeatable_schema_failure",
+  "resume_claim_ready": false,
+  "runner_version": "2.0.3",
+  "response_contract_version": "public-rag-batch-1.2.0-local-case-slots",
+  "stopped_at_local": "2026-07-17T17:37:24+07:00",
+  "run_identity_sha256": "ee9949928dd7598b1578d7764af4efef67c6125ad741bc2341258a16d0adaf3d",
+  "checkpoint": {
+    "path": "reports/public-benchmarks/end-to-end-10000-qwen35-local-v203.batches.jsonl",
+    "sha256": "f1e4a4d237a1c174a16aa17299928f40c6cd04e79b77a1a696ec63c0c019c2f6",
+    "batch_record_count": 528,
+    "case_count": 2112,
+    "valid_batch_count": 527,
+    "invalid_batch_count": 1,
+    "raw_contract_valid_batch_count": 522,
+    "deterministically_normalized_batch_count": 5
+  },
+  "progress": {
+    "path": "reports/public-benchmarks/end-to-end-10000-qwen35-local-v203.progress.json",
+    "sha256": "3fdfe32111c5b8137bd8ccbd4f7dc56819087ec55eac4c7fcc3b94c4f96dae50"
+  },
+  "trigger": {
+    "batch_id": "hotpotqa:00466",
+    "completed_at_utc": "2026-07-17T10:32:55.850001+00:00",
+    "error": "C4: wrong fields",
+    "observed_behavior": "all three batch attempts returned the same fourth result without citation_ids",
+    "semantic_values_modified": false,
+    "fail_closed": true
+  },
+  "decision": {
+    "outcome": "reject_and_restart_under_new_contract",
+    "reason": "the batch-level strict-schema retries could not isolate one malformed case without discarding three valid sibling results",
+    "successor_runner_version": "2.1.0",
+    "successor_response_contract_version": "public-rag-batch-1.3.0-local-case-retry",
+    "successor_requirements": [
+      "retain batch-local case IDs and all ordinary semantic validation",
+      "retry only malformed case slots through a separately recorded single-case strict-schema call",
+      "never infer a missing citation or rewrite prediction semantics",
+      "retain every batch and case-slot call with separate input and schema hashes",
+      "pass focused regression tests, a fresh 300-case pilot, and the observed-failure probe",
+      "restart the full 10,000-case run under a new source-bound identity"
+    ]
+  }
+}

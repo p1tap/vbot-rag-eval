@@ -1,0 +1,43 @@
+{
+  "identity_sha256": "6849eb3e35187b9d730740cf423717d73af28ed2b62a11675d13d90cf1c05040",
+  "identity": {
+    "runner_version": "1.0.0",
+    "profile_id": "gpt-5.4-high",
+    "profile": {
+      "model": "openai/gpt-5.4",
+      "temperature": null,
+      "max_tokens": 6000,
+      "strict_schema": true,
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "openai"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        }
+      }
+    },
+    "benchmarks": [
+      "hotpotqa",
+      "natural_questions",
+      "fever"
+    ],
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "suite_report_sha256": "e7746caa607a4734f16a89c7ed7473ed26b6ea909f485ae519e7c5f1ba4739c7",
+    "top_k": 4,
+    "batch_size": 2,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 2,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "19b70ea8e3704d277fff85bf330a0ae34bfe22b31f2c3378cbc61464b0a84e08"
+  }
+}

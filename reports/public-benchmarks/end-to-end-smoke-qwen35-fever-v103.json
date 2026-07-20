@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T07:33:49.195920+00:00",
+  "status": "sample_complete",
+  "resume_claim_ready": false,
+  "identity_sha256": "cdcc75353e8c5072697720b33b13345c98c2ec8b2947857be93fdab9b4aef1cb",
+  "identity": {
+    "runner_version": "1.0.3",
+    "response_contract_version": "public-rag-batch-1.0.3",
+    "profile_id": "qwen3.5-9b-local",
+    "profile": {
+      "model": "qwen3.5-rag-32k:latest",
+      "temperature": 0.0,
+      "max_tokens": 1200,
+      "strict_schema": true,
+      "request_options": {
+        "reasoning": {
+          "effort": "none"
+        }
+      },
+      "timeout_seconds": 180,
+      "endpoint": "http://localhost:11434/v1",
+      "deployment_kind": "local_ollama",
+      "ollama_model_id": "a2845456d7ad",
+      "weights_blob_sha256": "dec52a44569a2a25341c4e4d3fee25846eed4f6f0b936278e3a3c900bb99d37c",
+      "modelfile_path": "config/ollama-qwen35-rag.Modelfile",
+      "modelfile_sha256": "d44b3ee249174e21a0d5f70f2a9197a8952b48892c35786111aada51c134adfe"
+    },
+    "benchmarks": [
+      "fever"
+    ],
+    "source_sha256": {
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "suite_report_sha256": "e7746caa607a4734f16a89c7ed7473ed26b6ea909f485ae519e7c5f1ba4739c7",
+    "top_k": 8,
+    "batch_size": 3,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 3,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "732f8eef5c9f154ec0bd7676b36942a43270dd3398f9e8d2e209e4ceacf790a9"
+  },
+  "case_count": 3,
+  "batch_count": 1,
+  "valid_batch_count": 1,
+  "fail_closed_case_count": 0,
+  "metrics": {
+    "fever": {
+      "case_count": 3,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.5,
+      "retrieval_complete_gold_rate": 0.0,
+      "citation_precision": 0.5,
+      "citation_recall": 0.25,
+      "joint_correct_rate": 0.6666666666666666,
+      "label_accuracy": 1.0,
+      "evidence_complete_rate": 0.6666666666666666
+    },
+    "macro": {
+      "case_count": 3,
+      "joint_correct_rate": 0.6666666666666666
+    }
+  },
+  "operation": {
+    "call_count": 1,
+    "provider_reported_cost_total": null,
+    "usage": {
+      "completion_tokens": 141,
+      "prompt_tokens": 7014,
+      "total_tokens": 7155
+    }
+  },
+  "artifacts": {
+    "batch_records_path": "reports/public-benchmarks/end-to-end-smoke-qwen35-fever-v103.batches.jsonl",
+    "batch_records_sha256": "4b8c42aea2eaf229d38c273f4263cb9fbc535251b4a9f4e91c6f97de0c3ee719",
+    "case_records_path": "reports/public-benchmarks/end-to-end-smoke-qwen35-fever-v103.cases.jsonl",
+    "case_records_sha256": "33e05dad8d9dafb565e998f5bfdc3619855634fdd6fb89083211ebe6bfc31e03",
+    "case_results_canonical_sha256": "4e8ed17cec636e8e58ec4474e503def627ea02cb134c7da9346c86342a7f4f9d"
+  },
+  "provenance": {
+    "public_annotations": "inherited_from_pinned_publishers",
+    "local_adapter_review": "ai_agent_not_human",
+    "locally_human_reviewed_public_cases": 0
+  },
+  "limitations": [
+    "All three public inputs are development sets and may be present in model training data.",
+    "QA correctness uses normalized exact match and token F1; it does not treat an LLM judge as ground truth.",
+    "Long documents are compressed with a query-only lexical sentence selector before generation.",
+    "Fail-closed invalid batches are scored as unanswerable/not-enough-information."
+  ]
+}

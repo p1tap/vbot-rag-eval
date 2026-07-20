@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "status": "rejected_duplicate_orchestrators_wrote_same_checkpoint",
+  "resume_claim_ready": false,
+  "runner_version": "2.1.0",
+  "response_contract_version": "public-rag-batch-1.3.0-local-case-retry",
+  "stopped_at_local": "2026-07-17T18:03:10+07:00",
+  "run_identity_sha256": "1be9b45c87212cf5f3af250dd5aa9508ca4f879159ca30c158b25d121dea96a5",
+  "checkpoint": {
+    "path": "reports/public-benchmarks/end-to-end-10000-qwen35-local-v210.batches.jsonl",
+    "sha256": "7b24ef34151a8d0dfff9f03c6fa348231d1fc0d9f51e56ccbe27f9508a30ccfd",
+    "record_count": 290,
+    "unique_batch_id_count": 150,
+    "duplicate_batch_id_count": 140,
+    "max_records_per_batch_id": 2,
+    "invalid_record_count": 0
+  },
+  "progress": {
+    "path": "reports/public-benchmarks/end-to-end-10000-qwen35-local-v210.progress.json",
+    "sha256": "6fafb417908ff15cf2f44e9e3eb33ee950bd53cb852c45e31d56231babce7a65"
+  },
+  "cause": {
+    "kind": "local_orchestration_error",
+    "details": "Two shell wrappers were terminated while their Python children remained alive on Windows, leaving process IDs 8324 and 11692 writing the same append-only checkpoint.",
+    "model_or_contract_failure": false,
+    "semantic_values_modified": false
+  },
+  "decision": {
+    "outcome": "reject_checkpoint_and_restart_to_new_artifact_path",
+    "reason": "a claim-ready batch artifact must contain each frozen batch ID exactly once",
+    "successor_output": "reports/public-benchmarks/end-to-end-10000-qwen35-local-v211.json",
+    "successor_contract_change": false,
+    "requirements": [
+      "run exactly one foreground orchestrator",
+      "do not terminate its shell wrapper",
+      "verify unique batch IDs before final audit",
+      "retain this rejected checkpoint as failure evidence"
+    ]
+  }
+}

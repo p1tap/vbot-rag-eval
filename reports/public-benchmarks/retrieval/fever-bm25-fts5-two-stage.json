@@ -1,0 +1,64 @@
+{
+  "benchmark_id": "fever",
+  "cases": {
+    "answerable_scored": 1374,
+    "corpus_documents": 5396106,
+    "total": 2000,
+    "without_gold_evidence": 626
+  },
+  "limitations": [
+    "FEVER Not Enough Information cases have no positive evidence and are excluded from retrieval quality metrics.",
+    "End-to-end label prediction, evidence-set completeness, and generation are not measured here."
+  ],
+  "metrics": {
+    "1": {
+      "case_recall_all": 0.4141193595342067,
+      "case_recall_any": 0.46652110625909754,
+      "evidence_recall": 0.43857437443681985,
+      "mrr": 0.46652110625909754
+    },
+    "10": {
+      "case_recall_all": 0.6819505094614265,
+      "case_recall_any": 0.75764192139738,
+      "evidence_recall": 0.7182409717890067,
+      "mrr": 0.571512615235323
+    },
+    "2": {
+      "case_recall_all": 0.5414847161572053,
+      "case_recall_any": 0.604075691411936,
+      "evidence_recall": 0.5704711651764053,
+      "mrr": 0.5352983988355168
+    },
+    "4": {
+      "case_recall_all": 0.6179039301310044,
+      "case_recall_any": 0.6892285298398836,
+      "evidence_recall": 0.6513178415470992,
+      "mrr": 0.5614386220281419
+    },
+    "5": {
+      "case_recall_all": 0.62882096069869,
+      "case_recall_any": 0.7045123726346434,
+      "evidence_recall": 0.6644182782283219,
+      "mrr": 0.564495390587094
+    }
+  },
+  "report_version": "1.0.0",
+  "retrieval_scope": "global_pinned_fever_wikipedia",
+  "retriever": {
+    "name": "bm25_fts5_two_stage",
+    "parameters": {
+      "candidate_generation": "exact title n-grams plus strict full-text AND; leave-one-term relaxation only when fewer than k candidates",
+      "candidate_limit_per_lane": 100,
+      "query_terms": "unique non-stopwords",
+      "reranker": "in_memory_okapi_bm25",
+      "tokenizer": "porter unicode61"
+    }
+  },
+  "source": {
+    "cases_path": "artifacts/benchmarks/fever/normalized/fever-dev-2000.jsonl",
+    "cases_sha256": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041",
+    "index_path": "artifacts/benchmarks/fever/indexes/wikipedia-bm25.sqlite",
+    "wikipedia_source_sha256": "4b06d95da6adf7fe02d2796176c670dacccb21348da89cba4c50676ab99665f2"
+  },
+  "status": "retrieval_only_generation_pending"
+}

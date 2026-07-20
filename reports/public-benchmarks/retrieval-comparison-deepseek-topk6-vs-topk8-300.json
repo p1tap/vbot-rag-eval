@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "decision": "REJECT",
+  "scope": "paired_generator_or_retrieval_pilot_not_release_promotion",
+  "baseline": "reports\\public-benchmarks\\deepseek-v4-flash-high-openrouter-baidu-topk6-pilot-300.json",
+  "candidate": "reports\\public-benchmarks\\deepseek-v4-flash-high-openrouter-baidu-topk8-pilot-300.json",
+  "identity": {
+    "baseline_profile": "deepseek-v4-flash-high-openrouter-baidu",
+    "candidate_profile": "deepseek-v4-flash-high-openrouter-baidu",
+    "baseline_top_k": 6,
+    "candidate_top_k": 8,
+    "case_count": 300
+  },
+  "macro_joint_correct_delta": 0.023333333333333373,
+  "metric_deltas": {
+    "fever": {
+      "citation_precision": -0.053190567019247514,
+      "citation_recall": -0.013513513513513487,
+      "evidence_complete_rate": -0.040000000000000036,
+      "fail_closed_count": 0,
+      "joint_correct_rate": -0.040000000000000036,
+      "label_accuracy": 0.0,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": 0.0
+    },
+    "hotpotqa": {
+      "answer_exact_match": 0.05999999999999994,
+      "answer_f1": 0.06172727272727285,
+      "answerability_accuracy": 0.08999999999999997,
+      "citation_precision": -0.005571161048689266,
+      "citation_recall": 0.10999999999999999,
+      "fail_closed_count": 0,
+      "joint_correct_rate": 0.13,
+      "retrieval_any_gold_rate": 0.0,
+      "retrieval_complete_gold_rate": 0.12
+    },
+    "natural_questions": {
+      "answer_exact_match": 0.0,
+      "answer_f1": 0.006118992364463116,
+      "answerability_accuracy": -0.030000000000000027,
+      "citation_precision": 0.015578865578865675,
+      "citation_recall": -0.04629629629629628,
+      "fail_closed_count": 0,
+      "joint_correct_rate": -0.019999999999999962,
+      "retrieval_any_gold_rate": 0.03703703703703709,
+      "retrieval_complete_gold_rate": 0.03703703703703698
+    }
+  },
+  "paired_joint_transitions": {
+    "wins": 20,
+    "losses": 13,
+    "unchanged": 267,
+    "exact_mcnemar_two_sided_p": 0.296206368599087,
+    "by_benchmark": {
+      "fever": {
+        "wins": 3,
+        "losses": 7,
+        "unchanged": 90
+      },
+      "hotpotqa": {
+        "wins": 15,
+        "losses": 2,
+        "unchanged": 83
+      },
+      "natural_questions": {
+        "wins": 2,
+        "losses": 4,
+        "unchanged": 94
+      }
+    }
+  },
+  "fail_closed": {
+    "baseline": 0,
+    "candidate": 0
+  },
+  "rejection_reasons": [
+    "fever joint correctness regressed by more than 0.02",
+    "fever citation precision regressed by more than 0.03"
+  ],
+  "promotion_rules": {
+    "minimum_macro_joint_correct_improvement": 0.01,
+    "maximum_per_benchmark_joint_regression": 0.02,
+    "maximum_per_benchmark_citation_precision_regression": 0.03,
+    "fail_closed_count_must_not_increase": true
+  }
+}

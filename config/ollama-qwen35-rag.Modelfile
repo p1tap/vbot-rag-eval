@@ -1,0 +1,7 @@
+FROM qwen3.5:9b
+
+# The public batch evaluator can exceed Ollama's 4K default when several
+# retrieved documents are supplied together. The upstream model supports a
+# much longer window; 32K keeps the complete evaluation prompt on this GPU.
+PARAMETER num_ctx 32768
+PARAMETER temperature 0

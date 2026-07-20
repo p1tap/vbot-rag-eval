@@ -1,0 +1,37 @@
+name: RAG Scheduled Audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * 1'
+
+jobs:
+  frozen-contract-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deterministic audit dependencies
+        run: |
+          pip install "torch==2.7.1" --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements-repro.txt -r requirements-dev.txt -r requirements-api.txt
+      - name: Verify frozen contracts and authentic decisions
+        run: |
+          python scripts/verify_v1_manifest.py
+          python scripts/freeze_v2_contract.py --check
+          python scripts/check_promotion_examples.py
+          python scripts/check_dataset_governance.py
+          python scripts/scan_corpus_secrets.py
+          python scripts/validate_data.py
+          python scripts/build_ai_release_seed.py --check
+          python scripts/audit_ai_release_seed.py --check
+          python -m scripts.benchmarks.check
+          python -m unittest discover -s tests -p 'test_*.py'
+      - name: Render evidence summary
+        run: |
+          python scripts/render_pr_report.py --gate-decision SCHEDULED_AUDIT \
+            --out /tmp/rag-summary.md
+          cat /tmp/rag-summary.md >> "$GITHUB_STEP_SUMMARY"

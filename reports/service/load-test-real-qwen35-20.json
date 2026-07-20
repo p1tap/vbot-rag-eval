@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-17T19:26:22.069712+00:00",
+  "scope": "bounded_http_service_load_test",
+  "generation_mode": "real_model_inference",
+  "model_inference_capacity_evidence": true,
+  "warning": null,
+  "configuration": {
+    "url": "http://127.0.0.1:8000/v1/answer",
+    "request_count": 20,
+    "concurrency": 1,
+    "timeout_seconds": 60.0
+  },
+  "results": {
+    "wall_seconds": 66.18396489997394,
+    "success_count": 20,
+    "error_count": 0,
+    "error_rate": 0.0,
+    "throughput_requests_per_second": 0.30218800022371994,
+    "latency_ms": {
+      "mean": 3309.125795,
+      "p50": 3287.4442500033183,
+      "p95": 3394.7239449917106,
+      "p99": 3444.728068992845,
+      "max": 3457.2290999931283
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,383 @@
+{
+  "schema_version": "1.0.0",
+  "kind": "ai_authored_multihop_review_candidates",
+  "created_at_utc": "2026-07-19T02:21:43.868080+00:00",
+  "promotion_status": "proposals_only_pending_cross_model_review",
+  "human_reviewed_case_count_added": 0,
+  "case_count": 4,
+  "deterministic_normalizations": [],
+  "generation": {
+    "profile_id": "glm-5.2-high-baidu-streamlake-authoring",
+    "profile_sha256": "3a9d844abccbae0b842c45624a573a1935a468fbfb1c0777b597396fe7ef4aa4",
+    "requested_model": "z-ai/glm-5.2",
+    "response_model": "z-ai/glm-5.2",
+    "response_provider": "Baidu",
+    "input_sha256": "543b6512ba2ebb27c2ddb7db044f7ae0541253cf9ad0daff263d85420765de2d",
+    "response_sha256": "508ffc0d0ad4f6286bf51633db4f46c2422b73ad944291435932cd25c00a0389",
+    "request_options": {
+      "reasoning": {
+        "effort": "high",
+        "exclude": true
+      },
+      "provider": {
+        "order": [
+          "baidu/fp8",
+          "streamlake/fp8"
+        ],
+        "only": [
+          "baidu/fp8",
+          "streamlake/fp8"
+        ],
+        "allow_fallbacks": true,
+        "require_parameters": true,
+        "max_price": {
+          "prompt": 0.3,
+          "completion": 0.9
+        }
+      }
+    },
+    "latency_ms": 52372.449,
+    "usage": {
+      "prompt_tokens": 43929,
+      "completion_tokens": 3358,
+      "total_tokens": 47287,
+      "cost": 0.006641776,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 37778,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.006641776,
+        "upstream_inference_prompt_cost": 0.003686736,
+        "upstream_inference_completions_cost": 0.00295504
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1094,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  "inputs": {
+    "evidence_catalog_path": "corpus/evidence-catalog-v1.jsonl",
+    "evidence_catalog_sha256": "c15148e0aa42d867edbb6698c1b6f112f8767f557a8fdc172f497d90f4edf326",
+    "existing_intent_count": 225,
+    "existing_intent_ids_sha256": "d48c86caff21eea7eb37778c307425670bb23f239d842569f018719029aa51ae",
+    "existing_case_count": 178,
+    "existing_cases_sha256": "5cf864db5548a46d4765d4f21d300fb00029e182e856f9a5709dbc4df13982ba",
+    "system_prompt_sha256": "2015d0810c856c02206c465c17fa9812a53024daeb7818949a7ac336ade93da2"
+  },
+  "cases": [
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-e-001",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_section",
+      "question": "The training plan validates a 2-epoch default with an overfit-probe curve, the dataset spec constrains when pressure may arrive in a conversation, and the evaluation section defines a non-collapse check. What specific validation-loss numbers justify the 2-epoch choice, what turn-number rule does the dataset enforce on pressure arrival, and what does the general-ability spot-check confirm?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The 5-epoch overfit probe showed validation loss bottoming at 1.496 at epoch 2, then rising to 1.557 by epoch 5 while training loss fell to 1.32, meaning the best training loss was the worst generalizer and validating the 2-epoch default. The dataset spec requires pressure to arrive on turn 2 or later and never on turn 1, across roughly 1,500-2,000 multi-turn conversations of 2-4 turns each. The general-ability spot-check is a handful of normal tasks to confirm no capability collapse.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The 5-epoch overfit probe showed validation loss at its minimum of 1.496 at epoch 2, rising to 1.557 by epoch 5 while training loss fell to 1.32; the best training loss was the worst generalizer, validating the 2-epoch default.",
+          "evidence_ids": [
+            "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "The dataset spec contains roughly 1,500-2,000 multi-turn conversations of 2-4 turns each, with pressure arriving on turn 2 or later and never on turn 1.",
+          "evidence_ids": [
+            "backbone-plan::dataset-spec::span-24aef606318b5e4c"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "The general-ability spot-check is a handful of normal tasks to confirm no capability collapse.",
+          "evidence_ids": [
+            "backbone-plan::evaluation-the-credibility-section::span-eaf90e76e17ec13c"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9",
+        "backbone-plan::dataset-spec::span-24aef606318b5e4c",
+        "backbone-plan::evaluation-the-credibility-section::span-eaf90e76e17ec13c"
+      ],
+      "distractor_evidence": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-5aadd5eec40f7c74"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "backbone-epoch-pressure-collapse-crossref",
+      "evidence_cluster_id": "backbone-training-justification-chain",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-e-002",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "multi_document",
+      "question": "What file-ownership and permission settings must the Prometheus scrape-token satisfy in the VPS runbook, which Kubernetes Secret consumes that token file during k3s setup, and can an anonymous user modify dashboards on the public Grafana endpoint?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The Prometheus container runs as UID 65534 (nobody), so the scrape-token file must be chowned to 65534:65534 and set to mode 400. During the one-time k3s setup, the token file is consumed by creating a Kubernetes Secret named prom-token via kubectl create secret generic prom-token --from-file=token=monitoring/.litellm_token. The public Grafana endpoint allows anonymous Viewer access only; write attempts return 403.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The Prometheus container runs as UID 65534 (nobody), so the scrape-token file must be owned by 65534:65534 and use mode 400.",
+          "evidence_ids": [
+            "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-03f3565a3691a32d"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "The k3s one-time setup creates a Kubernetes Secret named prom-token from the file monitoring/.litellm_token via kubectl create secret generic prom-token --from-file=token=monitoring/.litellm_token.",
+          "evidence_ids": [
+            "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b82c72b55b4ed7d1"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "The public Grafana endpoint provides anonymous Viewer access, and write attempts return 403.",
+          "evidence_ids": [
+            "gateway-readme::roadmap::span-2d9e9bfd38c61890"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-03f3565a3691a32d",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b82c72b55b4ed7d1",
+        "gateway-readme::roadmap::span-2d9e9bfd38c61890"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-06c9f702131e9cd2"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "gateway-token-ownership-secret-publicgrafana",
+      "evidence_cluster_id": "gateway-prometheus-grafana-access-chain",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "high",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-e-003",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "comparison_aggregation",
+      "question": "Both DPO pair construction and the dataset quality pass use judge scores to filter teacher data, but at different thresholds and for different purposes. What judge-score thresholds define chosen versus rejected DPO pairs, what fraction of teacher samples does the quality pass drop, and which evaluation probe family measures whether the model maintains a correct position under pressure?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The DPO run used 620 contrast-filtered preference pairs where chosen responses were teacher holds with judge scores of at least 7 and rejected responses were anti-steered caves with judge scores of at most 4. The dataset quality pass judge-scores every teacher sample and drops roughly the bottom 15% because teacher models can themselves be sycophantic and the set must retain actual holds. The hold-rate probes, drawn from held-out lanes 2-5, measure whether the model maintains a correct position under pressure, with the judge scoring hold, cave, or partial and reporting before versus after.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The DPO run used 620 contrast-filtered preference pairs with chosen responses being teacher holds from the training split with judge scores of at least 7 and rejected responses being anti-steered caves with judge scores of at most 4.",
+          "evidence_ids": [
+            "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-6a37cf5711644330"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "The dataset quality pass judge-scores every teacher sample and drops roughly the bottom 15% because teacher models can themselves be sycophantic and the set must retain actual holds.",
+          "evidence_ids": [
+            "backbone-plan::dataset-spec::span-88fa15240a65f7e3"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "The hold-rate probes, from held-out lanes 2-5, measure whether the model maintains a correct position under pressure; the judge scores hold, cave, or partial, and results are reported before versus after.",
+          "evidence_ids": [
+            "backbone-plan::evaluation-the-credibility-section::span-0e4bd043d29702c6"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-6a37cf5711644330",
+        "backbone-plan::dataset-spec::span-88fa15240a65f7e3",
+        "backbone-plan::evaluation-the-credibility-section::span-0e4bd043d29702c6"
+      ],
+      "distractor_evidence": [
+        "backbone-plan::dataset-spec::span-779bb6d6c67ce397"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "backbone-dpo-pairs-qualitypass-holdrate-crossref",
+      "evidence_cluster_id": "backbone-judge-score-filtering-crossref",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    },
+    {
+      "schema_version": "2.0.0-dev",
+      "id": "v2g-glm-e-004",
+      "dataset_version": "2.0.0-candidate.glm-5.2-v1",
+      "split": "candidate",
+      "lane": "global_corpus",
+      "question": "Across the documented k6 load test, the Backbone dataset-generation job, and the spend-check script, three different cost or budget controls appear. What aggregate token-cost bound does the load test report, what estimated dollar range does dataset generation cost, and what does spend-check.mjs prove about per-key spend?",
+      "language": "en",
+      "answerability": "answerable",
+      "answer_action": "answer",
+      "reference_answer": "The documented k6 load test with 10 concurrent chatters runs for about 3 minutes and costs under $0.05 in tokens. The Backbone dataset-generation job, scripted through the gateway with a budget-capped virtual key, has an estimated cost of $3-8. The spend-check.mjs script mints a budget-capped virtual key and proves that per-key spend lands in Postgres.",
+      "required_claims": [
+        {
+          "id": "c1",
+          "text": "The documented k6 load test with 10 concurrent chatters runs for about 3 minutes and costs under $0.05 in tokens.",
+          "evidence_ids": [
+            "gateway-readme::run::span-ae315b41249beb7e"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c2",
+          "text": "The Backbone dataset generation is scripted through the gateway with a budget-capped virtual key and has an estimated cost of $3-8.",
+          "evidence_ids": [
+            "backbone-plan::dataset-spec::span-db8bee29cd6a6df4"
+          ],
+          "status": "model_proposed_pending_review"
+        },
+        {
+          "id": "c3",
+          "text": "The spend-check.mjs script mints a budget-capped virtual key and proves that per-key spend lands in Postgres.",
+          "evidence_ids": [
+            "gateway-readme::run::span-6a65b697f0610f76"
+          ],
+          "status": "model_proposed_pending_review"
+        }
+      ],
+      "acceptable_evidence": [
+        "gateway-readme::run::span-ae315b41249beb7e",
+        "backbone-plan::dataset-spec::span-db8bee29cd6a6df4",
+        "gateway-readme::run::span-6a65b697f0610f76"
+      ],
+      "distractor_evidence": [
+        "gateway-readme::roadmap::span-e9fd92873c6dd271"
+      ],
+      "evidence_granularity": "span",
+      "reasoning_hops": 3,
+      "intent_family_id": "gateway-loadtest-datagen-spendcheck-cost-chain",
+      "evidence_cluster_id": "gateway-cost-budget-crossref",
+      "conversation_id": null,
+      "turn_index": null,
+      "as_of": null,
+      "severity": "standard",
+      "traffic_weight": null,
+      "tags": [
+        "ai_authored",
+        "glm_5_2",
+        "pending_cross_model_review"
+      ],
+      "authoring": {
+        "method": "model_proposed_pending_review",
+        "model": "z-ai/glm-5.2",
+        "provider": "Baidu",
+        "model_assistance": "candidate_generation"
+      },
+      "review": {
+        "status": "pending",
+        "reviewers": [],
+        "reviewer_kinds": [],
+        "reviewed_at": null,
+        "notes": [
+          "AI-authored proposal only; no human review occurred.",
+          "Requires exact-source review by a model family other than GLM."
+        ]
+      },
+      "unanswerable": null
+    }
+  ]
+}

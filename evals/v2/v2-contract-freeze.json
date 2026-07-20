@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "dataset": {
+    "version": "2.0.0-dev.5",
+    "fingerprint_sha256": "8ee20cdad3bf0f1dfc0bfe0e89e868b4d38c72481feda6cd0151b581d61581d6",
+    "reviewed_cases": 100,
+    "reviewed_cases_sha256": "2b2cd4f25d9c30e451005216a6789117adea8e4d5f7136cdd415af4b69a5a3cf",
+    "ai_reviewed_release_cases": 50
+  },
+  "human_calibration": {
+    "task_count": 175,
+    "case_count": 42,
+    "sha256": "f411576104b635977bb21fa993adfc5103a7e03369598c0b027ade0ca0f7a5ed"
+  },
+  "judge_policy": {
+    "included_profiles": [
+      "gemini-3.5-flash-high",
+      "gpt-5.4-high",
+      "v4-flash-high"
+    ],
+    "omitted_incomplete_profiles": [
+      "v4-flash-max"
+    ],
+    "selected_policy_id": "v4-primary-failure-cascade",
+    "future_human_queue": false,
+    "ai_override_count": 22
+  },
+  "files_sha256": {
+    "config.py": "35a11fb62a8818ae1e089779d1c12cba6036bc97d494e75c9b806ef71ccf03e6",
+    "evals/schema/case-v2.schema.json": "7e34df9ea9ca4f329331ea4a09684123d1d41465dc060613314897153f2b0d2e",
+    "evals/schema/judge-calibration-label.schema.json": "e971cb3119793ae94056d826cc63676c145d65025c20ed0d79dfb89f6714e69b",
+    "evals/v2/coverage-matrix.json": "86aad645e7c2da556c7fb68b814e6b3551ac5fcdfa95c4c32392d9f2aa6e7b06",
+    "evals/v2/dataset-manifest.json": "3a53234f8bf8b7de0c78ca737d2fc021be69d7c3373b2bf99bc042105f53c8dc",
+    "evals/v2/judge-calibration/ai-adjudication-overrides.jsonl": "2e5a6a8eb25fb8fd0f630bf0f1ccdeb9218e2f9a0086a184d40fa2076647bcde",
+    "evals/v2/judge-calibration/human-labels.jsonl": "f411576104b635977bb21fa993adfc5103a7e03369598c0b027ade0ca0f7a5ed",
+    "evals/v2/judge-calibration/manifest.json": "30ccd2700da9deb9dd2da8d411d5f04547c26d06dea1cab78c747030a04b4c29",
+    "evals/v2/judge-calibration/queue.jsonl": "1b6d81a8bc7fe66430a8956f217ad7e45ca2b031ad86bb29c9403657cfb172fc",
+    "evals/v2/release/vbot-ai-reviewed-release-50.jsonl": "bff7ba20cbd05d671cf403029639fd46d6910b2acb1ad45b59ce9ca63c396eb0",
+    "evals/v2/review-freeze-manifest.json": "8ed6f7df732d9ddb6e171665759bcd52b17ec087a9c1e583935dc2d08dd840a2",
+    "evals/v2/review-inventory.json": "3f5068dd800b2a321f0d848ab9b19bb30aa9df87fff0de3e974224001329e0d9",
+    "evals/v2/reviewed/vbot-human-reviewed-100.jsonl": "2b2cd4f25d9c30e451005216a6789117adea8e4d5f7136cdd415af4b69a5a3cf",
+    "rag/abstention.py": "bbc6f20060187c86d49c06ced0c60d00b9d2328d4176972082efd721d5ecbc2e",
+    "rag/claim_verifier.py": "7d0f21f2b08aa4a247c7e3b53fc12aa693bea3e9efc78c7e9fba7bbd094dbb0e",
+    "rag/coverage_judge.py": "79212bcf6907aa010fc8fa5455175368d8fdc228cb327b2afcdebe506a323a90",
+    "rag/embed.py": "8bb8f24a49cf88e24b4ef2e055c41eef70753338e0cffccee287f3f80c779ebf",
+    "rag/generate.py": "67f3a526ddb8ed692f000cf2db657d228de9dd6084dbb6e9b0c4279d20f45a96",
+    "rag/judge_contract.py": "c11038e9d52e48367201d3a8084ff2a9e6f7f9ac905edefb198acf483da84473",
+    "rag/llm.py": "77e742102407d756ba8be17bf09d27d3427065e433055e46a64f5b3dd87fc80d",
+    "rag/retrieve.py": "d8ca050e8420f05a3255ffe4792b7012284711c8abea993ee2262bab14c8359c",
+    "rag/structured_answer.py": "c53c893b155d1b9864879767b8555f205067776163537a38282bd04b48b8ae54",
+    "reports/v2/ai-release-seed-audit.json": "7359487b4b48f133a7e2ffe49e9d661033ea098a2d91abb9b615d259683363ad",
+    "reports/v2/judge-bakeoff-decision-human.md": "89fa5f91ca6ae75eb51846be697f554d31bc6912d32fefb4d2d2e566f1be4320",
+    "reports/v2/judge-bakeoff-decision.md": "c9b65e8287171fd985f021b5505848fedb9e08f1a3e7307f62d27b54220ca779",
+    "reports/v2/judge-bakeoff-summary.json": "b98194f76073b137218c8e2df8fe3595985b50102966d0fd89577466bef6a8fb",
+    "reports/v2/judge-calibration-consensus-audit.json": "dc4dea7f64964f058ec472af3192669e1a69490ae6ddad923cf9d6128c718e48",
+    "reports/v2/judge-cascade-simulation-human.json": "339ce710b2d1ed641e3c2eac6a1524d040ff5c5b44c717f04d13ef8dc2dbe346",
+    "reports/v2/judge-cascade-simulation.json": "6780d0f06065285489d60b94095c262c6d84e343ca1483c4e439452efaa5653c",
+    "scripts/analyze_action_policy.py": "47bc88b362f97f10902fd6fc58c4fe5afc760ca8135f542b3d4689fd03ad7ce7",
+    "scripts/audit_ai_release_seed.py": "2903130a9894389175b84a24af454198418576284d90d83f2ef201b8e8bd65e9",
+    "scripts/audit_calibration_consensus.py": "603960d2256e9558128aaa45d6b21a05f43c325b12188a541185beb67851cbc6",
+    "scripts/build_ai_release_seed.py": "f7d943e12c8788d6c358a96ac76eb498fba65ae3817826e546a66ed45d5d4ba5",
+    "scripts/import_completed_reviews.py": "38ebcfcfbc6af22446d53654e5c0134fddf2dca58fa4126b65a13c998e292800",
+    "scripts/run_judge_bakeoff.py": "7c45d25e1e604510c05de30e08556f38f24bae449267a1c8a5edf0a5dbe39375",
+    "scripts/run_operational_judge.py": "0986a3045b0460b34336fc83b8a0bc85d2e053f99ee53ea05b93fd65992a4b2e",
+    "scripts/run_structured_eval.py": "a8fe181877c522d10fd77b6d9f846bb3e257af4b40e0f1ec23305764ecc738e7",
+    "scripts/simulate_judge_cascade.py": "12ebce5b6ec5c563cc22480d1dc78d0a9cd472975b91574e77efeef8db7e2a66"
+  }
+}

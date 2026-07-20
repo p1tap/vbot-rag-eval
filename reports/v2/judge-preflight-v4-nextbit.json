@@ -1,0 +1,220 @@
+{
+  "schema_version": "1.0.0",
+  "captured_at_utc": "2026-07-14T23:07:12.547795+00:00",
+  "catalog_only": false,
+  "results": [
+    {
+      "profile_id": "v4-flash-high",
+      "model": "deepseek/deepseek-v4-flash",
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "nextbit/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "supported_efforts": [
+          "xhigh",
+          "high"
+        ],
+        "default_effort": "high"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\": true, \"profile_id\": \"v4-flash-high\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070419-kp63SpDLmCFl9Wj7uD38",
+        "input_sha256": "b3db903df961b2555ba06c41b4fba932261c04de94bd3fc15e0e6c33443b2b08",
+        "latency_ms": 4187.461,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 22,
+          "completion_tokens": 135,
+          "total_tokens": 157,
+          "cost": 5.121e-05,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 5.121e-05,
+            "upstream_inference_prompt_cost": 3.96e-06,
+            "upstream_inference_completions_cost": 4.725e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 138,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 5.121e-05,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "high",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "nextbit/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "NextBit",
+        "system_fingerprint": "vllm-0.25.0-dp4-ep-d6f08423",
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    },
+    {
+      "profile_id": "v4-flash-max",
+      "model": "deepseek/deepseek-v4-flash",
+      "request_options": {
+        "reasoning": {
+          "effort": "xhigh",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "nextbit/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        }
+      },
+      "catalog_available": true,
+      "catalog_reasoning": {
+        "mandatory": false,
+        "supported_efforts": [
+          "xhigh",
+          "high"
+        ],
+        "default_effort": "high"
+      },
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logit_bias",
+        "logprobs",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "smoke_attempted": true,
+      "smoke_valid": true,
+      "error": null,
+      "call": {
+        "content": "{\"ok\":true,\"profile_id\":\"v4-flash-max\"}",
+        "requested_model": "deepseek/deepseek-v4-flash",
+        "response_model": "deepseek/deepseek-v4-flash",
+        "response_id": "gen-1784070423-o2JtzigrTTi5e6H5pWzg",
+        "input_sha256": "f514f743cf495d9b127b4facf190e2be0b8adf21ada289fb9776138966ffa848",
+        "latency_ms": 9849.082,
+        "attempts": 1,
+        "retries": 0,
+        "usage": {
+          "prompt_tokens": 101,
+          "completion_tokens": 604,
+          "total_tokens": 705,
+          "cost": 0.00022958,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00022958,
+            "upstream_inference_prompt_cost": 1.818e-05,
+            "upstream_inference_completions_cost": 0.0002114
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 665,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "cost": 0.00022958,
+        "endpoint_kind": "openrouter_default",
+        "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+        "request_options": {
+          "reasoning": {
+            "effort": "xhigh",
+            "exclude": true
+          },
+          "provider": {
+            "only": [
+              "nextbit/fp8"
+            ],
+            "allow_fallbacks": false,
+            "require_parameters": true
+          }
+        },
+        "response_provider": "NextBit",
+        "system_fingerprint": "vllm-0.25.0-dp4-ep-b3b3b306",
+        "finish_reason": "stop",
+        "native_finish_reason": "stop",
+        "quantization": null,
+        "service_tier": null
+      }
+    }
+  ],
+  "valid": true
+}

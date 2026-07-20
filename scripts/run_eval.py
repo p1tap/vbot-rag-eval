@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parent.parent
 import config  # noqa: E402
 from rag.generate import answer, format_context, is_abstention  # noqa: E402
 from rag.llm import chat  # noqa: E402
+from rag.provenance import capture_run_provenance  # noqa: E402
 from rag.retrieve import load_index, retrieve  # noqa: E402
 
 
@@ -112,9 +113,13 @@ def main():
         "config": {"chunk_max_words": config.CHUNK_MAX_WORDS,
                    "chunk_overlap_words": config.CHUNK_OVERLAP_WORDS,
                    "top_k": config.TOP_K, "embed_model": config.EMBED_MODEL,
-                   "gen_model": config.GEN_MODEL},
+                   "embed_model_revision": config.EMBED_MODEL_REVISION,
+                   "gen_model": config.GEN_MODEL, "judge_model": config.JUDGE_MODEL,
+                   "gen_max_tokens": config.GEN_MAX_TOKENS,
+                   "gen_temperature": config.GEN_TEMPERATURE},
         "meta": {"n": len(golden), "n_answerable": sum(g["answerable"] for g in golden),
                  "llm": not args.no_llm, "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")},
+        "provenance": capture_run_provenance(llm_enabled=not args.no_llm),
         "items": items,
     }
     Path(args.out).write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "nq-fixture-answerable-001",
+    "document": {
+      "title": "Example capitals",
+      "url": "https://example.invalid/wiki/Example_capitals",
+      "html": "",
+      "tokens": {
+        "token": ["Paris", "is", "in", "France.", "Berlin", "is", "in", "Germany."],
+        "is_html": [false, false, false, false, false, false, false, false],
+        "start_byte": [0, 6, 9, 12, 20, 27, 30, 33],
+        "end_byte": [5, 8, 11, 19, 26, 29, 32, 41]
+      }
+    },
+    "question": {"text": "Which city is in France?", "tokens": ["Which", "city", "is", "in", "France"]},
+    "long_answer_candidates": {
+      "start_token": [0, 4],
+      "end_token": [4, 8],
+      "start_byte": [0, 20],
+      "end_byte": [19, 41],
+      "top_level": [true, true]
+    },
+    "annotations": {
+      "id": ["a1", "a2", "a3", "a4", "a5"],
+      "long_answer": [
+        {"start_token": 0, "end_token": 4, "start_byte": 0, "end_byte": 19, "candidate_index": 0},
+        {"start_token": 0, "end_token": 4, "start_byte": 0, "end_byte": 19, "candidate_index": 0},
+        {"start_token": 0, "end_token": 4, "start_byte": 0, "end_byte": 19, "candidate_index": 0},
+        {"start_token": -1, "end_token": -1, "start_byte": -1, "end_byte": -1, "candidate_index": -1},
+        {"start_token": -1, "end_token": -1, "start_byte": -1, "end_byte": -1, "candidate_index": -1}
+      ],
+      "short_answers": [
+        {"start_token": [0], "end_token": [1], "start_byte": [0], "end_byte": [5], "text": ["Paris"]},
+        {"start_token": [0], "end_token": [1], "start_byte": [0], "end_byte": [5], "text": ["Paris"]},
+        {"start_token": [0], "end_token": [1], "start_byte": [0], "end_byte": [5], "text": ["Paris"]},
+        {"start_token": [], "end_token": [], "start_byte": [], "end_byte": [], "text": []},
+        {"start_token": [], "end_token": [], "start_byte": [], "end_byte": [], "text": []}
+      ],
+      "yes_no_answer": [-1, -1, -1, -1, -1]
+    }
+  },
+  {
+    "id": "nq-fixture-null-002",
+    "document": {
+      "title": "Example oceans",
+      "url": "https://example.invalid/wiki/Example_oceans",
+      "html": "",
+      "tokens": {
+        "token": ["The", "Pacific", "is", "an", "ocean."],
+        "is_html": [false, false, false, false, false],
+        "start_byte": [0, 4, 12, 15, 18],
+        "end_byte": [3, 11, 14, 17, 24]
+      }
+    },
+    "question": {"text": "Who founded the Pacific Ocean?", "tokens": ["Who", "founded", "the", "Pacific", "Ocean"]},
+    "long_answer_candidates": {
+      "start_token": [0],
+      "end_token": [5],
+      "start_byte": [0],
+      "end_byte": [24],
+      "top_level": [true]
+    },
+    "annotations": {
+      "id": ["b1", "b2", "b3", "b4", "b5"],
+      "long_answer": [
+        {"start_token": -1, "end_token": -1, "start_byte": -1, "end_byte": -1, "candidate_index": -1},
+        {"start_token": -1, "end_token": -1, "start_byte": -1, "end_byte": -1, "candidate_index": -1},
+        {"start_token": -1, "end_token": -1, "start_byte": -1, "end_byte": -1, "candidate_index": -1},
+        {"start_token": -1, "end_token": -1, "start_byte": -1, "end_byte": -1, "candidate_index": -1},
+        {"start_token": -1, "end_token": -1, "start_byte": -1, "end_byte": -1, "candidate_index": -1}
+      ],
+      "short_answers": [
+        {"start_token": [], "end_token": [], "start_byte": [], "end_byte": [], "text": []},
+        {"start_token": [], "end_token": [], "start_byte": [], "end_byte": [], "text": []},
+        {"start_token": [], "end_token": [], "start_byte": [], "end_byte": [], "text": []},
+        {"start_token": [], "end_token": [], "start_byte": [], "end_byte": [], "text": []},
+        {"start_token": [], "end_token": [], "start_byte": [], "end_byte": [], "text": []}
+      ],
+      "yes_no_answer": [-1, -1, -1, -1, -1]
+    }
+  }
+]

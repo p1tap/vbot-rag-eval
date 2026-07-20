@@ -1,0 +1,284 @@
+{
+  "schema_version": "1.0.0",
+  "completed_at_utc": "2026-07-18T20:36:55.692253+00:00",
+  "status": "complete",
+  "resume_claim_ready": true,
+  "identity_sha256": "c5a1c30f2deb227921f47c5e13a1212b9196c9dfd93c70739537e94bd41732af",
+  "identity": {
+    "runner_version": "1.0.0",
+    "runner_source_sha256": "8dbc0b44e6f8784bd6e96d97f13f79cade5c6b7e88a89ceff4e5fe173b99f22a",
+    "response_contract_version": "public-rag-batch-1.4.0-observed-serialization",
+    "profile_id": "deepseek-v4-flash-high-openrouter-baidu",
+    "profile": {
+      "model": "deepseek/deepseek-v4-flash",
+      "temperature": null,
+      "max_tokens": 2000,
+      "strict_schema": true,
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "baidu/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        }
+      },
+      "timeout_seconds": 600,
+      "endpoint": "https://openrouter.ai/api/v1",
+      "deployment_kind": "openrouter_provider_pinned_baidu_fp8",
+      "pricing_checked_at_utc": "2026-07-18",
+      "input_usd_per_million_tokens": 0.0983,
+      "output_usd_per_million_tokens": 0.1966
+    },
+    "benchmarks": [
+      "hotpotqa",
+      "natural_questions",
+      "fever"
+    ],
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "suite_report_sha256": "b1b779047fe40767e04b316f32617ffb4792a3ec719b0e4070b24fbbaf02ceb6",
+    "top_k": 4,
+    "top_k_by_benchmark": {
+      "hotpotqa": 4,
+      "natural_questions": 4,
+      "fever": 4
+    },
+    "retrieval": {
+      "bounded_candidate_mode": "dense",
+      "weighted_hybrid_config": null,
+      "fever_mode": "two_stage_bm25"
+    },
+    "compression": {
+      "mode": "lexical",
+      "max_document_chars": 6000,
+      "semantic_e5_config": null
+    },
+    "prompt_policy": "benchmark_aware",
+    "batch_size": 4,
+    "workers": 4,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 0,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "ebbaad75a45c9d4f690bc56f13e63a95686739477d1490a01848c33269c77ce3",
+    "generator_runner_version": "1.1.0",
+    "generator_runner_source_sha256": "8bbf39c2c733f76035736bb95e7c703bf18a5891ac872300c502df55d78f1aed",
+    "selection_rule": "strict_normalized_majority_primary_fallback",
+    "citation_rule": "hotpot_union_within_agreement_group_other_tasks_selected_result_only",
+    "component_reports": [
+      {
+        "path": "reports/public-benchmarks/end-to-end-10000-deepseek-v4-flash-high-openrouter-baidu-benchmark-aware-v230.json",
+        "sha256": "c99ca4e17e88d5d0536430bce42af152a7e3e1a11b2f980161b89c452bbd701f",
+        "case_results_sha256": "0bff6fca138e8915fdb1e6dda57f27f384bc7035ce1197bb060d69a1b0bacf97"
+      },
+      {
+        "path": "reports/public-benchmarks/end-to-end-10000-deepseek-v4-flash-high-openrouter-baidu-v220.json",
+        "sha256": "36695f9950c3703214b035a5594ade2c8ba55a1138752dcede3b53740d6d19c1",
+        "case_results_sha256": "672352f8c8bbdf7917fe384e55dea77ab799b330338540c270be50a73acd3546"
+      },
+      {
+        "path": "reports/public-benchmarks/end-to-end-10000-deepseek-v4-flash-high-openrouter-baidu-w4-v220.json",
+        "sha256": "89cdcb7bfe231741fa583d07227f46864ddd4b7a310cdd231be7517173cd0172",
+        "case_results_sha256": "5bf2b523cec9d4e443a274bc47fa101dadc236da3de55c1c461ff7b98dda4b85"
+      }
+    ],
+    "nq_evidence_semantics": "any_complete_non_null_human_annotation",
+    "legacy_nq_evidence_semantics": "union_of_consensus_annotations",
+    "frozen_baseline_report_sha256": "ccc34990dbbc5bd81bbfb779150125b1c6833aecbb1936e5cd20e60a0df927dd",
+    "frozen_baseline_case_results_sha256": "cc53f70f55553196d2a98c9f66e304087b818c881fbd00fc44056de19515c4f4",
+    "verification_profile_id": "deepseek-v4-flash-high-openrouter-baidu",
+    "verification_profile": {
+      "model": "deepseek/deepseek-v4-flash",
+      "temperature": null,
+      "max_tokens": 2000,
+      "strict_schema": true,
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "baidu/fp8"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        }
+      },
+      "timeout_seconds": 600,
+      "endpoint": "https://openrouter.ai/api/v1",
+      "deployment_kind": "openrouter_provider_pinned_baidu_fp8",
+      "pricing_checked_at_utc": "2026-07-18",
+      "input_usd_per_million_tokens": 0.0983,
+      "output_usd_per_million_tokens": 0.1966
+    },
+    "verification_benchmarks": [
+      "hotpotqa"
+    ],
+    "verification_policy": "hotpot_citation_completion",
+    "upstream_runner_version": "1.0.0",
+    "upstream_runner_source_sha256": "d7f5ffce3e42f74d2d6e4e793a352f9fe9aa867db795d7c6271b8a1040dce423",
+    "task_aware_composition_rule": "primary_report_for_selected_benchmarks_derived_report_elsewhere",
+    "primary_benchmarks": [
+      "fever"
+    ],
+    "composition_reports": {
+      "primary": {
+        "path": "reports/public-benchmarks/end-to-end-10000-deepseek-v4-flash-high-openrouter-baidu-benchmark-aware-v230.json",
+        "sha256": "c99ca4e17e88d5d0536430bce42af152a7e3e1a11b2f980161b89c452bbd701f"
+      },
+      "derived": {
+        "path": "reports/public-benchmarks/end-to-end-10000-deepseek-v4-flash-high-openrouter-baidu-consistency-ensemble-hotpot-citation-complete.json",
+        "sha256": "fd4c825a18728f762ae681058c24936eb2e4ec46791f6a8e65dad560d4ce32d3"
+      }
+    }
+  },
+  "case_count": 10000,
+  "batch_count": 2500,
+  "valid_batch_count": 2500,
+  "raw_contract_valid_batch_count": 2500,
+  "deterministically_normalized_batch_count": 0,
+  "case_slot_retry_batch_count": 0,
+  "deterministic_normalization_rate": 0.0,
+  "case_slot_retry_batch_rate": 0.0,
+  "contract_guardrails": {
+    "max_deterministic_normalization_rate": 0.05,
+    "normalization_rate_pass": true,
+    "max_case_slot_retry_batch_rate": 0.01,
+    "case_slot_retry_rate_pass": true
+  },
+  "fail_closed_case_count": 0,
+  "metrics": {
+    "fever": {
+      "case_count": 2000,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.6950509461426492,
+      "retrieval_complete_gold_rate": 0.6179039301310044,
+      "citation_precision": 0.6281811377245509,
+      "citation_recall": 0.616521972690095,
+      "joint_correct_rate": 0.5875,
+      "label_accuracy": 0.7045,
+      "evidence_complete_rate": 0.61
+    },
+    "hotpotqa": {
+      "case_count": 3000,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.9896666666666667,
+      "retrieval_complete_gold_rate": 0.7616666666666667,
+      "citation_precision": 0.952489626556017,
+      "citation_recall": 0.7196666666666667,
+      "joint_correct_rate": 0.468,
+      "answer_exact_match": 0.547,
+      "answer_f1": 0.6561702782038846,
+      "answerability_accuracy": 0.8033333333333333,
+      "evidence_complete_rate": 0.647,
+      "legacy_union_joint_correct_rate": 0.468,
+      "retrieval_any_complete_evidence_set_rate": 0.7616666666666667
+    },
+    "natural_questions": {
+      "case_count": 5000,
+      "fail_closed_count": 0,
+      "retrieval_any_gold_rate": 0.7368421052631579,
+      "retrieval_complete_gold_rate": 0.6723259762308998,
+      "citation_precision": 0.4585226698980104,
+      "citation_recall": 0.5708658743633276,
+      "joint_correct_rate": 0.4484,
+      "answer_exact_match": 0.4784,
+      "answer_f1": 0.5471074174896303,
+      "answerability_accuracy": 0.7192,
+      "evidence_complete_rate": 0.7968,
+      "legacy_union_joint_correct_rate": 0.4094,
+      "retrieval_any_complete_evidence_set_rate": 0.7803056027164685
+    },
+    "macro": {
+      "case_count": 10000,
+      "joint_correct_rate": 0.5013000000000001
+    }
+  },
+  "operation": {
+    "call_count": 2556,
+    "worker_count": 4,
+    "invocation_wall_seconds": 7189.112272500002,
+    "evaluated_cases_per_invocation_second": 1.390992325749632,
+    "call_latency_ms": {
+      "count": 2556,
+      "mean": 11022.709549686993,
+      "p50": 8744.6445,
+      "p95": 29056.677,
+      "p99": 51603.03759999998
+    },
+    "provider_reported_cost_total": 1.3123488131000012,
+    "usage": {
+      "completion_tokens": 2534767,
+      "cost": 1.3123488131000012,
+      "prompt_tokens": 8870231,
+      "total_tokens": 11404998
+    }
+  },
+  "artifacts": {
+    "primary_report_path": "reports/public-benchmarks/end-to-end-10000-deepseek-v4-flash-high-openrouter-baidu-benchmark-aware-v230.json",
+    "primary_report_sha256": "c99ca4e17e88d5d0536430bce42af152a7e3e1a11b2f980161b89c452bbd701f",
+    "derived_report_path": "reports/public-benchmarks/end-to-end-10000-deepseek-v4-flash-high-openrouter-baidu-consistency-ensemble-hotpot-citation-complete.json",
+    "derived_report_sha256": "fd4c825a18728f762ae681058c24936eb2e4ec46791f6a8e65dad560d4ce32d3",
+    "batch_records_path": "reports/public-benchmarks/end-to-end-10000-task-aware-promoted.batches.jsonl",
+    "batch_records_sha256": "98296d0508c12f9a738e86e32a7a22f9ddba9e887383f75d7ed8d2ff4c90304a",
+    "case_records_path": "reports/public-benchmarks/end-to-end-10000-task-aware-promoted.cases.jsonl",
+    "case_records_sha256": "56ea0f8349effe42864af2fdf0a39f6234d83556ecb6910fa279536ff3eb6d19",
+    "case_results_canonical_sha256": "8d23e6309aa7c20cb4ee25e475b398350faa9511fe0035412d2f403cd263c0ac"
+  },
+  "provenance": {
+    "public_annotations": "inherited_from_pinned_publishers",
+    "local_adapter_review": "ai_agent_not_human",
+    "locally_human_reviewed_public_cases": 0
+  },
+  "limitations": [
+    "All three public inputs are development sets and may be present in model training data.",
+    "QA correctness uses normalized exact match and token F1; it does not treat an LLM judge as ground truth.",
+    "Long documents are compressed with a query-only lexical sentence selector before generation.",
+    "Fail-closed invalid batches are scored as unanswerable/not-enough-information.",
+    "Narrow deterministic serialization normalization is counted separately from raw contract validity; it never invents or drops answer or citation values.",
+    "A malformed batch slot may be retried alone under the same profile and separately hashed strict schema; this execution fallback is counted separately and never infers a missing field.",
+    "For FEVER only, the exact QA abstention alias __UNANSWERABLE__ is deterministically canonicalized to the semantically equivalent not_enough_info label and recorded per batch.",
+    "Natural Questions evidence correctness accepts any one complete non-null human annotation, matching Google's official alternative-annotation semantics; the former union metric remains reported as a legacy diagnostic.",
+    "The consistency ensemble uses only frozen model outputs and a predeclared majority rule; it has no access to gold labels during selection.",
+    "The verifier sees only frozen first-pass predictions and the exact same retrieved evidence; it has no access to gold answers or labels.",
+    "A verifier contract failure preserves the frozen first-pass result and is counted as a fallback batch.",
+    "The task-aware composition rule is fixed by benchmark identity and never inspects case-level gold labels during selection.",
+    "The selected primary benchmark lanes retain their original frozen batch records and execution provenance."
+  ],
+  "consistency_ensemble": {
+    "component_count": 3,
+    "agreement_counts": {
+      "majority_2": 1886,
+      "majority_3": 7539,
+      "primary_fallback": 575
+    }
+  },
+  "verification": {
+    "batch_count": 750,
+    "valid_batch_count": 740,
+    "fallback_batch_count": 10,
+    "changed_case_count": 102,
+    "call_count": 820,
+    "wall_seconds": 4896.439725000004,
+    "usage": {
+      "completion_tokens": 736112,
+      "cost": 0.3271866019999998,
+      "prompt_tokens": 1942812,
+      "total_tokens": 2678924
+    }
+  },
+  "task_aware_composition": {
+    "primary_benchmarks": [
+      "fever"
+    ],
+    "other_benchmarks_source": "derived"
+  }
+}

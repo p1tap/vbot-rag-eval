@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vbot.local/schemas/normalized-public-benchmark-case-v1.json",
+  "title": "Normalized public benchmark case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "benchmark_id",
+    "task_type",
+    "source_split",
+    "query",
+    "gold",
+    "documents",
+    "supporting_evidence",
+    "distractor_document_ids",
+    "annotation_votes",
+    "provenance",
+    "metadata"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "id": {"type": "string", "minLength": 1},
+    "benchmark_id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+    "task_type": {
+      "enum": ["extractive_qa", "multi_hop_qa", "fact_verification"]
+    },
+    "source_split": {"type": "string", "minLength": 1},
+    "query": {"type": "string", "minLength": 1},
+    "gold": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["answers", "label", "answerability"],
+      "properties": {
+        "answers": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "label": {"type": ["string", "null"]},
+        "answerability": {"enum": ["answerable", "unanswerable", "not_applicable"]}
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "sentences", "source_position", "content_sha256"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "sentences": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string"}
+          },
+          "source_position": {"type": "integer", "minimum": 0},
+          "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "supporting_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["document_id", "sentence_index", "text"],
+        "properties": {
+          "document_id": {"type": "string", "minLength": 1},
+          "sentence_index": {"type": "integer", "minimum": 0},
+          "text": {"type": "string"}
+        }
+      }
+    },
+    "distractor_document_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "annotation_votes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "answerability", "answers", "evidence"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "answerability": {"enum": ["answerable", "unanswerable", "not_applicable"]},
+          "answers": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["document_id", "sentence_index"],
+              "properties": {
+                "document_id": {"type": "string", "minLength": 1},
+                "sentence_index": {"type": "integer", "minimum": 0}
+              }
+            }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_dataset",
+        "source_version",
+        "source_record_id",
+        "source_record_sha256",
+        "annotation_method",
+        "human_annotated",
+        "transformation_version"
+      ],
+      "properties": {
+        "source_dataset": {"type": "string", "minLength": 1},
+        "source_version": {"type": "string", "minLength": 1},
+        "source_record_id": {"type": "string", "minLength": 1},
+        "source_record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "annotation_method": {"type": "string", "minLength": 1},
+        "human_annotated": {"const": true},
+        "transformation_version": {"const": "1.0.0"}
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {"type": ["string", "number", "integer", "boolean", "null"]}
+    }
+  }
+}

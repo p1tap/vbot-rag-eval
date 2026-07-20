@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "status": "rejected_stopped_after_unknown_normalization_shape",
+  "resume_claim_ready": false,
+  "runner_version": "2.0.1",
+  "response_contract_version": "public-rag-batch-1.1.0-local-case-slots",
+  "stopped_at_local": "2026-07-17T16:40:00+07:00",
+  "run_identity_sha256": "09f47f9667fa5794b1c157c6e4171d8e9c714d3bc480c6742250884c9372e0e9",
+  "checkpoint": {
+    "path": "reports/public-benchmarks/end-to-end-10000-qwen35-local-v201.batches.jsonl",
+    "sha256": "35c5b579b256c5cacdccb427a53e578c36c2b55c4e0454747de06cdc4d9b2875",
+    "batch_record_count": 453,
+    "case_count": 1812,
+    "valid_batch_count": 452,
+    "invalid_batch_count": 1,
+    "raw_contract_valid_batch_count": 451,
+    "deterministically_normalized_batch_count": 1
+  },
+  "progress": {
+    "path": "reports/public-benchmarks/end-to-end-10000-qwen35-local-v201.progress.json",
+    "sha256": "d2ad23c2bf7c86745de5775060df1b18ca2a18ef2550c9d4fd6fc01051fc9eb0"
+  },
+  "trigger": {
+    "batch_id": "hotpotqa:00424",
+    "completed_at": "2026-07-17T16:39:20.800305+07:00",
+    "error": "invalid_json: Extra data: line 1 column 75 (char 74)",
+    "observed_shape": "exactly four comma-separated result objects without an array or results wrapper",
+    "semantic_values_modified": false
+  },
+  "decision": {
+    "outcome": "reject_and_restart_under_new_contract",
+    "reason": "the observed shape was not in the predeclared v1.1.0 normalization allowlist",
+    "successor_runner_version": "2.0.3",
+    "successor_response_contract_version": "public-rag-batch-1.2.0-local-case-slots",
+    "successor_requirements": [
+      "add one exact-count comma-separated-result repair",
+      "bind the runner source SHA-256 into the checkpoint identity",
+      "retain ordinary field, ID/order, prediction, and citation validation",
+      "pass a fresh 300-case pilot",
+      "restart the full 10,000-case run under a new identity"
+    ]
+  }
+}

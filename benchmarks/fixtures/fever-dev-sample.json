@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1001,
+    "label": "SUPPORTS",
+    "claim": "Ada Lovelace wrote about the Analytical Engine.",
+    "evidence": [
+      [[11, 101, "Ada_Lovelace", 0]],
+      [[12, 102, "Analytical_Engine", 1]]
+    ],
+    "_pages": {
+      "Ada_Lovelace": {
+        "sentences": ["Ada Lovelace wrote notes about the Analytical Engine.", "She was an English mathematician."]
+      },
+      "Analytical_Engine": {
+        "sentences": ["The Analytical Engine was a proposed computer.", "Lovelace published extensive notes on it."]
+      }
+    }
+  },
+  {
+    "id": 1002,
+    "label": "NOT ENOUGH INFO",
+    "claim": "Ada Lovelace visited the Moon.",
+    "evidence": [[[13, 103, null, null]]],
+    "_pages": {}
+  }
+]

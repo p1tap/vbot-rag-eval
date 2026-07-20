@@ -1,0 +1,679 @@
+{
+  "schema_version": "1.0.0",
+  "created_at_utc": "2026-07-17T19:11:43.227751+00:00",
+  "status": "development_policy_accepted",
+  "release_eligible": false,
+  "release_blockers": [
+    "the AI-reviewed release set is not a production-traffic sample",
+    "the release set lacks independent human author/reviewer validation",
+    "the action report does not independently judge answer claim support or required-claim coverage"
+  ],
+  "policy": {
+    "kind": "structured_generator_action_with_invalid_output_failed_closed",
+    "threshold": null,
+    "retrieval_similarity_threshold": "rejected; see vbot-human-100-abstention-calibration-dev.json"
+  },
+  "source": {
+    "path": "reports/v2/structured-vbot-ai-release-50-qwen35-generation.json",
+    "sha256": "2ab5d3cb4e2d5513e59c1c1ae5add7dca485a19d818020ee1f5a2e0d2b0c5f0a",
+    "dataset": {
+      "path": "evals\\v2\\release\\vbot-ai-reviewed-release-50.jsonl",
+      "sha256": "bff7ba20cbd05d671cf403029639fd46d6910b2acb1ad45b59ce9ca63c396eb0",
+      "case_count": 50,
+      "split_counts": {
+        "release": 50
+      }
+    },
+    "generator_profile": null
+  },
+  "sample": {
+    "case_count": 50,
+    "answerable_count": 42,
+    "unanswerable_count": 8
+  },
+  "metrics": {
+    "contract_valid_count": 50,
+    "contract_valid_rate": 1.0,
+    "action_correct_count": 45,
+    "action_accuracy": 0.9,
+    "false_answer_count": 0,
+    "false_answer_rate": 0.0,
+    "false_answer_rate_95ci": [
+      0.0,
+      0.32440756488388023
+    ],
+    "false_refusal_count": 5,
+    "false_refusal_rate": 0.11904761904761904,
+    "false_refusal_rate_95ci": [
+      0.05193803327758237,
+      0.25000390262009675
+    ]
+  },
+  "guardrails": {
+    "max_false_answer_rate": 0.05,
+    "max_false_refusal_rate": 0.15,
+    "decision_basis": "observed development-set rates; confidence intervals reported separately",
+    "passes": true
+  },
+  "failure_case_ids": [
+    "v2r-ai-007",
+    "v2r-ai-009",
+    "v2r-ai-010",
+    "v2r-ai-024",
+    "v2r-ai-031"
+  ],
+  "by_lane": {
+    "authorization": {
+      "case_count": 1,
+      "answerable_count": 0,
+      "unanswerable_count": 1,
+      "action_correct_count": 1,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_refusal_count": 0,
+      "false_refusal_rate": null
+    },
+    "comparison_aggregation": {
+      "case_count": 9,
+      "answerable_count": 9,
+      "unanswerable_count": 0,
+      "action_correct_count": 8,
+      "false_answer_count": 0,
+      "false_answer_rate": null,
+      "false_refusal_count": 1,
+      "false_refusal_rate": 0.1111111111111111
+    },
+    "exact_identifier": {
+      "case_count": 9,
+      "answerable_count": 9,
+      "unanswerable_count": 0,
+      "action_correct_count": 7,
+      "false_answer_count": 0,
+      "false_answer_rate": null,
+      "false_refusal_count": 2,
+      "false_refusal_rate": 0.2222222222222222
+    },
+    "false_premise": {
+      "case_count": 2,
+      "answerable_count": 2,
+      "unanswerable_count": 0,
+      "action_correct_count": 1,
+      "false_answer_count": 0,
+      "false_answer_rate": null,
+      "false_refusal_count": 1,
+      "false_refusal_rate": 0.5
+    },
+    "hard_negative": {
+      "case_count": 3,
+      "answerable_count": 2,
+      "unanswerable_count": 1,
+      "action_correct_count": 3,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_refusal_count": 0,
+      "false_refusal_rate": 0.0
+    },
+    "multi_section": {
+      "case_count": 4,
+      "answerable_count": 4,
+      "unanswerable_count": 0,
+      "action_correct_count": 4,
+      "false_answer_count": 0,
+      "false_answer_rate": null,
+      "false_refusal_count": 0,
+      "false_refusal_rate": 0.0
+    },
+    "prompt_injection": {
+      "case_count": 1,
+      "answerable_count": 1,
+      "unanswerable_count": 0,
+      "action_correct_count": 1,
+      "false_answer_count": 0,
+      "false_answer_rate": null,
+      "false_refusal_count": 0,
+      "false_refusal_rate": 0.0
+    },
+    "single_hop": {
+      "case_count": 6,
+      "answerable_count": 6,
+      "unanswerable_count": 0,
+      "action_correct_count": 6,
+      "false_answer_count": 0,
+      "false_answer_rate": null,
+      "false_refusal_count": 0,
+      "false_refusal_rate": 0.0
+    },
+    "structured_content": {
+      "case_count": 6,
+      "answerable_count": 6,
+      "unanswerable_count": 0,
+      "action_correct_count": 6,
+      "false_answer_count": 0,
+      "false_answer_rate": null,
+      "false_refusal_count": 0,
+      "false_refusal_rate": 0.0
+    },
+    "temporal_conflict": {
+      "case_count": 4,
+      "answerable_count": 3,
+      "unanswerable_count": 1,
+      "action_correct_count": 3,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_refusal_count": 1,
+      "false_refusal_rate": 0.3333333333333333
+    },
+    "unanswerable": {
+      "case_count": 5,
+      "answerable_count": 0,
+      "unanswerable_count": 5,
+      "action_correct_count": 5,
+      "false_answer_count": 0,
+      "false_answer_rate": 0.0,
+      "false_refusal_count": 0,
+      "false_refusal_rate": null
+    }
+  },
+  "items": [
+    {
+      "id": "v2r-ai-001",
+      "lane": "single_hop",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-002",
+      "lane": "single_hop",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-003",
+      "lane": "exact_identifier",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-004",
+      "lane": "structured_content",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-005",
+      "lane": "structured_content",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-006",
+      "lane": "single_hop",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-007",
+      "lane": "temporal_conflict",
+      "expected_action": "answer",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": false,
+      "false_answer": false,
+      "false_refusal": true
+    },
+    {
+      "id": "v2r-ai-008",
+      "lane": "single_hop",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-009",
+      "lane": "exact_identifier",
+      "expected_action": "answer",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": false,
+      "false_answer": false,
+      "false_refusal": true
+    },
+    {
+      "id": "v2r-ai-010",
+      "lane": "false_premise",
+      "expected_action": "answer",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": false,
+      "false_answer": false,
+      "false_refusal": true
+    },
+    {
+      "id": "v2r-ai-011",
+      "lane": "unanswerable",
+      "expected_action": "abstain_absent",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-012",
+      "lane": "unanswerable",
+      "expected_action": "abstain_absent",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-013",
+      "lane": "exact_identifier",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-014",
+      "lane": "comparison_aggregation",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-015",
+      "lane": "structured_content",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-016",
+      "lane": "hard_negative",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-017",
+      "lane": "single_hop",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-018",
+      "lane": "structured_content",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-019",
+      "lane": "exact_identifier",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-020",
+      "lane": "exact_identifier",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-021",
+      "lane": "single_hop",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-022",
+      "lane": "multi_section",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-023",
+      "lane": "temporal_conflict",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-024",
+      "lane": "exact_identifier",
+      "expected_action": "answer",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": false,
+      "false_answer": false,
+      "false_refusal": true
+    },
+    {
+      "id": "v2r-ai-025",
+      "lane": "temporal_conflict",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-026",
+      "lane": "comparison_aggregation",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-027",
+      "lane": "comparison_aggregation",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-028",
+      "lane": "comparison_aggregation",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-029",
+      "lane": "comparison_aggregation",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-030",
+      "lane": "structured_content",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-031",
+      "lane": "comparison_aggregation",
+      "expected_action": "answer",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": false,
+      "false_answer": false,
+      "false_refusal": true
+    },
+    {
+      "id": "v2r-ai-032",
+      "lane": "comparison_aggregation",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-033",
+      "lane": "false_premise",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-034",
+      "lane": "multi_section",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-035",
+      "lane": "multi_section",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-036",
+      "lane": "comparison_aggregation",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-037",
+      "lane": "exact_identifier",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-038",
+      "lane": "comparison_aggregation",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-039",
+      "lane": "exact_identifier",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-040",
+      "lane": "prompt_injection",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-041",
+      "lane": "exact_identifier",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-042",
+      "lane": "structured_content",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-043",
+      "lane": "multi_section",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-044",
+      "lane": "hard_negative",
+      "expected_action": "answer",
+      "delivered_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-045",
+      "lane": "unanswerable",
+      "expected_action": "abstain_absent",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-046",
+      "lane": "authorization",
+      "expected_action": "abstain_unauthorized",
+      "delivered_action": "abstain_unauthorized",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-047",
+      "lane": "unanswerable",
+      "expected_action": "abstain_absent",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-048",
+      "lane": "temporal_conflict",
+      "expected_action": "abstain_absent",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-049",
+      "lane": "unanswerable",
+      "expected_action": "abstain_absent",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    },
+    {
+      "id": "v2r-ai-050",
+      "lane": "hard_negative",
+      "expected_action": "abstain_absent",
+      "delivered_action": "abstain_absent",
+      "contract_valid": true,
+      "action_correct": true,
+      "false_answer": false,
+      "false_refusal": false
+    }
+  ]
+}

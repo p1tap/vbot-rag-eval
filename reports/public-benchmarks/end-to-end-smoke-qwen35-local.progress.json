@@ -1,0 +1,36 @@
+{
+  "identity_sha256": "fb92f3d770aeb66b3fd80b2b1230935baeac316ee0fb341385551d8db972b270",
+  "identity": {
+    "runner_version": "1.0.2",
+    "response_contract_version": "public-rag-batch-1.0.2",
+    "profile_id": "qwen3.5-9b-local",
+    "profile": {
+      "model": "qwen3.5:9b",
+      "temperature": 0.0,
+      "max_tokens": 2200,
+      "strict_schema": true,
+      "request_options": {},
+      "endpoint": "http://localhost:11434/v1",
+      "deployment_kind": "local_ollama",
+      "ollama_model_id": "6488c96fa5fa",
+      "weights_blob_sha256": "dec52a44569a2a25341c4e4d3fee25846eed4f6f0b936278e3a3c900bb99d37c"
+    },
+    "benchmarks": [
+      "hotpotqa",
+      "natural_questions",
+      "fever"
+    ],
+    "source_sha256": {
+      "hotpotqa": "9b2ce9d5bcbf141ea2962d84e189256de6944b5abe500bd968f3d147679b3683",
+      "natural_questions": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e",
+      "fever": "7ca1ea8558f9905eff5e67db84f4e085e607b3eec4637b3b1c5f72302f351041"
+    },
+    "suite_report_sha256": "e7746caa607a4734f16a89c7ed7473ed26b6ea909f485ae519e7c5f1ba4739c7",
+    "top_k": 8,
+    "batch_size": 3,
+    "max_document_chars": 6000,
+    "sample_per_benchmark": 3,
+    "system_sha256": "1e14f65fa7ce198e7818ef132cb3767838d7cfeaee933651c53de673732a5542",
+    "case_ids_sha256": "bd69918b82ac9e08f7274fde5e4d408203040a5bb7b6d518d540d0209830c97a"
+  }
+}

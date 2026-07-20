@@ -1,0 +1,65 @@
+{
+  "benchmark_id": "natural_questions",
+  "cases": {
+    "answerable_scored": 2945,
+    "candidate_documents_ranked": 627324,
+    "total": 5000,
+    "without_gold_evidence": 2055
+  },
+  "limitations": [
+    "This is bounded candidate ranking, not open-corpus retrieval.",
+    "Cases without gold evidence are excluded from retrieval quality metrics.",
+    "End-to-end generation and answer correctness are not measured here."
+  ],
+  "metrics": {
+    "1": {
+      "case_recall_all": 0.30118845500848895,
+      "case_recall_any": 0.36129032258064514,
+      "evidence_recall": 0.33047538200339566,
+      "mrr": 0.36129032258064514
+    },
+    "10": {
+      "case_recall_all": 0.7623089983022071,
+      "case_recall_any": 0.8210526315789474,
+      "evidence_recall": 0.7917713638936049,
+      "mrr": 0.5045847144743572
+    },
+    "2": {
+      "case_recall_all": 0.4397283531409168,
+      "case_recall_any": 0.5103565365025466,
+      "evidence_recall": 0.47441992076966605,
+      "mrr": 0.4358234295415959
+    },
+    "4": {
+      "case_recall_all": 0.5809847198641765,
+      "case_recall_any": 0.6529711375212224,
+      "evidence_recall": 0.6169156762874931,
+      "mrr": 0.4788624787775884
+    },
+    "5": {
+      "case_recall_all": 0.6295415959252971,
+      "case_recall_any": 0.6967741935483871,
+      "evidence_recall": 0.6630956423316355,
+      "mrr": 0.4876230899830225
+    }
+  },
+  "report_version": "1.0.0",
+  "retrieval_scope": "per_query_long_answer_candidates",
+  "retriever": {
+    "dense_model": "intfloat/e5-small-v2",
+    "dense_model_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+    "lexical": {
+      "b": 0.75,
+      "k1": 1.2,
+      "name": "bm25"
+    },
+    "name": "bm25_e5_rrf",
+    "rank_constant": 60
+  },
+  "source": {
+    "passages_sha256": "0c1878d3b862fe41832d269ed7a707afc14680a44d1995284949b71c92e4bf70",
+    "queries_sha256": "50f3f1cd81a3e70fca754b6870bc19aaed8254c379eb5bc04c888d37859fc5ce",
+    "sha256": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e"
+  },
+  "status": "retrieval_only_generation_pending"
+}

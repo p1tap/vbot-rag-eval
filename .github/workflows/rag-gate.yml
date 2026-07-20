@@ -33,8 +33,14 @@ on:
       - 'evals/**'
       - 'scripts/**'
       - 'corpus/**'
+      - 'benchmarks/**'
       - 'eval-report.json'
       - 'baselines/**'
+      - 'requirements-repro.txt'
+      - 'requirements-dev.txt'
+      - 'tests/**'
+      - 'docs/**'
+      - 'reports/public-benchmarks/**'
 
 jobs:
   rag-gate:
@@ -68,13 +74,40 @@ jobs:
             exit 2
           fi
 
+      - name: Verify frozen V1 evidence manifest
+        run: python scripts/verify_v1_manifest.py
+
+      - name: Install data-contract dependencies
+        run: pip install -r requirements-dev.txt -r requirements-api.txt
+
+      - name: Validate corpus and evaluation data contracts
+        run: |
+          python scripts/build_evidence_catalog.py --check
+          python scripts/migrate_v1_cases.py --check
+          python scripts/build_review_inventory.py --check
+          python scripts/build_coverage_matrix.py --check
+          python scripts/build_v1_review_packets.py --check
+          python scripts/build_phase1_candidates.py --check
+          python scripts/build_ai_release_seed.py --check
+          python scripts/audit_ai_release_seed.py --check
+          python scripts/holdout_ledger.py --check
+          python scripts/check_dataset_governance.py
+          python scripts/scan_corpus_secrets.py
+          python scripts/validate_data.py
+          python scripts/freeze_v2_contract.py --check
+          python scripts/check_promotion_examples.py
+          python -m scripts.benchmarks.check
+
       - name: Install dependencies (reproducibility check)
         run: |
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install transformers numpy requests
+          pip install "torch==2.7.1" --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements-repro.txt
 
       - name: Rebuild index from this PR's corpus + config
         run: python scripts/build_index.py
+
+      - name: Run complete unit suite
+        run: python -m unittest discover -s tests -p 'test_*.py'
 
       - name: Recompute deterministic retrieval metrics
         run: python scripts/run_eval.py --no-llm --out /tmp/repro-report.json
@@ -85,14 +118,7 @@ jobs:
       - name: Post gate summary
         if: always()
         run: |
-          echo "## RAG Gate Result" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          if [ "${{ steps.gate.outputs.decision }}" = "PROMOTE" ]; then
-            echo "✅ **PROMOTE** — no metric regressed beyond tolerance" >> "$GITHUB_STEP_SUMMARY"
-          elif [ "${{ steps.gate.outputs.decision }}" = "NEEDS_REVIEW" ]; then
-            echo "⚠️ **NEEDS_REVIEW** — soft metric slipped; human review required" >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "❌ **REJECT** — guardrail metric regressed" >> "$GITHUB_STEP_SUMMARY"
-          fi
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "_Gate ran against the committed eval-report.json; retrieval metrics independently reproduced in CI (no API keys, no LLM calls)._" >> "$GITHUB_STEP_SUMMARY"
+          python scripts/render_pr_report.py \
+            --gate-decision "${{ steps.gate.outputs.decision }}" \
+            --out /tmp/rag-summary.md
+          cat /tmp/rag-summary.md >> "$GITHUB_STEP_SUMMARY"

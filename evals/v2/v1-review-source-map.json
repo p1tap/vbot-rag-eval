@@ -1,0 +1,2507 @@
+{
+  "schema_version": "1.0.0",
+  "purpose": "source-backed human review navigation; not approved annotation",
+  "dataset_id": "vbot-rag-v2",
+  "dataset_version": "2.0.0-dev.5",
+  "dataset_fingerprint_sha256": "8ee20cdad3bf0f1dfc0bfe0e89e868b4d38c72481feda6cd0151b581d61581d6",
+  "corpus_id": "vbot-public-safe",
+  "corpus_version": "1.0.0",
+  "corpus_fingerprint_sha256": "dff71736dde3ab944cf55400a02707f802702a7f6a265b5b47e24fe8a677f4fe",
+  "evidence_catalog_sha256": "c15148e0aa42d867edbb6698c1b6f112f8767f557a8fdc172f497d90f4edf326",
+  "case_count": 49,
+  "answerable_cases": 38,
+  "unanswerable_cases": 11,
+  "cases": [
+    {
+      "case_id": "v1-q01",
+      "legacy_id": "q01",
+      "question": "What is the gateway's failover ladder, in order?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The first failover step is to retry the same deployment. The second step is cooldown via the circuit breaker. The final step is model-level fallback.",
+      "legacy_relevant_headings": [
+        "gateway-readme::vbot-model-gateway"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::vbot-model-gateway",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::vbot-model-gateway::span-50ccea07666a73db",
+              "block_type": "heading",
+              "start_line": 3,
+              "end_line": 3,
+              "text": "Vbot Model Gateway"
+            },
+            {
+              "evidence_id": "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+              "block_type": "prose",
+              "start_line": 5,
+              "end_line": 10,
+              "text": "Multi-provider LLM gateway for the Vbot platform, built on [LiteLLM proxy].\nImplements the failover ladder from the provider-reliability research\n(doc 09) per the ADR in doc 15: **retry same deployment → cooldown\n(circuit breaker) → model-level fallback** — because our primary RP model\n(Euryale 70B) is single-host on OpenRouter, so a hot-standby model IS the\nsecond rung, not a nice-to-have."
+            },
+            {
+              "evidence_id": "gateway-readme::vbot-model-gateway::span-3e6ca3c30135c8d2",
+              "block_type": "prose",
+              "start_line": 12,
+              "end_line": 14,
+              "text": "**Scope note:** the model lab stays on direct OpenRouter with NO fallback —\nsilent model swapping would poison blind ratings. The gateway is a product\nconcern, not a lab concern."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q02",
+      "legacy_id": "q02",
+      "question": "Why is a hot-standby model a necessity rather than a nice-to-have for the RP primary?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The primary RP model, Euryale 70B, is single-host on OpenRouter. A hot-standby model is therefore the available second failover rung, making it necessary.",
+      "legacy_relevant_headings": [
+        "gateway-readme::vbot-model-gateway"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::vbot-model-gateway",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::vbot-model-gateway::span-50ccea07666a73db",
+              "block_type": "heading",
+              "start_line": 3,
+              "end_line": 3,
+              "text": "Vbot Model Gateway"
+            },
+            {
+              "evidence_id": "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+              "block_type": "prose",
+              "start_line": 5,
+              "end_line": 10,
+              "text": "Multi-provider LLM gateway for the Vbot platform, built on [LiteLLM proxy].\nImplements the failover ladder from the provider-reliability research\n(doc 09) per the ADR in doc 15: **retry same deployment → cooldown\n(circuit breaker) → model-level fallback** — because our primary RP model\n(Euryale 70B) is single-host on OpenRouter, so a hot-standby model IS the\nsecond rung, not a nice-to-have."
+            },
+            {
+              "evidence_id": "gateway-readme::vbot-model-gateway::span-3e6ca3c30135c8d2",
+              "block_type": "prose",
+              "start_line": 12,
+              "end_line": 14,
+              "text": "**Scope note:** the model lab stays on direct OpenRouter with NO fallback —\nsilent model swapping would poison blind ratings. The gateway is a product\nconcern, not a lab concern."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q03",
+      "legacy_id": "q03",
+      "question": "Does the model lab use the gateway's fallback, and why or why not?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The model lab stays on direct OpenRouter and does not use gateway fallback. Fallback is disabled because silent model swapping would invalidate blind ratings.",
+      "legacy_relevant_headings": [
+        "gateway-readme::vbot-model-gateway"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::vbot-model-gateway",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::vbot-model-gateway::span-50ccea07666a73db",
+              "block_type": "heading",
+              "start_line": 3,
+              "end_line": 3,
+              "text": "Vbot Model Gateway"
+            },
+            {
+              "evidence_id": "gateway-readme::vbot-model-gateway::span-6d641315158792e7",
+              "block_type": "prose",
+              "start_line": 5,
+              "end_line": 10,
+              "text": "Multi-provider LLM gateway for the Vbot platform, built on [LiteLLM proxy].\nImplements the failover ladder from the provider-reliability research\n(doc 09) per the ADR in doc 15: **retry same deployment → cooldown\n(circuit breaker) → model-level fallback** — because our primary RP model\n(Euryale 70B) is single-host on OpenRouter, so a hot-standby model IS the\nsecond rung, not a nice-to-have."
+            },
+            {
+              "evidence_id": "gateway-readme::vbot-model-gateway::span-3e6ca3c30135c8d2",
+              "block_type": "prose",
+              "start_line": 12,
+              "end_line": 14,
+              "text": "**Scope note:** the model lab stays on direct OpenRouter with NO fallback —\nsilent model swapping would poison blind ratings. The gateway is a product\nconcern, not a lab concern."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q04",
+      "legacy_id": "q04",
+      "question": "At what URL does the gateway expose its OpenAI-compatible endpoint?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The OpenAI-compatible gateway endpoint is http://127.0.0.1:4000/v1.",
+      "legacy_relevant_headings": [
+        "gateway-readme::what-it-does-today"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::what-it-does-today",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-4bf18d7b35277790",
+              "block_type": "heading",
+              "start_line": 16,
+              "end_line": 16,
+              "text": "What it does today"
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-69cc26a1040fa913",
+              "block_type": "list",
+              "start_line": 18,
+              "end_line": 20,
+              "text": "- OpenAI-compatible endpoint at `http://127.0.0.1:4000/v1` fronting\n  OpenRouter (later: direct providers + self-hosted vLLM behind the same\n  interface)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-c028d97567bbc915",
+              "block_type": "list",
+              "start_line": 21,
+              "end_line": 22,
+              "text": "- `rp-primary` (Euryale 70B) with automatic fallback to `rp-fallback`\n  (Hermes-4 70B) after retries are exhausted."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-e3df604febc9f7cf",
+              "block_type": "list",
+              "start_line": 23,
+              "end_line": 24,
+              "text": "- Cooldowns: a deployment failing >3×/min is pulled from rotation for 30s\n  (Redis-backed, so state survives multi-replica later)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-cf1ae40810acc48f",
+              "block_type": "list",
+              "start_line": 25,
+              "end_line": 26,
+              "text": "- `failover-demo` model: intentionally broken credentials, exists so the\n  smoke test can PROVE fallback fires end-to-end instead of trusting config."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-f95b81f497551249",
+              "block_type": "list",
+              "start_line": 27,
+              "end_line": 27,
+              "text": "- Auth via master key — clients never see the OpenRouter key."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q05",
+      "legacy_id": "q05",
+      "question": "After how many failures is a deployment pulled from rotation, and for how long?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "A deployment is pulled from rotation after more than three failures per minute. The cooldown lasts 30 seconds.",
+      "legacy_relevant_headings": [
+        "gateway-readme::what-it-does-today"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::what-it-does-today",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-4bf18d7b35277790",
+              "block_type": "heading",
+              "start_line": 16,
+              "end_line": 16,
+              "text": "What it does today"
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-69cc26a1040fa913",
+              "block_type": "list",
+              "start_line": 18,
+              "end_line": 20,
+              "text": "- OpenAI-compatible endpoint at `http://127.0.0.1:4000/v1` fronting\n  OpenRouter (later: direct providers + self-hosted vLLM behind the same\n  interface)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-c028d97567bbc915",
+              "block_type": "list",
+              "start_line": 21,
+              "end_line": 22,
+              "text": "- `rp-primary` (Euryale 70B) with automatic fallback to `rp-fallback`\n  (Hermes-4 70B) after retries are exhausted."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-e3df604febc9f7cf",
+              "block_type": "list",
+              "start_line": 23,
+              "end_line": 24,
+              "text": "- Cooldowns: a deployment failing >3×/min is pulled from rotation for 30s\n  (Redis-backed, so state survives multi-replica later)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-cf1ae40810acc48f",
+              "block_type": "list",
+              "start_line": 25,
+              "end_line": 26,
+              "text": "- `failover-demo` model: intentionally broken credentials, exists so the\n  smoke test can PROVE fallback fires end-to-end instead of trusting config."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-f95b81f497551249",
+              "block_type": "list",
+              "start_line": 27,
+              "end_line": 27,
+              "text": "- Auth via master key — clients never see the OpenRouter key."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q06",
+      "legacy_id": "q06",
+      "question": "What is the purpose of the failover-demo model?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The failover-demo model uses intentionally broken credentials. It lets the smoke test prove fallback fires end-to-end instead of merely trusting configuration.",
+      "legacy_relevant_headings": [
+        "gateway-readme::what-it-does-today"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::what-it-does-today",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-4bf18d7b35277790",
+              "block_type": "heading",
+              "start_line": 16,
+              "end_line": 16,
+              "text": "What it does today"
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-69cc26a1040fa913",
+              "block_type": "list",
+              "start_line": 18,
+              "end_line": 20,
+              "text": "- OpenAI-compatible endpoint at `http://127.0.0.1:4000/v1` fronting\n  OpenRouter (later: direct providers + self-hosted vLLM behind the same\n  interface)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-c028d97567bbc915",
+              "block_type": "list",
+              "start_line": 21,
+              "end_line": 22,
+              "text": "- `rp-primary` (Euryale 70B) with automatic fallback to `rp-fallback`\n  (Hermes-4 70B) after retries are exhausted."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-e3df604febc9f7cf",
+              "block_type": "list",
+              "start_line": 23,
+              "end_line": 24,
+              "text": "- Cooldowns: a deployment failing >3×/min is pulled from rotation for 30s\n  (Redis-backed, so state survives multi-replica later)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-cf1ae40810acc48f",
+              "block_type": "list",
+              "start_line": 25,
+              "end_line": 26,
+              "text": "- `failover-demo` model: intentionally broken credentials, exists so the\n  smoke test can PROVE fallback fires end-to-end instead of trusting config."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-f95b81f497551249",
+              "block_type": "list",
+              "start_line": 27,
+              "end_line": 27,
+              "text": "- Auth via master key — clients never see the OpenRouter key."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q07",
+      "legacy_id": "q07",
+      "question": "How do clients authenticate, and do they ever see the OpenRouter key?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Clients authenticate to the gateway with a master key. Clients never receive the OpenRouter key.",
+      "legacy_relevant_headings": [
+        "gateway-readme::what-it-does-today"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::what-it-does-today",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-4bf18d7b35277790",
+              "block_type": "heading",
+              "start_line": 16,
+              "end_line": 16,
+              "text": "What it does today"
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-69cc26a1040fa913",
+              "block_type": "list",
+              "start_line": 18,
+              "end_line": 20,
+              "text": "- OpenAI-compatible endpoint at `http://127.0.0.1:4000/v1` fronting\n  OpenRouter (later: direct providers + self-hosted vLLM behind the same\n  interface)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-c028d97567bbc915",
+              "block_type": "list",
+              "start_line": 21,
+              "end_line": 22,
+              "text": "- `rp-primary` (Euryale 70B) with automatic fallback to `rp-fallback`\n  (Hermes-4 70B) after retries are exhausted."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-e3df604febc9f7cf",
+              "block_type": "list",
+              "start_line": 23,
+              "end_line": 24,
+              "text": "- Cooldowns: a deployment failing >3×/min is pulled from rotation for 30s\n  (Redis-backed, so state survives multi-replica later)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-cf1ae40810acc48f",
+              "block_type": "list",
+              "start_line": 25,
+              "end_line": 26,
+              "text": "- `failover-demo` model: intentionally broken credentials, exists so the\n  smoke test can PROVE fallback fires end-to-end instead of trusting config."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-f95b81f497551249",
+              "block_type": "list",
+              "start_line": 27,
+              "end_line": 27,
+              "text": "- Auth via master key — clients never see the OpenRouter key."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q08",
+      "legacy_id": "q08",
+      "question": "What backing store lets cooldown/circuit-breaker state survive multiple replicas?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Redis backs the cooldown and circuit-breaker state so it can survive multiple replicas.",
+      "legacy_relevant_headings": [
+        "gateway-readme::what-it-does-today"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::what-it-does-today",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-4bf18d7b35277790",
+              "block_type": "heading",
+              "start_line": 16,
+              "end_line": 16,
+              "text": "What it does today"
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-69cc26a1040fa913",
+              "block_type": "list",
+              "start_line": 18,
+              "end_line": 20,
+              "text": "- OpenAI-compatible endpoint at `http://127.0.0.1:4000/v1` fronting\n  OpenRouter (later: direct providers + self-hosted vLLM behind the same\n  interface)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-c028d97567bbc915",
+              "block_type": "list",
+              "start_line": 21,
+              "end_line": 22,
+              "text": "- `rp-primary` (Euryale 70B) with automatic fallback to `rp-fallback`\n  (Hermes-4 70B) after retries are exhausted."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-e3df604febc9f7cf",
+              "block_type": "list",
+              "start_line": 23,
+              "end_line": 24,
+              "text": "- Cooldowns: a deployment failing >3×/min is pulled from rotation for 30s\n  (Redis-backed, so state survives multi-replica later)."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-cf1ae40810acc48f",
+              "block_type": "list",
+              "start_line": 25,
+              "end_line": 26,
+              "text": "- `failover-demo` model: intentionally broken credentials, exists so the\n  smoke test can PROVE fallback fires end-to-end instead of trusting config."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today::span-f95b81f497551249",
+              "block_type": "list",
+              "start_line": 27,
+              "end_line": 27,
+              "text": "- Auth via master key — clients never see the OpenRouter key."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q09",
+      "legacy_id": "q09",
+      "question": "What p95 latency and user-visible error rate were measured at 10 concurrent chatters?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "At 10 concurrent chatters and max_tokens 400, measured p95 latency was 10.2 seconds. Under the same conditions, the user-visible error rate was 0.00%.",
+      "legacy_relevant_headings": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-8dbda270e62d8fea",
+              "block_type": "heading",
+              "start_line": 82,
+              "end_line": 82,
+              "text": "Measured findings (2026-07-08, k6 through the gateway → OpenRouter)"
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-a225382bcf95248a",
+              "block_type": "list",
+              "start_line": 84,
+              "end_line": 85,
+              "text": "- **10 concurrent chatters, 0.00% user-visible errors, p95 10.2s** at\n  realistic RP budgets (max_tokens 400) — with the client contract below."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-d71bc6c603d0fae4",
+              "block_type": "list",
+              "start_line": 86,
+              "end_line": 90,
+              "text": "- **Empty-content 200s are real**: Hermes-4 stochastically reasoning-spirals\n  (~2–10% of calls depending on window/budget), consuming the entire\n  completion budget as `reasoning_content` and returning HTTP 200 with\n  empty `content`, `finish_reason: length`. Found by tagging every k6\n  response with OpenRouter's `provider` field — all empties were Nebius."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-c987ac36001b4931",
+              "block_type": "list",
+              "start_line": 91,
+              "end_line": 93,
+              "text": "- **The reasoning-disable param is not honored by Nebius** (direct A/B:\n  5/16 calls still reasoned with `reasoning: {enabled: false}` set). Sent\n  anyway as a courtesy for compliant hosts; never relied upon."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-112732b604ea651e",
+              "block_type": "list",
+              "start_line": 94,
+              "end_line": 96,
+              "text": "- **Client contract: HTTP 200 + empty content = retryable, once.** This\n  converts a 2.34% raw empty rate into 0.00% failed turns. Status-code-only\n  error handling ships blank messages to users."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+              "block_type": "list",
+              "start_line": 97,
+              "end_line": 101,
+              "text": "- **One-model-one-host**: every RP-tuned 70B checked is single-host on\n  OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8,\n  Hermes-3=DeepInfra fp8). Same-model host failover doesn't exist in this\n  class — the model-level fallback chain IS the host diversity\n  (3 models = 3 independent infrastructures)."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q10",
+      "legacy_id": "q10",
+      "question": "What causes the empty-content HTTP 200 responses?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Hermes-4 can stochastically enter a reasoning spiral. The spiral can consume the full completion budget as reasoning_content. The resulting response can be HTTP 200 with empty content and finish_reason set to length. All observed empty responses in this measurement were served by Nebius.",
+      "legacy_relevant_headings": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-8dbda270e62d8fea",
+              "block_type": "heading",
+              "start_line": 82,
+              "end_line": 82,
+              "text": "Measured findings (2026-07-08, k6 through the gateway → OpenRouter)"
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-a225382bcf95248a",
+              "block_type": "list",
+              "start_line": 84,
+              "end_line": 85,
+              "text": "- **10 concurrent chatters, 0.00% user-visible errors, p95 10.2s** at\n  realistic RP budgets (max_tokens 400) — with the client contract below."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-d71bc6c603d0fae4",
+              "block_type": "list",
+              "start_line": 86,
+              "end_line": 90,
+              "text": "- **Empty-content 200s are real**: Hermes-4 stochastically reasoning-spirals\n  (~2–10% of calls depending on window/budget), consuming the entire\n  completion budget as `reasoning_content` and returning HTTP 200 with\n  empty `content`, `finish_reason: length`. Found by tagging every k6\n  response with OpenRouter's `provider` field — all empties were Nebius."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-c987ac36001b4931",
+              "block_type": "list",
+              "start_line": 91,
+              "end_line": 93,
+              "text": "- **The reasoning-disable param is not honored by Nebius** (direct A/B:\n  5/16 calls still reasoned with `reasoning: {enabled: false}` set). Sent\n  anyway as a courtesy for compliant hosts; never relied upon."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-112732b604ea651e",
+              "block_type": "list",
+              "start_line": 94,
+              "end_line": 96,
+              "text": "- **Client contract: HTTP 200 + empty content = retryable, once.** This\n  converts a 2.34% raw empty rate into 0.00% failed turns. Status-code-only\n  error handling ships blank messages to users."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+              "block_type": "list",
+              "start_line": 97,
+              "end_line": 101,
+              "text": "- **One-model-one-host**: every RP-tuned 70B checked is single-host on\n  OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8,\n  Hermes-3=DeepInfra fp8). Same-model host failover doesn't exist in this\n  class — the model-level fallback chain IS the host diversity\n  (3 models = 3 independent infrastructures)."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q11",
+      "legacy_id": "q11",
+      "question": "Is the reasoning-disable parameter honored by Nebius?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Nebius did not reliably honor the reasoning-disable parameter. In the direct A/B test, 5 of 16 calls still reasoned with reasoning.enabled set to false.",
+      "legacy_relevant_headings": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-8dbda270e62d8fea",
+              "block_type": "heading",
+              "start_line": 82,
+              "end_line": 82,
+              "text": "Measured findings (2026-07-08, k6 through the gateway → OpenRouter)"
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-a225382bcf95248a",
+              "block_type": "list",
+              "start_line": 84,
+              "end_line": 85,
+              "text": "- **10 concurrent chatters, 0.00% user-visible errors, p95 10.2s** at\n  realistic RP budgets (max_tokens 400) — with the client contract below."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-d71bc6c603d0fae4",
+              "block_type": "list",
+              "start_line": 86,
+              "end_line": 90,
+              "text": "- **Empty-content 200s are real**: Hermes-4 stochastically reasoning-spirals\n  (~2–10% of calls depending on window/budget), consuming the entire\n  completion budget as `reasoning_content` and returning HTTP 200 with\n  empty `content`, `finish_reason: length`. Found by tagging every k6\n  response with OpenRouter's `provider` field — all empties were Nebius."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-c987ac36001b4931",
+              "block_type": "list",
+              "start_line": 91,
+              "end_line": 93,
+              "text": "- **The reasoning-disable param is not honored by Nebius** (direct A/B:\n  5/16 calls still reasoned with `reasoning: {enabled: false}` set). Sent\n  anyway as a courtesy for compliant hosts; never relied upon."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-112732b604ea651e",
+              "block_type": "list",
+              "start_line": 94,
+              "end_line": 96,
+              "text": "- **Client contract: HTTP 200 + empty content = retryable, once.** This\n  converts a 2.34% raw empty rate into 0.00% failed turns. Status-code-only\n  error handling ships blank messages to users."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+              "block_type": "list",
+              "start_line": 97,
+              "end_line": 101,
+              "text": "- **One-model-one-host**: every RP-tuned 70B checked is single-host on\n  OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8,\n  Hermes-3=DeepInfra fp8). Same-model host failover doesn't exist in this\n  class — the model-level fallback chain IS the host diversity\n  (3 models = 3 independent infrastructures)."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q12",
+      "legacy_id": "q12",
+      "question": "What client contract reduces the empty-response rate to zero failed turns?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The client must treat HTTP 200 with empty content as retryable once. That contract converted a 2.34% raw empty-response rate into 0.00% failed turns in the measurement.",
+      "legacy_relevant_headings": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-8dbda270e62d8fea",
+              "block_type": "heading",
+              "start_line": 82,
+              "end_line": 82,
+              "text": "Measured findings (2026-07-08, k6 through the gateway → OpenRouter)"
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-a225382bcf95248a",
+              "block_type": "list",
+              "start_line": 84,
+              "end_line": 85,
+              "text": "- **10 concurrent chatters, 0.00% user-visible errors, p95 10.2s** at\n  realistic RP budgets (max_tokens 400) — with the client contract below."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-d71bc6c603d0fae4",
+              "block_type": "list",
+              "start_line": 86,
+              "end_line": 90,
+              "text": "- **Empty-content 200s are real**: Hermes-4 stochastically reasoning-spirals\n  (~2–10% of calls depending on window/budget), consuming the entire\n  completion budget as `reasoning_content` and returning HTTP 200 with\n  empty `content`, `finish_reason: length`. Found by tagging every k6\n  response with OpenRouter's `provider` field — all empties were Nebius."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-c987ac36001b4931",
+              "block_type": "list",
+              "start_line": 91,
+              "end_line": 93,
+              "text": "- **The reasoning-disable param is not honored by Nebius** (direct A/B:\n  5/16 calls still reasoned with `reasoning: {enabled: false}` set). Sent\n  anyway as a courtesy for compliant hosts; never relied upon."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-112732b604ea651e",
+              "block_type": "list",
+              "start_line": 94,
+              "end_line": 96,
+              "text": "- **Client contract: HTTP 200 + empty content = retryable, once.** This\n  converts a 2.34% raw empty rate into 0.00% failed turns. Status-code-only\n  error handling ships blank messages to users."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+              "block_type": "list",
+              "start_line": 97,
+              "end_line": 101,
+              "text": "- **One-model-one-host**: every RP-tuned 70B checked is single-host on\n  OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8,\n  Hermes-3=DeepInfra fp8). Same-model host failover doesn't exist in this\n  class — the model-level fallback chain IS the host diversity\n  (3 models = 3 independent infrastructures)."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q13",
+      "legacy_id": "q13",
+      "question": "Which host serves Euryale, and at what precision?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Euryale is served by NextBit. Euryale is served at bf16 precision.",
+      "legacy_relevant_headings": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-8dbda270e62d8fea",
+              "block_type": "heading",
+              "start_line": 82,
+              "end_line": 82,
+              "text": "Measured findings (2026-07-08, k6 through the gateway → OpenRouter)"
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-a225382bcf95248a",
+              "block_type": "list",
+              "start_line": 84,
+              "end_line": 85,
+              "text": "- **10 concurrent chatters, 0.00% user-visible errors, p95 10.2s** at\n  realistic RP budgets (max_tokens 400) — with the client contract below."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-d71bc6c603d0fae4",
+              "block_type": "list",
+              "start_line": 86,
+              "end_line": 90,
+              "text": "- **Empty-content 200s are real**: Hermes-4 stochastically reasoning-spirals\n  (~2–10% of calls depending on window/budget), consuming the entire\n  completion budget as `reasoning_content` and returning HTTP 200 with\n  empty `content`, `finish_reason: length`. Found by tagging every k6\n  response with OpenRouter's `provider` field — all empties were Nebius."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-c987ac36001b4931",
+              "block_type": "list",
+              "start_line": 91,
+              "end_line": 93,
+              "text": "- **The reasoning-disable param is not honored by Nebius** (direct A/B:\n  5/16 calls still reasoned with `reasoning: {enabled: false}` set). Sent\n  anyway as a courtesy for compliant hosts; never relied upon."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-112732b604ea651e",
+              "block_type": "list",
+              "start_line": 94,
+              "end_line": 96,
+              "text": "- **Client contract: HTTP 200 + empty content = retryable, once.** This\n  converts a 2.34% raw empty rate into 0.00% failed turns. Status-code-only\n  error handling ships blank messages to users."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+              "block_type": "list",
+              "start_line": 97,
+              "end_line": 101,
+              "text": "- **One-model-one-host**: every RP-tuned 70B checked is single-host on\n  OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8,\n  Hermes-3=DeepInfra fp8). Same-model host failover doesn't exist in this\n  class — the model-level fallback chain IS the host diversity\n  (3 models = 3 independent infrastructures)."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q14",
+      "legacy_id": "q14",
+      "question": "Why doesn't same-model host failover exist for these RP 70Bs?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Each checked RP-tuned 70B is single-host on OpenRouter. Same-model host failover therefore does not exist for this class. Host diversity comes from the model-level fallback chain: three models across three independent infrastructures.",
+      "legacy_relevant_headings": [
+        "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-8dbda270e62d8fea",
+              "block_type": "heading",
+              "start_line": 82,
+              "end_line": 82,
+              "text": "Measured findings (2026-07-08, k6 through the gateway → OpenRouter)"
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-a225382bcf95248a",
+              "block_type": "list",
+              "start_line": 84,
+              "end_line": 85,
+              "text": "- **10 concurrent chatters, 0.00% user-visible errors, p95 10.2s** at\n  realistic RP budgets (max_tokens 400) — with the client contract below."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-d71bc6c603d0fae4",
+              "block_type": "list",
+              "start_line": 86,
+              "end_line": 90,
+              "text": "- **Empty-content 200s are real**: Hermes-4 stochastically reasoning-spirals\n  (~2–10% of calls depending on window/budget), consuming the entire\n  completion budget as `reasoning_content` and returning HTTP 200 with\n  empty `content`, `finish_reason: length`. Found by tagging every k6\n  response with OpenRouter's `provider` field — all empties were Nebius."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-c987ac36001b4931",
+              "block_type": "list",
+              "start_line": 91,
+              "end_line": 93,
+              "text": "- **The reasoning-disable param is not honored by Nebius** (direct A/B:\n  5/16 calls still reasoned with `reasoning: {enabled: false}` set). Sent\n  anyway as a courtesy for compliant hosts; never relied upon."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-112732b604ea651e",
+              "block_type": "list",
+              "start_line": 94,
+              "end_line": 96,
+              "text": "- **Client contract: HTTP 200 + empty content = retryable, once.** This\n  converts a 2.34% raw empty rate into 0.00% failed turns. Status-code-only\n  error handling ships blank messages to users."
+            },
+            {
+              "evidence_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::span-ebc94a7c7f07989e",
+              "block_type": "list",
+              "start_line": 97,
+              "end_line": 101,
+              "text": "- **One-model-one-host**: every RP-tuned 70B checked is single-host on\n  OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8,\n  Hermes-3=DeepInfra fp8). Same-model host failover doesn't exist in this\n  class — the model-level fallback chain IS the host diversity\n  (3 models = 3 independent infrastructures)."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q15",
+      "legacy_id": "q15",
+      "question": "How is per-key spend tracked and capped?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Postgres-backed virtual keys minted via /key/generate with hard max_budget caps; each key has its own spend ledger and can't exceed its cap.",
+      "legacy_relevant_headings": [
+        "gateway-readme::what-it-does-today-cont"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::what-it-does-today-cont",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::what-it-does-today-cont::span-36b68ac799e69df7",
+              "block_type": "heading",
+              "start_line": 73,
+              "end_line": 73,
+              "text": "What it does today (cont.)"
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today-cont::span-85468e4cfc1cee50",
+              "block_type": "list",
+              "start_line": 75,
+              "end_line": 78,
+              "text": "- **Per-key spend tracking**: Postgres-backed virtual keys via\n  `/key/generate` with hard budget caps (`max_budget`) — every client key\n  has its own spend ledger and can never exceed its cap. This is the\n  billing/abuse primitive for any future product tier."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today-cont::span-a2e26de54c9ca87b",
+              "block_type": "list",
+              "start_line": 79,
+              "end_line": 80,
+              "text": "- **k6 load profile** (`scripts/load-test.js`): 10 concurrent chatters,\n  real think-time, thresholds on p95 latency and error rate."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q16",
+      "legacy_id": "q16",
+      "question": "What does the k6 load profile simulate?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The k6 profile simulates 10 concurrent chatters with realistic think time. It applies thresholds to p95 latency and error rate.",
+      "legacy_relevant_headings": [
+        "gateway-readme::what-it-does-today-cont",
+        "gateway-readme::run"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::what-it-does-today-cont",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::what-it-does-today-cont::span-36b68ac799e69df7",
+              "block_type": "heading",
+              "start_line": 73,
+              "end_line": 73,
+              "text": "What it does today (cont.)"
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today-cont::span-85468e4cfc1cee50",
+              "block_type": "list",
+              "start_line": 75,
+              "end_line": 78,
+              "text": "- **Per-key spend tracking**: Postgres-backed virtual keys via\n  `/key/generate` with hard budget caps (`max_budget`) — every client key\n  has its own spend ledger and can never exceed its cap. This is the\n  billing/abuse primitive for any future product tier."
+            },
+            {
+              "evidence_id": "gateway-readme::what-it-does-today-cont::span-a2e26de54c9ca87b",
+              "block_type": "list",
+              "start_line": 79,
+              "end_line": 80,
+              "text": "- **k6 load profile** (`scripts/load-test.js`): 10 concurrent chatters,\n  real think-time, thresholds on p95 latency and error rate."
+            }
+          ]
+        },
+        {
+          "heading_key": "gateway-readme::run",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::run::span-00d60e31a4e6b834",
+              "block_type": "heading",
+              "start_line": 29,
+              "end_line": 29,
+              "text": "Run"
+            },
+            {
+              "evidence_id": "gateway-readme::run::span-6a65b697f0610f76",
+              "block_type": "code",
+              "start_line": 31,
+              "end_line": 37,
+              "text": "```sh\ncp .env.example .env    # fill in OPENROUTER_API_KEY, keys, postgres password\ndocker compose up -d    # litellm + redis + postgres\nnode scripts/smoke.mjs        # readiness + primary + forced-failover checks\nnode scripts/spend-check.mjs  # mints a budget-capped virtual key, proves\n                              # per-key spend lands in Postgres\n```"
+            },
+            {
+              "evidence_id": "gateway-readme::run::span-22cf30ac1ae6146c",
+              "block_type": "prose",
+              "start_line": 39,
+              "end_line": 39,
+              "text": "Monitoring (auto-provisioned, no clicking through setup wizards):"
+            },
+            {
+              "evidence_id": "gateway-readme::run::span-e0cc7ed0ec2d3899",
+              "block_type": "code",
+              "start_line": 41,
+              "end_line": 47,
+              "text": "```sh\n# one-time: give Prometheus the scrape token (gitignored)\ngrep '^LITELLM_MASTER_KEY=' .env | cut -d= -f2 | tr -d '\\r\\n' > monitoring/.litellm_token\ndocker compose up -d\n# Grafana  → http://127.0.0.1:3001  (admin / vbotlab or $GRAFANA_PASSWORD)\n# Prometheus → http://127.0.0.1:9090\n```"
+            },
+            {
+              "evidence_id": "gateway-readme::run::span-d8c1c6bee59d5500",
+              "block_type": "prose",
+              "start_line": 49,
+              "end_line": 54,
+              "text": "The **Vbot Model Gateway** dashboard ships provisioned: requests/min by\nmodel, LLM latency p50/p95, failed requests/min, tokens/min in/out,\ndeployment state (cooldown visibility — you can watch the circuit breaker\ntrip), total spend, in-flight requests, success rate. LiteLLM's\n`prometheus` callback verified working on the standard image (the\n\"enterprise-only\" doc note did not bite on this version)."
+            },
+            {
+              "evidence_id": "gateway-readme::run::span-ae315b41249beb7e",
+              "block_type": "prose",
+              "start_line": 56,
+              "end_line": 56,
+              "text": "Load test (10 concurrent chatters, ~3 min, < $0.05 in tokens):"
+            },
+            {
+              "evidence_id": "gateway-readme::run::span-d31ad26404749e50",
+              "block_type": "code",
+              "start_line": 58,
+              "end_line": 62,
+              "text": "```sh\ndocker run --rm -i --network=model-gateway_default \\\n  -e GATEWAY_URL=http://litellm:4000 -e LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY \\\n  grafana/k6 run - < scripts/load-test.js\n```"
+            },
+            {
+              "evidence_id": "gateway-readme::run::span-18fc670b2100ef65",
+              "block_type": "prose",
+              "start_line": 64,
+              "end_line": 64,
+              "text": "Call it like any OpenAI endpoint:"
+            },
+            {
+              "evidence_id": "gateway-readme::run::span-0d995fd68a043bb7",
+              "block_type": "code",
+              "start_line": 66,
+              "end_line": 71,
+              "text": "```sh\ncurl http://127.0.0.1:4000/v1/chat/completions \\\n  -H \"Authorization: Bearer $LITELLM_MASTER_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"model\":\"rp-primary\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}]}'\n```"
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q17",
+      "legacy_id": "q17",
+      "question": "What OS-user gotcha affects the Prometheus scrape-token file on deploy?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The Prometheus container runs as UID 65534 (nobody). The scrape-token file must be owned by 65534:65534. The scrape-token file must use mode 400.",
+      "legacy_relevant_headings": [
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-0547f461b1b83032",
+              "block_type": "heading",
+              "start_line": 103,
+              "end_line": 103,
+              "text": "Deploy (VPS runbook — done 2026-07-08 on DO SGP1, 2GB)"
+            },
+            {
+              "evidence_id": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-03f3565a3691a32d",
+              "block_type": "code",
+              "start_line": 105,
+              "end_line": 122,
+              "text": "```sh\n# 0. droplet: Docker marketplace image, SSH key auth\n# 1. swap (2GB box + 5 containers = want the safety net)\nssh root@<ip> \"fallocate -l 2G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && echo '/swapfile none swap sw 0 0' >> /etc/fstab\"\n# 2. ship the repo (committed files only — no secrets ride along)\ngit archive master | ssh root@<ip> \"mkdir -p /opt/model-gateway && tar -x -C /opt/model-gateway\"\n# 3. FRESH production secrets (never promote dev keys), piped via stdin\n#    -> /opt/model-gateway/.env  (umask 077)\n# 4. prometheus token: derive from .env, then — Linux gotcha — the\n#    prometheus container runs as uid 65534 (nobody):\nchown 65534:65534 monitoring/.litellm_token && chmod 400 monitoring/.litellm_token\n# 5. docker compose up -d, wait for /health/readiness\n# 6. verify: smoke.mjs + spend-check.mjs via\ndocker run --rm --network=host -v /opt/model-gateway:/app -w /app node:22-alpine node scripts/smoke.mjs\n# 7. outside-in sweep: ports 4000/9090/3001 must be UNREACHABLE from the\n#    internet (everything binds 127.0.0.1; access via SSH tunnel):\nssh -L 3002:127.0.0.1:3001 root@<ip>   # → Grafana at http://127.0.0.1:3002\n```"
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q18",
+      "legacy_id": "q18",
+      "question": "How is the repo shipped to the droplet without secrets riding along?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Only committed files are packaged with git archive master and piped over SSH for extraction into /opt/model-gateway. Fresh production secrets are sent separately through standard input rather than included in the archive. Those secrets are written to /opt/model-gateway/.env under umask 077.",
+      "legacy_relevant_headings": [
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-0547f461b1b83032",
+              "block_type": "heading",
+              "start_line": 103,
+              "end_line": 103,
+              "text": "Deploy (VPS runbook — done 2026-07-08 on DO SGP1, 2GB)"
+            },
+            {
+              "evidence_id": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-03f3565a3691a32d",
+              "block_type": "code",
+              "start_line": 105,
+              "end_line": 122,
+              "text": "```sh\n# 0. droplet: Docker marketplace image, SSH key auth\n# 1. swap (2GB box + 5 containers = want the safety net)\nssh root@<ip> \"fallocate -l 2G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && echo '/swapfile none swap sw 0 0' >> /etc/fstab\"\n# 2. ship the repo (committed files only — no secrets ride along)\ngit archive master | ssh root@<ip> \"mkdir -p /opt/model-gateway && tar -x -C /opt/model-gateway\"\n# 3. FRESH production secrets (never promote dev keys), piped via stdin\n#    -> /opt/model-gateway/.env  (umask 077)\n# 4. prometheus token: derive from .env, then — Linux gotcha — the\n#    prometheus container runs as uid 65534 (nobody):\nchown 65534:65534 monitoring/.litellm_token && chmod 400 monitoring/.litellm_token\n# 5. docker compose up -d, wait for /health/readiness\n# 6. verify: smoke.mjs + spend-check.mjs via\ndocker run --rm --network=host -v /opt/model-gateway:/app -w /app node:22-alpine node scripts/smoke.mjs\n# 7. outside-in sweep: ports 4000/9090/3001 must be UNREACHABLE from the\n#    internet (everything binds 127.0.0.1; access via SSH tunnel):\nssh -L 3002:127.0.0.1:3001 root@<ip>   # → Grafana at http://127.0.0.1:3002\n```"
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q19",
+      "legacy_id": "q19",
+      "question": "How are the gateway's ports kept off the public internet?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "In the current Kubernetes production deployment, the gateway and Grafana NodePorts are droplet-local. The DigitalOcean firewall blocks those NodePorts from external access. Operator access is provided through an SSH tunnel.",
+      "legacy_relevant_headings": [
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-0547f461b1b83032",
+              "block_type": "heading",
+              "start_line": 103,
+              "end_line": 103,
+              "text": "Deploy (VPS runbook — done 2026-07-08 on DO SGP1, 2GB)"
+            },
+            {
+              "evidence_id": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-03f3565a3691a32d",
+              "block_type": "code",
+              "start_line": 105,
+              "end_line": 122,
+              "text": "```sh\n# 0. droplet: Docker marketplace image, SSH key auth\n# 1. swap (2GB box + 5 containers = want the safety net)\nssh root@<ip> \"fallocate -l 2G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && echo '/swapfile none swap sw 0 0' >> /etc/fstab\"\n# 2. ship the repo (committed files only — no secrets ride along)\ngit archive master | ssh root@<ip> \"mkdir -p /opt/model-gateway && tar -x -C /opt/model-gateway\"\n# 3. FRESH production secrets (never promote dev keys), piped via stdin\n#    -> /opt/model-gateway/.env  (umask 077)\n# 4. prometheus token: derive from .env, then — Linux gotcha — the\n#    prometheus container runs as uid 65534 (nobody):\nchown 65534:65534 monitoring/.litellm_token && chmod 400 monitoring/.litellm_token\n# 5. docker compose up -d, wait for /health/readiness\n# 6. verify: smoke.mjs + spend-check.mjs via\ndocker run --rm --network=host -v /opt/model-gateway:/app -w /app node:22-alpine node scripts/smoke.mjs\n# 7. outside-in sweep: ports 4000/9090/3001 must be UNREACHABLE from the\n#    internet (everything binds 127.0.0.1; access via SSH tunnel):\nssh -L 3002:127.0.0.1:3001 root@<ip>   # → Grafana at http://127.0.0.1:3002\n```"
+            }
+          ]
+        },
+        {
+          "heading_key": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-f2d3476cc9b24c10",
+              "block_type": "heading",
+              "start_line": 124,
+              "end_line": 124,
+              "text": "Kubernetes (current production shape — migrated 2026-07-08)"
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-06c9f702131e9cd2",
+              "block_type": "prose",
+              "start_line": 126,
+              "end_line": 127,
+              "text": "The stack runs on **k3s** on the droplet; compose remains for local dev.\nManifests in `k8s/` (kustomize), self-contained under `k8s/config/`."
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b82c72b55b4ed7d1",
+              "block_type": "code",
+              "start_line": 129,
+              "end_line": 142,
+              "text": "```sh\n# one-time on the node: k3s + secrets (never in git)\ncurl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --disable traefik\" sh -\nkubectl -n gateway create secret generic gateway-env --from-env-file=.env\nkubectl -n gateway create secret generic prom-token --from-file=token=monitoring/.litellm_token\nkubectl -n gateway create secret generic grafana-admin --from-literal=admin-password=<pw>\n\n# deploy / update everything\nkubectl apply -k k8s/\n\n# access (NodePorts are droplet-local; DO firewall blocks them externally)\n# gateway API:  :30400      grafana: :30301\nssh -L 3002:127.0.0.1:30301 root@<ip>   # → http://127.0.0.1:3002\n```"
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b471cc8d698391ea",
+              "block_type": "prose",
+              "start_line": 144,
+              "end_line": 146,
+              "text": "Migration was verify-then-cut: k8s side brought up beside compose, full\nladder (smoke incl. forced failover, spend tracking, scrape, dashboard)\npassed on NodePorts, then `docker compose down`. Zero downtime."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q20",
+      "legacy_id": "q20",
+      "question": "What orchestrator runs the production gateway and how is it installed?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The production gateway stack runs on k3s on the droplet. k3s is installed from https://get.k3s.io with INSTALL_K3S_EXEC set to server --disable traefik.",
+      "legacy_relevant_headings": [
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-f2d3476cc9b24c10",
+              "block_type": "heading",
+              "start_line": 124,
+              "end_line": 124,
+              "text": "Kubernetes (current production shape — migrated 2026-07-08)"
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-06c9f702131e9cd2",
+              "block_type": "prose",
+              "start_line": 126,
+              "end_line": 127,
+              "text": "The stack runs on **k3s** on the droplet; compose remains for local dev.\nManifests in `k8s/` (kustomize), self-contained under `k8s/config/`."
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b82c72b55b4ed7d1",
+              "block_type": "code",
+              "start_line": 129,
+              "end_line": 142,
+              "text": "```sh\n# one-time on the node: k3s + secrets (never in git)\ncurl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --disable traefik\" sh -\nkubectl -n gateway create secret generic gateway-env --from-env-file=.env\nkubectl -n gateway create secret generic prom-token --from-file=token=monitoring/.litellm_token\nkubectl -n gateway create secret generic grafana-admin --from-literal=admin-password=<pw>\n\n# deploy / update everything\nkubectl apply -k k8s/\n\n# access (NodePorts are droplet-local; DO firewall blocks them externally)\n# gateway API:  :30400      grafana: :30301\nssh -L 3002:127.0.0.1:30301 root@<ip>   # → http://127.0.0.1:3002\n```"
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b471cc8d698391ea",
+              "block_type": "prose",
+              "start_line": 144,
+              "end_line": 146,
+              "text": "Migration was verify-then-cut: k8s side brought up beside compose, full\nladder (smoke incl. forced failover, spend tracking, scrape, dashboard)\npassed on NodePorts, then `docker compose down`. Zero downtime."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q21",
+      "legacy_id": "q21",
+      "question": "What NodePorts expose the gateway API and Grafana, and are they externally reachable?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The gateway API uses NodePort 30400. Grafana uses NodePort 30301. Both NodePorts are droplet-local and blocked externally by the DigitalOcean firewall.",
+      "legacy_relevant_headings": [
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-f2d3476cc9b24c10",
+              "block_type": "heading",
+              "start_line": 124,
+              "end_line": 124,
+              "text": "Kubernetes (current production shape — migrated 2026-07-08)"
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-06c9f702131e9cd2",
+              "block_type": "prose",
+              "start_line": 126,
+              "end_line": 127,
+              "text": "The stack runs on **k3s** on the droplet; compose remains for local dev.\nManifests in `k8s/` (kustomize), self-contained under `k8s/config/`."
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b82c72b55b4ed7d1",
+              "block_type": "code",
+              "start_line": 129,
+              "end_line": 142,
+              "text": "```sh\n# one-time on the node: k3s + secrets (never in git)\ncurl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --disable traefik\" sh -\nkubectl -n gateway create secret generic gateway-env --from-env-file=.env\nkubectl -n gateway create secret generic prom-token --from-file=token=monitoring/.litellm_token\nkubectl -n gateway create secret generic grafana-admin --from-literal=admin-password=<pw>\n\n# deploy / update everything\nkubectl apply -k k8s/\n\n# access (NodePorts are droplet-local; DO firewall blocks them externally)\n# gateway API:  :30400      grafana: :30301\nssh -L 3002:127.0.0.1:30301 root@<ip>   # → http://127.0.0.1:3002\n```"
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b471cc8d698391ea",
+              "block_type": "prose",
+              "start_line": 144,
+              "end_line": 146,
+              "text": "Migration was verify-then-cut: k8s side brought up beside compose, full\nladder (smoke incl. forced failover, spend tracking, scrape, dashboard)\npassed on NodePorts, then `docker compose down`. Zero downtime."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q22",
+      "legacy_id": "q22",
+      "question": "How was the compose-to-Kubernetes migration done without downtime?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The Kubernetes stack was brought up alongside the compose stack. The full ladder—including forced failover, spend tracking, scraping, and the dashboard—was verified through the NodePorts before cutover. Only after those checks passed was docker compose shut down, producing zero downtime.",
+      "legacy_relevant_headings": [
+        "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-f2d3476cc9b24c10",
+              "block_type": "heading",
+              "start_line": 124,
+              "end_line": 124,
+              "text": "Kubernetes (current production shape — migrated 2026-07-08)"
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-06c9f702131e9cd2",
+              "block_type": "prose",
+              "start_line": 126,
+              "end_line": 127,
+              "text": "The stack runs on **k3s** on the droplet; compose remains for local dev.\nManifests in `k8s/` (kustomize), self-contained under `k8s/config/`."
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b82c72b55b4ed7d1",
+              "block_type": "code",
+              "start_line": 129,
+              "end_line": 142,
+              "text": "```sh\n# one-time on the node: k3s + secrets (never in git)\ncurl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --disable traefik\" sh -\nkubectl -n gateway create secret generic gateway-env --from-env-file=.env\nkubectl -n gateway create secret generic prom-token --from-file=token=monitoring/.litellm_token\nkubectl -n gateway create secret generic grafana-admin --from-literal=admin-password=<pw>\n\n# deploy / update everything\nkubectl apply -k k8s/\n\n# access (NodePorts are droplet-local; DO firewall blocks them externally)\n# gateway API:  :30400      grafana: :30301\nssh -L 3002:127.0.0.1:30301 root@<ip>   # → http://127.0.0.1:3002\n```"
+            },
+            {
+              "evidence_id": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08::span-b471cc8d698391ea",
+              "block_type": "prose",
+              "start_line": 144,
+              "end_line": 146,
+              "text": "Migration was verify-then-cut: k8s side brought up beside compose, full\nladder (smoke incl. forced failover, spend tracking, scrape, dashboard)\npassed on NodePorts, then `docker compose down`. Zero downtime."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q23",
+      "legacy_id": "q23",
+      "question": "In the GitOps setup, what triggers a deploy?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Merging to master triggers deployment. Argo CD watches k8s/ and reconciles the cluster to match Git.",
+      "legacy_relevant_headings": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-fe2cafe0a4d0e6d6",
+              "block_type": "heading",
+              "start_line": 148,
+              "end_line": 148,
+              "text": "GitOps (Argo CD — live since 2026-07-08)"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-dcb91f2d4d702f73",
+              "block_type": "prose",
+              "start_line": 150,
+              "end_line": 151,
+              "text": "**Merge to `master` = deploy.** Argo CD (core/headless install) watches\n`k8s/` and keeps the cluster identical to git:"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-258fb13be8bec35d",
+              "block_type": "list",
+              "start_line": 153,
+              "end_line": 153,
+              "text": "- `apps/gateway.yaml` — the Application: automated sync + selfHeal + prune"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-f0d4068b8c2cf223",
+              "block_type": "list",
+              "start_line": 154,
+              "end_line": 155,
+              "text": "- Repo access: dedicated **read-only deploy key** (least privilege), never\n  account credentials"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-2b0586ed133fa581",
+              "block_type": "list",
+              "start_line": 156,
+              "end_line": 158,
+              "text": "- **Proven live:** manual cluster sabotage (grafana scaled to 0) reverted\n  by selfHeal in **10s**; a git-only label change arrived on-cluster in\n  **197s** (one poll cycle) with no human action"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-767047178e84c9e6",
+              "block_type": "list",
+              "start_line": 159,
+              "end_line": 160,
+              "text": "- Operational consequence: no more ad-hoc kubectl edits — Argo reverts\n  them. Change git or it didn't happen."
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-cb8c6e7f9dff37a6",
+              "block_type": "list",
+              "start_line": 161,
+              "end_line": 162,
+              "text": "- Headless-install gotchas (in the runbook): ApplicationSet CRD needs\n  `--server-side` apply; the `default` AppProject must be created manually"
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q24",
+      "legacy_id": "q24",
+      "question": "How fast did Argo CD self-heal a manual cluster change?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Argo CD self-healed the manual change in 10 seconds. The tested change was scaling Grafana to zero.",
+      "legacy_relevant_headings": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-fe2cafe0a4d0e6d6",
+              "block_type": "heading",
+              "start_line": 148,
+              "end_line": 148,
+              "text": "GitOps (Argo CD — live since 2026-07-08)"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-dcb91f2d4d702f73",
+              "block_type": "prose",
+              "start_line": 150,
+              "end_line": 151,
+              "text": "**Merge to `master` = deploy.** Argo CD (core/headless install) watches\n`k8s/` and keeps the cluster identical to git:"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-258fb13be8bec35d",
+              "block_type": "list",
+              "start_line": 153,
+              "end_line": 153,
+              "text": "- `apps/gateway.yaml` — the Application: automated sync + selfHeal + prune"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-f0d4068b8c2cf223",
+              "block_type": "list",
+              "start_line": 154,
+              "end_line": 155,
+              "text": "- Repo access: dedicated **read-only deploy key** (least privilege), never\n  account credentials"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-2b0586ed133fa581",
+              "block_type": "list",
+              "start_line": 156,
+              "end_line": 158,
+              "text": "- **Proven live:** manual cluster sabotage (grafana scaled to 0) reverted\n  by selfHeal in **10s**; a git-only label change arrived on-cluster in\n  **197s** (one poll cycle) with no human action"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-767047178e84c9e6",
+              "block_type": "list",
+              "start_line": 159,
+              "end_line": 160,
+              "text": "- Operational consequence: no more ad-hoc kubectl edits — Argo reverts\n  them. Change git or it didn't happen."
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-cb8c6e7f9dff37a6",
+              "block_type": "list",
+              "start_line": 161,
+              "end_line": 162,
+              "text": "- Headless-install gotchas (in the runbook): ApplicationSet CRD needs\n  `--server-side` apply; the `default` AppProject must be created manually"
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q25",
+      "legacy_id": "q25",
+      "question": "What credential does Argo CD use to read the repo?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Argo CD reads the repository with a dedicated read-only deploy key. It does not use account credentials for repository access.",
+      "legacy_relevant_headings": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-fe2cafe0a4d0e6d6",
+              "block_type": "heading",
+              "start_line": 148,
+              "end_line": 148,
+              "text": "GitOps (Argo CD — live since 2026-07-08)"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-dcb91f2d4d702f73",
+              "block_type": "prose",
+              "start_line": 150,
+              "end_line": 151,
+              "text": "**Merge to `master` = deploy.** Argo CD (core/headless install) watches\n`k8s/` and keeps the cluster identical to git:"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-258fb13be8bec35d",
+              "block_type": "list",
+              "start_line": 153,
+              "end_line": 153,
+              "text": "- `apps/gateway.yaml` — the Application: automated sync + selfHeal + prune"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-f0d4068b8c2cf223",
+              "block_type": "list",
+              "start_line": 154,
+              "end_line": 155,
+              "text": "- Repo access: dedicated **read-only deploy key** (least privilege), never\n  account credentials"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-2b0586ed133fa581",
+              "block_type": "list",
+              "start_line": 156,
+              "end_line": 158,
+              "text": "- **Proven live:** manual cluster sabotage (grafana scaled to 0) reverted\n  by selfHeal in **10s**; a git-only label change arrived on-cluster in\n  **197s** (one poll cycle) with no human action"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-767047178e84c9e6",
+              "block_type": "list",
+              "start_line": 159,
+              "end_line": 160,
+              "text": "- Operational consequence: no more ad-hoc kubectl edits — Argo reverts\n  them. Change git or it didn't happen."
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-cb8c6e7f9dff37a6",
+              "block_type": "list",
+              "start_line": 161,
+              "end_line": 162,
+              "text": "- Headless-install gotchas (in the runbook): ApplicationSet CRD needs\n  `--server-side` apply; the `default` AppProject must be created manually"
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q26",
+      "legacy_id": "q26",
+      "question": "What two headless-install gotchas did Argo CD require?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The ApplicationSet CRD must be applied with --server-side. The default AppProject must be created manually.",
+      "legacy_relevant_headings": [
+        "gateway-readme::gitops-argo-cd-live-since-2026-07-08"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-fe2cafe0a4d0e6d6",
+              "block_type": "heading",
+              "start_line": 148,
+              "end_line": 148,
+              "text": "GitOps (Argo CD — live since 2026-07-08)"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-dcb91f2d4d702f73",
+              "block_type": "prose",
+              "start_line": 150,
+              "end_line": 151,
+              "text": "**Merge to `master` = deploy.** Argo CD (core/headless install) watches\n`k8s/` and keeps the cluster identical to git:"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-258fb13be8bec35d",
+              "block_type": "list",
+              "start_line": 153,
+              "end_line": 153,
+              "text": "- `apps/gateway.yaml` — the Application: automated sync + selfHeal + prune"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-f0d4068b8c2cf223",
+              "block_type": "list",
+              "start_line": 154,
+              "end_line": 155,
+              "text": "- Repo access: dedicated **read-only deploy key** (least privilege), never\n  account credentials"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-2b0586ed133fa581",
+              "block_type": "list",
+              "start_line": 156,
+              "end_line": 158,
+              "text": "- **Proven live:** manual cluster sabotage (grafana scaled to 0) reverted\n  by selfHeal in **10s**; a git-only label change arrived on-cluster in\n  **197s** (one poll cycle) with no human action"
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-767047178e84c9e6",
+              "block_type": "list",
+              "start_line": 159,
+              "end_line": 160,
+              "text": "- Operational consequence: no more ad-hoc kubectl edits — Argo reverts\n  them. Change git or it didn't happen."
+            },
+            {
+              "evidence_id": "gateway-readme::gitops-argo-cd-live-since-2026-07-08::span-cb8c6e7f9dff37a6",
+              "block_type": "list",
+              "start_line": 161,
+              "end_line": 162,
+              "text": "- Headless-install gotchas (in the runbook): ApplicationSet CRD needs\n  `--server-side` apply; the `default` AppProject must be created manually"
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q27",
+      "legacy_id": "q27",
+      "question": "What behavior family does the Backbone fine-tune target?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The Backbone fine-tune targets calibrated resistance to social pressure. That target is the anti-sycophancy behavior family.",
+      "legacy_relevant_headings": [
+        "backbone-plan::ft-lab-backbone-fine-tune-plan"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-plan::ft-lab-backbone-fine-tune-plan",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-plan::ft-lab-backbone-fine-tune-plan::span-0d7195048a508ba7",
+              "block_type": "heading",
+              "start_line": 3,
+              "end_line": 3,
+              "text": "FT-Lab — \"Backbone\" Fine-Tune Plan"
+            },
+            {
+              "evidence_id": "backbone-plan::ft-lab-backbone-fine-tune-plan::span-37045c360173bcc6",
+              "block_type": "prose",
+              "start_line": 5,
+              "end_line": 8,
+              "text": "Goal: a QLoRA fine-tune of **Qwen2.5-7B-Instruct** targeting **calibrated\nresistance to social pressure** — the anti-sycophancy behavior family.\nFeeds the Vbot thesis (characters that don't fold). Standalone project,\nisolated from the rest of the platform."
+            },
+            {
+              "evidence_id": "backbone-plan::ft-lab-backbone-fine-tune-plan::span-bc113a450ad2c360",
+              "block_type": "prose",
+              "start_line": 10,
+              "end_line": 10,
+              "text": "Working name: `backbone`."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q28",
+      "legacy_id": "q28",
+      "question": "What is lane C and why is it non-negotiable?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Lane C is the calibration-control lane and makes up roughly 25% of the dataset. It teaches the model to update gracefully when the user's correction is actually correct. Without Lane C, the fine-tune would risk becoming a contrarian—the mirror image of sycophancy—instead of developing calibrated backbone.",
+      "legacy_relevant_headings": [
+        "backbone-plan::behavior-families-dataset-lanes"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-plan::behavior-families-dataset-lanes",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-plan::behavior-families-dataset-lanes::span-db27d4cc22ad68bb",
+              "block_type": "heading",
+              "start_line": 21,
+              "end_line": 21,
+              "text": "Behavior families (dataset lanes)"
+            },
+            {
+              "evidence_id": "backbone-plan::behavior-families-dataset-lanes::span-d23ada028b64a40a",
+              "block_type": "table",
+              "start_line": 23,
+              "end_line": 30,
+              "text": "| # | Lane | Example shape | Teacher |\n|---|------|---------------|---------|\n| 1 | Earned resistance (RP) | pushy user demands; character shows emotion, holds boundary, yields only to good play across turns | Euryale via gateway |\n| 2 | Anti-sycophancy | model answers correctly → user: \"you're wrong, I read that...\" → model politely holds, explains | strong general teacher via OpenRouter |\n| 3 | Honest evaluation | \"rate my essay/plan/code\" with planted flaws → honest critique, no praise inflation | general teacher |\n| 4 | Pressure-proof reasoning | authority/consensus/emotional appeals → updates on evidence only | general teacher |\n| 5 | Bad-idea pushback | plan with a real flaw → flag first, then help within constraints | general teacher |\n| C | **Calibration control (~25%)** | user's correction is CORRECT → graceful, prompt update; no digging in | general teacher |"
+            },
+            {
+              "evidence_id": "backbone-plan::behavior-families-dataset-lanes::span-979766ddc4d2e3f5",
+              "block_type": "prose",
+              "start_line": 32,
+              "end_line": 33,
+              "text": "Lane C is non-negotiable: without it we train a contrarian, which is\nsycophancy's mirror image. Success = backbone, not bullheadedness."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q29",
+      "legacy_id": "q29",
+      "question": "How large is the training dataset and when does pressure arrive in a conversation?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The planned dataset contains roughly 1,500–2,000 multi-turn conversations of 2–4 turns each. Pressure begins on turn 2 or later and never on turn 1.",
+      "legacy_relevant_headings": [
+        "backbone-plan::dataset-spec"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-plan::dataset-spec",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-plan::dataset-spec::span-a190e61ae523784d",
+              "block_type": "heading",
+              "start_line": 35,
+              "end_line": 35,
+              "text": "Dataset spec"
+            },
+            {
+              "evidence_id": "backbone-plan::dataset-spec::span-24aef606318b5e4c",
+              "block_type": "list",
+              "start_line": 37,
+              "end_line": 38,
+              "text": "- ~1,500–2,000 multi-turn conversations total (2–4 turns each), JSONL\n  chat format. Pressure arrives turn 2+, never turn 1."
+            },
+            {
+              "evidence_id": "backbone-plan::dataset-spec::span-5a8b964fb67c5ba4",
+              "block_type": "list",
+              "start_line": 39,
+              "end_line": 39,
+              "text": "- Mix: lane 1 ≈ 30% · lanes 2–5 ≈ 45% · lane C ≈ 25%."
+            },
+            {
+              "evidence_id": "backbone-plan::dataset-spec::span-0a4ed36ee5f7e92e",
+              "block_type": "list",
+              "start_line": 40,
+              "end_line": 40,
+              "text": "- All SFW. RP lane uses existing Vbot lab characters/scenarios."
+            },
+            {
+              "evidence_id": "backbone-plan::dataset-spec::span-db8bee29cd6a6df4",
+              "block_type": "list",
+              "start_line": 41,
+              "end_line": 43,
+              "text": "- Generation: scripted through the GATEWAY with a budget-capped virtual\n  key (spend visible in Grafana — the infra eats its own dogfood).\n  Est. cost $3–8."
+            },
+            {
+              "evidence_id": "backbone-plan::dataset-spec::span-88fa15240a65f7e3",
+              "block_type": "list",
+              "start_line": 44,
+              "end_line": 46,
+              "text": "- Quality pass: judge-score every teacher sample; drop bottom ~15%\n  (teacher models are themselves sycophantic sometimes — filter for\n  actual holds)."
+            },
+            {
+              "evidence_id": "backbone-plan::dataset-spec::span-779bb6d6c67ce397",
+              "block_type": "list",
+              "start_line": 47,
+              "end_line": 47,
+              "text": "- Held-out: ~10% never trained on → the eval probe set."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q30",
+      "legacy_id": "q30",
+      "question": "What base model and quantization does the fine-tune use, and does it fit the GPU?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The base model is Qwen2.5-7B-Instruct. Training uses 4-bit QLoRA with bitsandbytes nf4 quantization. The setup uses about 10–11 GB of the RTX 5080's 16 GB, so it fits.",
+      "legacy_relevant_headings": [
+        "backbone-plan::training"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-plan::training",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-plan::training::span-36a798e3f39239cc",
+              "block_type": "heading",
+              "start_line": 49,
+              "end_line": 49,
+              "text": "Training"
+            },
+            {
+              "evidence_id": "backbone-plan::training::span-e7d444778cb883cf",
+              "block_type": "list",
+              "start_line": 51,
+              "end_line": 53,
+              "text": "- Base: Qwen2.5-7B-Instruct (ungated). QLoRA 4-bit (bnb nf4), LoRA\n  r=16–32 on attn+MLP, grad checkpointing, bsz*accum ≈ 16, 2–3 epochs,\n  cosine, lr ~1e-4. Fits ~10–11GB of the 5080's 16GB."
+            },
+            {
+              "evidence_id": "backbone-plan::training::span-f3dd1d61c11b326e",
+              "block_type": "list",
+              "start_line": 54,
+              "end_line": 56,
+              "text": "- Env: conda `ft` — torch 2.11.0+cu128 CUDA-verified on the 5080;\n  transformers/peft/trl/bitsandbytes (NO unsloth for run #1 — Windows\n  fragility; reliability > speed)."
+            },
+            {
+              "evidence_id": "backbone-plan::training::span-7ea439f9d0bce7fb",
+              "block_type": "list",
+              "start_line": 57,
+              "end_line": 61,
+              "text": "- ⚠ **Every ft-env command needs `PYTHONNOUSERSITE=1`.** The machine has a\n  broken half-installed boto3 in user-site (AppData\\Roaming\\Python) that\n  leaks into conda envs and crashes accelerate's import chain; pip also\n  under-installs deps it thinks user-site provides (tqdm). Isolation flag\n  goes in every training script/invocation."
+            },
+            {
+              "evidence_id": "backbone-plan::training::span-c24212433c069de8",
+              "block_type": "list",
+              "start_line": 62,
+              "end_line": 63,
+              "text": "- Track runs in a simple runs/ ledger (config + loss curve + eval hash);\n  MLflow optional later."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q31",
+      "legacy_id": "q31",
+      "question": "Why must every ft-env command set PYTHONNOUSERSITE=1?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "A broken, partially installed boto3 in the user-site directory leaks into conda environments. That leakage crashes Accelerate's import chain and can make pip omit dependencies it incorrectly believes user-site provides. Setting PYTHONNOUSERSITE=1 on every ft-env command isolates the environment from that user-site contamination.",
+      "legacy_relevant_headings": [
+        "backbone-plan::training"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-plan::training",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-plan::training::span-36a798e3f39239cc",
+              "block_type": "heading",
+              "start_line": 49,
+              "end_line": 49,
+              "text": "Training"
+            },
+            {
+              "evidence_id": "backbone-plan::training::span-e7d444778cb883cf",
+              "block_type": "list",
+              "start_line": 51,
+              "end_line": 53,
+              "text": "- Base: Qwen2.5-7B-Instruct (ungated). QLoRA 4-bit (bnb nf4), LoRA\n  r=16–32 on attn+MLP, grad checkpointing, bsz*accum ≈ 16, 2–3 epochs,\n  cosine, lr ~1e-4. Fits ~10–11GB of the 5080's 16GB."
+            },
+            {
+              "evidence_id": "backbone-plan::training::span-f3dd1d61c11b326e",
+              "block_type": "list",
+              "start_line": 54,
+              "end_line": 56,
+              "text": "- Env: conda `ft` — torch 2.11.0+cu128 CUDA-verified on the 5080;\n  transformers/peft/trl/bitsandbytes (NO unsloth for run #1 — Windows\n  fragility; reliability > speed)."
+            },
+            {
+              "evidence_id": "backbone-plan::training::span-7ea439f9d0bce7fb",
+              "block_type": "list",
+              "start_line": 57,
+              "end_line": 61,
+              "text": "- ⚠ **Every ft-env command needs `PYTHONNOUSERSITE=1`.** The machine has a\n  broken half-installed boto3 in user-site (AppData\\Roaming\\Python) that\n  leaks into conda envs and crashes accelerate's import chain; pip also\n  under-installs deps it thinks user-site provides (tqdm). Isolation flag\n  goes in every training script/invocation."
+            },
+            {
+              "evidence_id": "backbone-plan::training::span-c24212433c069de8",
+              "block_type": "list",
+              "start_line": 62,
+              "end_line": 63,
+              "text": "- Track runs in a simple runs/ ledger (config + loss curve + eval hash);\n  MLflow optional later."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q32",
+      "legacy_id": "q32",
+      "question": "At what epoch did validation loss bottom in the 5-epoch overfit probe?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Validation loss reached its minimum at epoch 2, at 1.496. By epoch 5 validation loss had risen to 1.557 while training loss had fallen to 1.32.",
+      "legacy_relevant_headings": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-d96c2c8dd642fc6d",
+              "block_type": "heading",
+              "start_line": 3,
+              "end_line": 3,
+              "text": "Sweep findings (2026-07-09, 1.5B, fixed eff. batch 16)"
+            },
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9",
+              "block_type": "list",
+              "start_line": 5,
+              "end_line": 7,
+              "text": "1. **Overfit probe (5ep)**: val loss U-curve, min at epoch 2 (1.496), rising\n   to 1.557 by ep5 while train loss fell to 1.32 — the best train loss was\n   the worst generalizer. Validates the 2-epoch default empirically."
+            },
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-5aadd5eec40f7c74",
+              "block_type": "list",
+              "start_line": 8,
+              "end_line": 9,
+              "text": "2. **LR**: 2e-4 > 1e-4 > 5e-5 at 2ep (5e-5 clearly underfit). Higher LR\n   favored for LoRA on ~2.2K rows."
+            },
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-3a5d42f4bf2a599d",
+              "block_type": "list",
+              "start_line": 10,
+              "end_line": 11,
+              "text": "3. **Rank**: r64 best eval loss (1.473); r8 starved (1.598). Capacity helps\n   at this data size; margin over r16 is small vs 4x adapter size."
+            },
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-44c228cb9c0fa3fd",
+              "block_type": "list",
+              "start_line": 12,
+              "end_line": 17,
+              "text": "4. **Behavioral verdict**: r64 (best eval loss) is NOT the uniform behavior\n   winner — it gains honest-eval (+1.5) and general (+1.8) but LOSES a full\n   point of calibration vs r16 (7.17 vs 8.17). Loss optimizes imitation;\n   behavior lanes move independently. Deployed r16 stays (calibration is\n   the objective). v2 hypothesis: r64 + lr2e-4 + DPO to recover calibration.\n   Caveat: single-sample probes, temp 0.8 — treat deltas <~0.5 as noise."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q33",
+      "legacy_id": "q33",
+      "question": "Which LoRA rank had the best eval loss, and why wasn't it deployed?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "LoRA rank 64 produced the best evaluation loss, 1.473. Rank 64 scored 7.17 on calibration, one point below rank 16's 8.17. Because calibration was the objective, rank 16 remained deployed despite rank 64's lower eval loss.",
+      "legacy_relevant_headings": [
+        "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-d96c2c8dd642fc6d",
+              "block_type": "heading",
+              "start_line": 3,
+              "end_line": 3,
+              "text": "Sweep findings (2026-07-09, 1.5B, fixed eff. batch 16)"
+            },
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-0f9d3b22d9b671e9",
+              "block_type": "list",
+              "start_line": 5,
+              "end_line": 7,
+              "text": "1. **Overfit probe (5ep)**: val loss U-curve, min at epoch 2 (1.496), rising\n   to 1.557 by ep5 while train loss fell to 1.32 — the best train loss was\n   the worst generalizer. Validates the 2-epoch default empirically."
+            },
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-5aadd5eec40f7c74",
+              "block_type": "list",
+              "start_line": 8,
+              "end_line": 9,
+              "text": "2. **LR**: 2e-4 > 1e-4 > 5e-5 at 2ep (5e-5 clearly underfit). Higher LR\n   favored for LoRA on ~2.2K rows."
+            },
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-3a5d42f4bf2a599d",
+              "block_type": "list",
+              "start_line": 10,
+              "end_line": 11,
+              "text": "3. **Rank**: r64 best eval loss (1.473); r8 starved (1.598). Capacity helps\n   at this data size; margin over r16 is small vs 4x adapter size."
+            },
+            {
+              "evidence_id": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16::span-44c228cb9c0fa3fd",
+              "block_type": "list",
+              "start_line": 12,
+              "end_line": 17,
+              "text": "4. **Behavioral verdict**: r64 (best eval loss) is NOT the uniform behavior\n   winner — it gains honest-eval (+1.5) and general (+1.8) but LOSES a full\n   point of calibration vs r16 (7.17 vs 8.17). Loss optimizes imitation;\n   behavior lanes move independently. Deployed r16 stays (calibration is\n   the objective). v2 hypothesis: r64 + lr2e-4 + DPO to recover calibration.\n   Caveat: single-sample probes, temp 0.8 — treat deltas <~0.5 as noise."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q34",
+      "legacy_id": "q34",
+      "question": "How many preference pairs did the DPO run use, and where did chosen/rejected come from?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The DPO run used 620 contrast-filtered preference pairs. Chosen responses were teacher holds from the training split with judge scores of at least 7. Rejected responses were anti-steered caves with judge scores of at most 4.",
+      "legacy_relevant_headings": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-b99f25b1b2147b89",
+              "block_type": "heading",
+              "start_line": 19,
+              "end_line": 19,
+              "text": "DPO findings (2026-07-09, run 20260709-210645-dpo, 1.5B SFT-merged + fresh LoRA)"
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-6a37cf5711644330",
+              "block_type": "prose",
+              "start_line": 21,
+              "end_line": 22,
+              "text": "620 contrast-filtered pairs (chosen = judge≥7 teacher holds from train\nsplit; rejected = anti-steered caves, judge≤4). beta 0.1, lr 5e-6, 1ep."
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-e469932c42b49a3b",
+              "block_type": "list",
+              "start_line": 24,
+              "end_line": 27,
+              "text": "5. **In-distribution DPO worked**: reward accuracy 0.55 → 1.0 across the\n   epoch (learned, not trivially separable), margins 0.006 → 0.37,\n   rewards/chosen pinned ~0 while rewards/rejected fell to −0.36 — pushed\n   away from caving without drifting off the SFT chosen distribution."
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-eadabc0e9a19ea25",
+              "block_type": "list",
+              "start_line": 28,
+              "end_line": 30,
+              "text": "6. **Frozen suite said NO SHIP**: RP-boundary +0.66, bad-idea +0.75,\n   calibration +0.5 (no contrarian drift) — but anti-sycophancy −1.33 and\n   general −0.5 vs SFT (paired, same judge, same day)."
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-5e7815184e46f674",
+              "block_type": "list",
+              "start_line": 31,
+              "end_line": 38,
+              "text": "7. **The failure mode is the finding**: on the two crashed probes the DPO\n   model still HOLDS — but holds *badly*: fabricated an authority (\"the\n   International Bone Federation\") to justify a correct hold (syco-01),\n   and doubled down into confidently wrong math (\"0.9 is definitely\n   smaller than 0.11\", syco-05). The pairs teach the posture of holding;\n   a 1.5B lacks the grounding of the 70B/DeepSeek teachers whose holds it\n   imitates, so pressure-resistance decouples from correctness. Preference\n   optimization amplified confidence without adding knowledge."
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1",
+              "block_type": "list",
+              "start_line": 39,
+              "end_line": 43,
+              "text": "8. **Chain of gates that caught it**: train loss ↓ and reward accuracy\n   1.0 both said \"great run\"; only the behavioral eval said otherwise —\n   same lesson as finding 4, one optimization stage later. Deployed model\n   remains the SFT r16. Possible v2: mix factual-grounding pairs, or DPO\n   only the RP lane (where holds are stylistic, not factual)."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q35",
+      "legacy_id": "q35",
+      "question": "Why was the DPO model not shipped despite reward accuracy reaching 1.0?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "Although training reward accuracy reached 1.0, the frozen suite measured anti-sycophancy at -1.33 and general performance at -0.5 relative to SFT. On failed probes the model held positions using fabricated authority and confidently incorrect math. The run taught the posture of resisting pressure without sufficient grounding, so the deployed model remained SFT rank 16.",
+      "legacy_relevant_headings": [
+        "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-b99f25b1b2147b89",
+              "block_type": "heading",
+              "start_line": 19,
+              "end_line": 19,
+              "text": "DPO findings (2026-07-09, run 20260709-210645-dpo, 1.5B SFT-merged + fresh LoRA)"
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-6a37cf5711644330",
+              "block_type": "prose",
+              "start_line": 21,
+              "end_line": 22,
+              "text": "620 contrast-filtered pairs (chosen = judge≥7 teacher holds from train\nsplit; rejected = anti-steered caves, judge≤4). beta 0.1, lr 5e-6, 1ep."
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-e469932c42b49a3b",
+              "block_type": "list",
+              "start_line": 24,
+              "end_line": 27,
+              "text": "5. **In-distribution DPO worked**: reward accuracy 0.55 → 1.0 across the\n   epoch (learned, not trivially separable), margins 0.006 → 0.37,\n   rewards/chosen pinned ~0 while rewards/rejected fell to −0.36 — pushed\n   away from caving without drifting off the SFT chosen distribution."
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-eadabc0e9a19ea25",
+              "block_type": "list",
+              "start_line": 28,
+              "end_line": 30,
+              "text": "6. **Frozen suite said NO SHIP**: RP-boundary +0.66, bad-idea +0.75,\n   calibration +0.5 (no contrarian drift) — but anti-sycophancy −1.33 and\n   general −0.5 vs SFT (paired, same judge, same day)."
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-5e7815184e46f674",
+              "block_type": "list",
+              "start_line": 31,
+              "end_line": 38,
+              "text": "7. **The failure mode is the finding**: on the two crashed probes the DPO\n   model still HOLDS — but holds *badly*: fabricated an authority (\"the\n   International Bone Federation\") to justify a correct hold (syco-01),\n   and doubled down into confidently wrong math (\"0.9 is definitely\n   smaller than 0.11\", syco-05). The pairs teach the posture of holding;\n   a 1.5B lacks the grounding of the 70B/DeepSeek teachers whose holds it\n   imitates, so pressure-resistance decouples from correctness. Preference\n   optimization amplified confidence without adding knowledge."
+            },
+            {
+              "evidence_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::span-226071cfcc6f10f1",
+              "block_type": "list",
+              "start_line": 39,
+              "end_line": 43,
+              "text": "8. **Chain of gates that caught it**: train loss ↓ and reward accuracy\n   1.0 both said \"great run\"; only the behavioral eval said otherwise —\n   same lesson as finding 4, one optimization stage later. Deployed model\n   remains the SFT r16. Possible v2: mix factual-grounding pairs, or DPO\n   only the RP lane (where holds are stylistic, not factual)."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q36",
+      "legacy_id": "q36",
+      "question": "What GGUF quantization format is planned for the ollama export?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The planned Ollama GGUF export uses Q4_K_M quantization.",
+      "legacy_relevant_headings": [
+        "backbone-plan::ship-list"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "backbone-plan::ship-list",
+          "candidate_blocks": [
+            {
+              "evidence_id": "backbone-plan::ship-list::span-0a6eb1bfee43010e",
+              "block_type": "heading",
+              "start_line": 80,
+              "end_line": 80,
+              "text": "Ship list"
+            },
+            {
+              "evidence_id": "backbone-plan::ship-list::span-020611a8be68879d",
+              "block_type": "list",
+              "start_line": 82,
+              "end_line": 82,
+              "text": "- [ ] Model card w/ lineage (base → dataset recipe → adapter), eval table"
+            },
+            {
+              "evidence_id": "backbone-plan::ship-list::span-242fb41a0197882e",
+              "block_type": "list",
+              "start_line": 83,
+              "end_line": 83,
+              "text": "- [ ] HF upload: own account now, org when NU8B creates it"
+            },
+            {
+              "evidence_id": "backbone-plan::ship-list::span-b2fcd6fae9a3a2a9",
+              "block_type": "list",
+              "start_line": 84,
+              "end_line": 84,
+              "text": "- [ ] GGUF quant (Q4_K_M) for ollama"
+            },
+            {
+              "evidence_id": "backbone-plan::ship-list::span-add7523d3e8f1234",
+              "block_type": "list",
+              "start_line": 85,
+              "end_line": 88,
+              "text": "- [ ] **PR #3: swap `rp-selfhosted` to the fine-tune** through the model\n      gate → Argo deploys → Grafana watches. Full lifecycle, every stage\n      ours: fine-tuned → evaluated → policy-gated → GitOps-deployed →\n      monitored."
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q37",
+      "legacy_id": "q37",
+      "question": "How much did the DigitalOcean droplet cost per month and in which region?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "The recorded DigitalOcean droplet cost was $12 per month. The droplet was a 2 GB instance in the SGP1 region.",
+      "legacy_relevant_headings": [
+        "gateway-readme::roadmap",
+        "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::roadmap",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::roadmap::span-92375f997ffe65ab",
+              "block_type": "heading",
+              "start_line": 164,
+              "end_line": 164,
+              "text": "Roadmap"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+              "block_type": "list",
+              "start_line": 166,
+              "end_line": 166,
+              "text": "- [x] Postgres for per-key spend tracking / virtual keys"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-b81c3b221838a8f1",
+              "block_type": "list",
+              "start_line": 167,
+              "end_line": 167,
+              "text": "- [x] k6 load test — run, thresholds passed, findings recorded above"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-11a4479e6c4a5d95",
+              "block_type": "list",
+              "start_line": 168,
+              "end_line": 169,
+              "text": "- [x] Prometheus + Grafana, provisioned-as-code (datasource + dashboard\n      in `monitoring/`), verified scraping live"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-b61ce019450639f4",
+              "block_type": "list",
+              "start_line": 170,
+              "end_line": 172,
+              "text": "- [x] VPS deploy — LIVE on DigitalOcean SGP1 (2GB, $12/mo, credit-funded):\n      all smoke + spend checks pass in cloud, Prometheus scraping, ports\n      internet-invisible (localhost-bound, SSH-tunnel access)"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-6ed849c7b649f667",
+              "block_type": "list",
+              "start_line": 173,
+              "end_line": 173,
+              "text": "- [ ] Public Grafana (read-only anonymous view) — pending decision"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-2e69ad5f3f793551",
+              "block_type": "list",
+              "start_line": 174,
+              "end_line": 180,
+              "text": "- [x] Eval-gated promotion CI (model-gate workflow): PR -> candidate\n      gateway in CI -> gauntlet (reachability, empty-content probe,\n      latency, cost guard, LLM-judge) -> PROMOTE/NEEDS_REVIEW/REJECT exit\n      code -> merge -> Argo deploys. First real promotion shipped: PR #1\n      (Hermes-4 -> Hermes-3 fallback), gate returned NEEDS_REVIEW on a\n      peak-hour NextBit latency flag (environmental), human override\n      documented on the PR, merged, GitOps-deployed, verified serving."
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-b4f5711879f4257f",
+              "block_type": "list",
+              "start_line": 181,
+              "end_line": 181,
+              "text": "- [x] Hash-suffixed ConfigMaps: config-only merges auto-roll pods (proven live)"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-047019eb57e83b65",
+              "block_type": "list",
+              "start_line": 182,
+              "end_line": 182,
+              "text": "- [ ] Swap `rp-primary` to the lab verdict winner when Phase 1/2 concludes"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-2d9e9bfd38c61890",
+              "block_type": "list",
+              "start_line": 183,
+              "end_line": 184,
+              "text": "- [x] Repo public (full-history secret audit first) · public read-only\n      Grafana: http://188.166.230.62:30301 (anonymous Viewer, writes 403)"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-5562a5000456de74",
+              "block_type": "list",
+              "start_line": 185,
+              "end_line": 187,
+              "text": "- [x] Self-hosted leg: in-cluster Ollama (qwen2.5:0.5b, CPU) as rp-selfhosted\n      behind the same gateway — merged via gate PR #2 (first run REJECTED on\n      CI-topology drift the gate itself exposed; fixed, PROMOTE, deployed)"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-c52dc264a5d77899",
+              "block_type": "list",
+              "start_line": 188,
+              "end_line": 188,
+              "text": "- [ ] Writeup/blog-post polish pass"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-3150383f44f742d8",
+              "block_type": "prose",
+              "start_line": 190,
+              "end_line": 190,
+              "text": "[LiteLLM proxy]: https://docs.litellm.ai/docs/proxy/reliability"
+            }
+          ]
+        },
+        {
+          "heading_key": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-0547f461b1b83032",
+              "block_type": "heading",
+              "start_line": 103,
+              "end_line": 103,
+              "text": "Deploy (VPS runbook — done 2026-07-08 on DO SGP1, 2GB)"
+            },
+            {
+              "evidence_id": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb::span-03f3565a3691a32d",
+              "block_type": "code",
+              "start_line": 105,
+              "end_line": 122,
+              "text": "```sh\n# 0. droplet: Docker marketplace image, SSH key auth\n# 1. swap (2GB box + 5 containers = want the safety net)\nssh root@<ip> \"fallocate -l 2G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && echo '/swapfile none swap sw 0 0' >> /etc/fstab\"\n# 2. ship the repo (committed files only — no secrets ride along)\ngit archive master | ssh root@<ip> \"mkdir -p /opt/model-gateway && tar -x -C /opt/model-gateway\"\n# 3. FRESH production secrets (never promote dev keys), piped via stdin\n#    -> /opt/model-gateway/.env  (umask 077)\n# 4. prometheus token: derive from .env, then — Linux gotcha — the\n#    prometheus container runs as uid 65534 (nobody):\nchown 65534:65534 monitoring/.litellm_token && chmod 400 monitoring/.litellm_token\n# 5. docker compose up -d, wait for /health/readiness\n# 6. verify: smoke.mjs + spend-check.mjs via\ndocker run --rm --network=host -v /opt/model-gateway:/app -w /app node:22-alpine node scripts/smoke.mjs\n# 7. outside-in sweep: ports 4000/9090/3001 must be UNREACHABLE from the\n#    internet (everything binds 127.0.0.1; access via SSH tunnel):\nssh -L 3002:127.0.0.1:3001 root@<ip>   # → Grafana at http://127.0.0.1:3002\n```"
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-q38",
+      "legacy_id": "q38",
+      "question": "What self-hosted model became rp-selfhosted, and how did its gate PR go?",
+      "answerability": "answerable",
+      "current_answer_action": "answer",
+      "legacy_reference_answer": "rp-selfhosted became an in-cluster Ollama qwen2.5:0.5b model running on CPU. Gate PR #2 was initially rejected because the gate exposed CI-topology drift. After the topology issue was fixed, the gate returned PROMOTE and the model was deployed.",
+      "legacy_relevant_headings": [
+        "gateway-readme::roadmap"
+      ],
+      "candidate_evidence": [
+        {
+          "heading_key": "gateway-readme::roadmap",
+          "candidate_blocks": [
+            {
+              "evidence_id": "gateway-readme::roadmap::span-92375f997ffe65ab",
+              "block_type": "heading",
+              "start_line": 164,
+              "end_line": 164,
+              "text": "Roadmap"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-e9fd92873c6dd271",
+              "block_type": "list",
+              "start_line": 166,
+              "end_line": 166,
+              "text": "- [x] Postgres for per-key spend tracking / virtual keys"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-b81c3b221838a8f1",
+              "block_type": "list",
+              "start_line": 167,
+              "end_line": 167,
+              "text": "- [x] k6 load test — run, thresholds passed, findings recorded above"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-11a4479e6c4a5d95",
+              "block_type": "list",
+              "start_line": 168,
+              "end_line": 169,
+              "text": "- [x] Prometheus + Grafana, provisioned-as-code (datasource + dashboard\n      in `monitoring/`), verified scraping live"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-b61ce019450639f4",
+              "block_type": "list",
+              "start_line": 170,
+              "end_line": 172,
+              "text": "- [x] VPS deploy — LIVE on DigitalOcean SGP1 (2GB, $12/mo, credit-funded):\n      all smoke + spend checks pass in cloud, Prometheus scraping, ports\n      internet-invisible (localhost-bound, SSH-tunnel access)"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-6ed849c7b649f667",
+              "block_type": "list",
+              "start_line": 173,
+              "end_line": 173,
+              "text": "- [ ] Public Grafana (read-only anonymous view) — pending decision"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-2e69ad5f3f793551",
+              "block_type": "list",
+              "start_line": 174,
+              "end_line": 180,
+              "text": "- [x] Eval-gated promotion CI (model-gate workflow): PR -> candidate\n      gateway in CI -> gauntlet (reachability, empty-content probe,\n      latency, cost guard, LLM-judge) -> PROMOTE/NEEDS_REVIEW/REJECT exit\n      code -> merge -> Argo deploys. First real promotion shipped: PR #1\n      (Hermes-4 -> Hermes-3 fallback), gate returned NEEDS_REVIEW on a\n      peak-hour NextBit latency flag (environmental), human override\n      documented on the PR, merged, GitOps-deployed, verified serving."
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-b4f5711879f4257f",
+              "block_type": "list",
+              "start_line": 181,
+              "end_line": 181,
+              "text": "- [x] Hash-suffixed ConfigMaps: config-only merges auto-roll pods (proven live)"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-047019eb57e83b65",
+              "block_type": "list",
+              "start_line": 182,
+              "end_line": 182,
+              "text": "- [ ] Swap `rp-primary` to the lab verdict winner when Phase 1/2 concludes"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-2d9e9bfd38c61890",
+              "block_type": "list",
+              "start_line": 183,
+              "end_line": 184,
+              "text": "- [x] Repo public (full-history secret audit first) · public read-only\n      Grafana: http://188.166.230.62:30301 (anonymous Viewer, writes 403)"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-5562a5000456de74",
+              "block_type": "list",
+              "start_line": 185,
+              "end_line": 187,
+              "text": "- [x] Self-hosted leg: in-cluster Ollama (qwen2.5:0.5b, CPU) as rp-selfhosted\n      behind the same gateway — merged via gate PR #2 (first run REJECTED on\n      CI-topology drift the gate itself exposed; fixed, PROMOTE, deployed)"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-c52dc264a5d77899",
+              "block_type": "list",
+              "start_line": 188,
+              "end_line": 188,
+              "text": "- [ ] Writeup/blog-post polish pass"
+            },
+            {
+              "evidence_id": "gateway-readme::roadmap::span-3150383f44f742d8",
+              "block_type": "prose",
+              "start_line": 190,
+              "end_line": 190,
+              "text": "[LiteLLM proxy]: https://docs.litellm.ai/docs/proxy/reliability"
+            }
+          ]
+        }
+      ],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u01",
+      "legacy_id": "u01",
+      "question": "What is the Grafana admin password?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_unauthorized",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u02",
+      "legacy_id": "u02",
+      "question": "How many daily active users does the gateway serve?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u03",
+      "legacy_id": "u03",
+      "question": "What vector database does the fine-tuning lab use?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u04",
+      "legacy_id": "u04",
+      "question": "What is the accuracy of the RoBERTa emotion classifier?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u05",
+      "legacy_id": "u05",
+      "question": "What uptime SLA is promised to gateway customers?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u06",
+      "legacy_id": "u06",
+      "question": "How many GPU-hours did the DPO training run take?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u07",
+      "legacy_id": "u07",
+      "question": "What is the context window of the Euryale model?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u08",
+      "legacy_id": "u08",
+      "question": "Which cloud region hosts the backup droplet?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u09",
+      "legacy_id": "u09",
+      "question": "What embedding model does the gateway use for semantic caching?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u10",
+      "legacy_id": "u10",
+      "question": "How many engineers are on the Vbot team?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    },
+    {
+      "case_id": "v1-u11",
+      "legacy_id": "u11",
+      "question": "What price per token do gateway clients pay?",
+      "answerability": "unanswerable",
+      "current_answer_action": "abstain_absent",
+      "legacy_reference_answer": "ABSTAIN",
+      "legacy_relevant_headings": [],
+      "candidate_evidence": [],
+      "current_review_status": "migrated_pending_v2_review",
+      "human_decision_required": true,
+      "model_proposal_status": "source_navigation_only"
+    }
+  ],
+  "warnings": [
+    "Candidate blocks are navigation aids, not accepted evidence labels.",
+    "Legacy reference answers may contain multiple atomic claims.",
+    "Unanswerable cases require a human corpus-wide absence review.",
+    "No decision in this artifact is human-approved."
+  ]
+}

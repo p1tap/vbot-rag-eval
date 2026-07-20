@@ -1,0 +1,1005 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "vbot-rag-v2",
+  "dataset_version": "2.0.0-dev.5",
+  "dataset_fingerprint_sha256": "8ee20cdad3bf0f1dfc0bfe0e89e868b4d38c72481feda6cd0151b581d61581d6",
+  "corpus_id": "vbot-public-safe",
+  "corpus_version": "1.0.0",
+  "corpus_fingerprint_sha256": "dff71736dde3ab944cf55400a02707f802702a7f6a265b5b47e24fe8a677f4fe",
+  "evidence_catalog_sha256": "c15148e0aa42d867edbb6698c1b6f112f8767f557a8fdc172f497d90f4edf326",
+  "summary": {
+    "documents": 3,
+    "evidence_blocks": 99,
+    "headings": 19,
+    "headings_with_current_cases": 19,
+    "cases": 162,
+    "approved_cases": 162,
+    "span_labelled_answerable_cases": 128,
+    "target_lanes": 15,
+    "lanes_with_approved_seed": 15,
+    "provisional_total_seed_gap": 0
+  },
+  "documents": [
+    {
+      "document_id": "backbone-findings",
+      "status": "active",
+      "access_class": "public",
+      "evidence_blocks": 11,
+      "block_types": {
+        "heading": 2,
+        "list": 8,
+        "prose": 1
+      },
+      "headings": [
+        {
+          "heading_key": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+          "heading_path": [
+            "DPO findings (2026-07-09, run 20260709-210645-dpo, 1.5B SFT-merged + fresh LoRA)"
+          ],
+          "evidence_blocks": 6,
+          "block_types": {
+            "heading": 1,
+            "list": 4,
+            "prose": 1
+          },
+          "linked_case_ids": [
+            "v1-q34",
+            "v1-q35",
+            "v2-d017",
+            "v2-d021",
+            "v2-d030",
+            "v2-d039",
+            "v2-d046",
+            "v2-d051",
+            "v2a-ai-006",
+            "v2a-ai-008",
+            "v2r-ai-030",
+            "v2r-ai-031",
+            "v2r-ai-032",
+            "v2r-ai-033",
+            "v2r-ai-034"
+          ],
+          "approved_case_ids": [
+            "v1-q34",
+            "v1-q35",
+            "v2-d017",
+            "v2-d021",
+            "v2-d030",
+            "v2-d039",
+            "v2-d046",
+            "v2-d051",
+            "v2a-ai-006",
+            "v2a-ai-008",
+            "v2r-ai-030",
+            "v2r-ai-031",
+            "v2r-ai-032",
+            "v2r-ai-033",
+            "v2r-ai-034"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q34",
+            "v1-q35",
+            "v2-d017",
+            "v2-d021",
+            "v2-d030",
+            "v2-d039",
+            "v2-d046",
+            "v2-d051",
+            "v2a-ai-006",
+            "v2a-ai-008",
+            "v2r-ai-030",
+            "v2r-ai-031",
+            "v2r-ai-032",
+            "v2r-ai-033",
+            "v2r-ai-034"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "backbone-findings::sweep-findings-2026-07-09-1-5b-fixed-eff-batch-16",
+          "heading_path": [
+            "Sweep findings (2026-07-09, 1.5B, fixed eff. batch 16)"
+          ],
+          "evidence_blocks": 5,
+          "block_types": {
+            "heading": 1,
+            "list": 4
+          },
+          "linked_case_ids": [
+            "v1-q32",
+            "v1-q33",
+            "v2-d019",
+            "v2-d045",
+            "v2-d051",
+            "v2a-ai-005",
+            "v2r-ai-026",
+            "v2r-ai-027",
+            "v2r-ai-028",
+            "v2r-ai-029"
+          ],
+          "approved_case_ids": [
+            "v1-q32",
+            "v1-q33",
+            "v2-d019",
+            "v2-d045",
+            "v2-d051",
+            "v2a-ai-005",
+            "v2r-ai-026",
+            "v2r-ai-027",
+            "v2r-ai-028",
+            "v2r-ai-029"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q32",
+            "v1-q33",
+            "v2-d019",
+            "v2-d045",
+            "v2-d051",
+            "v2a-ai-005",
+            "v2r-ai-026",
+            "v2r-ai-027",
+            "v2r-ai-028",
+            "v2r-ai-029"
+          ],
+          "has_current_case": true
+        }
+      ],
+      "headings_total": 2,
+      "headings_with_current_cases": 2,
+      "headings_without_current_cases": []
+    },
+    {
+      "document_id": "backbone-plan",
+      "status": "active",
+      "access_class": "public",
+      "evidence_blocks": 35,
+      "block_types": {
+        "heading": 8,
+        "list": 23,
+        "prose": 3,
+        "table": 1
+      },
+      "headings": [
+        {
+          "heading_key": "backbone-plan::behavior-families-dataset-lanes",
+          "heading_path": [
+            "FT-Lab — \"Backbone\" Fine-Tune Plan",
+            "Behavior families (dataset lanes)"
+          ],
+          "evidence_blocks": 3,
+          "block_types": {
+            "heading": 1,
+            "prose": 1,
+            "table": 1
+          },
+          "linked_case_ids": [
+            "v1-q28"
+          ],
+          "approved_case_ids": [
+            "v1-q28"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q28"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "backbone-plan::dataset-spec",
+          "heading_path": [
+            "FT-Lab — \"Backbone\" Fine-Tune Plan",
+            "Dataset spec"
+          ],
+          "evidence_blocks": 7,
+          "block_types": {
+            "heading": 1,
+            "list": 6
+          },
+          "linked_case_ids": [
+            "v1-q29",
+            "v2-d011",
+            "v2-d015",
+            "v2r-ai-003",
+            "v2r-ai-014",
+            "v2r-ai-015",
+            "v2r-ai-016",
+            "v2r-ai-017"
+          ],
+          "approved_case_ids": [
+            "v1-q29",
+            "v2-d011",
+            "v2-d015",
+            "v2r-ai-003",
+            "v2r-ai-014",
+            "v2r-ai-015",
+            "v2r-ai-016",
+            "v2r-ai-017"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q29",
+            "v2-d011",
+            "v2-d015",
+            "v2r-ai-003",
+            "v2r-ai-014",
+            "v2r-ai-015",
+            "v2r-ai-016",
+            "v2r-ai-017"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "backbone-plan::evaluation-the-credibility-section",
+          "heading_path": [
+            "FT-Lab — \"Backbone\" Fine-Tune Plan",
+            "Evaluation (the credibility section)"
+          ],
+          "evidence_blocks": 6,
+          "block_types": {
+            "heading": 1,
+            "list": 5
+          },
+          "linked_case_ids": [
+            "v2-d001",
+            "v2-d010",
+            "v2-d012",
+            "v2-d016",
+            "v2-d018",
+            "v2-d051",
+            "v2r-ai-022"
+          ],
+          "approved_case_ids": [
+            "v2-d001",
+            "v2-d010",
+            "v2-d012",
+            "v2-d016",
+            "v2-d018",
+            "v2-d051",
+            "v2r-ai-022"
+          ],
+          "span_labelled_case_ids": [
+            "v2-d001",
+            "v2-d010",
+            "v2-d012",
+            "v2-d016",
+            "v2-d018",
+            "v2-d051",
+            "v2r-ai-022"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "backbone-plan::ft-lab-backbone-fine-tune-plan",
+          "heading_path": [
+            "FT-Lab — \"Backbone\" Fine-Tune Plan"
+          ],
+          "evidence_blocks": 3,
+          "block_types": {
+            "heading": 1,
+            "prose": 2
+          },
+          "linked_case_ids": [
+            "v1-q27",
+            "v2-d010",
+            "v2r-ai-013",
+            "v2r-ai-041"
+          ],
+          "approved_case_ids": [
+            "v1-q27",
+            "v2-d010",
+            "v2r-ai-013",
+            "v2r-ai-041"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q27",
+            "v2-d010",
+            "v2r-ai-013",
+            "v2r-ai-041"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "backbone-plan::ship-list",
+          "heading_path": [
+            "FT-Lab — \"Backbone\" Fine-Tune Plan",
+            "Ship list"
+          ],
+          "evidence_blocks": 5,
+          "block_types": {
+            "heading": 1,
+            "list": 4
+          },
+          "linked_case_ids": [
+            "v1-q36",
+            "v2-d013",
+            "v2-d014",
+            "v2-d050",
+            "v2a-ai-004",
+            "v2r-ai-023",
+            "v2r-ai-024"
+          ],
+          "approved_case_ids": [
+            "v1-q36",
+            "v2-d013",
+            "v2-d014",
+            "v2-d050",
+            "v2a-ai-004",
+            "v2r-ai-023",
+            "v2r-ai-024"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q36",
+            "v2-d013",
+            "v2-d014",
+            "v2-d050",
+            "v2a-ai-004",
+            "v2r-ai-023",
+            "v2r-ai-024"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "backbone-plan::status",
+          "heading_path": [
+            "FT-Lab — \"Backbone\" Fine-Tune Plan",
+            "Status"
+          ],
+          "evidence_blocks": 2,
+          "block_types": {
+            "heading": 1,
+            "list": 1
+          },
+          "linked_case_ids": [
+            "v2-d002",
+            "v2r-ai-025"
+          ],
+          "approved_case_ids": [
+            "v2-d002",
+            "v2r-ai-025"
+          ],
+          "span_labelled_case_ids": [
+            "v2-d002",
+            "v2r-ai-025"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "backbone-plan::training",
+          "heading_path": [
+            "FT-Lab — \"Backbone\" Fine-Tune Plan",
+            "Training"
+          ],
+          "evidence_blocks": 5,
+          "block_types": {
+            "heading": 1,
+            "list": 4
+          },
+          "linked_case_ids": [
+            "v1-q30",
+            "v1-q31",
+            "v2-d008",
+            "v2-d013",
+            "v2-d040",
+            "v2a-ai-004",
+            "v2r-ai-018",
+            "v2r-ai-019",
+            "v2r-ai-020",
+            "v2r-ai-021"
+          ],
+          "approved_case_ids": [
+            "v1-q30",
+            "v1-q31",
+            "v2-d008",
+            "v2-d013",
+            "v2-d040",
+            "v2a-ai-004",
+            "v2r-ai-018",
+            "v2r-ai-019",
+            "v2r-ai-020",
+            "v2r-ai-021"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q30",
+            "v1-q31",
+            "v2-d008",
+            "v2-d013",
+            "v2-d040",
+            "v2a-ai-004",
+            "v2r-ai-018",
+            "v2r-ai-019",
+            "v2r-ai-020",
+            "v2r-ai-021"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "backbone-plan::why-this-target-and-not-generic-rp-style",
+          "heading_path": [
+            "FT-Lab — \"Backbone\" Fine-Tune Plan",
+            "Why this target (and not generic RP style)"
+          ],
+          "evidence_blocks": 4,
+          "block_types": {
+            "heading": 1,
+            "list": 3
+          },
+          "linked_case_ids": [
+            "v2-d017",
+            "v2r-ai-001",
+            "v2r-ai-002"
+          ],
+          "approved_case_ids": [
+            "v2-d017",
+            "v2r-ai-001",
+            "v2r-ai-002"
+          ],
+          "span_labelled_case_ids": [
+            "v2-d017",
+            "v2r-ai-001",
+            "v2r-ai-002"
+          ],
+          "has_current_case": true
+        }
+      ],
+      "headings_total": 8,
+      "headings_with_current_cases": 8,
+      "headings_without_current_cases": []
+    },
+    {
+      "document_id": "gateway-readme",
+      "status": "active",
+      "access_class": "public",
+      "evidence_blocks": 53,
+      "block_types": {
+        "code": 6,
+        "heading": 9,
+        "list": 28,
+        "prose": 10
+      },
+      "headings": [
+        {
+          "heading_key": "gateway-readme::deploy-vps-runbook-done-2026-07-08-on-do-sgp1-2gb",
+          "heading_path": [
+            "Vbot Model Gateway",
+            "Deploy (VPS runbook — done 2026-07-08 on DO SGP1, 2GB)"
+          ],
+          "evidence_blocks": 2,
+          "block_types": {
+            "code": 1,
+            "heading": 1
+          },
+          "linked_case_ids": [
+            "v1-q17",
+            "v1-q18"
+          ],
+          "approved_case_ids": [
+            "v1-q17",
+            "v1-q18"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q17",
+            "v1-q18"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "gateway-readme::gitops-argo-cd-live-since-2026-07-08",
+          "heading_path": [
+            "Vbot Model Gateway",
+            "GitOps (Argo CD — live since 2026-07-08)"
+          ],
+          "evidence_blocks": 7,
+          "block_types": {
+            "heading": 1,
+            "list": 5,
+            "prose": 1
+          },
+          "linked_case_ids": [
+            "v1-q23",
+            "v1-q24",
+            "v1-q25",
+            "v1-q26",
+            "v2-d004",
+            "v2-d006",
+            "v2-d007",
+            "v2-d050",
+            "v2-d052",
+            "v2a-ai-002"
+          ],
+          "approved_case_ids": [
+            "v1-q23",
+            "v1-q24",
+            "v1-q25",
+            "v1-q26",
+            "v2-d004",
+            "v2-d006",
+            "v2-d007",
+            "v2-d050",
+            "v2-d052",
+            "v2a-ai-002"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q23",
+            "v1-q24",
+            "v1-q25",
+            "v1-q26",
+            "v2-d004",
+            "v2-d006",
+            "v2-d007",
+            "v2-d050",
+            "v2-d052",
+            "v2a-ai-002"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "gateway-readme::kubernetes-current-production-shape-migrated-2026-07-08",
+          "heading_path": [
+            "Vbot Model Gateway",
+            "Kubernetes (current production shape — migrated 2026-07-08)"
+          ],
+          "evidence_blocks": 4,
+          "block_types": {
+            "code": 1,
+            "heading": 1,
+            "prose": 2
+          },
+          "linked_case_ids": [
+            "v1-q19",
+            "v1-q20",
+            "v1-q21",
+            "v1-q22",
+            "v2-d027",
+            "v2-d033",
+            "v2-d036",
+            "v2-d038",
+            "v2-d044",
+            "v2a-ai-007"
+          ],
+          "approved_case_ids": [
+            "v1-q19",
+            "v1-q20",
+            "v1-q21",
+            "v1-q22",
+            "v2-d027",
+            "v2-d033",
+            "v2-d036",
+            "v2-d038",
+            "v2-d044",
+            "v2a-ai-007"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q19",
+            "v1-q20",
+            "v1-q21",
+            "v1-q22",
+            "v2-d027",
+            "v2-d033",
+            "v2-d036",
+            "v2-d038",
+            "v2-d044",
+            "v2a-ai-007"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+          "heading_path": [
+            "Vbot Model Gateway",
+            "Measured findings (2026-07-08, k6 through the gateway → OpenRouter)"
+          ],
+          "evidence_blocks": 6,
+          "block_types": {
+            "heading": 1,
+            "list": 5
+          },
+          "linked_case_ids": [
+            "v1-q09",
+            "v1-q10",
+            "v1-q11",
+            "v1-q12",
+            "v1-q13",
+            "v1-q14",
+            "v2-d020",
+            "v2a-ai-001",
+            "v2r-ai-036"
+          ],
+          "approved_case_ids": [
+            "v1-q09",
+            "v1-q10",
+            "v1-q11",
+            "v1-q12",
+            "v1-q13",
+            "v1-q14",
+            "v2-d020",
+            "v2a-ai-001",
+            "v2r-ai-036"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q09",
+            "v1-q10",
+            "v1-q11",
+            "v1-q12",
+            "v1-q13",
+            "v1-q14",
+            "v2-d020",
+            "v2a-ai-001",
+            "v2r-ai-036"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "gateway-readme::roadmap",
+          "heading_path": [
+            "Vbot Model Gateway",
+            "Roadmap"
+          ],
+          "evidence_blocks": 13,
+          "block_types": {
+            "heading": 1,
+            "list": 11,
+            "prose": 1
+          },
+          "linked_case_ids": [
+            "v1-q37",
+            "v1-q38",
+            "v2-d014",
+            "v2-d031",
+            "v2-d032",
+            "v2-d034",
+            "v2-d047",
+            "v2-d050",
+            "v2r-ai-006",
+            "v2r-ai-007",
+            "v2r-ai-008",
+            "v2r-ai-009",
+            "v2r-ai-010"
+          ],
+          "approved_case_ids": [
+            "v1-q37",
+            "v1-q38",
+            "v2-d014",
+            "v2-d031",
+            "v2-d032",
+            "v2-d034",
+            "v2-d047",
+            "v2-d050",
+            "v2r-ai-006",
+            "v2r-ai-007",
+            "v2r-ai-008",
+            "v2r-ai-009",
+            "v2r-ai-010"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q37",
+            "v1-q38",
+            "v2-d014",
+            "v2-d031",
+            "v2-d032",
+            "v2-d034",
+            "v2-d047",
+            "v2-d050",
+            "v2r-ai-006",
+            "v2r-ai-007",
+            "v2r-ai-008",
+            "v2r-ai-009",
+            "v2r-ai-010"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "gateway-readme::run",
+          "heading_path": [
+            "Vbot Model Gateway",
+            "Run"
+          ],
+          "evidence_blocks": 9,
+          "block_types": {
+            "code": 4,
+            "heading": 1,
+            "prose": 4
+          },
+          "linked_case_ids": [
+            "v2-d003",
+            "v2-d005",
+            "v2-d009",
+            "v2-d035",
+            "v2-d037",
+            "v2r-ai-004",
+            "v2r-ai-005",
+            "v2r-ai-042",
+            "v2r-ai-043",
+            "v2r-ai-044"
+          ],
+          "approved_case_ids": [
+            "v2-d003",
+            "v2-d005",
+            "v2-d009",
+            "v2-d035",
+            "v2-d037",
+            "v2r-ai-004",
+            "v2r-ai-005",
+            "v2r-ai-042",
+            "v2r-ai-043",
+            "v2r-ai-044"
+          ],
+          "span_labelled_case_ids": [
+            "v2-d003",
+            "v2-d005",
+            "v2-d009",
+            "v2-d035",
+            "v2-d037",
+            "v2r-ai-004",
+            "v2r-ai-005",
+            "v2r-ai-042",
+            "v2r-ai-043",
+            "v2r-ai-044"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "gateway-readme::vbot-model-gateway",
+          "heading_path": [
+            "Vbot Model Gateway"
+          ],
+          "evidence_blocks": 3,
+          "block_types": {
+            "heading": 1,
+            "prose": 2
+          },
+          "linked_case_ids": [
+            "v1-q01",
+            "v1-q02",
+            "v1-q03",
+            "v2-d016",
+            "v2-d026",
+            "v2-d052",
+            "v2r-ai-035"
+          ],
+          "approved_case_ids": [
+            "v1-q01",
+            "v1-q02",
+            "v1-q03",
+            "v2-d016",
+            "v2-d026",
+            "v2-d052",
+            "v2r-ai-035"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q01",
+            "v1-q02",
+            "v1-q03",
+            "v2-d016",
+            "v2-d026",
+            "v2-d052",
+            "v2r-ai-035"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "gateway-readme::what-it-does-today",
+          "heading_path": [
+            "Vbot Model Gateway",
+            "What it does today"
+          ],
+          "evidence_blocks": 6,
+          "block_types": {
+            "heading": 1,
+            "list": 5
+          },
+          "linked_case_ids": [
+            "v1-q04",
+            "v1-q05",
+            "v1-q06",
+            "v1-q07",
+            "v1-q08",
+            "v2r-ai-037",
+            "v2r-ai-038",
+            "v2r-ai-039",
+            "v2r-ai-040"
+          ],
+          "approved_case_ids": [
+            "v1-q04",
+            "v1-q05",
+            "v1-q06",
+            "v1-q07",
+            "v1-q08",
+            "v2r-ai-037",
+            "v2r-ai-038",
+            "v2r-ai-039",
+            "v2r-ai-040"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q04",
+            "v1-q05",
+            "v1-q06",
+            "v1-q07",
+            "v1-q08",
+            "v2r-ai-037",
+            "v2r-ai-038",
+            "v2r-ai-039",
+            "v2r-ai-040"
+          ],
+          "has_current_case": true
+        },
+        {
+          "heading_key": "gateway-readme::what-it-does-today-cont",
+          "heading_path": [
+            "Vbot Model Gateway",
+            "What it does today (cont.)"
+          ],
+          "evidence_blocks": 3,
+          "block_types": {
+            "heading": 1,
+            "list": 2
+          },
+          "linked_case_ids": [
+            "v1-q15",
+            "v1-q16",
+            "v2-d015",
+            "v2-d052"
+          ],
+          "approved_case_ids": [
+            "v1-q15",
+            "v1-q16",
+            "v2-d015",
+            "v2-d052"
+          ],
+          "span_labelled_case_ids": [
+            "v1-q15",
+            "v1-q16",
+            "v2-d015",
+            "v2-d052"
+          ],
+          "has_current_case": true
+        }
+      ],
+      "headings_total": 9,
+      "headings_with_current_cases": 9,
+      "headings_without_current_cases": []
+    }
+  ],
+  "lanes": [
+    {
+      "lane": "single_hop",
+      "provisional_seed_minimum": 3,
+      "current_cases": 31,
+      "approved_cases": 31,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "exact_identifier",
+      "provisional_seed_minimum": 3,
+      "current_cases": 24,
+      "approved_cases": 24,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "multi_section",
+      "provisional_seed_minimum": 3,
+      "current_cases": 11,
+      "approved_cases": 11,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "multi_document",
+      "provisional_seed_minimum": 3,
+      "current_cases": 4,
+      "approved_cases": 4,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "comparison_aggregation",
+      "provisional_seed_minimum": 3,
+      "current_cases": 16,
+      "approved_cases": 16,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "unanswerable",
+      "provisional_seed_minimum": 3,
+      "current_cases": 10,
+      "approved_cases": 10,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "false_premise",
+      "provisional_seed_minimum": 3,
+      "current_cases": 8,
+      "approved_cases": 8,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "hard_negative",
+      "provisional_seed_minimum": 3,
+      "current_cases": 13,
+      "approved_cases": 13,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "temporal_conflict",
+      "provisional_seed_minimum": 3,
+      "current_cases": 8,
+      "approved_cases": 8,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "structured_content",
+      "provisional_seed_minimum": 3,
+      "current_cases": 13,
+      "approved_cases": 13,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "noisy_user",
+      "provisional_seed_minimum": 3,
+      "current_cases": 3,
+      "approved_cases": 3,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "prompt_injection",
+      "provisional_seed_minimum": 3,
+      "current_cases": 7,
+      "approved_cases": 7,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "multi_turn",
+      "provisional_seed_minimum": 3,
+      "current_cases": 3,
+      "approved_cases": 3,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "authorization",
+      "provisional_seed_minimum": 3,
+      "current_cases": 8,
+      "approved_cases": 8,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    },
+    {
+      "lane": "global_corpus",
+      "provisional_seed_minimum": 3,
+      "current_cases": 3,
+      "approved_cases": 3,
+      "approved_seed_gap": 0,
+      "status": "seed_met"
+    }
+  ],
+  "legacy_lane_counts": {
+    "authorization": 8,
+    "comparison_aggregation": 16,
+    "exact_identifier": 24,
+    "false_premise": 8,
+    "global_corpus": 3,
+    "hard_negative": 13,
+    "multi_document": 4,
+    "multi_section": 11,
+    "multi_turn": 3,
+    "noisy_user": 3,
+    "prompt_injection": 7,
+    "single_hop": 31,
+    "structured_content": 13,
+    "temporal_conflict": 8,
+    "unanswerable": 10
+  },
+  "limitations": [
+    "A three-case lane seed exercises workflow only; it is not a statistical target.",
+    "Legacy intent-family IDs have not been adjudicated for independence.",
+    "Heading coverage does not imply span sufficiency or answer quality.",
+    "Model-proposed candidates do not count until human approval."
+  ]
+}

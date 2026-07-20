@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-07-19T01:16:38.969048+00:00",
+  "frozen_input_check": {
+    "identical": true,
+    "group_count": 82
+  },
+  "left": {
+    "summary_path": "reports\\v2\\judge-bakeoff-glm-5.2-baidu-retried-summary.json",
+    "profile_id": "glm-5.2-xhigh-baidu",
+    "profile_sha256": "395c4475e09b05ff10e1a2901fdbd8a9a70ffc07c591194dbeb8b00b48808c5a",
+    "records_sha256": "85e2610dbf499f4f5f9cc303d8d6d1d8b4f94ba03189383c54fb23b5422920d8",
+    "valid_task_count": 156,
+    "validity_rate": 0.8914285714285715,
+    "human_exact_agreement": 0.8269230769230769,
+    "cohen_kappa": 0.7683423165768342,
+    "false_accept_count": 0,
+    "high_critical_false_accept_count": 0,
+    "mean_latency_ms": 10123.794204301075,
+    "p95_latency_ms": 19327.899,
+    "provider_counts": {
+      "Baidu": 93
+    }
+  },
+  "right": {
+    "summary_path": "reports\\v2\\judge-bakeoff-glm-5.2-streamlake-retried-summary.json",
+    "profile_id": "glm-5.2-xhigh-streamlake",
+    "profile_sha256": "970d23d997199015945dfb1db516b780577836a1570c164af6b79f2305d4f074",
+    "records_sha256": "0627ba4d4cabfa10200be61999df9ba0fc6f04e8fc9b257dd00d61a7eb3b6f8e",
+    "valid_task_count": 156,
+    "validity_rate": 0.8914285714285715,
+    "human_exact_agreement": 0.8333333333333334,
+    "cohen_kappa": 0.7766396828019164,
+    "false_accept_count": 0,
+    "high_critical_false_accept_count": 0,
+    "mean_latency_ms": 15992.411924731183,
+    "p95_latency_ms": 32810.329,
+    "provider_counts": {
+      "StreamLake": 93
+    }
+  },
+  "paired_comparison": {
+    "comparable_task_count": 153,
+    "decision_agreement": 0.9934640522875817,
+    "decision_disagreement_count": 1,
+    "disagreements": [
+      {
+        "task_id": "v2-d010:coverage:c1",
+        "left": "missing",
+        "right": "covered"
+      }
+    ],
+    "left_only_valid_task_count": 3,
+    "right_only_valid_task_count": 3,
+    "invalid_in_both_task_count": 16
+  },
+  "qualification": {
+    "qualified_as_ordered_fallback": true,
+    "criteria": {
+      "zero_false_accepts": true,
+      "zero_high_critical_false_accepts": true,
+      "validity_not_below_primary": true,
+      "paired_decision_agreement_at_least_95_percent": true
+    },
+    "routing_order": [
+      "glm-5.2-xhigh-baidu",
+      "glm-5.2-xhigh-streamlake"
+    ],
+    "reason": "The fallback preserves safety and validity with high paired semantic agreement, but remains second because its latency is higher."
+  }
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "_id": "fixture-bridge-001",
+    "question": "Which city is home to both the museum and the university described in the evidence?",
+    "answer": "Harbor City",
+    "type": "bridge",
+    "level": "easy",
+    "supporting_facts": [["Example Museum", 0], ["Example University", 0]],
+    "context": [
+      ["Example Museum", ["The Example Museum is located in Harbor City.", "It opened in 1999."]],
+      ["Example University", ["Example University has its main campus in Harbor City."]],
+      ["Unrelated Landmark", ["The landmark stands in Mountain Town."]]
+    ]
+  },
+  {
+    "_id": "fixture-comparison-002",
+    "question": "Was the Alpha Theatre founded before the Beta Theatre?",
+    "answer": "yes",
+    "type": "comparison",
+    "level": "medium",
+    "supporting_facts": [["Alpha Theatre", 0], ["Beta Theatre", 0]],
+    "context": [
+      ["Alpha Theatre", ["Alpha Theatre was founded in 1901."]],
+      ["Beta Theatre", ["Beta Theatre was founded in 1920."]],
+      ["Gamma Theatre", ["Gamma Theatre was renovated in 2001."]]
+    ]
+  }
+]

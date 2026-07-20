@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "examples": [
+    {
+      "id": "public-gpt-k4-to-k8-pilot",
+      "expected_decision": "PROMOTE",
+      "scope": "paired_generator_or_retrieval_pilot_not_release_promotion",
+      "decision_artifact": {
+        "path": "reports/public-benchmarks/compare-pilot-gpt-k4-vs-k8.json",
+        "sha256": "8eed8f8fdf323fd73ca554f493b456c7a3e4c17a88dd7451de440d53c9ef74fb"
+      },
+      "inputs": [
+        {
+          "path": "reports/public-benchmarks/end-to-end-pilot-gpt-300.json",
+          "sha256": "0b1e8847d2164f283f5a66cf1cb605fd148eaaeb26a8bb9c8e181d621bc9772f"
+        },
+        {
+          "path": "reports/public-benchmarks/end-to-end-pilot-gpt-300-k8.json",
+          "sha256": "6b3dd4275b264459f010971c2093de67958833b1045f0de84f10313c5a528ef3"
+        }
+      ]
+    },
+    {
+      "id": "vbot-k4-to-k6-safety-regression",
+      "expected_decision": "REJECT",
+      "scope": "vbot_structured_development_comparison",
+      "decision_artifact": {
+        "path": "reports/v2/compare-k4-vs-k6.json",
+        "sha256": "c71aafcb9150ebb082411ba66af182727faca9180ad36065b5536eb53adadd12"
+      },
+      "inputs": [
+        {
+          "path": "reports/v2/structured-dev-current-k4.json",
+          "sha256": "b5e30f1d129ef79f3b9015cd06340c267fb8b7118f6d4a919addd807da8744f1"
+        },
+        {
+          "path": "reports/v2/structured-dev-current-k6.json",
+          "sha256": "bd4b13e7caffacac4146481502c2dd41d7b03f80c4a9c962bcb6fc625732290c"
+        }
+      ]
+    }
+  ]
+}
+

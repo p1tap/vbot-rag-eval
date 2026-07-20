@@ -1,0 +1,14 @@
+.git
+.github
+artifacts
+reports
+__pycache__
+**/__pycache__
+*.pyc
+*.pyo
+*.log
+.pytest_cache
+.ruff_cache
+node_modules
+review-app
+

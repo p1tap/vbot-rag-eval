@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/p1tap/vbot-rag-eval/evals/schema/human-review-decision.schema.json",
+  "title": "Vbot RAG human review decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "reviewer_id",
+    "decision",
+    "answerability_confirmed",
+    "answer_action",
+    "lane",
+    "severity",
+    "atomic_claims",
+    "acceptable_evidence_ids",
+    "distractor_evidence_ids",
+    "intent_family_id",
+    "evidence_cluster_id",
+    "notes",
+    "reviewed_at"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "case_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._:-]+$"},
+    "reviewer_id": {"type": ["string", "null"], "minLength": 1},
+    "decision": {"enum": ["pending", "approve", "revise", "reject"]},
+    "answerability_confirmed": {"type": ["boolean", "null"]},
+    "answer_action": {
+      "type": ["string", "null"],
+      "enum": [
+        null,
+        "answer",
+        "abstain_absent",
+        "clarify_ambiguous",
+        "abstain_conflict",
+        "abstain_obsolete",
+        "abstain_unauthorized",
+        "reject_injection"
+      ]
+    },
+    "lane": {"type": ["string", "null"]},
+    "severity": {
+      "type": ["string", "null"],
+      "enum": [null, "low", "standard", "high", "critical"]
+    },
+    "atomic_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "text", "evidence_ids"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^c[0-9]+$"},
+          "text": {"type": "string", "minLength": 1},
+          "evidence_ids": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "acceptable_evidence_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "distractor_evidence_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "intent_family_id": {"type": ["string", "null"]},
+    "evidence_cluster_id": {"type": ["string", "null"]},
+    "notes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "reviewed_at": {
+      "oneOf": [
+        {"type": "string", "format": "date-time"},
+        {"type": "null"}
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"decision": {"const": "approve"}}},
+      "then": {
+        "properties": {
+          "reviewer_id": {"type": "string", "minLength": 1},
+          "answerability_confirmed": {"const": true},
+          "answer_action": {"type": "string"},
+          "lane": {"type": "string", "minLength": 1},
+          "severity": {"type": "string"},
+          "intent_family_id": {"type": "string", "minLength": 1},
+          "evidence_cluster_id": {"type": "string", "minLength": 1},
+          "reviewed_at": {"type": "string", "format": "date-time"}
+        }
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,911 @@
+{
+  "schema_version": "2.0.0-dev",
+  "created_at": "2026-07-17T07:03:02.589062+00:00",
+  "release_eligible": false,
+  "development_overrides": {
+    "allow_unreviewed": false,
+    "skip_judge": true
+  },
+  "dataset": {
+    "path": "evals\\v2\\reviewed\\vbot-human-reviewed-100.jsonl",
+    "sha256": "1f7674d351e9975eff80e5e7f3f7b104ec6d216f0cd2b72484990444180e1c30",
+    "case_count": 3
+  },
+  "models": {
+    "generator": "openai/gpt-5.4",
+    "generator_profile": {
+      "id": "gpt-5.4-high",
+      "model": "openai/gpt-5.4",
+      "max_tokens": 3000,
+      "temperature": null,
+      "request_options": {
+        "reasoning": {
+          "effort": "high",
+          "exclude": true
+        },
+        "provider": {
+          "only": [
+            "openai"
+          ],
+          "allow_fallbacks": false,
+          "require_parameters": true
+        }
+      },
+      "provider_pinned": true
+    },
+    "judge": "google/gemini-2.5-flash-lite",
+    "structured_gen_max_tokens": 3000,
+    "generator_request_options": {
+      "reasoning": {
+        "effort": "high",
+        "exclude": true
+      },
+      "provider": {
+        "only": [
+          "openai"
+        ],
+        "allow_fallbacks": false,
+        "require_parameters": true
+      }
+    },
+    "judge_request_options": {
+      "provider": {
+        "require_parameters": true
+      }
+    }
+  },
+  "retrieval": {
+    "top_k": 4,
+    "unique_headings": true
+  },
+  "runtime_supported_actions": [
+    "answer",
+    "abstain_absent",
+    "abstain_unauthorized",
+    "clarify_ambiguous",
+    "reject_injection"
+  ],
+  "runtime_policy": {
+    "caller_role": "public_evaluation_user",
+    "authorized_data_classes": [
+      "public_safe_project_documentation"
+    ],
+    "forbidden_data_classes": [
+      "credentials",
+      "secrets",
+      "private_tokens"
+    ],
+    "credential_disclosure": "deny"
+  },
+  "selected_lanes": [],
+  "prompt_hashes": {
+    "structured_answer_system_sha256": "eaff8eb8e7888438253048d50b3072faccf1866dfd128aa900b54efe04d2718b",
+    "claim_support_judge_system_sha256": "3740393819c2d9a704f6839eb996f3ed6f4269e71715a003b2a1189f7238589f",
+    "claim_support_judge_response_format_sha256": "261dc7762250d3a1a451d105ce54619e6a0e7c013bad94485d6aebb4730dba90",
+    "required_coverage_judge_system_sha256": "93883628a153cfa0c6cb970b125c7bb957df419d2c46f6f384d6ea8380f73445",
+    "required_coverage_judge_response_format_sha256": "65824ad7fe61f1e00a6f8f2c064fb7a816ca4f9429c2a53a9d4a566e3cebca31",
+    "runtime_policy_sha256": "9dddccf2cc0e3ca644c12620e3f5f9fd428ebbf04cddbd89a23cc318565df368"
+  },
+  "summary": {
+    "case_count": 3,
+    "contract_valid_rate": 1.0,
+    "action_accuracy": 1.0,
+    "citation_existence_precision": 1.0,
+    "claim_valid_citation_coverage": 1.0,
+    "generated_claim_support_rate": null,
+    "required_claim_coverage_rate": null,
+    "judge_output_valid_rate": null,
+    "verifier_output_valid_rate": null,
+    "end_to_end_case_pass_rate": null,
+    "runtime_supported_case_count": 3,
+    "runtime_unsupported_case_ids": [],
+    "supported_action_accuracy": 1.0,
+    "retrieval_any_gold_evidence_rate": 1.0,
+    "retrieval_complete_gold_evidence_rate": 1.0,
+    "retrieval_required_claim_coverage": 1.0,
+    "provider_reported_cost": 0.036878,
+    "provider_reported_cost_coverage_calls": 3,
+    "failure_case_ids": [],
+    "by_lane": {
+      "single_hop": {
+        "case_count": 3,
+        "contract_valid": 3,
+        "action_correct": 3,
+        "case_pass": 0,
+        "case_pass_rate": null
+      }
+    }
+  },
+  "provenance": {
+    "schema_version": "1.0.0",
+    "run_id": "rag-eval-45d30c4e-8f74-469f-870a-a3437368afa3",
+    "captured_at_utc": "2026-07-17T07:02:34.844916+00:00",
+    "source": {
+      "commit": "9e2af0644b43bd60407ac4e2e641d7872f10564e",
+      "tree": "7072e71110253f3e839b33677b757e7c579a9213",
+      "dirty": true
+    },
+    "inputs_sha256": {
+      "config.py": "687bd54e96179c918cd060ca70f008bf4b90c68706d16d6c31f82e89cd07b494",
+      "evals/golden.jsonl": "c65ca56a5bf07834d72eed68614f0debd1625a2a12ad6e6ece42e345acd77008",
+      "corpus/backbone-findings.md": "4eb1052c0da49dadfaf70f739fd4f746306dc7cbb4876b429ca743481f668982",
+      "corpus/backbone-plan.md": "ccd3d38d674178b42be5243ccb5cbd2bc1e1d7f12ff5a1c431524cdfa521d2e3",
+      "corpus/gateway-readme.md": "3f34e3bf5dfc52878a08067f4d3d53c05179fa6a9ff36f2d6b09fd54f1ff4492"
+    },
+    "index_sha256": {
+      "index/meta.json": "336f86068533f0a847767f88bb7154cc9dd0ef2af70799e93ad29d7cb98bfe62",
+      "index/chunks.jsonl": "7df542c59a7a3e2aa4f028d9593fa29508955ca3e2c80ba0956a3220765ec5fc",
+      "index/embeddings.npy": "bbdd4d984f877e1ae4fec84cd9b60bbc013c55e505c3a928fa61ccd7deac65b8"
+    },
+    "models": {
+      "embedding": {
+        "requested_id": "intfloat/e5-small-v2",
+        "revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52"
+      },
+      "generator": {
+        "requested_id": "meta-llama/llama-3.1-8b-instruct",
+        "provider_revision": null,
+        "request_options_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      },
+      "judge": {
+        "requested_id": "google/gemini-2.5-flash-lite",
+        "provider_revision": null,
+        "request_options_sha256": "09a4549077fb02dba3fe9b028cfe94b7fde79a6d25026bd205551e12234a888c"
+      }
+    },
+    "generation": {
+      "enabled": true,
+      "route_kind": "openrouter_default",
+      "answer_prompt_sha256": "1a54aa03e8e843ea3a0b6ebebd11f566f4ba755a602263cea11d1a19998f4ea5"
+    },
+    "runtime": {
+      "python": "3.10.11 | packaged by Anaconda, Inc. | (main, May 16 2023, 00:55:32) [MSC v.1916 64 bit (AMD64)]",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "machine": "AMD64",
+      "dependencies": {
+        "huggingface-hub": "0.36.0",
+        "numpy": "1.26.4",
+        "requests": "2.32.3",
+        "safetensors": "0.5.3",
+        "tokenizers": "0.22.2",
+        "torch": "2.7.1+cu128",
+        "transformers": "4.57.3"
+      },
+      "python_no_user_site": null,
+      "python_hash_seed": null
+    }
+  },
+  "items": [
+    {
+      "id": "v1-q01",
+      "lane": "single_hop",
+      "severity": "standard",
+      "expected_action": "answer",
+      "runtime_supports_expected_action": true,
+      "raw_action": "answer",
+      "actual_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "answer": {
+        "schema_version": "1.0.0",
+        "action": "answer",
+        "response": null,
+        "claims": [
+          {
+            "id": "c1",
+            "text": "The first step in the gateway's failover ladder is retrying the same deployment.",
+            "citation_ids": [
+              "S1"
+            ]
+          },
+          {
+            "id": "c2",
+            "text": "The second step is cooldown via a circuit breaker.",
+            "citation_ids": [
+              "S1"
+            ]
+          },
+          {
+            "id": "c3",
+            "text": "The third step is model-level fallback.",
+            "citation_ids": [
+              "S1"
+            ]
+          }
+        ]
+      },
+      "rendered_response": "The first step in the gateway's failover ladder is retrying the same deployment. The second step is cooldown via a circuit breaker. The third step is model-level fallback.",
+      "effective_response": "The first step in the gateway's failover ladder is retrying the same deployment. The second step is cooldown via a circuit breaker. The third step is model-level fallback.",
+      "generation": {
+        "call": {
+          "content": "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The first step in the gateway's failover ladder is retrying the same deployment.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c2\",\"text\":\"The second step is cooldown via a circuit breaker.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c3\",\"text\":\"The third step is model-level fallback.\",\"citation_ids\":[\"S1\"]}]}",
+          "requested_model": "openai/gpt-5.4",
+          "response_model": "openai/gpt-5.4",
+          "response_id": "gen-1784271757-2D0jRKW3Hb0g5OTE5IFo",
+          "input_sha256": "84adf1a04191205da5f8ae8ad5e2c4c729715f93f9364df8f361bd4d1a872524",
+          "latency_ms": 15019.34,
+          "attempts": 1,
+          "retries": 0,
+          "usage": {
+            "prompt_tokens": 1001,
+            "completion_tokens": 825,
+            "total_tokens": 1826,
+            "cost": 0.0148775,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0148775,
+              "upstream_inference_prompt_cost": 0.0025025,
+              "upstream_inference_completions_cost": 0.012375
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 717,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "cost": 0.0148775,
+          "endpoint_kind": "openrouter_default",
+          "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+          "request_options": {
+            "reasoning": {
+              "effort": "high",
+              "exclude": true
+            },
+            "provider": {
+              "only": [
+                "openai"
+              ],
+              "allow_fallbacks": false,
+              "require_parameters": true
+            }
+          },
+          "response_provider": "OpenAI",
+          "system_fingerprint": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "completed",
+          "quantization": null,
+          "service_tier": "default"
+        },
+        "calls": [
+          {
+            "content": "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The first step in the gateway's failover ladder is retrying the same deployment.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c2\",\"text\":\"The second step is cooldown via a circuit breaker.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c3\",\"text\":\"The third step is model-level fallback.\",\"citation_ids\":[\"S1\"]}]}",
+            "requested_model": "openai/gpt-5.4",
+            "response_model": "openai/gpt-5.4",
+            "response_id": "gen-1784271757-2D0jRKW3Hb0g5OTE5IFo",
+            "input_sha256": "84adf1a04191205da5f8ae8ad5e2c4c729715f93f9364df8f361bd4d1a872524",
+            "latency_ms": 15019.34,
+            "attempts": 1,
+            "retries": 0,
+            "usage": {
+              "prompt_tokens": 1001,
+              "completion_tokens": 825,
+              "total_tokens": 1826,
+              "cost": 0.0148775,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0148775,
+                "upstream_inference_prompt_cost": 0.0025025,
+                "upstream_inference_completions_cost": 0.012375
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 717,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "cost": 0.0148775,
+            "endpoint_kind": "openrouter_default",
+            "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+            "request_options": {
+              "reasoning": {
+                "effort": "high",
+                "exclude": true
+              },
+              "provider": {
+                "only": [
+                  "openai"
+                ],
+                "allow_fallbacks": false,
+                "require_parameters": true
+              }
+            },
+            "response_provider": "OpenAI",
+            "system_fingerprint": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "completed",
+            "quantization": null,
+            "service_tier": "default"
+          }
+        ],
+        "raw_output": "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The first step in the gateway's failover ladder is retrying the same deployment.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c2\",\"text\":\"The second step is cooldown via a circuit breaker.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c3\",\"text\":\"The third step is model-level fallback.\",\"citation_ids\":[\"S1\"]}]}",
+        "raw_outputs": [
+          "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The first step in the gateway's failover ladder is retrying the same deployment.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c2\",\"text\":\"The second step is cooldown via a circuit breaker.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c3\",\"text\":\"The third step is model-level fallback.\",\"citation_ids\":[\"S1\"]}]}"
+        ],
+        "sources": [
+          {
+            "citation_id": "S1",
+            "chunk_id": "gateway-readme::vbot-model-gateway::0",
+            "heading_key": "gateway-readme::vbot-model-gateway",
+            "heading": "Vbot Model Gateway",
+            "text": "Multi-provider LLM gateway for the Vbot platform, built on [LiteLLM proxy]. Implements the failover ladder from the provider-reliability research (doc 09) per the ADR in doc 15: **retry same deployment → cooldown (circuit breaker) → model-level fallback** — because our primary RP model (Euryale 70B) is single-host on OpenRouter, so a hot-standby model IS the second rung, not a nice-to-have. **Scope note:** the model lab stays on direct OpenRouter with NO fallback — silent model swapping would poison blind ratings. The gateway is a product concern, not a lab concern.",
+            "score": 0.8641114830970764
+          },
+          {
+            "citation_id": "S2",
+            "chunk_id": "gateway-readme::roadmap::1",
+            "heading_key": "gateway-readme::roadmap",
+            "heading": "Roadmap",
+            "text": "merges auto-roll pods (proven live) - [ ] Swap `rp-primary` to the lab verdict winner when Phase 1/2 concludes - [x] Repo public (full-history secret audit first) · public read-only Grafana: http://188.166.230.62:30301 (anonymous Viewer, writes 403) - [x] Self-hosted leg: in-cluster Ollama (qwen2.5:0.5b, CPU) as rp-selfhosted behind the same gateway — merged via gate PR #2 (first run REJECTED on CI-topology drift the gate itself exposed; fixed, PROMOTE, deployed) - [ ] Writeup/blog-post polish pass [LiteLLM proxy]: https://docs.litellm.ai/docs/proxy/reliability",
+            "score": 0.8027349710464478
+          },
+          {
+            "citation_id": "S3",
+            "chunk_id": "backbone-plan::dataset-spec::0",
+            "heading_key": "backbone-plan::dataset-spec",
+            "heading": "Dataset spec",
+            "text": "- ~1,500–2,000 multi-turn conversations total (2–4 turns each), JSONL chat format. Pressure arrives turn 2+, never turn 1. - Mix: lane 1 ≈ 30% · lanes 2–5 ≈ 45% · lane C ≈ 25%. - All SFW. RP lane uses existing Vbot lab characters/scenarios. - Generation: scripted through the GATEWAY with a budget-capped virtual key (spend visible in Grafana — the infra eats its own dogfood). Est. cost $3–8. - Quality pass: judge-score every teacher sample; drop bottom ~15% (teacher models are themselves sycophantic sometimes — filter for actual holds). - Held-out: ~10% never trained on → the eval probe set.",
+            "score": 0.8013101816177368
+          },
+          {
+            "citation_id": "S4",
+            "chunk_id": "backbone-plan::status::0",
+            "heading_key": "backbone-plan::status",
+            "heading": "Status",
+            "text": "- 2026-07-09: plan written. `ft` env created, torch 2.11.0+cu128 CUDA OK on RTX 5080. Training stack installing. Next: data-gen script (scripts/gen_dataset.mjs against the gateway) + teacher model pick for lanes 2–5.",
+            "score": 0.7972546815872192
+          }
+        ],
+        "allowed_actions": [
+          "answer",
+          "abstain_absent",
+          "abstain_unauthorized",
+          "clarify_ambiguous",
+          "reject_injection"
+        ],
+        "runtime_policy": {
+          "caller_role": "public_evaluation_user",
+          "authorized_data_classes": [
+            "public_safe_project_documentation"
+          ],
+          "forbidden_data_classes": [
+            "credentials",
+            "secrets",
+            "private_tokens"
+          ],
+          "credential_disclosure": "deny"
+        },
+        "validation": {
+          "valid": true,
+          "errors": [],
+          "metrics": {
+            "claim_count": 3,
+            "citation_count": 3,
+            "valid_citation_count": 3,
+            "citation_existence_precision": 1.0,
+            "claims_with_citations": 3,
+            "claims_with_valid_citations": 3,
+            "claim_citation_coverage": 1.0,
+            "claim_valid_citation_coverage": 1.0
+          }
+        }
+      },
+      "citation_count": 3,
+      "valid_citation_count": 3,
+      "citation_claim_count": 3,
+      "claims_with_valid_citations": 3,
+      "gold_evidence_heading_count": 1,
+      "retrieved_gold_evidence_heading_count": 1,
+      "retrieval_any_gold_evidence": true,
+      "retrieval_complete_gold_evidence": true,
+      "retrieval_required_claim_count": 3,
+      "retrieval_covered_required_claim_count": 3,
+      "retrieval_required_claim_coverage": 1.0,
+      "case_pass": null,
+      "latency_ms": 16083.621
+    },
+    {
+      "id": "v1-q02",
+      "lane": "single_hop",
+      "severity": "standard",
+      "expected_action": "answer",
+      "runtime_supports_expected_action": true,
+      "raw_action": "answer",
+      "actual_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "answer": {
+        "schema_version": "1.0.0",
+        "action": "answer",
+        "response": null,
+        "claims": [
+          {
+            "id": "c1",
+            "text": "The Vbot Model Gateway implements a failover ladder of retrying the same deployment, then applying a cooldown circuit breaker, then using model-level fallback.",
+            "citation_ids": [
+              "S2"
+            ]
+          },
+          {
+            "id": "c2",
+            "text": "The RP primary model, Euryale 70B, is single-host on OpenRouter.",
+            "citation_ids": [
+              "S2"
+            ]
+          },
+          {
+            "id": "c3",
+            "text": "Because the RP primary is single-host, a hot-standby model is the required second rung of failover rather than a nice-to-have.",
+            "citation_ids": [
+              "S2"
+            ]
+          },
+          {
+            "id": "c4",
+            "text": "In the current setup, `rp-primary` automatically falls back to `rp-fallback` after retries are exhausted.",
+            "citation_ids": [
+              "S1"
+            ]
+          }
+        ]
+      },
+      "rendered_response": "The Vbot Model Gateway implements a failover ladder of retrying the same deployment, then applying a cooldown circuit breaker, then using model-level fallback. The RP primary model, Euryale 70B, is single-host on OpenRouter. Because the RP primary is single-host, a hot-standby model is the required second rung of failover rather than a nice-to-have. In the current setup, `rp-primary` automatically falls back to `rp-fallback` after retries are exhausted.",
+      "effective_response": "The Vbot Model Gateway implements a failover ladder of retrying the same deployment, then applying a cooldown circuit breaker, then using model-level fallback. The RP primary model, Euryale 70B, is single-host on OpenRouter. Because the RP primary is single-host, a hot-standby model is the required second rung of failover rather than a nice-to-have. In the current setup, `rp-primary` automatically falls back to `rp-fallback` after retries are exhausted.",
+      "generation": {
+        "call": {
+          "content": "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The Vbot Model Gateway implements a failover ladder of retrying the same deployment, then applying a cooldown circuit breaker, then using model-level fallback.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c2\",\"text\":\"The RP primary model, Euryale 70B, is single-host on OpenRouter.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c3\",\"text\":\"Because the RP primary is single-host, a hot-standby model is the required second rung of failover rather than a nice-to-have.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c4\",\"text\":\"In the current setup, `rp-primary` automatically falls back to `rp-fallback` after retries are exhausted.\",\"citation_ids\":[\"S1\"]}]}",
+          "requested_model": "openai/gpt-5.4",
+          "response_model": "openai/gpt-5.4",
+          "response_id": "gen-1784271772-ijEcB357cqCdj7vS4iLX",
+          "input_sha256": "5b205edab211dcc587f9322ff8cf7258c473c4171568d27bf12da1ed3111ab7c",
+          "latency_ms": 6256.62,
+          "attempts": 1,
+          "retries": 0,
+          "usage": {
+            "prompt_tokens": 1040,
+            "completion_tokens": 683,
+            "total_tokens": 1723,
+            "cost": 0.012845,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.012845,
+              "upstream_inference_prompt_cost": 0.0026,
+              "upstream_inference_completions_cost": 0.010245
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 495,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "cost": 0.012845,
+          "endpoint_kind": "openrouter_default",
+          "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+          "request_options": {
+            "reasoning": {
+              "effort": "high",
+              "exclude": true
+            },
+            "provider": {
+              "only": [
+                "openai"
+              ],
+              "allow_fallbacks": false,
+              "require_parameters": true
+            }
+          },
+          "response_provider": "OpenAI",
+          "system_fingerprint": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "completed",
+          "quantization": null,
+          "service_tier": "default"
+        },
+        "calls": [
+          {
+            "content": "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The Vbot Model Gateway implements a failover ladder of retrying the same deployment, then applying a cooldown circuit breaker, then using model-level fallback.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c2\",\"text\":\"The RP primary model, Euryale 70B, is single-host on OpenRouter.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c3\",\"text\":\"Because the RP primary is single-host, a hot-standby model is the required second rung of failover rather than a nice-to-have.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c4\",\"text\":\"In the current setup, `rp-primary` automatically falls back to `rp-fallback` after retries are exhausted.\",\"citation_ids\":[\"S1\"]}]}",
+            "requested_model": "openai/gpt-5.4",
+            "response_model": "openai/gpt-5.4",
+            "response_id": "gen-1784271772-ijEcB357cqCdj7vS4iLX",
+            "input_sha256": "5b205edab211dcc587f9322ff8cf7258c473c4171568d27bf12da1ed3111ab7c",
+            "latency_ms": 6256.62,
+            "attempts": 1,
+            "retries": 0,
+            "usage": {
+              "prompt_tokens": 1040,
+              "completion_tokens": 683,
+              "total_tokens": 1723,
+              "cost": 0.012845,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.012845,
+                "upstream_inference_prompt_cost": 0.0026,
+                "upstream_inference_completions_cost": 0.010245
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 495,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "cost": 0.012845,
+            "endpoint_kind": "openrouter_default",
+            "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+            "request_options": {
+              "reasoning": {
+                "effort": "high",
+                "exclude": true
+              },
+              "provider": {
+                "only": [
+                  "openai"
+                ],
+                "allow_fallbacks": false,
+                "require_parameters": true
+              }
+            },
+            "response_provider": "OpenAI",
+            "system_fingerprint": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "completed",
+            "quantization": null,
+            "service_tier": "default"
+          }
+        ],
+        "raw_output": "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The Vbot Model Gateway implements a failover ladder of retrying the same deployment, then applying a cooldown circuit breaker, then using model-level fallback.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c2\",\"text\":\"The RP primary model, Euryale 70B, is single-host on OpenRouter.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c3\",\"text\":\"Because the RP primary is single-host, a hot-standby model is the required second rung of failover rather than a nice-to-have.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c4\",\"text\":\"In the current setup, `rp-primary` automatically falls back to `rp-fallback` after retries are exhausted.\",\"citation_ids\":[\"S1\"]}]}",
+        "raw_outputs": [
+          "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The Vbot Model Gateway implements a failover ladder of retrying the same deployment, then applying a cooldown circuit breaker, then using model-level fallback.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c2\",\"text\":\"The RP primary model, Euryale 70B, is single-host on OpenRouter.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c3\",\"text\":\"Because the RP primary is single-host, a hot-standby model is the required second rung of failover rather than a nice-to-have.\",\"citation_ids\":[\"S2\"]},{\"id\":\"c4\",\"text\":\"In the current setup, `rp-primary` automatically falls back to `rp-fallback` after retries are exhausted.\",\"citation_ids\":[\"S1\"]}]}"
+        ],
+        "sources": [
+          {
+            "citation_id": "S1",
+            "chunk_id": "gateway-readme::what-it-does-today::0",
+            "heading_key": "gateway-readme::what-it-does-today",
+            "heading": "What it does today",
+            "text": "- OpenAI-compatible endpoint at `http://127.0.0.1:4000/v1` fronting OpenRouter (later: direct providers + self-hosted vLLM behind the same interface). - `rp-primary` (Euryale 70B) with automatic fallback to `rp-fallback` (Hermes-4 70B) after retries are exhausted. - Cooldowns: a deployment failing >3×/min is pulled from rotation for 30s (Redis-backed, so state survives multi-replica later). - `failover-demo` model: intentionally broken credentials, exists so the smoke test can PROVE fallback fires end-to-end instead of trusting config. - Auth via master key — clients never see the OpenRouter key.",
+            "score": 0.8592877388000488
+          },
+          {
+            "citation_id": "S2",
+            "chunk_id": "gateway-readme::vbot-model-gateway::0",
+            "heading_key": "gateway-readme::vbot-model-gateway",
+            "heading": "Vbot Model Gateway",
+            "text": "Multi-provider LLM gateway for the Vbot platform, built on [LiteLLM proxy]. Implements the failover ladder from the provider-reliability research (doc 09) per the ADR in doc 15: **retry same deployment → cooldown (circuit breaker) → model-level fallback** — because our primary RP model (Euryale 70B) is single-host on OpenRouter, so a hot-standby model IS the second rung, not a nice-to-have. **Scope note:** the model lab stays on direct OpenRouter with NO fallback — silent model swapping would poison blind ratings. The gateway is a product concern, not a lab concern.",
+            "score": 0.8549204468727112
+          },
+          {
+            "citation_id": "S3",
+            "chunk_id": "backbone-plan::why-this-target-and-not-generic-rp-style::0",
+            "heading_key": "backbone-plan::why-this-target-and-not-generic-rp-style",
+            "heading": "Why this target (and not generic RP style)",
+            "text": "- Sycophancy is the documented failure mode of RLHF models (they cave to \"are you sure?\"); training *specifically against it* is distinctive. - The user's product thesis (JanitorAI/CAI characters fold too easily) is the RP instance of the same disease — one fine-tune serves both. - Measurable: hold/cave is close to binary per probe; before/after deltas are legible in a way \"nicer prose\" never is.",
+            "score": 0.8548358678817749
+          },
+          {
+            "citation_id": "S4",
+            "chunk_id": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora::1",
+            "heading_key": "backbone-findings::dpo-findings-2026-07-09-run-20260709-210645-dpo-1-5b-sft-merged-fresh-lora",
+            "heading": "DPO findings (2026-07-09, run 20260709-210645-dpo, 1.5B SFT-merged + fresh LoRA)",
+            "text": "teach the posture of holding; a 1.5B lacks the grounding of the 70B/DeepSeek teachers whose holds it imitates, so pressure-resistance decouples from correctness. Preference optimization amplified confidence without adding knowledge. 8. **Chain of gates that caught it**: train loss ↓ and reward accuracy 1.0 both said \"great run\"; only the behavioral eval said otherwise — same lesson as finding 4, one optimization stage later. Deployed model remains the SFT r16. Possible v2: mix factual-grounding pairs, or DPO only the RP lane (where holds are stylistic, not factual).",
+            "score": 0.8452974557876587
+          }
+        ],
+        "allowed_actions": [
+          "answer",
+          "abstain_absent",
+          "abstain_unauthorized",
+          "clarify_ambiguous",
+          "reject_injection"
+        ],
+        "runtime_policy": {
+          "caller_role": "public_evaluation_user",
+          "authorized_data_classes": [
+            "public_safe_project_documentation"
+          ],
+          "forbidden_data_classes": [
+            "credentials",
+            "secrets",
+            "private_tokens"
+          ],
+          "credential_disclosure": "deny"
+        },
+        "validation": {
+          "valid": true,
+          "errors": [],
+          "metrics": {
+            "claim_count": 4,
+            "citation_count": 4,
+            "valid_citation_count": 4,
+            "citation_existence_precision": 1.0,
+            "claims_with_citations": 4,
+            "claims_with_valid_citations": 4,
+            "claim_citation_coverage": 1.0,
+            "claim_valid_citation_coverage": 1.0
+          }
+        }
+      },
+      "citation_count": 4,
+      "valid_citation_count": 4,
+      "citation_claim_count": 4,
+      "claims_with_valid_citations": 4,
+      "gold_evidence_heading_count": 1,
+      "retrieved_gold_evidence_heading_count": 1,
+      "retrieval_any_gold_evidence": true,
+      "retrieval_complete_gold_evidence": true,
+      "retrieval_required_claim_count": 2,
+      "retrieval_covered_required_claim_count": 2,
+      "retrieval_required_claim_coverage": 1.0,
+      "case_pass": null,
+      "latency_ms": 6300.507
+    },
+    {
+      "id": "v1-q03",
+      "lane": "single_hop",
+      "severity": "standard",
+      "expected_action": "answer",
+      "runtime_supports_expected_action": true,
+      "raw_action": "answer",
+      "actual_action": "answer",
+      "contract_valid": true,
+      "action_correct": true,
+      "answer": {
+        "schema_version": "1.0.0",
+        "action": "answer",
+        "response": null,
+        "claims": [
+          {
+            "id": "c1",
+            "text": "The model lab does not use the gateway's fallback.",
+            "citation_ids": [
+              "S1"
+            ]
+          },
+          {
+            "id": "c2",
+            "text": "The model lab stays on direct OpenRouter instead.",
+            "citation_ids": [
+              "S1"
+            ]
+          },
+          {
+            "id": "c3",
+            "text": "Silent model swapping would poison blind ratings.",
+            "citation_ids": [
+              "S1"
+            ]
+          },
+          {
+            "id": "c4",
+            "text": "The gateway is a product concern rather than a lab concern.",
+            "citation_ids": [
+              "S1"
+            ]
+          }
+        ]
+      },
+      "rendered_response": "The model lab does not use the gateway's fallback. The model lab stays on direct OpenRouter instead. Silent model swapping would poison blind ratings. The gateway is a product concern rather than a lab concern.",
+      "effective_response": "The model lab does not use the gateway's fallback. The model lab stays on direct OpenRouter instead. Silent model swapping would poison blind ratings. The gateway is a product concern rather than a lab concern.",
+      "generation": {
+        "call": {
+          "content": "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The model lab does not use the gateway's fallback.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c2\",\"text\":\"The model lab stays on direct OpenRouter instead.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c3\",\"text\":\"Silent model swapping would poison blind ratings.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c4\",\"text\":\"The gateway is a product concern rather than a lab concern.\",\"citation_ids\":[\"S1\"]}]}",
+          "requested_model": "openai/gpt-5.4",
+          "response_model": "openai/gpt-5.4",
+          "response_id": "gen-1784271778-5t4CkfxzsN9fNsyL4Xwe",
+          "input_sha256": "702c1cd8b505b73e164f59e771defdc408d37e0ac29a09489708e58d52873f77",
+          "latency_ms": 5081.349,
+          "attempts": 1,
+          "retries": 0,
+          "usage": {
+            "prompt_tokens": 1166,
+            "completion_tokens": 416,
+            "total_tokens": 1582,
+            "cost": 0.009155,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.009155,
+              "upstream_inference_prompt_cost": 0.002915,
+              "upstream_inference_completions_cost": 0.00624
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 288,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "cost": 0.009155,
+          "endpoint_kind": "openrouter_default",
+          "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+          "request_options": {
+            "reasoning": {
+              "effort": "high",
+              "exclude": true
+            },
+            "provider": {
+              "only": [
+                "openai"
+              ],
+              "allow_fallbacks": false,
+              "require_parameters": true
+            }
+          },
+          "response_provider": "OpenAI",
+          "system_fingerprint": null,
+          "finish_reason": "stop",
+          "native_finish_reason": "completed",
+          "quantization": null,
+          "service_tier": "default"
+        },
+        "calls": [
+          {
+            "content": "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The model lab does not use the gateway's fallback.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c2\",\"text\":\"The model lab stays on direct OpenRouter instead.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c3\",\"text\":\"Silent model swapping would poison blind ratings.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c4\",\"text\":\"The gateway is a product concern rather than a lab concern.\",\"citation_ids\":[\"S1\"]}]}",
+            "requested_model": "openai/gpt-5.4",
+            "response_model": "openai/gpt-5.4",
+            "response_id": "gen-1784271778-5t4CkfxzsN9fNsyL4Xwe",
+            "input_sha256": "702c1cd8b505b73e164f59e771defdc408d37e0ac29a09489708e58d52873f77",
+            "latency_ms": 5081.349,
+            "attempts": 1,
+            "retries": 0,
+            "usage": {
+              "prompt_tokens": 1166,
+              "completion_tokens": 416,
+              "total_tokens": 1582,
+              "cost": 0.009155,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.009155,
+                "upstream_inference_prompt_cost": 0.002915,
+                "upstream_inference_completions_cost": 0.00624
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 288,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "cost": 0.009155,
+            "endpoint_kind": "openrouter_default",
+            "endpoint_sha256": "5c1332d5f9242f304584f5dca3e53a8afe9d1e0c9ea153e0ab73f27e4f341bce",
+            "request_options": {
+              "reasoning": {
+                "effort": "high",
+                "exclude": true
+              },
+              "provider": {
+                "only": [
+                  "openai"
+                ],
+                "allow_fallbacks": false,
+                "require_parameters": true
+              }
+            },
+            "response_provider": "OpenAI",
+            "system_fingerprint": null,
+            "finish_reason": "stop",
+            "native_finish_reason": "completed",
+            "quantization": null,
+            "service_tier": "default"
+          }
+        ],
+        "raw_output": "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The model lab does not use the gateway's fallback.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c2\",\"text\":\"The model lab stays on direct OpenRouter instead.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c3\",\"text\":\"Silent model swapping would poison blind ratings.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c4\",\"text\":\"The gateway is a product concern rather than a lab concern.\",\"citation_ids\":[\"S1\"]}]}",
+        "raw_outputs": [
+          "{\"schema_version\":\"1.0.0\",\"action\":\"answer\",\"response\":null,\"claims\":[{\"id\":\"c1\",\"text\":\"The model lab does not use the gateway's fallback.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c2\",\"text\":\"The model lab stays on direct OpenRouter instead.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c3\",\"text\":\"Silent model swapping would poison blind ratings.\",\"citation_ids\":[\"S1\"]},{\"id\":\"c4\",\"text\":\"The gateway is a product concern rather than a lab concern.\",\"citation_ids\":[\"S1\"]}]}"
+        ],
+        "sources": [
+          {
+            "citation_id": "S1",
+            "chunk_id": "gateway-readme::vbot-model-gateway::0",
+            "heading_key": "gateway-readme::vbot-model-gateway",
+            "heading": "Vbot Model Gateway",
+            "text": "Multi-provider LLM gateway for the Vbot platform, built on [LiteLLM proxy]. Implements the failover ladder from the provider-reliability research (doc 09) per the ADR in doc 15: **retry same deployment → cooldown (circuit breaker) → model-level fallback** — because our primary RP model (Euryale 70B) is single-host on OpenRouter, so a hot-standby model IS the second rung, not a nice-to-have. **Scope note:** the model lab stays on direct OpenRouter with NO fallback — silent model swapping would poison blind ratings. The gateway is a product concern, not a lab concern.",
+            "score": 0.8904922008514404
+          },
+          {
+            "citation_id": "S2",
+            "chunk_id": "gateway-readme::what-it-does-today::0",
+            "heading_key": "gateway-readme::what-it-does-today",
+            "heading": "What it does today",
+            "text": "- OpenAI-compatible endpoint at `http://127.0.0.1:4000/v1` fronting OpenRouter (later: direct providers + self-hosted vLLM behind the same interface). - `rp-primary` (Euryale 70B) with automatic fallback to `rp-fallback` (Hermes-4 70B) after retries are exhausted. - Cooldowns: a deployment failing >3×/min is pulled from rotation for 30s (Redis-backed, so state survives multi-replica later). - `failover-demo` model: intentionally broken credentials, exists so the smoke test can PROVE fallback fires end-to-end instead of trusting config. - Auth via master key — clients never see the OpenRouter key.",
+            "score": 0.8534024953842163
+          },
+          {
+            "citation_id": "S3",
+            "chunk_id": "backbone-plan::ft-lab-backbone-fine-tune-plan::0",
+            "heading_key": "backbone-plan::ft-lab-backbone-fine-tune-plan",
+            "heading": "FT-Lab — \"Backbone\" Fine-Tune Plan",
+            "text": "Goal: a QLoRA fine-tune of **Qwen2.5-7B-Instruct** targeting **calibrated resistance to social pressure** — the anti-sycophancy behavior family. Feeds the Vbot thesis (characters that don't fold). Standalone project, isolated from the rest of the platform. Working name: `backbone`.",
+            "score": 0.832427442073822
+          },
+          {
+            "citation_id": "S4",
+            "chunk_id": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter::0",
+            "heading_key": "gateway-readme::measured-findings-2026-07-08-k6-through-the-gateway-openrouter",
+            "heading": "Measured findings (2026-07-08, k6 through the gateway → OpenRouter)",
+            "text": "- **10 concurrent chatters, 0.00% user-visible errors, p95 10.2s** at realistic RP budgets (max_tokens 400) — with the client contract below. - **Empty-content 200s are real**: Hermes-4 stochastically reasoning-spirals (~2–10% of calls depending on window/budget), consuming the entire completion budget as `reasoning_content` and returning HTTP 200 with empty `content`, `finish_reason: length`. Found by tagging every k6 response with OpenRouter's `provider` field — all empties were Nebius. - **The reasoning-disable param is not honored by Nebius** (direct A/B: 5/16 calls still reasoned with `reasoning: {enabled: false}` set). Sent anyway as a courtesy for compliant hosts; never relied upon. - **Client contract: HTTP 200 + empty content = retryable, once.** This converts a 2.34% raw empty rate into 0.00% failed turns. Status-code-only error handling ships blank messages to users. - **One-model-one-host**: every RP-tuned 70B checked is single-host on OpenRouter (Euryale=NextBit bf16, Hermes-4=Nebius fp8, Hermes-3=DeepInfra fp8). Same-model host failover doesn't exist in this class — the model-level fallback chain IS the host diversity (3 models = 3 independent infrastructures).",
+            "score": 0.8303766250610352
+          }
+        ],
+        "allowed_actions": [
+          "answer",
+          "abstain_absent",
+          "abstain_unauthorized",
+          "clarify_ambiguous",
+          "reject_injection"
+        ],
+        "runtime_policy": {
+          "caller_role": "public_evaluation_user",
+          "authorized_data_classes": [
+            "public_safe_project_documentation"
+          ],
+          "forbidden_data_classes": [
+            "credentials",
+            "secrets",
+            "private_tokens"
+          ],
+          "credential_disclosure": "deny"
+        },
+        "validation": {
+          "valid": true,
+          "errors": [],
+          "metrics": {
+            "claim_count": 4,
+            "citation_count": 4,
+            "valid_citation_count": 4,
+            "citation_existence_precision": 1.0,
+            "claims_with_citations": 4,
+            "claims_with_valid_citations": 4,
+            "claim_citation_coverage": 1.0,
+            "claim_valid_citation_coverage": 1.0
+          }
+        }
+      },
+      "citation_count": 4,
+      "valid_citation_count": 4,
+      "citation_claim_count": 4,
+      "claims_with_valid_citations": 4,
+      "gold_evidence_heading_count": 1,
+      "retrieved_gold_evidence_heading_count": 1,
+      "retrieval_any_gold_evidence": true,
+      "retrieval_complete_gold_evidence": true,
+      "retrieval_required_claim_count": 2,
+      "retrieval_covered_required_claim_count": 2,
+      "retrieval_required_claim_coverage": 1.0,
+      "case_pass": null,
+      "latency_ms": 5116.327
+    }
+  ]
+}

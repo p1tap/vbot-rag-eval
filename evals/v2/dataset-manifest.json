@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "vbot-rag-v2",
+  "dataset_version": "2.0.0-dev.5",
+  "case_record_versions": [
+    "2.0.0-dev.2",
+    "2.0.0-dev.4",
+    "2.0.0-dev.5"
+  ],
+  "status": "development",
+  "created_at": "2026-07-14T01:05:32+07:00",
+  "case_schema": "evals/schema/case-v2.schema.json",
+  "corpus_manifest": {
+    "path": "corpus/manifest.json",
+    "corpus_id": "vbot-public-safe",
+    "corpus_version": "1.0.0",
+    "fingerprint_sha256": "dff71736dde3ab944cf55400a02707f802702a7f6a265b5b47e24fe8a677f4fe",
+    "evidence_catalog_sha256": "c15148e0aa42d867edbb6698c1b6f112f8767f557a8fdc172f497d90f4edf326"
+  },
+  "fingerprint_sha256": "8ee20cdad3bf0f1dfc0bfe0e89e868b4d38c72481feda6cd0151b581d61581d6",
+  "fingerprint_method": "sha256 of sorted '<split>\\t<path>\\t<file_sha256>\\n' records",
+  "source_datasets": [
+    {
+      "path": "evals/golden.jsonl",
+      "sha256": "c65ca56a5bf07834d72eed68614f0debd1625a2a12ad6e6ece42e345acd77008",
+      "migration": "scripts/migrate_v1_cases.py"
+    },
+    {
+      "path": "evals/v2/candidates/phase1-new-candidates.json",
+      "sha256": "64f0d5bb424aa9722cf25f28bdfe2901398a32c746cb6b34bc5deb15c136c725",
+      "migration": "scripts/import_completed_reviews.py"
+    },
+    {
+      "path": "evals/v2/release/vbot-ai-reviewed-release-50.jsonl",
+      "sha256": "bff7ba20cbd05d671cf403029639fd46d6910b2acb1ad45b59ce9ca63c396eb0",
+      "migration": "scripts/build_ai_release_seed.py"
+    },
+    {
+      "path": "evals/v2/adversarial/vbot-ai-observed-failures-12.jsonl",
+      "sha256": "1340e4dfab8c6d95177e08102b7ef0c6a968c2d63ddac48e20b7fe80e4c8f852",
+      "migration": "scripts/build_adversarial_seed.py"
+    }
+  ],
+  "partitions": [
+    {
+      "split": "dev",
+      "visibility": "public",
+      "frozen": false,
+      "expected_cases": 100,
+      "files": [
+        {
+          "path": "evals/v2/reviewed/vbot-human-reviewed-100.jsonl",
+          "sha256": "2b2cd4f25d9c30e451005216a6789117adea8e4d5f7136cdd415af4b69a5a3cf",
+          "cases": 100
+        }
+      ]
+    },
+    {
+      "split": "release",
+      "visibility": "sealed",
+      "frozen": true,
+      "expected_cases": 50,
+      "files": [
+        {
+          "path": "evals/v2/release/vbot-ai-reviewed-release-50.jsonl",
+          "sha256": "bff7ba20cbd05d671cf403029639fd46d6910b2acb1ad45b59ce9ca63c396eb0",
+          "cases": 50
+        }
+      ]
+    },
+    {
+      "split": "adversarial",
+      "visibility": "sealed",
+      "frozen": true,
+      "expected_cases": 12,
+      "files": [
+        {
+          "path": "evals/v2/adversarial/vbot-ai-observed-failures-12.jsonl",
+          "sha256": "1340e4dfab8c6d95177e08102b7ef0c6a968c2d63ddac48e20b7fe80e4c8f852",
+          "cases": 12
+        }
+      ]
+    },
+    {
+      "split": "real_user",
+      "visibility": "sealed",
+      "frozen": false,
+      "expected_cases": 0,
+      "files": []
+    },
+    {
+      "split": "reserve",
+      "visibility": "sealed",
+      "frozen": false,
+      "expected_cases": 0,
+      "files": []
+    }
+  ],
+  "governance": {
+    "frozen_edit_policy": "A frozen case or partition changes only in a new dataset version with a migration report.",
+    "holdout_access_policy": "Routine development cannot inspect sealed case content or per-case results; every holdout run is logged.",
+    "legacy_v1_policy": "All migrated V1 cases stay in dev because their questions and results have already influenced development."
+  },
+  "limitations": [
+    "All 100 current V2 records are visible owner-reviewed development cases, not a blinded release set.",
+    "The local human-review count is frozen at 100; future AI-reviewed expansion must retain separate provenance.",
+    "The 50-case release set is AI-authored and AI-reviewed by the same agent; it is not independent human ground truth or a production-traffic sample.",
+    "The 12 adversarial cases are same-agent AI-reviewed derivatives of observed development failures; they are regression probes, not independent holdout evidence.",
+    "No genuine real-user or reserve case has been authored yet.",
+    "Traffic weights, source effective dates, and independent external review are not available."
+  ]
+}
