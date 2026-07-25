@@ -1,0 +1,83 @@
+{
+  "benchmark_id": "natural_questions",
+  "created_at": "2026-07-25T21:04:09.650870+00:00",
+  "fit": {
+    "adaptive": {
+      "case_recall_all": 0.7265135699373695,
+      "case_recall_any": 0.791231732776618,
+      "evidence_recall": 0.7586986778009743,
+      "mrr": 0.6085594989561588
+    },
+    "case_count": 800,
+    "cases_sha256": "659873b370329754dfc3adc412a62ec3666a12139950da338003c9f79ecf3693",
+    "dense": {
+      "case_recall_all": 0.7056367432150313,
+      "case_recall_any": 0.7620041753653445,
+      "evidence_recall": 0.7332985386221295,
+      "mrr": 0.5887265135699377
+    },
+    "full_rerank": {
+      "case_recall_all": 0.7306889352818372,
+      "case_recall_any": 0.7974947807933194,
+      "evidence_recall": 0.7644398051496173,
+      "mrr": 0.6009046624913014
+    },
+    "gain_fraction": 0.8,
+    "grid_candidates_evaluated": 1024,
+    "grid_steps": 30,
+    "rerank_pairs": 10908,
+    "rerank_rate": 0.7,
+    "reranked_cases": 560,
+    "targets": {
+      "case_recall_all": 0.7256784968684761,
+      "case_recall_any": 0.7903966597077244,
+      "evidence_recall": 0.7582115518441197,
+      "mrr": 0.5984690327070287
+    },
+    "tolerance": 0.0025
+  },
+  "k": 4,
+  "limitations": [
+    "Thresholds were selected on development evidence and require a disjoint confirmation run.",
+    "The public benchmark has influenced prior system work and is not a never-observed product holdout.",
+    "The policy is valid only for the named benchmark, retriever configuration, and cutoff."
+  ],
+  "policy_version": "1.0.0",
+  "retrieval_candidate": {
+    "report_sha256": "870e2a59e5b7138e1e45fb65a4365e7cc639283896456b2535b18d1bb38ddb64",
+    "retriever": {
+      "first_stage": {
+        "model": "intfloat/e5-small-v2",
+        "model_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+        "name": "e5_small_v2"
+      },
+      "name": "e5_small_v2_cross_encoder",
+      "reranker": {
+        "batch_size": 32,
+        "candidate_depth": 20,
+        "device": "cuda",
+        "max_tokens": 512,
+        "model": "cross-encoder/ms-marco-MiniLM-L6-v2",
+        "model_revision": "c5ee24cb16019beea0893ab7796b1df96625c6b8",
+        "name": "cross_encoder",
+        "precision": "float16"
+      }
+    },
+    "source": {
+      "passages_sha256": "0c1878d3b862fe41832d269ed7a707afc14680a44d1995284949b71c92e4bf70",
+      "queries_sha256": "50f3f1cd81a3e70fca754b6870bc19aaed8254c379eb5bc04c888d37859fc5ce",
+      "selection": {
+        "limit": 800,
+        "offset": 0
+      },
+      "sha256": "55e0d26e76f7af2de4d54a75520e0cd877d9c5080d8ec525a76d93029591510e"
+    }
+  },
+  "routing": {
+    "condition": "rerank if dense_top1 <= threshold OR dense_top1_top2_margin <= threshold; otherwise use dense",
+    "dense_top1_lte": 0.7896350026120676,
+    "dense_top1_top2_margin_lte": 0.011621534824371338,
+    "invalid_features": "rerank_fail_closed"
+  },
+  "status": "development_candidate_not_promoted"
+}

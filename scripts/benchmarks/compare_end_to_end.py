@@ -3,12 +3,21 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 from pathlib import Path
 
 
 FLOAT_TOLERANCE = 1e-12
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def load_rows(report: dict, report_path: Path) -> dict[str, dict]:
@@ -47,7 +56,19 @@ def main() -> None:
     candidate_rows = load_rows(candidate, args.candidate)
     if set(baseline_rows) != set(candidate_rows):
         raise SystemExit("paired comparison requires identical case IDs")
-    for key in ("source_sha256", "sample_per_benchmark"):
+    for key in (
+        "profile_id",
+        "profile",
+        "source_sha256",
+        "top_k_by_benchmark",
+        "compression",
+        "prompt_policy",
+        "citation_policy",
+        "nq_verification_policy",
+        "sample_per_benchmark",
+        "sample_offset_per_benchmark",
+        "case_ids_sha256",
+    ):
         if baseline["identity"][key] != candidate["identity"][key]:
             raise SystemExit(f"comparison identity mismatch: {key}")
 
@@ -119,6 +140,16 @@ def main() -> None:
         "scope": "paired_generator_or_retrieval_pilot_not_release_promotion",
         "baseline": str(args.baseline),
         "candidate": str(args.candidate),
+        "evidence": {
+            "baseline_report_sha256": file_sha256(args.baseline),
+            "candidate_report_sha256": file_sha256(args.candidate),
+            "baseline_case_records_sha256": baseline["artifacts"][
+                "case_records_sha256"
+            ],
+            "candidate_case_records_sha256": candidate["artifacts"][
+                "case_records_sha256"
+            ],
+        },
         "identity": {
             "baseline_profile": baseline["identity"]["profile_id"],
             "candidate_profile": candidate["identity"]["profile_id"],

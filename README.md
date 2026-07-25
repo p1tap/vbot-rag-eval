@@ -319,6 +319,15 @@ At `k=4` it promotes E5 over BM25 on both HotpotQA and Natural Questions, but
 rejects RRF over E5 because the hybrid's complete-support and evidence-recall
 regressions exceed the 0.005 tolerance.
 
+### Retrieval modernization experiments
+
+Cross-encoder reranking, adaptive routing, provenance-contextual indexing,
+late chunking, and corrective retrieval are evaluated as isolated candidates.
+The adaptive reranker passed its component confirmation gate but failed the
+paired end-to-end answer-and-citation gate, so the accepted E5 serving path
+remains unchanged. The measured decisions and limitations are documented in
+[`docs/retrieval-modernization.md`](docs/retrieval-modernization.md).
+
 ## V2 structured answer evaluation
 
 The next evaluation path no longer accepts an opaque free-form answer plus one
@@ -466,8 +475,11 @@ See [`docs/service.md`](docs/service.md).
 1. compares the committed V1 report with the accepted baseline;
 2. verifies frozen V1/V2 contracts, dataset governance, the corpus secret
    scan, authentic promote/reject examples, and public adapter fixtures;
-3. rebuilds the index with pinned CPU dependencies and reproduces retrieval;
-4. runs the complete unit suite and emits a readable step summary.
+3. recomputes the promoted 10,000-case specialist RAG result, the separate
+   1,000-case SQuAD reader confirmation, and the visible adversarial rejection
+   from their committed case-level artifacts;
+4. rebuilds the index with pinned CPU dependencies and reproduces retrieval;
+5. runs the complete unit suite and emits a readable step summary.
 
 `rag-controlled-retrieval.yml` is a manual, artifact-producing V2 retrieval
 lane over only the reviewed 100-case dataset. `rag-scheduled-audit.yml` repeats

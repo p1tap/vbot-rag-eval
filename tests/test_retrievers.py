@@ -14,13 +14,25 @@ from rag.retrieval_eval import aggregate_results, evaluate_case
 from rag.retrieve import load_index, retrieve
 from scripts.evaluate_v2_retrieval import confidence_features, rank_headings, score_case
 from rag.retrievers import (
+    AdaptiveRetrievalPolicy,
     BM25Retriever,
+    CrossEncoderReranker,
     RetrievalDocument,
     RetrievalHit,
     SQLiteFTSBM25Index,
     TwoStageFeverBM25Index,
     reciprocal_rank_fusion,
 )
+
+
+class StubPairScorer:
+    name = "stub"
+
+    def __init__(self, scores):
+        self.scores = scores
+
+    def score(self, query, documents):
+        return [self.scores[document.id] for document in documents]
 
 
 class RetrieverTests(unittest.TestCase):
@@ -160,6 +172,72 @@ class RetrieverTests(unittest.TestCase):
             reciprocal_rank_fusion([[]], k=1, weights=[1.0, 2.0])
         with self.assertRaisesRegex(ValueError, "at least one positive"):
             reciprocal_rank_fusion([[], []], k=1, weights=[0.0, 0.0])
+
+    def test_cross_encoder_reranks_only_bounded_first_stage_candidates(self) -> None:
+        documents = [
+            RetrievalDocument("a", "alpha", "matching lexical text"),
+            RetrievalDocument("b", "beta", "matching lexical text"),
+            RetrievalDocument("c", "gamma", "unrelated"),
+        ]
+        reranker = CrossEncoderReranker(
+            BM25Retriever(),
+            StubPairScorer({"a": 0.1, "b": 0.9}),
+            candidate_k=2,
+        )
+        hits = reranker.rank("matching lexical text", documents, 2)
+        self.assertEqual([hit.document.id for hit in hits], ["b", "a"])
+
+    def test_cross_encoder_keeps_first_stage_order_for_equal_scores(self) -> None:
+        documents = [
+            RetrievalDocument("a", "alpha", "match"),
+            RetrievalDocument("b", "beta", "match"),
+        ]
+        reranker = CrossEncoderReranker(
+            BM25Retriever(),
+            StubPairScorer({"a": 1.0, "b": 1.0}),
+            candidate_k=2,
+        )
+        hits = reranker.rank("match", documents, 2)
+        self.assertEqual([hit.document.id for hit in hits], ["a", "b"])
+
+    def test_adaptive_policy_routes_low_confidence_and_fails_closed(self) -> None:
+        policy = AdaptiveRetrievalPolicy(
+            benchmark_id="fixture",
+            k=4,
+            top1_threshold=0.7,
+            margin_threshold=0.1,
+        )
+        confident = {
+            "dense_top1": 0.9,
+            "dense_top1_top2_margin": 0.2,
+            "dense_top4_mean": 0.7,
+            "dense_top4_min": 0.6,
+        }
+        uncertain = {**confident, "dense_top1_top2_margin": 0.05}
+        self.assertEqual(policy.route(confident), "dense")
+        self.assertEqual(policy.route(uncertain), "rerank")
+        self.assertEqual(policy.route({"dense_top1": float("nan")}), "rerank")
+
+    def test_adaptive_policy_selects_only_the_declared_ranking(self) -> None:
+        policy = AdaptiveRetrievalPolicy(
+            benchmark_id="fixture",
+            k=4,
+            top1_threshold=0.7,
+            margin_threshold=0.1,
+        )
+        row = {
+            "features": {
+                "dense_top1": 0.6,
+                "dense_top1_top2_margin": 0.2,
+                "dense_top4_mean": 0.5,
+                "dense_top4_min": 0.4,
+            },
+            "dense_ranked_document_ids": ["dense"],
+            "reranked_document_ids": ["reranked"],
+        }
+        route, ranking = policy.choose(row)
+        self.assertEqual(route, "rerank")
+        self.assertEqual(ranking, ("reranked",))
 
     def test_fever_runner_refuses_evidence_only_scope(self) -> None:
         from scripts.benchmarks.run_retrieval import run

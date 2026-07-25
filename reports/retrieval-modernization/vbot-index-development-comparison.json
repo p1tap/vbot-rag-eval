@@ -1,0 +1,117 @@
+{
+  "comparisons": {
+    "late_chunking_vs_matched_jina_pre_chunk_control": {
+      "decision": "REJECT",
+      "delta": {
+        "case_recall_all_gold": -0.151899,
+        "case_recall_any": -0.12658199999999997,
+        "complete_required_claim_recall": -0.151899,
+        "gold_heading_recall": -0.13924000000000003,
+        "mrr": -0.13924100000000006,
+        "required_claim_coverage": -0.14029599999999998
+      }
+    },
+    "provenance_context_vs_e5_heading": {
+      "decision": "DEVELOPMENT_CANDIDATE_NEEDS_CONFIRMATION",
+      "delta": {
+        "case_recall_all_gold": 0.025316000000000005,
+        "case_recall_any": 0.012658999999999976,
+        "complete_required_claim_recall": 0.025316000000000005,
+        "gold_heading_recall": 0.02320700000000009,
+        "mrr": -0.007383999999999946,
+        "required_claim_coverage": 0.026372000000000062
+      }
+    }
+  },
+  "created_at": "2026-07-25T21:28:21.532801+00:00",
+  "dataset": {
+    "case_count": 100,
+    "sha256": "2b2cd4f25d9c30e451005216a6789117adea8e4d5f7136cdd415af4b69a5a3cf"
+  },
+  "evidence": {
+    "e5_heading": {
+      "index": {
+        "chunk_count": 22,
+        "chunks_sha256": "7df542c59a7a3e2aa4f028d9593fa29508955ca3e2c80ba0956a3220765ec5fc",
+        "context_mode": "legacy_heading",
+        "embedding_model": "intfloat/e5-small-v2",
+        "embedding_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+        "embeddings_sha256": "bbdd4d984f877e1ae4fec84cd9b60bbc013c55e505c3a928fa61ccd7deac65b8"
+      },
+      "report_sha256": "a471e6ef1a5cb7fd29b9171aaae6f48beb829345a029bf2ac47b6a508ea578f7"
+    },
+    "e5_provenance_context": {
+      "index": {
+        "chunk_count": 22,
+        "chunks_sha256": "983c614c4a2b1a6dae7a50380a5950b732aa5ad29fc0efccd1736baea6800a84",
+        "context_mode": "provenance_header",
+        "embedding_model": "intfloat/e5-small-v2",
+        "embedding_revision": "ffb93f3bd4047442299a41ebb6fa998a38507c52",
+        "embeddings_sha256": "fdcc3422eb234b282524366ac8f4a7e1a0b5daf7dcd2fef73ec77963d546e28f"
+      },
+      "report_sha256": "4879c1fbea65c08d3137bb7db77e756b0f1bfadfd714e28802821e191acc35fa"
+    },
+    "jina_late_chunking": {
+      "index": {
+        "chunk_count": 22,
+        "chunks_sha256": "7df542c59a7a3e2aa4f028d9593fa29508955ca3e2c80ba0956a3220765ec5fc",
+        "context_mode": "legacy_heading",
+        "embedding_model": "jinaai/jina-embeddings-v2-small-en",
+        "embedding_revision": "44e7d1d6caec8c883c2d4b207588504d519788d0",
+        "embeddings_sha256": "55f793ec497a2cf074ef4e9df815cc8885a55aab1fab1c5b754260196aff95c9",
+        "index_strategy": "late_chunking"
+      },
+      "report_sha256": "45bc0f76e3850a414ec8877df29d2e992065686eb91d358b078d39aee0ab24a9"
+    },
+    "jina_pre_chunk_control": {
+      "index": {
+        "chunk_count": 22,
+        "chunks_sha256": "7df542c59a7a3e2aa4f028d9593fa29508955ca3e2c80ba0956a3220765ec5fc",
+        "context_mode": "legacy_heading",
+        "embedding_model": "jinaai/jina-embeddings-v2-small-en",
+        "embedding_revision": "44e7d1d6caec8c883c2d4b207588504d519788d0",
+        "embeddings_sha256": "8f6999ecded28d452b3a8216742b104c1df5cc2fa5185f07756fb2ad390a0e5f",
+        "index_strategy": "pre_chunked_control"
+      },
+      "report_sha256": "1662b038a76dc6e615a69241f64d98c473268b8642f7b7474fe4e17caa63ca6c"
+    }
+  },
+  "k": 4,
+  "metrics": {
+    "e5_heading": {
+      "case_recall_all_gold": 0.873418,
+      "case_recall_any": 0.962025,
+      "complete_required_claim_recall": 0.873418,
+      "gold_heading_recall": 0.919831,
+      "mrr": 0.822785,
+      "required_claim_coverage": 0.919831
+    },
+    "e5_provenance_context": {
+      "case_recall_all_gold": 0.898734,
+      "case_recall_any": 0.974684,
+      "complete_required_claim_recall": 0.898734,
+      "gold_heading_recall": 0.943038,
+      "mrr": 0.815401,
+      "required_claim_coverage": 0.946203
+    },
+    "jina_late_chunking": {
+      "case_recall_all_gold": 0.746835,
+      "case_recall_any": 0.835443,
+      "complete_required_claim_recall": 0.746835,
+      "gold_heading_recall": 0.793249,
+      "mrr": 0.67616,
+      "required_claim_coverage": 0.791139
+    },
+    "jina_pre_chunk_control": {
+      "case_recall_all_gold": 0.898734,
+      "case_recall_any": 0.962025,
+      "complete_required_claim_recall": 0.898734,
+      "gold_heading_recall": 0.932489,
+      "mrr": 0.815401,
+      "required_claim_coverage": 0.931435
+    }
+  },
+  "promotion_boundary": "Development evidence cannot promote an index. A disjoint, reviewed confirmation partition and end-to-end gate are required.",
+  "report_version": "1.0.0",
+  "scope": "reviewed_vbot_development_retrieval_only"
+}

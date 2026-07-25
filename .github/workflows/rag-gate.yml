@@ -111,6 +111,9 @@ jobs:
           pip install "torch==2.7.1" --index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements-repro.txt
 
+      - name: Recompute promoted portfolio evidence
+        run: python scripts/verify_portfolio_evidence.py
+
       - name: Rebuild index from this PR's corpus + config
         run: python scripts/build_index.py
 
