@@ -59,6 +59,12 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def sha256_contract_text(path: Path) -> str:
+    """Hash the text contract with platform-neutral LF line endings."""
+    value = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(value).hexdigest()
+
+
 def load(relative: str) -> dict:
     return json.loads((ROOT / relative).read_text(encoding="utf-8"))
 
@@ -140,8 +146,10 @@ def build() -> dict:
             "future_human_queue": False,
             "ai_override_count": consensus["override_artifact"]["count"],
         },
+        "file_hash_canonicalization": "utf8_text_lf",
         "files_sha256": {
-            relative: sha256_file(ROOT / relative) for relative in sorted(FILES)
+            relative: sha256_contract_text(ROOT / relative)
+            for relative in sorted(FILES)
         },
     }
 

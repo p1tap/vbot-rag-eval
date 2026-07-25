@@ -1,0 +1,22 @@
+# These frozen provenance hashes were captured from the original Windows
+# checkout. Materialize the same bytes on every runner so the recorded
+# checkout hashes remain reproducible without rewriting accepted evidence.
+baselines/v1/accepted-eval-report.json text eol=crlf
+baselines/v1/reproduction-environment.json text eol=crlf
+baselines/v1/reproduction-pip-freeze.txt text eol=crlf
+baselines/v1/reproduction-report.json text eol=crlf
+evals/v2/judge-calibration/ai-adjudication-overrides.jsonl text eol=crlf
+config.py text eol=crlf
+evals/v2/judge-calibration/manifest.json text eol=crlf
+evals/v2/judge-calibration/queue.jsonl text eol=crlf
+reports/v2/judge-bakeoff-decision-human.md text eol=crlf
+reports/v2/judge-bakeoff-decision.md text eol=crlf
+reports/v2/judge-calibration-consensus-audit.json text eol=crlf
+reports/v2/judge-cascade-simulation-human.json text eol=crlf
+reports/v2/judge-cascade-simulation.json text eol=crlf
+reports/public-benchmarks/compare-pilot-gpt-k4-vs-k8.json text eol=crlf
+reports/public-benchmarks/end-to-end-pilot-gpt-300.json text eol=crlf
+reports/public-benchmarks/end-to-end-pilot-gpt-300-k8.json text eol=crlf
+reports/v2/compare-k4-vs-k6.json text eol=crlf
+reports/v2/structured-dev-current-k4.json text eol=crlf
+reports/v2/structured-dev-current-k6.json text eol=crlf
