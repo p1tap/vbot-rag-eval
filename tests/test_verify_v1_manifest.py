@@ -5,6 +5,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
+from scripts.freeze_v2_contract import sha256_contract_text
 from scripts.verify_v1_manifest import file_matches_checkout_hash
 
 
@@ -26,6 +27,17 @@ class CheckoutHashTests(unittest.TestCase):
                 b'{\r\n  "status": "accepted"\r\n}\r\n'
             ).hexdigest()
             self.assertFalse(file_matches_checkout_hash(path, expected))
+
+    def test_v2_contract_text_hash_is_platform_neutral(self):
+        with tempfile.TemporaryDirectory() as directory:
+            lf = Path(directory) / "lf.txt"
+            crlf = Path(directory) / "crlf.txt"
+            lf.write_bytes(b"one\ntwo\n")
+            crlf.write_bytes(b"one\r\ntwo\r\n")
+            self.assertEqual(
+                sha256_contract_text(lf),
+                sha256_contract_text(crlf),
+            )
 
 
 if __name__ == "__main__":
