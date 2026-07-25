@@ -18,6 +18,7 @@ flowchart LR
   E2E --> REP[(Hash-addressed reports)]
   VE --> REP
   CAS --> REP
+  LAB[Offline retrieval candidates] --> REP
   REP --> CI[PR, controlled, scheduled gates]
   CI -->|guardrails pass| PROMOTE[Scoped promotion]
   CI -->|regression| REJECT[Reject with case/lane evidence]
@@ -29,6 +30,11 @@ runner has a task-specific batch contract because HotpotQA/Natural Questions
 are extractive QA while FEVER is label prediction. Both paths retain raw model
 output and exact model/runtime provenance in offline reports; the service never
 returns raw provider output to clients.
+
+The offline candidate lab contains reranking, adaptive routing, contextual
+indexing, late-chunking controls, and corrective fault injection. A candidate
+does not enter the online path merely because its retrieval metrics improve;
+the same answer and citation promotion boundary still applies.
 
 ## Trust boundaries
 

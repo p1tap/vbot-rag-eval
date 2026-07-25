@@ -1,0 +1,72 @@
+{
+  "benchmark_id": "natural_questions",
+  "created_at": "2026-07-25T21:04:10.239091+00:00",
+  "gate": {
+    "boundary": "component confirmation only; end-to-end promotion remains separate",
+    "compute": {
+      "max_rerank_rate": 0.75,
+      "passed": true
+    },
+    "latency": {
+      "max_p95_ms": 50.0,
+      "passed": true
+    },
+    "passed": true,
+    "quality": {
+      "passed": true,
+      "rule": "no tracked metric may regress beyond tolerance",
+      "tolerance": 0.005
+    }
+  },
+  "k": 4,
+  "latency_ms_per_query": {
+    "measurement": "dense plus reranker only on routed cases",
+    "median": 16.259,
+    "p95": 24.808
+  },
+  "limitations": [
+    "This is retrieval-component evidence, not end-to-end answer and citation evaluation.",
+    "Promotion remains blocked until the end-to-end guardrails pass."
+  ],
+  "metrics": {
+    "adaptive": {
+      "case_recall_all": 0.7222222222222222,
+      "case_recall_any": 0.7777777777777778,
+      "evidence_recall": 0.7504629629629629,
+      "mrr": 0.6145833333333335
+    },
+    "adaptive_delta_vs_dense": {
+      "case_recall_all": 0.002777777777777768,
+      "case_recall_any": 0.01666666666666672,
+      "evidence_recall": 0.010648148148148073,
+      "mrr": 0.017592592592592493
+    },
+    "dense": {
+      "case_recall_all": 0.7194444444444444,
+      "case_recall_any": 0.7611111111111111,
+      "evidence_recall": 0.7398148148148148,
+      "mrr": 0.596990740740741
+    },
+    "full_rerank": {
+      "case_recall_all": 0.7305555555555555,
+      "case_recall_any": 0.7888888888888889,
+      "evidence_recall": 0.7597222222222222,
+      "mrr": 0.6131944444444447
+    }
+  },
+  "report_version": "1.0.0",
+  "routes": {
+    "dense_cases": 184,
+    "full_rerank_pairs": 11598,
+    "rerank_pair_reduction": 0.29953440248318675,
+    "rerank_pairs": 8124,
+    "rerank_rate": 0.6933333333333334,
+    "reranked_cases": 416
+  },
+  "source": {
+    "case_count": 600,
+    "cases_sha256": "e848ee3b505cf406f9063fa580120a2398dc3049c1ddbf817c26ece8e445f334",
+    "policy_sha256": "5c119ce5b781e741ba87aa8b27330361ad5dcbf5132e622aa8d8223ee37f7dfd"
+  },
+  "status": "confirmation_gate_passed_not_promoted"
+}

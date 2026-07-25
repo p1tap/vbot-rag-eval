@@ -13,6 +13,15 @@ EMBED_MODEL = "intfloat/e5-small-v2"   # mean-pooled, query/passage-prefixed
 # Immutable Hugging Face commit resolved by the accepted V1 run. A model name
 # alone follows a mutable branch and is not sufficient provenance.
 EMBED_MODEL_REVISION = "ffb93f3bd4047442299a41ebb6fa998a38507c52"
+# Candidate-only reranker. Loading it must never change the accepted E5 path;
+# a measured component report and promotion gate are required first.
+RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L6-v2"
+RERANK_MODEL_REVISION = "c5ee24cb16019beea0893ab7796b1df96625c6b8"
+# Experimental long-context encoder for late-chunking evidence. Both the
+# weights and the separately hosted remote implementation are pinned.
+LATE_CHUNK_MODEL = "jinaai/jina-embeddings-v2-small-en"
+LATE_CHUNK_MODEL_REVISION = "44e7d1d6caec8c883c2d4b207588504d519788d0"
+LATE_CHUNK_CODE_REVISION = "f3ec4cf7de7e561007f27c9efc7148b0bd713f81"
 CHUNK_MAX_WORDS = 180                   # sections longer than this are windowed
 CHUNK_OVERLAP_WORDS = 40               # overlap between windows of a long section
 TOP_K = 4                              # chunks retrieved per query

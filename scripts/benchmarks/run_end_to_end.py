@@ -22,6 +22,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from rag import llm  # noqa: E402
+from config import RERANK_MODEL, RERANK_MODEL_REVISION  # noqa: E402
 from rag.evidence_compression import (  # noqa: E402
     SEMANTIC_E5_CONFIG,
     compress_documents,
@@ -30,10 +31,13 @@ from rag.evidence_compression import (  # noqa: E402
 from rag.llm import chat_with_metadata  # noqa: E402
 from rag.provenance import sha256_file  # noqa: E402
 from rag.retrievers import (  # noqa: E402
+    AdaptiveRetrievalPolicy,
     BM25Retriever,
+    CrossEncoderScorer,
     RetrievalDocument,
     RetrievalHit,
     TwoStageFeverBM25Index,
+    dense_confidence_features,
     reciprocal_rank_fusion,
 )
 from scripts.benchmarks.audit_suite import (  # noqa: E402
@@ -274,6 +278,9 @@ def dense_work_items(
     sample_offset_per_benchmark: int = 0,
     retrieval_mode: str = "dense",
     compression_mode: str = "lexical",
+    adaptive_policy: AdaptiveRetrievalPolicy | None = None,
+    adaptive_scorer=None,
+    adaptive_candidate_depth: int | None = None,
 ) -> list[dict]:
     source = DEFAULT_INPUTS[benchmark_id]
     selected_ids = ranked_ids(
@@ -298,19 +305,27 @@ def dense_work_items(
         for position, line in enumerate(handle):
             case = json.loads(line)
             count = len(case["documents"])
+            if selected_ids is not None and case["id"] not in selected_ids:
+                offset += count
+                continue
             scores = passages[offset : offset + count] @ queries[position]
-            selected_documents = rank_bounded_documents(
-                case, scores, top_k=top_k, retrieval_mode=retrieval_mode
+            selected_documents, retrieval_trace = rank_bounded_documents_with_trace(
+                case,
+                scores,
+                top_k=top_k,
+                retrieval_mode=retrieval_mode,
+                adaptive_policy=adaptive_policy,
+                adaptive_scorer=adaptive_scorer,
+                adaptive_candidate_depth=adaptive_candidate_depth,
             )
             offset += count
-            if selected_ids is not None and case["id"] not in selected_ids:
-                continue
             items.append(
                 work_item(
                     case,
                     selected_documents,
                     max_document_chars,
                     compression_mode=compression_mode,
+                    retrieval_trace=retrieval_trace,
                 )
             )
     if offset != manifest["document_count"]:
@@ -325,13 +340,88 @@ def rank_bounded_documents(
     top_k: int,
     retrieval_mode: str,
 ) -> list[dict]:
+    documents, _ = rank_bounded_documents_with_trace(
+        case,
+        scores,
+        top_k=top_k,
+        retrieval_mode=retrieval_mode,
+    )
+    return documents
+
+
+def rank_bounded_documents_with_trace(
+    case: dict,
+    scores: np.ndarray,
+    *,
+    top_k: int,
+    retrieval_mode: str,
+    adaptive_policy: AdaptiveRetrievalPolicy | None = None,
+    adaptive_scorer=None,
+    adaptive_candidate_depth: int | None = None,
+) -> tuple[list[dict], dict]:
     documents = case["documents"]
     dense_order = sorted(
         range(len(documents)),
         key=lambda index: (-float(scores[index]), documents[index]["id"]),
     )
     if retrieval_mode == "dense":
-        return [documents[index] for index in dense_order[:top_k]]
+        return [documents[index] for index in dense_order[:top_k]], {
+            "mode": "dense",
+            "route": "dense",
+        }
+    if retrieval_mode == "adaptive_rerank":
+        if adaptive_policy is None or adaptive_scorer is None:
+            raise ValueError("adaptive reranking requires a frozen policy and scorer")
+        if adaptive_policy.benchmark_id != case["benchmark_id"]:
+            return [documents[index] for index in dense_order[:top_k]], {
+                "mode": "adaptive_rerank",
+                "route": "dense",
+                "reason": "policy_out_of_scope_for_benchmark",
+            }
+        if adaptive_policy.k != top_k:
+            raise ValueError("adaptive policy cutoff does not match requested top-k")
+        if adaptive_candidate_depth is None or adaptive_candidate_depth < top_k:
+            raise ValueError("adaptive reranker candidate depth is invalid")
+        ordered_scores = [float(scores[index]) for index in dense_order]
+        features = dense_confidence_features(ordered_scores)
+        route = adaptive_policy.route(features)
+        if route == "dense":
+            return [documents[index] for index in dense_order[:top_k]], {
+                "mode": "adaptive_rerank",
+                "route": "dense",
+                "features": features,
+            }
+        retrieval_documents = [
+            RetrievalDocument(
+                id=document["id"],
+                title=document["title"],
+                text=" ".join(document["sentences"]),
+            )
+            for document in documents
+        ]
+        candidate_indexes = dense_order[
+            : min(adaptive_candidate_depth, len(documents))
+        ]
+        candidates = [retrieval_documents[index] for index in candidate_indexes]
+        rerank_scores = adaptive_scorer.score(case["query"], candidates)
+        if len(rerank_scores) != len(candidates):
+            raise ValueError("adaptive reranker score count mismatch")
+        reranked = sorted(
+            range(len(candidates)),
+            key=lambda index: (
+                -float(rerank_scores[index]),
+                index,
+                candidates[index].id,
+            ),
+        )
+        by_id = {document["id"]: document for document in documents}
+        selected = [by_id[candidates[index].id] for index in reranked[:top_k]]
+        return selected, {
+            "mode": "adaptive_rerank",
+            "route": "rerank",
+            "candidate_count": len(candidates),
+            "features": features,
+        }
     if retrieval_mode != "weighted_hybrid":
         raise ValueError(f"unknown bounded retrieval mode: {retrieval_mode}")
     config = WEIGHTED_HYBRID_CONFIG.get(case["benchmark_id"])
@@ -359,7 +449,10 @@ def rank_bounded_documents(
         weights=[config["lexical_weight"], config["dense_weight"]],
     )
     by_id = {document["id"]: document for document in documents}
-    return [by_id[hit.document.id] for hit in fused]
+    return [by_id[hit.document.id] for hit in fused], {
+        "mode": "weighted_hybrid",
+        "route": "weighted_hybrid",
+    }
 
 
 def fever_work_items(
@@ -411,6 +504,7 @@ def work_item(
     max_document_chars: int,
     *,
     compression_mode: str = "lexical",
+    retrieval_trace: dict | None = None,
 ) -> dict:
     compressed = compress_documents(
         case["query"], documents, max_document_chars, mode=compression_mode
@@ -448,7 +542,7 @@ def work_item(
         )
         if evidence and evidence not in gold_sets:
             gold_sets.append(evidence)
-    return {
+    result = {
         "case_id": case["id"],
         "benchmark_id": case["benchmark_id"],
         "query": case["query"],
@@ -458,6 +552,9 @@ def work_item(
         "contexts": contexts,
         "retrieved_document_ids": [item["document_id"] for item in contexts],
     }
+    if retrieval_trace is not None:
+        result["retrieval_trace"] = retrieval_trace
+    return result
 
 
 def response_format(batch: list[dict], strict: bool) -> dict:
@@ -1595,8 +1692,11 @@ def main() -> None:
     parser.add_argument("--natural-questions-top-k", type=int)
     parser.add_argument("--fever-top-k", type=int)
     parser.add_argument(
-        "--retrieval-mode", choices=("dense", "weighted_hybrid"), default="dense"
+        "--retrieval-mode",
+        choices=("dense", "weighted_hybrid", "adaptive_rerank"),
+        default="dense",
     )
+    parser.add_argument("--adaptive-policy", type=Path)
     parser.add_argument(
         "--compression-mode", choices=("lexical", "semantic_e5"), default="lexical"
     )
@@ -1641,6 +1741,45 @@ def main() -> None:
     }
     if min(top_k_by_benchmark[item] for item in benchmark_ids) < 1:
         raise SystemExit("benchmark top-k values must be positive")
+    adaptive_policy_payload = None
+    adaptive_policy = None
+    adaptive_scorer = None
+    adaptive_candidate_depth = None
+    if args.retrieval_mode == "adaptive_rerank":
+        if args.adaptive_policy is None or not args.adaptive_policy.is_file():
+            raise SystemExit(
+                "--retrieval-mode adaptive_rerank requires --adaptive-policy"
+            )
+        adaptive_policy_payload = json.loads(
+            args.adaptive_policy.read_text(encoding="utf-8")
+        )
+        adaptive_policy = AdaptiveRetrievalPolicy.from_dict(
+            adaptive_policy_payload
+        )
+        if (
+            adaptive_policy.benchmark_id in benchmark_ids
+            and top_k_by_benchmark[adaptive_policy.benchmark_id]
+            != adaptive_policy.k
+        ):
+            raise SystemExit("adaptive policy cutoff does not match benchmark top-k")
+        candidate = adaptive_policy_payload.get("retrieval_candidate", {})
+        reranker = candidate.get("retriever", {}).get("reranker", {})
+        if (
+            reranker.get("model") != RERANK_MODEL
+            or reranker.get("model_revision") != RERANK_MODEL_REVISION
+        ):
+            raise SystemExit("adaptive policy reranker identity is not supported")
+        adaptive_candidate_depth = int(reranker.get("candidate_depth", 0))
+        adaptive_scorer = CrossEncoderScorer(
+            model_name=reranker["model"],
+            model_revision=reranker["model_revision"],
+            device=reranker.get("device", "auto"),
+            batch_size=int(reranker.get("batch_size") or 32),
+            max_length=int(reranker.get("max_tokens") or 512),
+            precision=reranker.get("precision", "float32"),
+        )
+    elif args.adaptive_policy is not None:
+        raise SystemExit("--adaptive-policy requires adaptive_rerank mode")
     expected_endpoint = PROFILES[args.profile].get("endpoint")
     if expected_endpoint and llm.BASE_URL != expected_endpoint:
         raise SystemExit(
@@ -1670,6 +1809,9 @@ def main() -> None:
                     sample_offset_per_benchmark=args.sample_offset_per_benchmark,
                     retrieval_mode=args.retrieval_mode,
                     compression_mode=args.compression_mode,
+                    adaptive_policy=adaptive_policy,
+                    adaptive_scorer=adaptive_scorer,
+                    adaptive_candidate_depth=adaptive_candidate_depth,
                 )
             )
         print(
@@ -1709,6 +1851,24 @@ def main() -> None:
                 if args.retrieval_mode == "weighted_hybrid"
                 else None
             ),
+            "adaptive_policy": (
+                {
+                    "path": (
+                        args.adaptive_policy.resolve().relative_to(ROOT).as_posix()
+                        if args.adaptive_policy.resolve().is_relative_to(ROOT)
+                        else str(args.adaptive_policy.resolve())
+                    ),
+                    "sha256": sha256_file(args.adaptive_policy),
+                    "benchmark_id": adaptive_policy.benchmark_id,
+                    "k": adaptive_policy.k,
+                    "routing": adaptive_policy_payload["routing"],
+                    "retrieval_candidate": adaptive_policy_payload[
+                        "retrieval_candidate"
+                    ],
+                }
+                if adaptive_policy is not None
+                else None
+            ),
             "fever_mode": "two_stage_bm25",
         },
         "compression": {
@@ -1728,10 +1888,12 @@ def main() -> None:
         "sample_offset_per_benchmark": args.sample_offset_per_benchmark,
         "system_sha256": hashlib.sha256(SYSTEM.encode()).hexdigest(),
         "case_ids_sha256": canonical_sha256([row["case_id"] for row in works]),
+        "work_items_sha256": canonical_sha256(works),
     }
     identity_sha256 = canonical_sha256(identity)
     checkpoint = args.out.with_suffix(".batches.jsonl")
     progress_path = args.out.with_suffix(".progress.json")
+    work_records = args.out.with_suffix(".work.jsonl")
     if progress_path.exists():
         progress = json.loads(progress_path.read_text(encoding="utf-8"))
         if progress.get("identity_sha256") != identity_sha256:
@@ -1740,6 +1902,7 @@ def main() -> None:
         write_json(
             progress_path, {"identity_sha256": identity_sha256, "identity": identity}
         )
+    write_jsonl(work_records, works)
 
     history = load_jsonl(checkpoint)
     by_batch = {}
@@ -1918,6 +2081,8 @@ def main() -> None:
             ),
         },
         "artifacts": {
+            "work_records_path": work_records.resolve().relative_to(ROOT).as_posix(),
+            "work_records_sha256": sha256_file(work_records),
             "batch_records_path": checkpoint.resolve().relative_to(ROOT).as_posix(),
             "batch_records_sha256": sha256_file(checkpoint),
             "case_records_path": case_records.resolve().relative_to(ROOT).as_posix(),

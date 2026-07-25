@@ -319,6 +319,15 @@ At `k=4` it promotes E5 over BM25 on both HotpotQA and Natural Questions, but
 rejects RRF over E5 because the hybrid's complete-support and evidence-recall
 regressions exceed the 0.005 tolerance.
 
+### Retrieval modernization experiments
+
+Cross-encoder reranking, adaptive routing, provenance-contextual indexing,
+late chunking, and corrective retrieval are evaluated as isolated candidates.
+The adaptive reranker passed its component confirmation gate but failed the
+paired end-to-end answer-and-citation gate, so the accepted E5 serving path
+remains unchanged. The measured decisions and limitations are documented in
+[`docs/retrieval-modernization.md`](docs/retrieval-modernization.md).
+
 ## V2 structured answer evaluation
 
 The next evaluation path no longer accepts an opaque free-form answer plus one

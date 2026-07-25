@@ -126,6 +126,7 @@ def main() -> None:
     parser.add_argument("--cases", type=Path, default=DEFAULT_CASES)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--ks", default="1,2,4,6,8,12")
+    parser.add_argument("--index", type=Path, default=ROOT / "index")
     args = parser.parse_args()
     ks = sorted({int(item) for item in args.ks.split(",") if item.strip()})
     if not ks or min(ks) < 1:
@@ -135,9 +136,16 @@ def main() -> None:
     ids = [case["id"] for case in cases]
     if len(ids) != len(set(ids)):
         raise SystemExit("duplicate case IDs")
-    vectors, chunks = load_index()
+    vectors, chunks = load_index(args.index)
+    index_meta = json.loads((args.index / "meta.json").read_text(encoding="utf-8"))
     started = time.perf_counter()
-    queries = embed_queries([case["question"] for case in cases])
+    if index_meta.get("query_encoder") == "jina_v2_small_symmetric":
+        from rag.late_chunking import LateChunkingEmbedder
+
+        query_embedder = LateChunkingEmbedder()
+        queries = query_embedder.embed_queries([case["question"] for case in cases])
+    else:
+        queries = embed_queries([case["question"] for case in cases])
     raw_rankings, unique_rankings = {}, {}
     feature_rows = []
     raw_depth = max(len(chunks), max(ks))
@@ -181,10 +189,14 @@ def main() -> None:
             "locally_approved_cases": locally_approved,
         },
         "index": {
-            "embedding_model": config.EMBED_MODEL,
-            "embedding_revision": config.EMBED_MODEL_REVISION,
-            "chunks_sha256": sha256_file(ROOT / "index" / "chunks.jsonl"),
-            "embeddings_sha256": sha256_file(ROOT / "index" / "embeddings.npy"),
+            "embedding_model": index_meta.get("embed_model", config.EMBED_MODEL),
+            "embedding_revision": index_meta.get(
+                "embed_model_revision", config.EMBED_MODEL_REVISION
+            ),
+            "context_mode": index_meta.get("context_mode", "legacy_heading"),
+            "index_strategy": index_meta.get("index_strategy", "pre_chunked"),
+            "chunks_sha256": sha256_file(args.index / "chunks.jsonl"),
+            "embeddings_sha256": sha256_file(args.index / "embeddings.npy"),
             "chunk_count": len(chunks),
         },
         "ks": ks,

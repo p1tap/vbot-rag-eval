@@ -12,6 +12,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from rag.retrievers import AdaptiveRetrievalPolicy  # noqa: E402
 from scripts.benchmarks.run_end_to_end import (  # noqa: E402
     PROFILES,
     SENTINEL,
@@ -24,6 +25,7 @@ from scripts.benchmarks.run_end_to_end import (  # noqa: E402
     parse_provider_output,
     one_edit_apart,
     rank_bounded_documents,
+    rank_bounded_documents_with_trace,
     ranked_ids,
     response_format,
     run_batch,
@@ -474,6 +476,41 @@ class PublicEndToEndTests(unittest.TestCase):
                 )
             ],
         )
+
+    def test_adaptive_bounded_retrieval_records_the_selected_route(self):
+        class StubScorer:
+            def score(self, query, documents):
+                values = {"d1": 0.1, "d2": 0.8, "d3": 0.9}
+                return [values[document.id] for document in documents]
+
+        case = {
+            "benchmark_id": "natural_questions",
+            "query": "target",
+            "documents": [
+                {"id": "d1", "title": "One", "sentences": ["first"]},
+                {"id": "d2", "title": "Two", "sentences": ["second"]},
+                {"id": "d3", "title": "Three", "sentences": ["third"]},
+            ],
+        }
+        scores = np.array([0.9, 0.8, 0.7], dtype=np.float32)
+        policy = AdaptiveRetrievalPolicy(
+            benchmark_id="natural_questions",
+            k=2,
+            top1_threshold=1.0,
+            margin_threshold=1.0,
+        )
+        selected, trace = rank_bounded_documents_with_trace(
+            case,
+            scores,
+            top_k=2,
+            retrieval_mode="adaptive_rerank",
+            adaptive_policy=policy,
+            adaptive_scorer=StubScorer(),
+            adaptive_candidate_depth=3,
+        )
+        self.assertEqual([item["id"] for item in selected], ["d3", "d2"])
+        self.assertEqual(trace["route"], "rerank")
+        self.assertEqual(trace["candidate_count"], 3)
 
     def test_deepseek_generator_is_high_effort_and_provider_pinned(self):
         profile = PROFILES["deepseek-v4-flash-high"]
