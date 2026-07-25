@@ -19,6 +19,21 @@ def sha256_file(path: Path) -> str:
     return sha256_bytes(path.read_bytes())
 
 
+def file_matches_checkout_hash(path: Path, expected: str) -> bool:
+    """Accept the frozen Windows checkout hash on LF-only CI runners.
+
+    The original V1 reproduction artifacts were captured with CRLF line
+    endings. Git materializes the same text as LF on Linux Actions runners,
+    so compare both the exact bytes and an explicit CRLF rendering.
+    """
+    value = path.read_bytes()
+    if sha256_bytes(value) == expected:
+        return True
+    normalized_lf = value.replace(b"\r\n", b"\n")
+    windows_checkout = normalized_lf.replace(b"\n", b"\r\n")
+    return sha256_bytes(windows_checkout) == expected
+
+
 def canonical_json_sha256(obj: dict) -> str:
     value = json.dumps(
         obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False
@@ -57,9 +72,10 @@ def main() -> None:
     if sha256_bytes(accepted_report_bytes) != report_meta["sha256_git_blob"]:
         errors.append("accepted report Git-blob hash mismatch")
     archived_report_bytes = (ROOT / report_meta["archived_path"]).read_bytes()
-    if sha256_bytes(archived_report_bytes) != report_meta[
-        "sha256_checkout_before_phase0_provenance"
-    ]:
+    if not file_matches_checkout_hash(
+        ROOT / report_meta["archived_path"],
+        report_meta["sha256_checkout_before_phase0_provenance"],
+    ):
         errors.append("archived accepted checkout report hash mismatch")
     accepted_report = json.loads(accepted_report_bytes)
     if canonical_json_sha256(accepted_report) != report_meta["sha256_canonical_json"]:
@@ -84,7 +100,9 @@ def main() -> None:
     reproduction = manifest["deterministic_reproduction"]
     for name in ("environment", "dependency_snapshot", "report"):
         artifact = reproduction[name]
-        if sha256_file(ROOT / artifact["path"]) != artifact["sha256"]:
+        if not file_matches_checkout_hash(
+            ROOT / artifact["path"], artifact["sha256"]
+        ):
             errors.append(f"reproduction artifact hash mismatch: {artifact['path']}")
     reproduced_report = json.loads(
         (ROOT / reproduction["report"]["path"]).read_text(encoding="utf-8")
