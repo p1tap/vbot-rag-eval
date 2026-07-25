@@ -28,9 +28,13 @@ def render(
         int(partition.get("expected_cases", 0))
         for partition in dataset.get("partitions", [])
     )
-    public_e2e = public.get("end_to_end_evaluation") or {}
+    # Older integrity-only reports nest evaluation metrics; promoted specialist
+    # reports expose them at the top level. Accept both schemas so historical
+    # artifacts remain renderable while CI shows the strongest audited result.
+    public_e2e = public.get("end_to_end_evaluation") or public
     public_metrics = public_e2e.get("metrics") or {}
     macro = public_metrics.get("macro") or {}
+    public_case_count = public.get("case_count", public.get("public_case_count", 0))
     selected_id = (cascade.get("selection") or {}).get("selected_policy_id")
     selected_policy = (cascade.get("policies") or {}).get(selected_id, {})
     cascade_metrics = (
@@ -48,8 +52,8 @@ def render(
         f"| V1 retrieval recall@k | {percent(v1_summary.get('recall_at_k'))} |",
         f"| V1 correctness | {percent(v1_summary.get('correctness'))} |",
         f"| V2 dataset | {dataset.get('dataset_version')} · {expected_cases} cases |",
-        f"| Public suite integrity | {public.get('status')} · {public.get('public_case_count', 0)} cases |",
-        f"| Public end-to-end macro joint | {percent(macro.get('joint_correct_rate'))} |",
+        f"| Promoted public suite | {public.get('status')} · {public_case_count} cases |",
+        f"| Promoted specialist macro joint | {percent(macro.get('joint_correct_rate'))} |",
         f"| Human-reference judge agreement | {percent(cascade_metrics.get('exact_agreement') or cascade_metrics.get('overall_agreement'))} |",
         "",
         "Provenance: the public 10K inherits publisher human annotations; it is not locally human-reviewed. "
@@ -71,7 +75,10 @@ def main() -> None:
     parser.add_argument(
         "--public",
         type=Path,
-        default=ROOT / "reports" / "public-benchmarks" / "public-suite-10000.json",
+        default=ROOT
+        / "reports"
+        / "public-benchmarks"
+        / "end-to-end-10000-specialist-promoted.json",
     )
     parser.add_argument(
         "--cascade",

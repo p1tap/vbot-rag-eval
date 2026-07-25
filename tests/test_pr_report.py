@@ -20,16 +20,14 @@ class PrReportTests(unittest.TestCase):
                 "partitions": [{"expected_cases": 100}],
             },
             {
-                "status": "end_to_end_evaluated",
-                "public_case_count": 10000,
-                "resume_claim_blockers": [],
-                "end_to_end_evaluation": {
-                    "metrics": {"macro": {"joint_correct_rate": 0.5}}
-                },
+                "status": "accepted",
+                "case_count": 10000,
+                "metrics": {"macro": {"joint_correct_rate": 0.605}},
             },
             {"metrics": {"overall_agreement": 0.76}},
         )
         self.assertIn("**Decision:** PROMOTE", report)
+        self.assertIn("Promoted specialist macro joint | 60.50%", report)
         self.assertIn("publisher human annotations", report)
         self.assertIn("100 locally owner-reviewed", report)
         self.assertNotIn("10,000 locally", report)
@@ -37,4 +35,3 @@ class PrReportTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
