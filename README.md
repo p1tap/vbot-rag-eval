@@ -466,8 +466,11 @@ See [`docs/service.md`](docs/service.md).
 1. compares the committed V1 report with the accepted baseline;
 2. verifies frozen V1/V2 contracts, dataset governance, the corpus secret
    scan, authentic promote/reject examples, and public adapter fixtures;
-3. rebuilds the index with pinned CPU dependencies and reproduces retrieval;
-4. runs the complete unit suite and emits a readable step summary.
+3. recomputes the promoted 10,000-case specialist RAG result, the separate
+   1,000-case SQuAD reader confirmation, and the visible adversarial rejection
+   from their committed case-level artifacts;
+4. rebuilds the index with pinned CPU dependencies and reproduces retrieval;
+5. runs the complete unit suite and emits a readable step summary.
 
 `rag-controlled-retrieval.yml` is a manual, artifact-producing V2 retrieval
 lane over only the reviewed 100-case dataset. `rag-scheduled-audit.yml` repeats

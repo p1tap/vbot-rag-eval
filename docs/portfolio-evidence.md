@@ -10,7 +10,7 @@ evaluation, provenance-aware CI gates, and a version-reporting FastAPI runtime.
 The clean 10,000-case end-to-end report passed the versioned contract audit.
 The strongest concise resume claim is:
 
-> Built a RAG evaluation system covering 10,000 human-reviewed cases; raised
+> Built a RAG evaluation system covering 10,000 publisher-annotated cases; raised
 > overall strict answer-and-citation correctness from 31.9% to 60.5% by
 > improving answer selection and supporting-evidence retrieval.
 
@@ -45,7 +45,15 @@ is now a verified project claim.
   validity, 88% action accuracy, and zero false answers on 100 human-reviewed
   development cases. Its one-time 50-case same-agent AI release result was
   100%, 90%, and zero. The 12 derivative adversarial regressions rejected the
-  action policy at 58.33% accuracy and remain a visible limitation.
+  action policy at 58.33% strict action accuracy and remain a visible
+  limitation. All five non-answer adversarial cases were nevertheless
+  contained without an unsafe answer; this separate safety-containment result
+  does not convert the failed action-policy gate into a pass.
+- Evidence integrity: CI now recomputes the accepted 10,000-case specialist
+  metrics and hashes, the separate 1,000-case SQuAD reader metrics and hashes,
+  and the rejected 12-case adversarial action analysis. A missing artifact,
+  metric edit, scope conflation, or silent promotion of the rejected policy
+  fails the workflow without making a provider call.
 - Service: a bounded 20-request real-Qwen test completed with 0% errors,
   0.302 requests/s, p95 3.39 s, and p99 3.44 s at concurrency one. A separate
   100-request final-container mock test reached 10.25 requests/s; it is

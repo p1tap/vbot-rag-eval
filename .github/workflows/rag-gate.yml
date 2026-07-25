@@ -106,6 +106,9 @@ jobs:
           python scripts/check_promotion_examples.py
           python -m scripts.benchmarks.check
 
+      - name: Recompute promoted portfolio evidence
+        run: python scripts/verify_portfolio_evidence.py
+
       - name: Install dependencies (reproducibility check)
         run: |
           pip install "torch==2.7.1" --index-url https://download.pytorch.org/whl/cpu
